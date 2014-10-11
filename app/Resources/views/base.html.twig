@@ -1,13 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}MCI Admin{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    {% block stylesheets %}
+        <!-- BEGIN GLOBAL STYLES -->
+        {% stylesheets filter='cssrewrite'
+        'assets/css/bootstrap.min.css'
+        'assets/font-awesome/css/font-awesome.css'
+        'assets/css/plugins/metisMenu/metisMenu.min.css'
+        'assets/css/plugins/dataTables.bootstrap.css'
+        'assets/css/sb-admin-2.css'
+        'assets/css/plugins/morris.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <!-- END GLOBAL STYLES -->
+    {% endblock stylesheets %}
+
+</head>
+<body>
+
+<div id="wrapper">
+    {% block leftNavigation %}
+        {{ include('::partials/leftSideNav.html.twig') }}
+    {% endblock %}
+    <div id="page-wrapper">
+        {% block content %}
+        {% endblock %}
+    </div>
+  </div>
+
+{% block javascripts %}
+
+    <!-- BEGIN GLOBAL JS -->
+    {% javascripts
+    'assets/js/jquery-1.11.0.js'
+    'assets/js/bootstrap.min.js'
+    'assets/js/plugins/metisMenu/metisMenu.min.js'
+    'assets/js/plugins/dataTables/jquery.dataTables.js'
+    'assets/js/plugins/dataTables/dataTables.bootstrap.js'
+    'assets/js/sb-admin-2.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <!-- END GLOBAL JS -->
+
+{% endblock javascripts %}
+
+<script>
+    $(document).ready(function() {
+        $('.dataTable').dataTable({
+            "searching": false,
+            "paging": false
+        });
+    });
+</script>
+
+</body>
 </html>

@@ -1,0 +1,13 @@
+mci_patient_homepage:
+    path:     /
+    defaults: { _controller: MciPatientBundle:Patient:index }
+
+mci_patient_searchpage:
+    path:     /search
+    defaults: { _controller: MciPatientBundle:Patient:search }
+
+mci_patient_showpage:
+    path:     /show/{id}
+    defaults: { _controller: MciPatientBundle:Patient:show }
+    requirements:
+           id:  \d+

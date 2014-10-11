@@ -1,0 +1,14 @@
+services:
+    mci_patient.client:
+          class: %guzzle.client.class%
+          tags:
+                      -  { name: guzzle.client }
+          calls:
+                      - [addSubscriber, ["@mci_auth"]]
+
+
+
+    mci.twig.mci_extension:
+        class: Mci\Bundle\PatientBundle\Twig\MciExtension
+        tags:
+            - { name: twig.extension }

@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h3 class="page-header">Search Patient</h3>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <form name="searchPatient" action="" method="post">
+
+        <h5>IDs:</h5>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="nid" name="nid" class="form-control" placeholder="NID">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="brn" name="brn" class="form-control" placeholder="BRN">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="uid" name="uid" class="form-control" placeholder="UID">
+                </div>
+            </div>
+        </div>
+
+        <h5>Personal Details:</h5>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="given_name" name="given_name" class="form-control" placeholder="Given Name">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="surname" name="surname" class="form-control" placeholder="Surname">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="dob" name="dob" class="form-control" placeholder="Date of Birth">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select id="division" class="form-control">
+                        <option>Select Division</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select id="district" class="form-control" disabled="disabled">
+                        <option>Select District</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select id="upazilla" class="form-control" disabled="disabled">
+                        <option>Select Upazilla</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select id="union" class="form-control" disabled="disabled">
+                        <option>Select Union</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </form>
+
+    <hr/>
+{% if responseBody.results is defined %}
+    <h4>Search Results:</h4>
+
+    <table class="table table-striped table-bordered table-hover dataTable" id="search-results">
+        <thead>
+        <tr>
+            <th>HID</th>
+            <th>NID</th>
+            <th>Given Name</th>
+            <th>Surname</th>
+            <th>DOB</th>
+            <th>Address</th>
+            <th>Contact Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for result in responseBody.results  %}
+            <tr>
+                <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">HID-{{ result.hid }}</a></td>
+                <td>{{ result.nid }}</td>
+                <td>{{ result.given_name }}</td>
+                <td>{{ result.sur_name }}</td>
+                <td>{{ result.date_of_birth }}</td>
+                <td>{{ result.present_address.address_line }}</td>
+                <td>01730053050</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
