@@ -37,7 +37,7 @@ class MciExtension extends \Twig_Extension
     }
 
     private function getJsonData($fileName){
-       $filePath =  '/assets/json/'.$fileName;
+       $filePath =  'assets/json/'.$fileName;
        return  json_decode(file_get_contents($filePath), true);
     }
 }
