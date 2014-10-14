@@ -13,11 +13,30 @@
         'assets/css/plugins/dataTables.bootstrap.css'
         'assets/css/sb-admin-2.css'
         'assets/css/plugins/morris.css'
+        'assets/css/custom.css'
         %}
         <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
         <!-- END GLOBAL STYLES -->
     {% endblock stylesheets %}
+
+    {% block javascripts %}
+
+        <!-- BEGIN GLOBAL JS -->
+        {% javascripts
+        'assets/js/jquery-1.11.0.js'
+        'assets/js/bootstrap.min.js'
+        'assets/js/plugins/metisMenu/metisMenu.min.js'
+        'assets/js/plugins/dataTables/jquery.dataTables.js'
+        'assets/js/plugins/dataTables/dataTables.bootstrap.js'
+        'assets/js/sb-admin-2.js'
+        'assets/js/jquery.validate.js'
+        %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <!-- END GLOBAL JS -->
+
+    {% endblock javascripts %}
 
 </head>
 <body>
@@ -32,22 +51,7 @@
     </div>
   </div>
 
-{% block javascripts %}
 
-    <!-- BEGIN GLOBAL JS -->
-    {% javascripts
-    'assets/js/jquery-1.11.0.js'
-    'assets/js/bootstrap.min.js'
-    'assets/js/plugins/metisMenu/metisMenu.min.js'
-    'assets/js/plugins/dataTables/jquery.dataTables.js'
-    'assets/js/plugins/dataTables/dataTables.bootstrap.js'
-    'assets/js/sb-admin-2.js'
-    %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-    <!-- END GLOBAL JS -->
-
-{% endblock javascripts %}
 
 <script>
     $(document).ready(function() {

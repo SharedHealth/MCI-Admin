@@ -20,19 +20,25 @@ class PatientController extends Controller
         $responseBody = array();
 
         if ('POST' === $request->getMethod()) {
+
             try{
                 $queryParam = array();
 
+                if($request->get('hid')){
+                    $hid = trim($request->get('hid'));
+                    return $this->redirect($this->generateUrl('mci_patient_showpage', array('id'=>$hid)));
+                }
+
                 if($request->get('nid')){
-                    $queryParam['nid'] = $request->get('nid');
+                    $queryParam['nid'] = trim($request->get('nid'));
                 }
 
                 if($request->get('uid')){
-                    $queryParam['uid'] = $request->get('uid');
+                    $queryParam['uid'] = trim($request->get('uid'));
                 }
 
-                if($request->get('bin')){
-                    $queryParam['bin_brn'] = $request->get('bin');
+                if($request->get('brn')){
+                    $queryParam['bin_brn'] = trim($request->get('brn'));
                 }
 
                 $client = $this->get('mci_patient.client');
@@ -40,9 +46,9 @@ class PatientController extends Controller
                 $response = $request->send();
                 $responseBody = json_decode($response->getBody());
             } catch(RequestException $e){
-               $e->getMessage();
+               echo $e->getMessage();
             }
-            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody));
+            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam));
         }
 
         return $this->render('MciPatientBundle:Patient:search.html.twig');

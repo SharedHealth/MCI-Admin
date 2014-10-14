@@ -1,3 +1,8 @@
+
+mci_dashboard:
+    path:     /
+    defaults: { _controller: MciCoreBundle:Default:index }
+
 mci_patient:
     resource: "@MciPatientBundle/Resources/config/routing.yml"
     prefix:   /patients

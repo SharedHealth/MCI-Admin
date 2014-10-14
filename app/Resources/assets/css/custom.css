@@ -1,0 +1,8 @@
+.group-error-block label.error {
+    display: none !important;
+}
+
+#nid-error{
+    position: absolute;
+    top: -50px;
+}

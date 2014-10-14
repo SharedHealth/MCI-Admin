@@ -1,6 +1,3 @@
-mci_patient_homepage:
-    path:     /
-    defaults: { _controller: MciPatientBundle:Patient:index }
 
 mci_patient_searchpage:
     path:     /search

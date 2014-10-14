@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% if responseBody is defined and responseBody is not empty %}
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">{{ responseBody.given_name }} {{ responseBody.sur_name }} ({{ responseBody.name_bangla }})</h3>
+            <h3 class="page-header">{% if responseBody.given_name is defined %}{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %} ({% if responseBody.name_bangla is defined %}{{ responseBody.name_bangla }}{% endif %})</h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -17,7 +18,7 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>HID:</label>
-                    <p class="form-control-static">HID-{{ responseBody.hid }}</p>
+                    <p class="form-control-static">HID-{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>NID:</label>
@@ -43,11 +44,11 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Date of Birth:</label>
-                    <p class="form-control-static">{{ responseBody.date_of_birth }}</p>
+                    <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Gender:</label>
-                    <p class="form-control-static">{{ responseBody.gender|gender }}</p>
+                    <p class="form-control-static">{% if responseBody.gender is defined %}{{ responseBody.gender|gender }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Education Level:</label>
@@ -69,17 +70,17 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Religion:</label>
-                    <p class="form-control-static">{% if responseBody.religion is defined %}{{ responseBody.religion }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.religion is defined %}{{ responseBody.religion|religion }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Blood Group:</label>
-                    <p class="form-control-static">{% if responseBody.blood_group is defined %}{{ responseBody.blood_group }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.blood_group is defined %}{{ responseBody.blood_group|bloodgroup }}{% endif %}</p>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Disability:</label>
-                    <p class="form-control-static">{% if responseBody.disability is defined %}{{ responseBody.disability }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.disability is defined %}{{ responseBody.disability|disability }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Ethnicity:</label>
@@ -305,4 +306,13 @@
             <a href="update-patient.php" class="btn btn-primary">Edit Details</a>
         </div>
     </div>
+    {% else %}
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">No patient found</h3>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+    {% endif %}
+  {% include 'MciPatientBundle:Patient:searchJs.html.twig' %}
 {% endblock %}
