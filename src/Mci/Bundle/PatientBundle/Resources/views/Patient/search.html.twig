@@ -108,6 +108,7 @@
         </thead>
         <tbody>
         {% for result in responseBody.results  %}
+
             <tr>
                 <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">HID-{{ result.hid }}</a></td>
                 <td>{{ result.nid }}</td>
@@ -115,7 +116,7 @@
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>
                 <td>{{ result.present_address.address_line }}</td>
-                <td>01730053050</td>
+                <td> {% if result.primary_contact_number.number is defined %}{{ result.primary_contact_number.number }}{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>

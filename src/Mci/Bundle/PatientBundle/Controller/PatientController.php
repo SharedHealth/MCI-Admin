@@ -57,6 +57,7 @@ class PatientController extends Controller
     public function showAction($id, Request $request)
     {
         $responseBody = array();
+
         try{
             if($id){
                 $client = $this->get('mci_patient.client');

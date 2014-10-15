@@ -15,40 +15,70 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('bloodgroup', array($this, 'bloodGroupFilter')),
             new \Twig_SimpleFilter('religion', array($this, 'religionFilter')),
             new \Twig_SimpleFilter('disability', array($this, 'disabilityFilter')),
+            new \Twig_SimpleFilter('division', array($this, 'divisionFilter')),
+            new \Twig_SimpleFilter('district', array($this, 'districtFilter')),
+            new \Twig_SimpleFilter('upazilla', array($this, 'upazillaFilter')),
+            new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
         );
     }
 
     public function genderFilter($number)
     {
         $gender =  $this->getJsonData('gender.json');
-        return $gender[$number];
+        return isset($gender[$number])?$gender[$number]:'';
     }
 
     public function occupationFilter($number)
     {
         $occupation = $this->getJsonData('occupation.json');
-        return $occupation[$number];
+        return isset($occupation[$number])?$occupation[$number]:'';
     }
 
     public function eduLevelFilter($number)
     {
         $eduLevel = $this->getJsonData('eduLevel.json');
-        return $eduLevel[$number];
+        return isset($eduLevel[$number])?$eduLevel[$number]:'';
     }
 
-    public function bloodGroupFilter($number){
+    public function bloodGroupFilter($number)
+    {
         $bloodGroup = $this->getJsonData('bloodGroup.json');
-        return $bloodGroup[$number];
+        return isset($bloodGroup[$number])?$bloodGroup[$number]:'';
     }
 
     public function religionFilter($number){
         $religion = $this->getJsonData('religion.json');
-        return $religion[$number];
+        return isset($religion[$number])?$religion[$number]:'';
     }
-    public function disabilityFilter($number){
+    public function disabilityFilter($number)
+    {
         $disability = $this->getJsonData('disability.json');
-        return $disability[$number];
+        return isset($disability[$number])?$disability[$number]:'';
     }
+
+    public function divisionFilter($number)
+    {
+        $division = $this->getJsonData('division.json');
+        return isset($division[$number])?$division[$number]:'';
+    }
+
+    public function districtFilter($number)
+    {
+        $district = $this->getJsonData('district.json');
+        return isset($district[$number])?$district[$number]:'';
+    }
+
+    public function upazillaFilter($number)
+    {
+        $upazilla = $this->getJsonData('upazilla.json');
+        return isset($upazilla[$number])?$upazilla[$number]:'';
+    }
+
+    public function countryCodeFilter($number)
+        {
+            $country = $this->getJsonData('countryCode.json');
+            return isset($country[$number])?$country[$number]:'';
+        }
 
     public function getName()
     {

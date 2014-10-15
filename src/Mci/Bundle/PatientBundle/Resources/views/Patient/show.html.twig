@@ -104,11 +104,13 @@
             </div>
         </div>
     </div>
+{% if responseBody.relations is defined and not empty %}
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Relations
             </div>
+
             {% for key,relation in responseBody.relations %}
 
                 <div class="panel-body" style="padding: 5px;">
@@ -136,8 +138,10 @@
                     </div>
                 </div>
             {% endfor %}
+
         </div>
     </div>
+{% endif %}
 
     <div class="row">
         <div class="panel panel-default">
@@ -147,15 +151,15 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Division:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.division_id }}</p>
+                    <p class="form-control-static">{{ responseBody.present_address.division_id|division }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>District:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.district_id }}</p>
+                    <p class="form-control-static">{{ responseBody.present_address.district_id|district }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Upazilla:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.upazilla_id }}</p>
+                    <p class="form-control-static">{{ responseBody.present_address.upazilla_id|upazilla }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Union:</label>
@@ -212,7 +216,7 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Country:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.country_code }}</p>
+                    <p class="form-control-static">{{ responseBody.present_address.country_code|countrycode }}</p>
                 </div>
 
             </div>
@@ -228,15 +232,15 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Division:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.division_id }}</p>
+                    <p class="form-control-static">{{ responseBody.permanent_address.division_id|division }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>District:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.district_id }}</p>
+                    <p class="form-control-static">{{ responseBody.permanent_address.district_id|district }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Upazilla:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.upazilla_id }}</p>
+                    <p class="form-control-static">{{ responseBody.permanent_address.upazilla_id|upazilla }}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Union:</label>
@@ -293,7 +297,7 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Country:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.country_code }}</p>
+                    <p class="form-control-static">{{ responseBody.permanent_address.country_code|countrycode }}</p>
                 </div>
 
             </div>
