@@ -36,7 +36,6 @@
 "104":"Burma",
 "108":"Burundi",
 "116":"Cambodia",
-
 "120":"Cameroon",
 "124":"Canada",
 "132":"Cape Verde",
@@ -113,7 +112,6 @@
 "891":"Serbia",
 "690":"Seychelles",
 "694":"Sierra Leone",
-
 "702":"Singapore",
 "703":"Slovakia",
 "705":"Slovenia",
@@ -152,7 +150,6 @@
 "581":"United States Minor Outlying Islands",
 "858":"Uruguay",
 "860":"Uzbekistan",
-
 "548":"Vanuatu",
 "336":"Vatican City",
 "862":"Venezuela",
@@ -164,7 +161,6 @@
 "887":"Yemen",
 "894":"Zambia",
 "716":"Zimbabwe",
-
 "258":"French Polynesia",
 "260":"Franch Southern Territories",
 "266":"Gabon",
@@ -240,5 +236,5 @@
 "528":"Netherlands",
 "530":"Netherlands Antilles",
 "540":"New Caledonia",
-"554":"New Zealand",
+"554":"New Zealand"
 }
