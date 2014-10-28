@@ -59,6 +59,14 @@ class PatientController extends Controller
                     $queryParam['sur_name'] = trim($request->get('sur_name'));
                 }
 
+                if($request->get('dob')){
+                    $queryParam['date_of_birth'] = trim($request->get('dob'));
+                }
+                $location = $request->get('division_id').str_pad($request->get('district_id'),2,'0',STR_PAD_LEFT).$request->get('upazilla_id');
+
+                if($location){
+                    $queryParam['present_address'] = $location;
+                }
                 $client = $this->get('mci_patient.client');
                 $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                 $response = $request->send();

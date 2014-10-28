@@ -9,6 +9,7 @@
         <!-- /.col-lg-12 -->
     </div>
     <div style="display: none;" class="fillOne error">Please fill at least one field</div>
+    <div style="display: none;" class="selectlocation error">Please select division and district and upazilla </div>
     <!-- /.row -->
     <form id="searchPatientForm" name="searchPatient"  method="post">
 
@@ -56,8 +57,8 @@
 
             <div class="col-lg-3">
                 <div class="form-group">
-                    <select id="division" class="form-control">
-                        <option>Select Division</option>
+                    <select name="division_id" id="division" class="form-control">
+                        <option value=" ">Select Division</option>
                         {% for division in divisions  %}
                             <option data-id="{{ division.id }}"  value="{{ division.code }}">{{ division.name }}</option>
                         {% endfor %}
@@ -66,8 +67,8 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <select  id="district" class="form-control" disabled="disabled" >
-                        <option>Select District</option>
+                    <select name="district_id" id="district" class="form-control" disabled="disabled" >
+                        <option value=" ">Select District</option>
                     </select>
                      <span class="districtloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
@@ -75,8 +76,8 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <select id="upazilla" class="form-control" disabled="disabled">
-                        <option>Select Upazilla</option>
+                    <select name="upazilla_id" id="upazilla" class="form-control" disabled="disabled">
+                        <option value=" ">Select Upazilla</option>
                     </select>
                     <span class="upazillaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
@@ -113,7 +114,7 @@
 
             <tr>
                 <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">HID-{{ result.hid }}</a></td>
-                <td>{{ result.nid }}</td>
+                <td>{% if result.nid is defined %}{{ result.nid }}{% endif %}</td>
                 <td>{{ result.given_name }}</td>
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>

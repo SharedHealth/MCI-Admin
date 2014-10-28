@@ -6,12 +6,25 @@
         var $uid = jQuery('#uid').val();
         var $givenName = jQuery('#given_name').val();
         var $surName = jQuery('#surname').val();
+        var $division = jQuery('#division').val();
+        var $district = jQuery('#district').val();
+        var $upazilla = jQuery('#upazilla').val();
 
-        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' ){
+        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ' '  ){
             jQuery('.fillOne').show();
+            jQuery('.selectlocation').hide();
             return false;
         }else{
             jQuery('.fillOne').hide();
+        }
+
+        if ($surName || $givenName || $division) {
+            if ($division == ' ' || $district == ' ' || $upazilla == ' ') {
+                jQuery('.selectlocation').show();
+                return false;
+            }else {
+                jQuery('.selectlocation').hide();
+            }
         }
 
         jQuery("#searchPatientForm").validate(
