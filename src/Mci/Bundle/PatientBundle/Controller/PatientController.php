@@ -33,7 +33,7 @@ class PatientController extends Controller
 
             try{
                 $queryParam = array();
-
+                $district = null;
                 if($request->get('hid')){
                     $hid = trim($request->get('hid'));
                     return $this->redirect($this->generateUrl('mci_patient_showpage', array('id'=>$hid)));
@@ -62,9 +62,12 @@ class PatientController extends Controller
                 if($request->get('dob')){
                     $queryParam['date_of_birth'] = trim($request->get('dob'));
                 }
-                $location = $request->get('division_id').str_pad($request->get('district_id'),2,'0',STR_PAD_LEFT).$request->get('upazilla_id');
+                if($request->get('district_id')){
+                   $district =  str_pad($request->get('district_id'),2,'0',STR_PAD_LEFT);
+                }
+                $location = $request->get('division_id').$district.$request->get('upazilla_id');
 
-                if($location){
+                if($request->get('district_id')){
                     $queryParam['present_address'] = $location;
                 }
                 $client = $this->get('mci_patient.client');

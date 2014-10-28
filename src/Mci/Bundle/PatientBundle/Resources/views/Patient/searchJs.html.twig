@@ -18,7 +18,8 @@
             jQuery('.fillOne').hide();
         }
 
-        if ($surName || $givenName || $division) {
+        if ($surName != '' || $givenName != '' || $division != ' ') {
+
             if ($division == ' ' || $district == ' ' || $upazilla == ' ') {
                 jQuery('.selectlocation').show();
                 return false;
