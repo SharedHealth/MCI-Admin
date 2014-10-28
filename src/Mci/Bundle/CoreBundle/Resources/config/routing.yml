@@ -1,3 +1,19 @@
 mci_core_homepage:
     path:     /hello/{name}
     defaults: { _controller: MciCoreBundle:Default:index }
+
+mci_location_division:
+    path:    /location/division
+    defaults: { _controller: MciCoreBundle:Location:division }
+
+mci_location_district:
+    path:    /location/district/{id}
+    defaults: { _controller: MciCoreBundle:Location:district }
+    requirements:
+           id:  \d+
+
+mci_location_upazilla:
+    path:    /location/upazilla/{id}
+    defaults: { _controller: MciCoreBundle:Location:upazilla }
+    requirements:
+               id:  \d+

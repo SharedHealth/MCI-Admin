@@ -163,44 +163,44 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Union:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.union_id }}</p>
+                    <p class="form-control-static">{% if responseBody.responseBody.present_address.union_id is defined %}{{ responseBody.present_address.union_id }}{% endif %}</p>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Holding Number:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.holding_number }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.holding_number is defined %}{{ responseBody.present_address.holding_number }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Street:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.street }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.street is defined %}{{ responseBody.present_address.street }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Area Mouja:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.area_mouja }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.area_mouja is defined  %}{{ responseBody.present_address.area_mouja }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Village:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.village }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.village is defined  %}{{ responseBody.present_address.village }}{% endif %}</p>
                 </div>
             </div>
             <div class="panel-body">
 
                 <div class="col-lg-3">
                     <label>Street:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.street }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.street is defined  %}{{ responseBody.present_address.street }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Area Mouja:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.area_mouja }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.area_mouja is defined  %}{{ responseBody.present_address.area_mouja }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Village:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.village }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.village is defined  %}{{ responseBody.present_address.village }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Post Office:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.post_office }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.post_office is defined  %}{{ responseBody.present_address.post_office }}{% endif %}</p>
                 </div>
             </div>
 
@@ -208,15 +208,15 @@
 
                 <div class="col-lg-3">
                     <label>Post Code :</label>
-                    <p class="form-control-static">{{ responseBody.present_address.post_code }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.post_code is defined  %}{{ responseBody.present_address.post_code }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>City Corporation:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.city_corporation_id }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.city_corporation_id is defined  %}{{ responseBody.present_address.city_corporation_id }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Country:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.country_code|countrycode }}</p>
+                    <p class="form-control-static">{% if responseBody.present_address.country_code is defined  %}{{ responseBody.present_address.country_code|countrycode }}{% endif %}</p>
                 </div>
 
             </div>

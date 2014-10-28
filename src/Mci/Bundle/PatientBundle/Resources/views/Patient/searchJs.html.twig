@@ -1,41 +1,110 @@
 <script type="text/javascript">
 
-    jQuery("#searchButton").click(function(){
+    jQuery("#searchButton").click(function () {
+        var $nid = jQuery('#nid').val();
+        var $brn = jQuery('#brn').val();
+        var $uid = jQuery('#uid').val();
+        var $givenName = jQuery('#given_name').val();
+        var $surName = jQuery('#surname').val();
 
-      jQuery.validator.addMethod("require_from_group", function(value, element, options) {
-        var numberRequired = options[0];
-        var selector = options[1];
-        //Look for our selector within the parent form
-        var validOrNot = jQuery(selector, element.form).filter(function() {
-            // Each field is kept if it has a value
-            return jQuery(this).val();
-            // Set to true if there are enough, else to false
-        }).length >= numberRequired;
-
-        if(!jQuery(element).data('being_validated')) {
-            var fields = jQuery(selector, element.form);
-            fields.data('being_validated', true);
-            // .valid() means "validate using all applicable rules" (which
-            // includes this one)
-            fields.valid();
-            fields.data('being_validated', false);
+        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' ){
+            jQuery('.fillOne').show();
+            return false;
+        }else{
+            jQuery('.fillOne').hide();
         }
-        return validOrNot;
-        // {0} below is the 0th item in the options field
-      }, jQuery.validator.format("Please fill out at least one field."));
 
-    jQuery.validator.addClassRules("fillone", {
-        require_from_group: [1,".fillone"]
+        jQuery("#searchPatientForm").validate(
+                {
+                    rules: {
+                        nid: {
+                            number: true,
+                            minlength: 13,
+                            maxlength: 17
+                        },
+                        brn: {
+                            number: true,
+                            minlength: 17
+                        },
+                        uid: {
+                            minlength: 11
+                        }
+                    },
+                    messages: {
+                        nid:{
+                            number:"Please enter  numbers"
+                        },
+                        brn:{
+                            number:"Please enter numbers"
+                        }
+                    }
+                }
+        );
+
+        jQuery("#searchPatientForm").submit();
     });
-    jQuery("#searchPatientForm").validate();
-    jQuery("#searchPatientForm").submit();
-})
 
 $("#searchHidButton").click(function(){
     $hid = $(".hid").val();
+
     if($hid){
         $("#searchHidForm").submit();
     }
-})
+});
+
+
+$('#division').on('change', function () {
+    var divisionId = $('option:selected', this).attr('data-id');
+    var x = $('#district');
+
+    if(divisionId){
+        x.removeAttr('disabled');
+    }else{
+        x.attr('disabled','disabled');
+        $('#upazilla').attr('disabled','disabled');
+    }
+    x.empty();
+    $.ajax({
+        type: "POST",
+        url: "/location/district/"+divisionId,
+        beforeSend: function() { $('.districtloader').show(); },
+
+        success: function (result) {
+            var obj = $.parseJSON(result);
+            var options = "<option value='_none'>-Please Select-</option>";
+
+            for (var i in obj) {
+                options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
+            }
+            x.append(options);
+        },
+        complete: function() { $('.districtloader').hide(); }
+    });
+});
+
+$('#district').on('change', function () {
+    var districtId = $('option:selected', this).attr('data-id');
+    var x = $('#upazilla');
+    if(districtId){
+        x.removeAttr('disabled');
+    }
+    x.empty();
+    $.ajax({
+        type: "POST",
+        url: "/location/upazilla/"+districtId,
+        beforeSend: function() { $('.upazillaloader').show(); },
+        success: function (result) {
+            var obj = $.parseJSON(result);
+            var options = "<option value='_none'>-Please Select-</option>";
+
+            for (var i in obj) {
+                options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
+            }
+            x.append(options);
+        },
+        complete: function() { $('.upazillaloader').hide(); }
+    });
+
+});
 
 </script>

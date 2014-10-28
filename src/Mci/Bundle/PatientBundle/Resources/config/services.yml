@@ -12,3 +12,7 @@ services:
         class: Mci\Bundle\PatientBundle\Twig\MciExtension
         tags:
             - { name: twig.extension }
+
+    mci.location:
+        class:        Mci\Bundle\PatientBundle\Services\Location
+        arguments: ["@service_container"]
