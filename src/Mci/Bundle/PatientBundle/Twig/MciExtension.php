@@ -19,6 +19,8 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('district', array($this, 'districtFilter')),
             new \Twig_SimpleFilter('upazilla', array($this, 'upazillaFilter')),
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
+            new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
+            new \Twig_SimpleFilter('relation', array($this, 'relationFilter'))
         );
     }
 
@@ -78,6 +80,17 @@ class MciExtension extends \Twig_Extension
         {
             $country = $this->getJsonData('countryCode.json');
             return isset($country[$number])?$country[$number]:'';
+        }
+    public function maritalStatusFilter($number)
+        {
+            $maritalStatus = $this->getJsonData('relationStat.json');
+
+            return isset($maritalStatus[$number])?$maritalStatus[$number]:'';
+        }
+    public function relationFilter($number)
+        {
+            $relation = $this->getJsonData('relation.json');
+            return isset($relation[$number])?$relation[$number]:'';
         }
 
     public function getName()

@@ -3,3 +3,14 @@
     font-style: italic;
     font-weight: normal;
 }
+
+.inputBoxSize input, .inputBoxSize select {
+    width: 60% !important;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+tr:first-child td span{
+    display: none;
+}

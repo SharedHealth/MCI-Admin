@@ -3,9 +3,11 @@
 namespace Mci\Bundle\PatientBundle\Controller;
 
 use Guzzle\Http\Exception\RequestException;
+use Mci\Bundle\PatientBundle\Form\PatientType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class PatientController extends Controller
 {
@@ -34,6 +36,7 @@ class PatientController extends Controller
             try{
                 $queryParam = array();
                 $district = null;
+
                 if($request->get('hid')){
                     $hid = trim($request->get('hid'));
                     return $this->redirect($this->generateUrl('mci_patient_showpage', array('id'=>$hid)));
@@ -75,12 +78,37 @@ class PatientController extends Controller
                 $response = $request->send();
                 $responseBody = json_decode($response->getBody());
             } catch(RequestException $e){
-               echo $e->getMessage();
+                $e->getMessage();
             }
             return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>json_decode($this->remove_utf8_bom($divisions))));
         }
 
         return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>json_decode($this->remove_utf8_bom($divisions))));
+    }
+
+    public function editAction(Request $request, $id){
+        $responseBody = null;
+        try{
+            if($id){
+                $client = $this->get('mci_patient.client');
+                $request = $client->get($this->container->getParameter('api_end_point').'/'.$id);
+                $response = $request->send();
+                $responseBody = json_decode($response->getBody());
+
+            }
+        } catch(RequestException $e){
+            $e->getMessage();
+        }
+
+        if (!$responseBody) {
+            throw $this->createNotFoundException('Unable to find patient');
+        }
+        $form = $this->createForm(new PatientType(),$data = array('test'));
+
+        return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
+            'form' => $form->createView()
+
+        ));
     }
 
     public function showAction($id, Request $request)

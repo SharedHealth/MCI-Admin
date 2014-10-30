@@ -18,7 +18,7 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>HID:</label>
-                    <p class="form-control-static">HID-{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>NID:</label>
@@ -101,10 +101,15 @@
                     <label>Primary Phone Number:</label>
                     <p class="form-control-static">{% if responseBody.primary_contact_number is defined %}{{ responseBody.primary_contact_number.number }}{% endif %}</p>
                 </div>
+                <div class="col-lg-3">
+                    <label>Marital Status:</label>
+                    <p class="form-control-static">{% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
+                </div>
             </div>
         </div>
     </div>
-{% if responseBody.relations is defined and not empty %}
+
+{% if responseBody.relations is defined  %}
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -118,7 +123,7 @@
                         {% if key == 0 %}
                             <label>Type:</label>
                         {% endif %}
-                        <p class="form-control-static">{{ relation.type }}</p>
+                        <p class="form-control-static">{{ relation.type|relation }}</p>
                     </div>
                     <div class="col-lg-3">
                         {% if key == 0 %}
@@ -134,7 +139,7 @@
                     </div>
                     <div class="col-lg-3">
                         {% if key == 0 %}<label>Status:</label>{% endif %}
-                        <p class="form-control-static">{% if relation.relational_status is defined %}{{ relation.relational_status }}{% endif %}</p>
+                        <p class="form-control-static">{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</p>
                     </div>
                 </div>
             {% endfor %}
@@ -244,44 +249,37 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Union:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.union_id }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.union_id is defined  %}{{ responseBody.permanent_address.union_id }} {% endif %}</p>
                 </div>
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Holding Number:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.holding_number }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.holding_number %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Street:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.street }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.street  %}{{ responseBody.permanent_address.street }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Area Mouja:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.area_mouja }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Village:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.village }}</p>
-                </div>
-            </div>
-            <div class="panel-body">
-
-                <div class="col-lg-3">
-                    <label>Street:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.street }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.village %}{{ responseBody.permanent_address.village }}{% endif %}
                 </div>
                 <div class="col-lg-3">
                     <label>Area Mouja:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.area_mouja }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Village:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.village }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.village %}{{ responseBody.permanent_address.village }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Post Office:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.post_office }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.post_office %}{{ responseBody.permanent_address.post_office }}{% endif %}</p>
                 </div>
             </div>
 
@@ -289,15 +287,15 @@
 
                 <div class="col-lg-3">
                     <label>Post Code :</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.post_code }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.post_code %}{{ responseBody.permanent_address.post_code }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>City Corporation:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.city_corporation_id }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.city_corporation_id %}{{ responseBody.permanent_address.city_corporation_id }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Country:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.country_code|countrycode }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.country_code %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
                 </div>
 
             </div>
@@ -307,7 +305,7 @@
 {% endif %}
     <div class="row">
         <div class="col-lg-12">
-            <a href="update-patient.php" class="btn btn-primary">Edit Details</a>
+            <a href="{{ path('mci_patient_edit', { 'id': responseBody.hid }) }}" class="btn btn-primary">Edit Details</a>
         </div>
     </div>
     {% else %}

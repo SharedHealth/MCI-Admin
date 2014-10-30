@@ -1,0 +1,566 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+
+   <div class="col-lg-12">
+        <h3 class="page-header">Update Patient</h3>
+    </div>
+    <!-- /.col-lg-12 -->
+
+    <div style="margin-bottom: 10px;" class="bs-example">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#personalInfo">Personal Information</a></li>
+            <li><a data-toggle="tab" href="#presentAddreess">Present Address</a></li>
+            <li><a data-toggle="tab" href="#permanentAddreess">Permanent Address</a></li>
+            <li><a data-toggle="tab" href="#phoneNumber">Phone Number</a></li>
+            <li><a data-toggle="tab" href="#primaryContactNo">Primary Contact Number</a></li>
+            <li><a data-toggle="tab" href="#relations">Relations</a></li>
+        </ul>
+    </div>
+
+{{ form_start(form) }}
+
+    <div class="tab-content">
+    <div id="personalInfo" class="tab-pane inputBoxSize fade in active">
+
+        <div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_nid" class="control-label col-xs-2">NID</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.nid) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_uid" class="control-label col-xs-2">UID</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.uid) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_bin_brn" class="control-label col-xs-2">BRN</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.bin_brn) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Sur Name</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.sur_name) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_given_name" class="control-label col-xs-2">Given Name</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.given_name) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_name_bangla" class="control-label col-xs-2">Bangla Name</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.name_bangla) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_date_of_birth" class="control-label col-xs-2">Date of Birth</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.date_of_birth) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_gender" class="control-label col-xs-2">Gender</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.gender) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_religion" class="control-label col-xs-2">Religion</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.religion) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_blood_group" class="control-label col-xs-2">Blood Group</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.blood_group) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_primary_contact" class="control-label col-xs-2">Primary Contact</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.primary_contact) }}
+                </div>
+
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_marital_status" class="control-label col-xs-2">Marital Status</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.marital_status) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_occupation" class="control-label col-xs-2">Occupation</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.occupation) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_edu_level" class="control-label col-xs-2">Education</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.edu_level) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_disability" class="control-label col-xs-2">Disability</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.disability) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_ethnicity" class="control-label col-xs-2">Ethnicity</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.ethnicity) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_place_of_birth" class="control-label col-xs-2">Place of Birth</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.place_of_birth) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_nationality" class="control-label col-xs-2">Nationality</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.nationality) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="presentAddreess" class="tab-pane inputBoxSize fade">
+
+        <div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_address_line" class="control-label col-xs-2">Address Line</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.address_line) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_division_id" class="control-label col-xs-2">Division</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.division_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_district_id" class="control-label col-xs-2">District</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.district_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_upazilla_id" class="control-label col-xs-2">Upazilla</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.district_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_union_id" class="control-label col-xs-2">Union</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.union_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
+
+                <div class="col-xs-10">
+                    <select name="present_address[city_corporation_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                    {{ form_widget(form.present_address.city_corporation_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="country_code" class="control-label col-xs-2">Country Code</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.city_corporation_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="holding_number" class="control-label col-xs-2">Holding Number</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[holding_number]" class="form-control" id="holding_number"
+                           placeholder="Holding Number">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="street" class="control-label col-xs-2">Street</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[street]" class="form-control" id="street" placeholder="Street">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="area_mouja" class="control-label col-xs-2">Area Mouja</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[area_mouja]" class="form-control" id="area_mouja" placeholder="Area Mouja">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="village" class="control-label col-xs-2">Village</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[village]" class="form-control" id="village" placeholder="Village">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="post_office" class="control-label col-xs-2">Post Office</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[post_office]" class="form-control" id="post_office"
+                           placeholder="Post Office">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="post_code" class="control-label col-xs-2">Post Code</label>
+
+                <div class="col-xs-10">
+                    <input name="present_address[post_code]" class="form-control" id="post_code" placeholder="Post Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="permanentAddreess" class="tab-pane inputBoxSize fade">
+
+        <div>
+            <div class="form-group">
+                <label for="perma_address_line" class="control-label col-xs-2">Address Line</label>
+
+                <div class="col-xs-10">
+                    <input class="form-control" id="perma_address_line" name="permanent_address[address_line]"
+                           placeholder="Address Line">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="division_id" class="control-label col-xs-2">Division</label>
+
+                <div class="col-xs-10">
+                    <select name="permanent_address[division_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="division_id" class="control-label col-xs-2">District</label>
+
+                <div class="col-xs-10">
+                    <select name="permanent_address[district_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="upazilla_id" class="control-label col-xs-2">Upazilla</label>
+
+                <div class="col-xs-10">
+                    <select name="permanent_address[upazilla_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="union_id" class="control-label col-xs-2">Union</label>
+
+                <div class="col-xs-10">
+                    <select name="permanent_address[union_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="city_corporation_id" class="control-label col-xs-2">City Corporation</label>
+
+                <div class="col-xs-10">
+                    <select name="permanent_address[city_corporation_id]" class="form-control">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="permanent_country_code" class="control-label col-xs-2">Country Code</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[country_code]" class="form-control" id="permanent_country_code"
+                           placeholder="Country Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="parment_holding_number" class="control-label col-xs-2">Holding Number</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[holding_number]" class="form-control" id="parmanent_holding_number"
+                           placeholder="Holding Number">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="parmanent_street" class="control-label col-xs-2">Street</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[street]" class="form-control" id="parmanent_street" placeholder="Street">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="permanent_area_mouja" class="control-label col-xs-2">Area Mouja</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[area_mouja]" class="form-control" id="permanent_area_mouja"
+                           placeholder="Area Mouja">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="permanent_village" class="control-label col-xs-2">Village</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[village]" class="form-control" id="permanent_village"
+                           placeholder="Village">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="post_office" class="control-label col-xs-2">Post Office</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[post_office]" class="form-control" id="post_office"
+                           placeholder="Post Office">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="permanent_post_code" class="control-label col-xs-2">Post Code</label>
+
+                <div class="col-xs-10">
+                    <input name="permanent_address[post_code]" class="form-control" id="permanent_post_code"
+                           placeholder="Post Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
+    <div id="phoneNumber" class="tab-pane inputBoxSize fade">
+
+        <div>
+            <div class="form-group">
+                <label for="country_code" class="control-label col-xs-2">Country Code</label>
+
+                <div class="col-xs-10">
+                    <input name="phone_number[country_code]" class="form-control" id="country_code"
+                           placeholder="Country Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="area_code" class="control-label col-xs-2">Area Code</label>
+
+                <div class="col-xs-10">
+                    <input name="phone_number[area_code]" class="form-control" id="area_code" placeholder="Area Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="number" class="control-label col-xs-2">Number</label>
+
+                <div class="col-xs-10">
+                    <input name="phone_number[number]" class="form-control" id="number" placeholder="Number">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="extension" class="control-label col-xs-2">Extension</label>
+
+                <div class="col-xs-10">
+                    <input name="phone_number[extension]" class="form-control" id="extension" placeholder="Extension">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="primaryContactNo" class="tab-pane inputBoxSize fade">
+
+        <div>
+            <div class="form-group">
+                <label for="primary_country_code" class="control-label col-xs-2">Country Code</label>
+
+                <div class="col-xs-10">
+                    <input name="primary_contact_number[country_code]" class="form-control" id="primary_country_code"
+                           placeholder="Country Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="primary_area_code" class="control-label col-xs-2">Area Code</label>
+
+                <div class="col-xs-10">
+                    <input name="primary_contact_number[area_code]" class="form-control" id="primary_area_code" placeholder="Area Code">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="primary_number" class="control-label col-xs-2">Number</label>
+
+                <div class="col-xs-10">
+                    <input name="primary_contact_number[number]" class="form-control" id="primary_number" placeholder="Number">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="primary_extension" class="control-label col-xs-2">Extension</label>
+
+                <div class="col-xs-10">
+                    <input name="primary_contact_number[extension]" class="form-control" id="primary_extension" placeholder="Extension">
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="relations" class="tab-pane  fade">
+
+        <span id="addRelation" style="cursor: pointer;" class="glyphicon glyphicon-plus">Add Relations</span>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>UID</th>
+                <th>NID</th>
+                <th>BRN</th>
+                <th>Type</th>
+                <th>Bangla Name</th>
+                <th>Given Name</th>
+                <th>Sur Name</th>
+                <th>Relational Status</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input name ="uid[]" class="form-control" id="uid" placeholder="UID"></td>
+                <td><input name ="nid[]" class="form-control" id="nid" placeholder="UID"></td>
+                <td><input name ="bin_brn[]" class="form-control" id="brn" placeholder="BRN"></td>
+                <td><input name="type[]" class="form-control" id="type" placeholder="Type"></td>
+                <td><input name="name_bangla[]" class="form-control" id="name_bangla" placeholder="Bangla Name"></td>
+                <td><input name="given_name[]" class="form-control" id="given_name" placeholder="Given Name"></td>
+                <td><input name="sur_name[]" class="form-control" id="sur_name" placeholder="Sur Name"></td>
+                <td>
+                    <select name="relational_status" class="form-control">
+                        <option>Father</option>
+                        <option>Mother</option>
+                        <option>Spouse</option>
+                    </select>
+                </td>
+                <td><span  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+{{ form_end(form) }}
+
+{% endblock %}
