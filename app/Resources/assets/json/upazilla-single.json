@@ -1,0 +1,626 @@
+{
+    "41":{
+        "04":"Abhoynagar",
+        "09":"Bagerpara",
+        "11":"Chowgacha",
+        "23":"Jhikargacha",
+        "38":"Keshabpur",
+        "47":"Kotwali(Jessore Sadar)",
+        "61":"Monirampur",
+        "90":"Sarsa"
+    },
+    "10":{
+        "06":"Adamdighi",
+        "20":"Bogra Sadar",
+        "27":"Dhunat",
+        "33":"Dhupchachia",
+        "40":"Gabtali",
+        "54":"Kahaloo",
+        "67":"Nandigram",
+        "81":"Sariakandi",
+        "85":"Shajahanpur",
+        "88":"Sherpur",
+        "94":"Shibganj",
+        "95":"Sonatala"
+    },
+    "19":{
+        "67":"Adarsha Sadar",
+        "09":"Barura",
+        "15":"Brahmmanpara",
+        "18":"Burichong",
+        "31":"Chaddagram",
+        "27":"Chandina",
+        "33":"Sadar Daxin",
+        "36":"Daudkandi",
+        "40":"Debidwar",
+        "54":"Homna",
+        "72":"Laksam",
+        "75":"Meghna",
+        "74":"Monoharganj",
+        "81":"Muradnagar",
+        "87":"Nangolkot",
+        "94":"Titas"
+    },
+    "52":{
+        "02":"Aditmari",
+        "33":"Hatibandha",
+        "47":"Kaliganj",
+        "55":"Lalmonirhat Sadar",
+        "70":"Patgram"
+    },
+    "06":{
+        "02":"Agailjhara",
+        "03":"Babuganj",
+        "07":"Bakerganj",
+        "10":"Banaripara",
+        "51":"Barisal Sadar",
+        "32":"Gournadi",
+        "36":"Hijla",
+        "62":"Mehendiganj",
+        "69":"Muladi",
+        "94":"Wazirpur"
+    },
+    "12":{
+        "02":"Akhaura",
+        "33":"Ashugonj",
+        "04":"Bancharampur",
+        "07":"Bijoynagar",
+        "13":"Brahmanbaria Sadar",
+        "63":"Kashba",
+        "85":"Nabinagar",
+        "90":"Nasirnagar",
+        "94":"Sarail"
+    },
+    "38":{
+        "13":"Akkelpur",
+        "47":"Joypurhat Sadar",
+        "58":"Kalai",
+        "61":"Khetlal",
+        "74":"Panchbibi"
+    },
+    "18":{
+        "07":"Alamdanga",
+        "23":"Chuadanga Sadar",
+        "31":"Damurhuda",
+        "55":"Jibannagar"
+    },
+    "29":{
+        "03":"Alfadanga",
+        "10":"Bhanga",
+        "18":"Boalmari",
+        "21":"Charbhadrason",
+        "47":"Faridpur Sadar",
+        "56":"Madhukhali",
+        "62":"Nagarkanda",
+        "84":"Sadarpur",
+        "90":"Saltha"
+    },
+    "03":{
+        "04":"Alikadam",
+        "14":"Bandarban Sadar",
+        "51":"Lama",
+        "73":"Nykongchari",
+        "89":"Rawangchari",
+        "91":"Ruma",
+        "95":"Thanchi"
+    },
+    "04":{
+        "09":"Amtali",
+        "19":"Bamna",
+        "28":"Barguna Sadar",
+        "56":"Betagi",
+        "85":"Pathargatha"
+    },
+    "15":{
+        "04":"Anwara",
+        "08":"Banshkhali",
+        "06":"Bayejid Bostami",
+        "12":"Boalkhali",
+        "18":"Chandanaish",
+        "20":"Chittagong Metropolitan",
+        "33":"Fatikchari",
+        "37":"Hathazari",
+        "52":"Lohagara",
+        "53":"Mirsharai",
+        "61":"Patiya",
+        "70":"Rangunia",
+        "74":"Raozan",
+        "78":"Sandwip",
+        "82":"Satkania",
+        "86":"Sitakunda"
+    },
+    "67":{
+        "02":"Araihazar",
+        "06":"Bandar",
+        "58":"Narayanganj Sadar",
+        "68":"Rupganj",
+        "04":"Sonargaon"
+    },
+    "87":{
+        "04":"Assasuni",
+        "25":"Debhatta",
+        "43":"Kalaroa",
+        "33":"Kaliganj",
+        "82":"Satkhira Sadar",
+        "86":"Shyamnagar",
+        "90":"Tala"
+    },
+    "48":{
+        "02":"Astagram",
+        "06":"Bajitpur",
+        "11":"Bhairab",
+        "27":"Hossainpur",
+        "33":"Itna",
+        "42":"Karimganj",
+        "45":"Katiadi",
+        "49":"Kishoreganj Sadar",
+        "54":"Kuliarchar",
+        "59":"Mithamoin",
+        "76":"Nikhli",
+        "79":"Pakundia",
+        "92":"Tarail"
+    },
+    "76":{
+        "05":"Atghoria",
+        "19":"Bangura",
+        "16":"Bera",
+        "22":"Chatmohar",
+        "33":"Faridpur",
+        "39":"Iswardi",
+        "55":"Pabna Sadar",
+        "72":"Santhia",
+        "83":"Sujanagar"
+    },
+    "72":{
+        "04":"Atpara",
+        "09":"Barhatta",
+        "31":"Durgapur",
+        "40":"Kalmakanda",
+        "47":"Kendua",
+        "38":"Khaliajuri",
+        "56":"Madan",
+        "63":"Mohanganj",
+        "74":"Netrokona Sadar",
+        "83":"Purbadhala"
+    },
+    "64":{
+        "03":"Atrai",
+        "06":"Badalgachi",
+        "28":"Dhamairhat",
+        "47":"Manda",
+        "50":"Mohadevpur",
+        "60":"Naogaon Sadar",
+        "69":"Niamatpur",
+        "75":"Patnitala",
+        "79":"Porsha",
+        "85":"Raninagar",
+        "86":"Sapahar"
+    },
+    "77":{
+        "04":"Atwari",
+        "25":"Boda",
+        "34":"Debiganj",
+        "73":"Panchagarh Sadar",
+        "90":"Tetulia"
+    },
+    "36":{
+        "02":"Azmiriganj",
+        "05":"Bahubal",
+        "11":"Baniachong",
+        "26":"Chunarughat",
+        "44":"Hobiganj Sadar",
+        "68":"Lakhai",
+        "57":"Madhabpur",
+        "77":"Nabiganj"
+    },
+    "85":{
+        "03":"Baderganj",
+        "27":"Gangachara",
+        "52":"Kaunia",
+        "58":"Mithapukur",
+        "73":"Pirgacha",
+        "76":"Pirganj",
+        "49":"Rangpur Sadar",
+        "92":"Taraganj"
+    },
+    "69":{
+        "09":"Bagatipara",
+        "15":"Baraigram",
+        "41":"Gurudashpur",
+        "44":"Lalpur",
+        "63":"Natore Sadar",
+        "91":"Singra"
+    },
+    "01":{
+        "08":"Bagerhat Sadar",
+        "09":"Chitalmari",
+        "34":"Fakirhat",
+        "38":"Kachua",
+        "56":"Mollahat",
+        "58":"Mongla",
+        "60":"Morrelganj",
+        "73":"Rampal",
+        "77":"Sarankhola"
+    },
+    "84":{
+        "07":"Baghaichhari",
+        "21":"Barkal",
+        "29":"Belaichari",
+        "47":"Juraichhari",
+        "36":"Kaptai",
+        "25":"Kawkhali",
+        "58":"Langadu",
+        "75":"Naniarchar",
+        "78":"Rajasthali",
+        "87":"Rangamati Sadar"
+    },
+    "81":{
+        "12":"Bagmara",
+        "22":"Boalia Thana",
+        "57":"Bogha",
+        "25":"Charghat",
+        "31":"Durgapur",
+        "34":"Godagari",
+        "40":"Matihar Thana",
+        "53":"Mohanpur",
+        "72":"Paba",
+        "82":"Puthia",
+        "85":"Rajpara Thana",
+        "01":"Rajshahi Metropolitan",
+        "90":"Shah Makdum Thana",
+        "94":"Tanore"
+    },
+    "39":{
+        "07":"Bakshiganj",
+        "15":"Dewanganj",
+        "29":"Islampur",
+        "36":"Jamalpur Sadar",
+        "58":"Madarganj",
+        "61":"Melandaha",
+        "85":"Sarisabari"
+    },
+    "91":{
+        "08":"Balaganj",
+        "17":"Beanibazar",
+        "20":"Biswanath",
+        "27":"Companiganj",
+        "31":"Dakhin Surma",
+        "35":"Fenchuganj",
+        "38":"Golapganj",
+        "41":"Gowainghat",
+        "53":"Jointapur",
+        "59":"Kanaighat",
+        "62":"Sylhet Sadar",
+        "94":"Zakigang"
+    },
+    "94":{
+        "08":"Baliadangi",
+        "51":"Haripur",
+        "82":"Pirganj",
+        "86":"Ranisankhail",
+        "94":"Thakurgaon Sadar"
+    },
+    "82":{
+        "07":"Baliakandi",
+        "29":"Goalanda",
+        "47":"Kalukhali",
+        "73":"Pangsha",
+        "76":"Rajbari Sadar"
+    },
+    "58":{
+        "14":"Barlekha",
+        "54":"Juri",
+        "56":"Kamalganj",
+        "65":"Kulaura",
+        "74":"Moulvibazar Sadar",
+        "80":"Rajnagar",
+        "83":"Sreemangal"
+    },
+    "93":{
+        "09":"Basail",
+        "19":"Bhuapur",
+        "23":"Delduar",
+        "25":"Dhanbari",
+        "28":"Ghatail",
+        "38":"Gopalpur",
+        "40":"Kalihati",
+        "66":"Mirzapur",
+        "57":"Modhupur",
+        "76":"Nagarpur",
+        "85":"Sakhipur",
+        "95":"Tangail Sadar"
+    },
+    "47":{
+        "12":"Batiaghata",
+        "17":"Dacope",
+        "21":"Daulatpur Thana",
+        "40":"Dighalia",
+        "30":"Dumuria",
+        "69":"Fultala",
+        "45":"Khalispur Thana",
+        "48":"Khan Jahan Ali",
+        "51":"Khulna Metropolitan",
+        "53":"Koyra",
+        "64":"Paikgacha",
+        "75":"Rupsha",
+        "85":"Sonadanga Thana",
+        "94":"Terakhada"
+    },
+    "78":{
+        "38":"Bauphal",
+        "52":"Dashmina",
+        "55":"Dumki",
+        "57":"Galachipa",
+        "66":"Kalapara",
+        "76":"Mirzaganj",
+        "95":"Patuakhali Sadar"
+    },
+    "75":{
+        "07":"Begumganj",
+        "10":"Chatkhil",
+        "27":"Companiganj",
+        "36":"Hatiya",
+        "47":"Kabirhat",
+        "87":"Noakhali Sadar",
+        "80":"Senbag",
+        "83":"Sonaimuri",
+        "85":"Subarnachar"
+    },
+    "68":{
+        "07":"Belabo",
+        "52":"Monohardi",
+        "60":"Narsingdi Sadar",
+        "63":"Palash",
+        "64":"Raipura",
+        "76":"Shibpur"
+    },
+    "88":{
+        "11":"Belkuchi",
+        "27":"Chowhali",
+        "44":"Kamarkanda",
+        "50":"Kazipur",
+        "61":"Raiganj",
+        "78":"Serajganj Sadar",
+        "67":"Shahzadpur",
+        "89":"Tarash",
+        "94":"Ullapara"
+    },
+    "61":{
+        "13":"Bhaluka",
+        "16":"Dhubaura",
+        "20":"Fulbaria",
+        "81":"Fulpur",
+        "22":"Gofargaon",
+        "23":"Gouripur",
+        "24":"Haluaghat",
+        "33":"Iswarganj",
+        "65":"Muktagacha",
+        "52":"Mymensingh Sadar",
+        "72":"Nandail",
+        "94":"Trisal"
+    },
+    "79":{
+        "14":"Bhandaria",
+        "47":"Kaukhali",
+        "58":"Mathbaria",
+        "76":"Nazirpur",
+        "87":"Nesarabad",
+        "80":"Perojpur Sadar",
+        "90":"Zia Nagar"
+    },
+    "86":{
+        "14":"Bhedarganj",
+        "25":"Damuddya",
+        "86":"Goshairhat",
+        "65":"Naria",
+        "69":"Shariatpur Sadar",
+        "94":"Zanzira"
+    },
+    "50":{
+        "15":"Bheramara",
+        "31":"Daulatpur",
+        "63":"Khoksha",
+        "71":"Kumarkhali",
+        "79":"Kushtia Sadar",
+        "94":"Mirpur"
+    },
+    "09":{
+        "18":"Bhola Sadar",
+        "21":"Borhanuddin",
+        "25":"Char Fasson",
+        "29":"Daulat Khan",
+        "54":"Lalmohan",
+        "65":"Manpura",
+        "91":"Tajumuddin"
+    },
+    "70":{
+        "18":"Bholahat",
+        "66":"Chapai Nawabganj Sadar",
+        "37":"Gomastapur",
+        "56":"Nachol",
+        "88":"Shibganj"
+    },
+    "49":{
+        "06":"Bhurungamari",
+        "09":"Chilmari",
+        "38":"Fulbari",
+        "52":"Kurigram Sadar",
+        "61":"Nageswari",
+        "77":"Rajarhat",
+        "08":"Rajibpur",
+        "79":"Rowmari",
+        "94":"Ulipur"
+    },
+    "27":{
+        "10":"Birampur",
+        "12":"Birganj",
+        "17":"Birol",
+        "21":"Bochaganj",
+        "30":"Chirirbandar",
+        "64":"Dinajpur Sadar",
+        "38":"Fulbari",
+        "43":"Ghoraghat",
+        "47":"Hakimpur",
+        "56":"Kaharol",
+        "60":"Khansama",
+        "69":"Nawabganj",
+        "77":"Parbatipur"
+    },
+    "90":{
+        "18":"Biswambarpur",
+        "23":"Chhatak",
+        "27":"Daxin Sunamganj",
+        "29":"Deerai",
+        "32":"Dharmapasha",
+        "33":"Doarabazar",
+        "47":"Jagannathpur",
+        "50":"Jamalganj",
+        "86":"Sulla",
+        "89":"Sunamganj Sadar",
+        "92":"Taherpur"
+    },
+    "22":{
+        "16":"Chakaria",
+        "24":"Cox's Bazar Sadar",
+        "45":"Kutubdia",
+        "49":"Moheshkhali",
+        "63":"Pakua",
+        "66":"Ramu",
+        "90":"Teknaf",
+        "94":"Ukhyia"
+    },
+    "13":{
+        "22":"Chandpur Sadar",
+        "45":"Faridganj",
+        "47":"Haimchar",
+        "49":"Hajiganj",
+        "58":"Kachua",
+        "76":"Matlab(Daxin)",
+        "79":"Matlab(Uttar)",
+        "95":"Saharasthi"
+    },
+    "30":{
+        "14":"Chhagalnaya",
+        "25":"Daganbhuiya",
+        "29":"Feni Sadar",
+        "41":"Fulgazi",
+        "51":"Parsuram",
+        "94":"Sonagazi"
+    },
+    "56":{
+        "21":"Daulatpur",
+        "22":"Ghior",
+        "28":"Harirampur",
+        "46":"Manikganj Sadar",
+        "70":"Saturia",
+        "78":"Shibalaya",
+        "91":"Singair"
+    },
+    "26":{
+        "01":"Dhaka Metropolitan",
+        "14":"Dhamrai",
+        "18":"Dohar",
+        "38":"Keraniganj",
+        "69":"Nawabganj",
+        "72":"Savar"
+    },
+    "46":{
+        "43":"Dighinala",
+        "49":"Khagrachari Sadar",
+        "61":"Lakshmichari",
+        "67":"Manikchari",
+        "70":"Matiranga",
+        "65":"Mohalchari",
+        "77":"Panchari",
+        "80":"Ramgarh"
+    },
+    "73":{
+        "12":"Dimla",
+        "15":"Domar",
+        "36":"Jaldhaka",
+        "45":"Kishoreganj",
+        "64":"Nilphamari Sadar",
+        "85":"Saidpur"
+    },
+    "32":{
+        "21":"Fulchari",
+        "24":"Gaibandha Sadar",
+        "30":"Gobindaganj",
+        "67":"Palashbari",
+        "82":"Sadullapur",
+        "88":"Shaghatta",
+        "91":"Sundarganj"
+    },
+    "57":{
+        "47":"Gangni",
+        "87":"Meherpur Sadar",
+        "60":"Mujibnagar"
+    },
+    "59":{
+        "24":"Gazaria",
+        "44":"Louhajang",
+        "56":"Munshiganj Sadar",
+        "74":"Serajdikhan",
+        "95":"Sreenagar",
+        "94":"Tungibari"
+    },
+    "33":{
+        "30":"Gazipur Sadar",
+        "32":"Kaliakair",
+        "33":"Kaliganj",
+        "36":"Kapasia",
+        "86":"Sreepur"
+    },
+    "35":{
+        "32":"Gopalganj Sadar",
+        "43":"Kassiani",
+        "51":"Kotwalipara",
+        "58":"Mukshedpur",
+        "91":"Tungipara"
+    },
+    "44":{
+        "51":"Harinakunda",
+        "19":"Jhenaidah Sadar",
+        "39":"Kaliganj",
+        "42":"Kotchandpur",
+        "71":"Moheshpur",
+        "80":"Sailkupa"
+    },
+    "42":{
+        "40":"Jhalokathi Sadar",
+        "23":"Kathalia",
+        "73":"Nalchithi",
+        "84":"Rajapur"
+    },
+    "89":{
+        "37":"Jhenaigati",
+        "67":"Nakhla",
+        "70":"Nalitabari",
+        "88":"Sherpur Sadar",
+        "90":"Sribardi"
+    },
+    "65":{
+        "28":"Kalia",
+        "52":"Lohagara",
+        "76":"Narail Sadar"
+    },
+    "54":{
+        "40":"Kalkini",
+        "54":"Madaripur Sadar",
+        "80":"Rajoir",
+        "87":"Shibchar"
+    },
+    "51":{
+        "33":"Kamolnagar",
+        "43":"Lakshmipur Sadar",
+        "58":"Raipur",
+        "65":"Ramganj",
+        "73":"Ramgati"
+    },
+    "55":{
+        "57":"Magura Sadar",
+        "66":"Mohammadpur",
+        "85":"Salika",
+        "86":"Sreepur"
+    }
+}

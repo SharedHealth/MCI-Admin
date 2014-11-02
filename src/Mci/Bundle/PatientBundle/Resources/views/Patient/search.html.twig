@@ -11,24 +11,24 @@
     <div style="display: none;" class="fillOne error">Please fill at least one field</div>
     <div style="display: none;" class="selectlocation error">Please select division and district and upazilla </div>
     <!-- /.row -->
-    <form id="searchPatientForm" name="searchPatient"  method="post">
+    <form id="searchPatientForm" name="searchPatient"  method="get">
 
         <h5>IDs:</h5>
 
         <div class="row">
             <div class="col-lg-3" >
                 <div class="form-group">
-                    <input id="nid" name="nid" class="form-control " value="{% if queryparam.nid is defined  %} {{ queryparam.nid }} {% endif %}"  placeholder="NID">
+                    <input id="nid" name="nid" class="form-control " value="{% if queryparam.nid is defined  %}{{ queryparam.nid|trim }}{% endif %}"  placeholder="NID">
                 </div>
             </div>
             <div class="col-lg-3 ">
                 <div class="form-group group-error-block">
-                    <input id="brn" name="brn" class="form-control " value="{% if queryparam.bin_brn is defined  %} {{ queryparam.bin_brn }} {% endif %}" placeholder="BRN">
+                    <input id="brn" name="brn" class="form-control " value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group group-error-block">
-                    <input id="uid" name="uid" class="form-control " value="{% if queryparam.uid is defined  %} {{ queryparam.uid }} {% endif %}" placeholder="UID">
+                    <input id="uid" name="uid" class="form-control " value="{% if queryparam.uid is defined  %}{{ queryparam.uid|trim }}{% endif %}" placeholder="UID">
                 </div>
             </div>
 
@@ -38,17 +38,17 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="given_name" name="given_name" class="form-control" placeholder="Given Name">
+                    <input id="given_name" name="given_name" value ="{% if queryparam.given_name is defined  %}{{ queryparam.given_name|trim }}{% endif %}" class="form-control" placeholder="Given Name">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="sur_name" name="sur_name" class="form-control" placeholder="Surname">
+                    <input id="sur_name" name="sur_name" value ="{% if queryparam.sur_name is defined  %}{{ queryparam.sur_name|trim }}{% endif %}" class="form-control" placeholder="Surname">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="dob" name="dob" class="form-control" placeholder="Date of Birth">
+                    <input id="dob" name="dob" value ="{% if queryparam.date_of_birth is defined  %}{{ queryparam.date_of_birth|trim }}{% endif %}" class="form-control" placeholder="Date of Birth">
                 </div>
             </div>
         </div>
@@ -57,10 +57,17 @@
 
             <div class="col-lg-3">
                 <div class="form-group">
+
                     <select name="division_id" id="division" class="form-control">
-                        <option value=" ">Select Division</option>
+                        <option value="">Select Division</option>
                         {% for division in divisions  %}
-                            <option data-id="{{ division.id }}"  value="{{ division.code }}">{{ division.name }}</option>
+
+                            <option data-id="{{ division.id }}"  value="{{ division.code }}"
+                                    {% if seletedDropdown.division is defined %}
+
+                                    {% if division.code == seletedDropdown.division %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ division.name }}</option>
                         {% endfor %}
                     </select>
                 </div>
@@ -68,7 +75,16 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <select name="district_id" id="district" class="form-control" disabled="disabled" >
-                        <option value=" ">Select District</option>
+                        <option value="">Select District</option>
+                        {% for district in districts  %}
+
+                            <option data-id="{{ district.id }}"  value="{{ district.code }}"
+                                    {% if seletedDropdown.district is defined %}
+
+                                        {% if district.code == seletedDropdown.district %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ district.name }}</option>
+                        {% endfor %}
                     </select>
                      <span class="districtloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
@@ -76,8 +92,19 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
+
                     <select name="upazilla_id" id="upazilla" class="form-control" disabled="disabled">
-                        <option value=" ">Select Upazilla</option>
+                        <option value="">Select Upazilla</option>
+
+                        {% for districtCode, upazila in upazilas  %}
+                            {% for code, value in upazila  %}
+                          <option value="{{ code }}"
+                                    {% if seletedDropdown.upazilla is defined %}
+                                        {% if code == seletedDropdown.upazilla and districtCode == seletedDropdown.district %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ value }}</option>
+                                {% endfor %}
+                        {% endfor %}
                     </select>
                     <span class="upazillaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
@@ -113,7 +140,7 @@
         {% for result in responseBody.results  %}
 
             <tr>
-                <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">HID-{{ result.hid }}</a></td>
+                <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">{{ result.hid }}</a></td>
                 <td>{% if result.nid is defined %}{{ result.nid }}{% endif %}</td>
                 <td>{{ result.given_name }}</td>
                 <td>{{ result.sur_name }}</td>

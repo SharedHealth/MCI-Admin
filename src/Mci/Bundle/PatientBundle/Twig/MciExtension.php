@@ -60,20 +60,24 @@ class MciExtension extends \Twig_Extension
 
     public function divisionFilter($number)
     {
-        $division = $this->getJsonData('division.json');
+        $data = $this->getJsonData('division.json');
+        $division = $this->getFilterData($data);
+
         return isset($division[$number])?$division[$number]:'';
     }
 
     public function districtFilter($number)
     {
-        $district = $this->getJsonData('district.json');
+        $data = $this->getJsonData('district.json');
+        $district = $this->getFilterData($data);
         return isset($district[$number])?$district[$number]:'';
     }
 
-    public function upazillaFilter($number)
+    public function upazillaFilter( $district_code='',$upazilla_code='')
     {
-        $upazilla = $this->getJsonData('upazilla.json');
-        return isset($upazilla[$number])?$upazilla[$number]:'';
+
+        $data = $this->getJsonData('upazilla-single.json');
+        return $data[$upazilla_code][$district_code];
     }
 
     public function countryCodeFilter($number)
@@ -103,5 +107,16 @@ class MciExtension extends \Twig_Extension
        $filePath =  'assets/json/'.$fileName;
        return  json_decode(file_get_contents($filePath), true);
     }
+
+    private function getFilterData($data){
+        $FilterArray = array();
+        foreach ($data as $value) {
+             $code = str_pad($value['code'],2,'0',STR_PAD_LEFT);
+             $FilterArray[$code] = $value['name'];
+         }
+        return $FilterArray;
+    }
+
+
 }
 ?>

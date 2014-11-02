@@ -5,12 +5,15 @@
         var $brn = jQuery('#brn').val();
         var $uid = jQuery('#uid').val();
         var $givenName = jQuery('#given_name').val();
-        var $surName = jQuery('#surname').val();
+        var $surName = jQuery('#sur_name').val();
         var $division = jQuery('#division').val();
         var $district = jQuery('#district').val();
         var $upazilla = jQuery('#upazilla').val();
 
-        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ' '  ){
+        console.log($division);
+
+
+        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ''  ){
             jQuery('.fillOne').show();
             jQuery('.selectlocation').hide();
             return false;
@@ -18,9 +21,9 @@
             jQuery('.fillOne').hide();
         }
 
-        if ($surName != '' || $givenName != '' || $division != ' ') {
+        if ($surName != '' || $givenName != '' || $division != '') {
 
-            if ($division == ' ' || $district == ' ' || $upazilla == ' ') {
+            if ($division == '' || $district == '' || $upazilla == '') {
                 jQuery('.selectlocation').show();
                 return false;
             }else {
@@ -85,7 +88,7 @@ $('#division').on('change', function () {
 
         success: function (result) {
             var obj = $.parseJSON(result);
-            var options = "<option value='_none'>-Please Select-</option>";
+            var options = "<option value=''>-Please Select-</option>";
 
             for (var i in obj) {
                 options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
@@ -109,7 +112,7 @@ $('#district').on('change', function () {
         beforeSend: function() { $('.upazillaloader').show(); },
         success: function (result) {
             var obj = $.parseJSON(result);
-            var options = "<option value='_none'>-Please Select-</option>";
+            var options = "<option value=''>-Please Select-</option>";
 
             for (var i in obj) {
                 options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
