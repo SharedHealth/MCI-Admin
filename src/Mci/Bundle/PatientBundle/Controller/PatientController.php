@@ -33,6 +33,8 @@ class PatientController extends Controller
         $districts =  $this->getJsonData('district.json');
         $upazilas =  $this->getJsonData('upazilla-single.json');
 
+        $SystemAPiError = '';
+
         if ('GET' === $request->getMethod()) {
             try{
                 $queryParam = array();
@@ -77,17 +79,27 @@ class PatientController extends Controller
 
                 $forSeletedDropdown = array('division'=>$request->get('division_id'),'district'=>$request->get('district_id'),'upazilla'=>$request->get('upazilla_id'));
 
-                $client = $this->get('mci_patient.client');
-                $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
-                $response = $request->send();
-                $responseBody = json_decode($response->getBody());
+               if(!empty($queryParam)){
+                   $client = $this->get('mci_patient.client');
+                   $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
+                   $response = $request->send();
+                   $responseBody = json_decode($response->getBody());
+                }
+
             } catch(RequestException $e){
-                $e->getMessage();
+                 $error =  $e->getMessage();
+                 $parseError = explode('Failed connect',$error);
+                 if(isset($parseError[1])){
+                     $SystemAPiError = "Network Error! Please try again later.";
+                 }else{
+                     $SystemAPiError = "Internal Server Error! Please try again later.";
+                 }
+
             }
-            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>$districts,'upazilas'=>$upazilas,'seletedDropdown'=>$forSeletedDropdown));
+            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>$districts,'upazilas'=>$upazilas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError));
         }
 
-        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>$districts,'upazillas'=>$upazilas));
+        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>$districts,'upazillas'=>$upazilas,'systemError'=>$SystemAPiError));
     }
 
     public function editAction(Request $request, $id){
@@ -98,7 +110,6 @@ class PatientController extends Controller
                 $request = $client->get($this->container->getParameter('api_end_point').'/'.$id);
                 $response = $request->send();
                 $responseBody = json_decode($response->getBody());
-
             }
         } catch(RequestException $e){
             $e->getMessage();
