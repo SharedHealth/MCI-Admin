@@ -10,7 +10,7 @@
         var $district = jQuery('#district').val();
         var $upazilla = jQuery('#upazilla').val();
 
-        console.log($division);
+
 
 
         if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ''  ){
@@ -80,23 +80,26 @@ $('#division').on('change', function () {
         x.attr('disabled','disabled');
         $('#upazilla').attr('disabled','disabled');
     }
-    x.empty();
-    $.ajax({
-        type: "POST",
-        url: "/location/district/"+divisionId,
-        beforeSend: function() { $('.districtloader').show(); },
 
-        success: function (result) {
-            var obj = $.parseJSON(result);
-            var options = "<option value=''>-Please Select-</option>";
+    if(divisionId){
+        x.empty();
+        $.ajax({
+            type: "POST",
+            url: "/location/district/"+divisionId,
+            beforeSend: function() { $('.districtloader').show(); },
 
-            for (var i in obj) {
-                options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
-            }
-            x.append(options);
-        },
-        complete: function() { $('.districtloader').hide(); }
-    });
+            success: function (result) {
+                var obj = $.parseJSON(result);
+                var options = "<option value=''>-Please Select-</option>";
+
+                for (var i in obj) {
+                    options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
+                }
+                x.append(options);
+            },
+            complete: function() { $('.districtloader').hide(); }
+        });
+  }
 });
 
 $('#district').on('change', function () {
@@ -105,23 +108,26 @@ $('#district').on('change', function () {
     if(districtId){
         x.removeAttr('disabled');
     }
-    x.empty();
-    $.ajax({
-        type: "POST",
-        url: "/location/upazilla/"+districtId,
-        beforeSend: function() { $('.upazillaloader').show(); },
-        success: function (result) {
-            var obj = $.parseJSON(result);
-            var options = "<option value=''>-Please Select-</option>";
 
-            for (var i in obj) {
-                options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
-            }
-            x.append(options);
-        },
-        complete: function() { $('.upazillaloader').hide(); }
-    });
+    if(districtId){
+        x.empty();
 
+        $.ajax({
+            type: "POST",
+            url: "/location/upazilla/"+districtId,
+            beforeSend: function() { $('.upazillaloader').show(); },
+            success: function (result) {
+                var obj = $.parseJSON(result);
+                var options = "<option value=''>-Please Select-</option>";
+
+                for (var i in obj) {
+                    options += '<option data-id = "' + obj[i]['id'] + '" value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
+                }
+                x.append(options);
+            },
+            complete: function() { $('.upazillaloader').hide(); }
+        });
+  }
 });
 
 </script>
