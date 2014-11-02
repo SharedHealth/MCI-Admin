@@ -25,12 +25,28 @@ class PatientController extends Controller
 
     public function searchAction( Request $request)
     {
-
+        $baseUrl =  $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $results = array();
+        $districts = array();
+        $upazillas = array();
         $responseBody = array();
         $client = $this->get('mci.location');
         $divisions =  $this->getJsonData('division.json');
-        $districts =  $this->getJsonData('district.json');
+        $districtsAll =  $this->getJsonData('district.json');
+
+       if($request->get('division_id')){
+             $hrm_division_id = $this->getLocationId($divisions,$request->get('division_id'));
+             $districtUrl = $this->generateUrl('mci_location_district', array('id'=>$hrm_division_id));
+             $districts = json_decode(file_get_contents($baseUrl.$districtUrl));
+       }
+
+       if($request->get('district_id')){
+             $hrm_district_id = $this->getLocationId($districtsAll,$request->get('district_id'));
+             $upazillaUrl = $this->generateUrl('mci_location_upazilla', array('id'=> $hrm_district_id));
+             $upazillas = json_decode(file_get_contents($baseUrl.$upazillaUrl));
+       }
+
+
         $upazilas =  $this->getJsonData('upazilla-single.json');
 
         $SystemAPiError = '';
@@ -96,10 +112,10 @@ class PatientController extends Controller
                  }
 
             }
-            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>$districts,'upazilas'=>$upazilas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError));
+            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError));
         }
 
-        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>$districts,'upazillas'=>$upazilas,'systemError'=>$SystemAPiError));
+        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'systemError'=>$SystemAPiError));
     }
 
     public function editAction(Request $request, $id){
@@ -148,6 +164,14 @@ class PatientController extends Controller
     {
         $filePath =  'assets/json/'.$fileName;
         return  json_decode(file_get_contents($filePath), true);
+    }
+
+    private function getLocationId($data, $code){
+        foreach($data as $value){
+            if($value['code'] == $code ){
+                return $value['id'];
+            }
+        }
     }
 
 }

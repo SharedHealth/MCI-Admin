@@ -26,7 +26,7 @@ class LocationController extends Controller
             foreach ($districts as $key => $value) {
 
                 if ($value['division_id'] == $id) {
-                    $districtByDivision[$key]['code'] = $value['code'];
+                    $districtByDivision[$key]['code'] = str_pad($value['code'],2,0,STR_PAD_LEFT);
                     $districtByDivision[$key] ['name'] = $value['name'];
                     $districtByDivision[$key]['id'] = $value['id'];
                 }

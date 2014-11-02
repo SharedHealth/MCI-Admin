@@ -13,6 +13,7 @@
         if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ''  ){
             jQuery('.fillOne').show();
             jQuery('.selectlocation').hide();
+            jQuery('.systeError').hide();
             return false;
         }else{
             jQuery('.fillOne').hide();
@@ -22,6 +23,7 @@
 
             if ($division == '' || $district == '' || $upazilla == '') {
                 jQuery('.selectlocation').show();
+                jQuery('.systeError').hide();
                 return false;
             }else {
                 jQuery('.selectlocation').hide();

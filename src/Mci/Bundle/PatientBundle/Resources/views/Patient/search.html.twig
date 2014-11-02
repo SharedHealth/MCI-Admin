@@ -6,7 +6,7 @@
         <div class="col-lg-12">
             <h3 class="page-header">Search Patient</h3>
         </div>
-      <span style="color: red;">{{ systemError }}</span>
+      <span class="systeError" style="color: red;">{{ systemError }}</span>
         <!-- /.col-lg-12 -->
     </div>
     <div style="display: none;" class="fillOne error">Please fill at least one field</div>
@@ -59,7 +59,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
 
-                    <select name="division_id" id="division" class="form-control">
+                    <select name="division_id" id="division" class="form-control" >
                         <option value="">Select Division</option>
                         {% for division in divisions  %}
 
@@ -75,7 +75,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <select name="district_id" id="district" class="form-control" disabled="disabled" >
+                    <select name="district_id" id="district" class="form-control" {% if seletedDropdown.district is null%} disabled="disabled" {% endif %} >
                         <option value="">Select District</option>
                         {% for district in districts  %}
 
@@ -93,18 +93,16 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-
-                    <select name="upazilla_id" id="upazilla" class="form-control" disabled="disabled">
+                       <select name="upazilla_id" id="upazilla" class="form-control" {% if seletedDropdown.district is null%} disabled="disabled" {% endif %} >
                         <option value="">Select Upazilla</option>
+                        {% for upazilla in upazillas  %}
 
-                        {% for districtCode, upazila in upazilas  %}
-                            {% for code, value in upazila  %}
-                          <option value="{{ code }}"
+                            <option data-id="{{ upazilla.id }}"  value="{{ upazilla.code }}"
                                     {% if seletedDropdown.upazilla is defined %}
-                                        {% if code == seletedDropdown.upazilla and districtCode == seletedDropdown.district %} {{ "selected" }} {% endif %}
+
+                                        {% if upazilla.code == seletedDropdown.upazilla %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ value }}</option>
-                                {% endfor %}
+                                    >{{ upazilla.name }}</option>
                         {% endfor %}
                     </select>
                     <span class="upazillaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
