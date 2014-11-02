@@ -82,10 +82,10 @@
                     <label>Disability:</label>
                     <p class="form-control-static">{% if responseBody.disability is defined %}{{ responseBody.disability|disability }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
+                {#<div class="col-lg-3">
                     <label>Ethnicity:</label>
                     <p class="form-control-static">{% if responseBody.ethnicity is defined %}{{ responseBody.ethnicity }}{% endif %}</p>
-                </div>
+                </div>#}
                 <div class="col-lg-3">
                     <label>Primary Contact:</label>
                     <p class="form-control-static">{% if responseBody.primary_contact is defined %}{{ responseBody.primary_contact }}{% endif %}</p>
@@ -166,10 +166,10 @@
                     <label>Upazilla:</label>
                     <p class="form-control-static">{{ responseBody.present_address.upazilla_id|upazilla(responseBody.present_address.district_id , responseBody.present_address.upazilla_id) }}</p>
                 </div>
-                <div class="col-lg-3">
+                {#<div class="col-lg-3">
                     <label>Union:</label>
                     <p class="form-control-static">{% if responseBody.responseBody.present_address.union_id is defined %}{{ responseBody.present_address.union_id }}{% endif %}</p>
-                </div>
+                </div>#}
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
@@ -215,10 +215,10 @@
                     <label>Post Code :</label>
                     <p class="form-control-static">{% if responseBody.present_address.post_code is defined  %}{{ responseBody.present_address.post_code }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
+                {#<div class="col-lg-3">
                     <label>City Corporation:</label>
                     <p class="form-control-static">{% if responseBody.present_address.city_corporation_id is defined  %}{{ responseBody.present_address.city_corporation_id }}{% endif %}</p>
-                </div>
+                </div>#}
                 <div class="col-lg-3">
                     <label>Country:</label>
                     <p class="form-control-static">{% if responseBody.present_address.country_code is defined  %}{{ responseBody.present_address.country_code|countrycode }}{% endif %}</p>
@@ -247,10 +247,10 @@
                     <label>Upazilla:</label>
                     <p class="form-control-static">{{ responseBody.permanent_address.upazilla_id|upazilla(responseBody.permanent_address.district_id)  }}</p>
                 </div>
-                <div class="col-lg-3">
+               {# <div class="col-lg-3">
                     <label>Union:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.union_id is defined  %}{{ responseBody.permanent_address.union_id }} {% endif %}</p>
-                </div>
+                </div>#}
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
@@ -289,10 +289,10 @@
                     <label>Post Code :</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.post_code %}{{ responseBody.permanent_address.post_code }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
+                {#<div class="col-lg-3">
                     <label>City Corporation:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.city_corporation_id %}{{ responseBody.permanent_address.city_corporation_id }}{% endif %}</p>
-                </div>
+                </div>#}
                 <div class="col-lg-3">
                     <label>Country:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.country_code %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
