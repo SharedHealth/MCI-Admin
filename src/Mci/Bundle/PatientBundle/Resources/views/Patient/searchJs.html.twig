@@ -67,29 +67,6 @@ $("#searchHidButton").click(function(){
 });
 
 
- $( document ).ready(function() {
-     var divisionId = $('option:selected', this).attr('data-id');
-     var x = $('#district');
-
-     if(divisionId){
-         x.removeAttr('disabled');
-     }else{
-         x.attr('disabled','disabled');
-         $('#upazilla').attr('disabled','disabled');
-     }
-
-
-     var districtId = $('option:selected', this).attr('data-id');
-     var y = $('#upazilla');
-     if(districtId){
-         y.removeAttr('disabled');
-     }else{
-         y.attr('disabled','disabled');
-         $('#upazilla').attr('disabled','disabled');
-     }
-
- });
-
 $('#division').on('change', function () {
     var divisionId = $('option:selected', this).attr('data-id');
     var x = $('#district');
