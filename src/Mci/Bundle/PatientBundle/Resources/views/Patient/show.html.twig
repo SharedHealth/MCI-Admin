@@ -17,19 +17,19 @@
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
-                    <label>HID:</label>
+                    <label>Health ID(HID):</label>
                     <p class="form-control-static">{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>NID:</label>
+                    <label>National ID(NID):</label>
                     <p class="form-control-static">{% if responseBody.nid is defined %}{{ responseBody.nid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>BRN:</label>
+                    <label>Birth Registration No(BRN):</label>
                     <p class="form-control-static">{% if responseBody.bin_brn is defined %}{{ responseBody.bin_brn }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>UID:</label>
+                    <label>Unique Identification(UID):</label>
                     <p class="form-control-static">{% if responseBody.uid is defined %}{{ responseBody.uid }}{% endif %}</p>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="col-lg-3">
                         {% if key == 0 %}
-                            <label>NID:</label>
+                            <label>National ID:</label>
                         {% endif %}
                         <p class="form-control-static">{% if relation.nid %}{{ relation.nid }}{% endif %}</p>
                     </div>
