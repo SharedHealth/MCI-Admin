@@ -223,6 +223,10 @@
                     <label>Country:</label>
                     <p class="form-control-static">{% if responseBody.present_address.country_code is defined  %}{{ responseBody.present_address.country_code|countrycode }}{% endif %}</p>
                 </div>
+                <div class="col-lg-3">
+                    <label>Address Line:</label>
+                    <p class="form-control-static">{% if responseBody.present_address.address_line is defined  %}{{ responseBody.present_address.address_line }}{% endif %}</p>
+                </div>
 
             </div>
 
@@ -298,6 +302,11 @@
                     <p class="form-control-static">{% if responseBody.permanent_address.country_code %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
                 </div>
 
+                <div class="col-lg-3">
+                    <label>Address Line:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.address_line is defined  %}{{ responseBody.permanent_address.address_line }}{% endif %}</p>
+                </div>
+
             </div>
 
         </div>
@@ -311,7 +320,7 @@
     {% else %}
         <div class="row">
             <div class="col-lg-12">
-                <h3 class="page-header">Invalid HID</h3>
+                <h3 class="page-header">Patient not found</h3>
             </div>
             <!-- /.col-lg-12 -->
         </div>

@@ -65,14 +65,6 @@
         jQuery("#searchPatientForm").submit();
     });
 
-$("#searchHidButton").click(function(){
-    $hid = $(".hid").val();
-
-    if($hid){
-        $("#searchHidForm").submit();
-    }
-});
-
 
 $('#division').on('change', function () {
     var divisionId = $('option:selected', this).attr('data-id');

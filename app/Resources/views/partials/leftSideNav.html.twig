@@ -76,19 +76,26 @@
 
 <script type="text/javascript">
 
-    jQuery("#searchHidForm").validate(
-            {
-                rules: {
-                    hid: {
-                        number: true
-                    }
-                },
-                messages: {
-                    hid: {
-                        number: "Please enter  numbers"
+
+    $("#searchHidButton").click(function(){
+
+        $("#searchHidForm").validate(
+                {
+                    rules: {
+                        hid: {
+                            required: true,
+                            number: true
+                        }
+                    },
+                    messages: {
+                        hid: {
+                            number: "Invalid hid"
+                        }
                     }
                 }
-            }
-    );
+        );
+
+        $("#searchHidForm").submit();
+    });
 
 </script>
