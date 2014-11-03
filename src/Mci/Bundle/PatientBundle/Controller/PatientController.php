@@ -106,9 +106,9 @@ class PatientController extends Controller
                  $error =  $e->getMessage();
                  $parseError = explode('Failed connect',$error);
                  if(isset($parseError[1])){
-                     $SystemAPiError = "Network Error! Please try again later.";
+                     $SystemAPiError = "Please try again later.";
                  }else{
-                     $SystemAPiError = "Internal Server Error! Please try again later.";
+                     $SystemAPiError = "Please try again later.";
                  }
 
             }

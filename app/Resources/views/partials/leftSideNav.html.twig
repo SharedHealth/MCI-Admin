@@ -33,9 +33,9 @@
         <div class="sidebar-nav navbar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
-                        <form id="searchHidForm" name="searchHid"  method="post" action="{{ path('mci_patient_searchpage') }}">
+                        <form id="searchHidForm" name="searchHid"  method="get" action="{{ path('mci_patient_searchpage') }}">
                             <div class="input-group custom-search-form">
-                                <input  name="hid" type="text" class="form-control hid" placeholder="Enter HID">
+                                <input name="hid" type="text" class="form-control hid" placeholder="Enter HID">
                             <span class="input-group-btn">
                             <button id ="searchHidButton" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
                         </form>
@@ -73,3 +73,22 @@
     </div>
     <!-- /.navbar-static-side -->
 </nav>
+
+<script type="text/javascript">
+
+    jQuery("#searchHidForm").validate(
+            {
+                rules: {
+                    hid: {
+                        number: true
+                    }
+                },
+                messages: {
+                    hid: {
+                        number: "Please enter  numbers"
+                    }
+                }
+            }
+    );
+
+</script>
