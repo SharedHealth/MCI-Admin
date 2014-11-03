@@ -104,13 +104,9 @@ class PatientController extends Controller
                 }
 
             } catch(RequestException $e){
-                 $error =  $e->getMessage();
-                 $parseError = explode('Failed connect',$error);
-                 if(isset($parseError[1])){
-                     $SystemAPiError = "Please try again later.";
-                 }else{
-                     $SystemAPiError = "Please try again later.";
-                 }
+                  $messages =  json_decode($e->getResponse()->getBody());
+
+                $SystemAPiError = $this->getErrorMessages($messages);
 
             }
             return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError));
@@ -173,6 +169,30 @@ class PatientController extends Controller
                 return $value['id'];
             }
         }
+    }
+
+    /**
+     * @param $messages
+     * @return string
+     */
+    public function getErrorMessages($messages)
+    {
+        foreach ($messages->errors as $value) {
+
+            switch ($value->code) {
+                case 1006:
+                    $SystemAPiError = "Invalid Search Parameter";
+                    break;
+
+                case 1002:
+                    $SystemAPiError = "Invalid Pattern";
+                    break;
+
+                default:
+                    $SystemAPiError = "Service Unavailable";
+            }
+        }
+        return $SystemAPiError;
     }
 
 }

@@ -30,6 +30,10 @@
             }
         }
 
+        jQuery.validator.addMethod("exactlength", function(value, element, param) {
+            return this.optional(element) || value.length == param;
+        }, $.validator.format("Please enter exactly {0} characters."));
+
         jQuery("#searchPatientForm").validate(
                 {
                     rules: {
@@ -40,10 +44,10 @@
                         },
                         brn: {
                             number: true,
-                            minlength: 17
+                            exactlength: 17
                         },
                         uid: {
-                            minlength: 11
+                            exactlength: 11
                         }
                     },
                     messages: {
@@ -51,7 +55,8 @@
                             number:"Please enter  numbers"
                         },
                         brn:{
-                            number:"Please enter numbers"
+                            number:"Please enter numbers",
+                            exactlength: "please use exactly 17 numbers"
                         }
                     }
                 }
