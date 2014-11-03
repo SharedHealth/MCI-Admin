@@ -50,7 +50,7 @@ class PatientController extends Controller
         $upazilas =  $this->getJsonData('upazilla-single.json');
 
         $SystemAPiError = '';
-
+        $hid = '';
         if ('GET' === $request->getMethod()) {
             try{
                 $queryParam = array();
@@ -104,15 +104,24 @@ class PatientController extends Controller
                 }
 
             } catch(RequestException $e){
-                  $messages =  json_decode($e->getResponse()->getBody());
+                if($e instanceof \Guzzle\Http\Exception\CurlException) {
+                    $SystemAPiError[] = 'Service Unvailable';
+                }
 
-                $SystemAPiError = $this->getErrorMessages($messages);
+                try{
+                   if(method_exists($e,'getResponse')){
+                        $messages =  json_decode($e->getResponse()->getBody());
+                        $SystemAPiError = $this->getErrorMessages($messages);
+                    }
+                }catch (Exception $e) {
+                    echo "Error";
+                }
+              }
 
-            }
-            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError));
+            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError,'hid'=>$hid));
         }
 
-        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'systemError'=>$SystemAPiError));
+        return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'systemError'=>$SystemAPiError,'hid'=>$hid));
     }
 
     public function editAction(Request $request, $id){
@@ -154,7 +163,7 @@ class PatientController extends Controller
             $e->getMessage();
         }
 
-        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody));
+        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
     }
 
     private function getJsonData($fileName)

@@ -31,11 +31,12 @@
 
     <div class="navbar-default sidebar" role="navigation">
         <div class="sidebar-nav navbar-collapse">
+
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                         <form id="searchHidForm" name="searchHid"  method="get" action="{{ path('mci_patient_searchpage') }}">
                             <div class="input-group custom-search-form">
-                                <input name="hid" type="text" class="form-control hid" placeholder="Enter HID">
+                                <input name="hid" type="text" class="form-control hid" placeholder="Enter HID" value="{% if hid is defined %}{{ hid }}{% endif %}" >
                             <span class="input-group-btn">
                             <button id ="searchHidButton" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
 
@@ -90,7 +91,6 @@
                             number: true
                         }
                     },
-
                     messages: {
                         hid: {
                             number: "Invalid hid"
