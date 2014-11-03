@@ -1,6 +1,7 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\Form;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -9,7 +10,8 @@ class AddressType extends AbstractType
 {
     public $data;
 
-    public function __construct($address){
+    public function __construct($address)
+    {
         $this->data = $address;
     }
 
@@ -23,19 +25,70 @@ class AddressType extends AbstractType
         $countryCode = array();
 
         $builder
-        ->add('address_line','text')
-        ->add('holding_number','text')
-        ->add('street','text')
-        ->add('area_mouja','text')
-        ->add('village','text')
-        ->add('post_office','text')
-        ->add('post_code','text')
-        ->add('division_id', 'choice',$division)
-        ->add('district_id', 'choice',$district)
-        ->add('union_id', 'choice',$union)
-        ->add('upazilla_id', 'choice',$upazilla)
-        ->add('city_corporation_id', 'choice',$cityCorporation)
-        ->add('country_code', 'choice',$countryCode);
+            ->add('address_line', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('holding_number', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('street', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('area_mouja', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('village', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('post_office', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('post_code', 'text', array(
+                'data' => 'Default value',
+                'attr' => array('class' => 'form-control')
+            ))
+            ->add('division_id', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $division
+            )
+            ->add('district_id', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $district
+            )
+            ->add('union_id', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $union
+            )
+            ->add('upazilla_id', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $upazilla
+            )
+            ->add('city_corporation_id', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $cityCorporation
+            )
+            ->add('country_code', 'choice', array(
+                    'data' => 'Default value',
+                    'attr' => array('class' => 'form-control')
+                ),
+                $countryCode
+            );
     }
 
     public function getName()

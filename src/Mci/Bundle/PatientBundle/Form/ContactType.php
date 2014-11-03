@@ -17,10 +17,22 @@ class ContactType extends AbstractType
     {
 
         $builder
-            ->add('number','text')
-            ->add('country_code','text')
-            ->add('area_code','text')
-            ->add('extension','text');
+            ->add('number','text',array(
+                'data' => 'Default value',
+                'attr' => array('class'=>'form-control')
+            ))
+            ->add('country_code','text',array(
+                'data' => 'Default value',
+                'attr' => array('class'=>'form-control')
+            ))
+            ->add('area_code','text',array(
+                'data' => 'Default value',
+                'attr' => array('class'=>'form-control')
+            ))
+            ->add('extension','text',array(
+                'data' => 'Default value',
+                'attr' => array('class'=>'form-control')
+            ));
     }
 
     public function getName()

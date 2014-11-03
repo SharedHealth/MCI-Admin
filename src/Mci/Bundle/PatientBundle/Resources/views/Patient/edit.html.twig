@@ -214,7 +214,7 @@
                 <label for="mci_bundle_patientBundle_patients_present_address_upazilla_id" class="control-label col-xs-2">Upazilla</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.present_address.district_id) }}
+                    {{ form_widget(form.present_address.upazilla_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -231,72 +231,67 @@
                 <label for="mci_bundle_patientBundle_patients_present_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
 
                 <div class="col-xs-10">
-                    <select name="present_address[city_corporation_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
                     {{ form_widget(form.present_address.city_corporation_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="country_code" class="control-label col-xs-2">Country Code</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_country_code" class="control-label col-xs-2">Country Code</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.present_address.city_corporation_id) }}
+                    {{ form_widget(form.present_address.country_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="holding_number" class="control-label col-xs-2">Holding Number</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_holding_number" class="control-label col-xs-2">Holding Number</label>
 
                 <div class="col-xs-10">
-                    <input name="present_address[holding_number]" class="form-control" id="holding_number"
-                           placeholder="Holding Number">
+                    {{ form_widget(form.present_address.holding_number) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="street" class="control-label col-xs-2">Street</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_street" class="control-label col-xs-2">Street</label>
 
                 <div class="col-xs-10">
-                    <input name="present_address[street]" class="form-control" id="street" placeholder="Street">
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="area_mouja" class="control-label col-xs-2">Area Mouja</label>
-
-                <div class="col-xs-10">
-                    <input name="present_address[area_mouja]" class="form-control" id="area_mouja" placeholder="Area Mouja">
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="form-group">
-                <label for="village" class="control-label col-xs-2">Village</label>
-
-                <div class="col-xs-10">
-                    <input name="present_address[village]" class="form-control" id="village" placeholder="Village">
+                    {{ form_widget(form.present_address.street) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="post_office" class="control-label col-xs-2">Post Office</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_area_mouja" class="control-label col-xs-2">Area Mouja</label>
 
                 <div class="col-xs-10">
-                    <input name="present_address[post_office]" class="form-control" id="post_office"
-                           placeholder="Post Office">
+                    {{ form_widget(form.present_address.area_mouja) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_village" class="control-label col-xs-2">Village</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.village) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="post_code" class="control-label col-xs-2">Post Code</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_post_office" class="control-label col-xs-2">Post Office</label>
 
                 <div class="col-xs-10">
-                    <input name="present_address[post_code]" class="form-control" id="post_code" placeholder="Post Code">
+                    {{ form_widget(form.present_address.post_office) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_post_code" class="control-label col-xs-2">Post Code</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.post_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -304,134 +299,116 @@
     </div>
 
     <div id="permanentAddreess" class="tab-pane inputBoxSize fade">
-
         <div>
             <div class="form-group">
-                <label for="perma_address_line" class="control-label col-xs-2">Address Line</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_address_line" class="control-label col-xs-2">Address Line</label>
 
                 <div class="col-xs-10">
-                    <input class="form-control" id="perma_address_line" name="permanent_address[address_line]"
-                           placeholder="Address Line">
+                    {{ form_widget(form.permanent_address.address_line) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="division_id" class="control-label col-xs-2">Division</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_division_id" class="control-label col-xs-2">Division</label>
 
                 <div class="col-xs-10">
-                    <select name="permanent_address[division_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
+                    {{ form_widget(form.permanent_address.division_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="division_id" class="control-label col-xs-2">District</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_district_id" class="control-label col-xs-2">District</label>
 
                 <div class="col-xs-10">
-                    <select name="permanent_address[district_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
+                    {{ form_widget(form.permanent_address.district_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="upazilla_id" class="control-label col-xs-2">Upazilla</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_upazilla_id" class="control-label col-xs-2">Upazilla</label>
 
                 <div class="col-xs-10">
-                    <select name="permanent_address[upazilla_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
+                    {{ form_widget(form.permanent_address.upazilla_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="union_id" class="control-label col-xs-2">Union</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_union_id" class="control-label col-xs-2">Union</label>
 
                 <div class="col-xs-10">
-                    <select name="permanent_address[union_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
+                    {{ form_widget(form.permanent_address.union_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="city_corporation_id" class="control-label col-xs-2">City Corporation</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
 
                 <div class="col-xs-10">
-                    <select name="permanent_address[city_corporation_id]" class="form-control">
-                        <option value=""></option>
-                    </select>
+                    {{ form_widget(form.permanent_address.city_corporation_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="permanent_country_code" class="control-label col-xs-2">Country Code</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_country_code" class="control-label col-xs-2">Country Code</label>
 
                 <div class="col-xs-10">
-                    <input name="permanent_address[country_code]" class="form-control" id="permanent_country_code"
-                           placeholder="Country Code">
+                    {{ form_widget(form.permanent_address.country_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="parment_holding_number" class="control-label col-xs-2">Holding Number</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_holding_number" class="control-label col-xs-2">Holding Number</label>
 
                 <div class="col-xs-10">
-                    <input name="permanent_address[holding_number]" class="form-control" id="parmanent_holding_number"
-                           placeholder="Holding Number">
+                    {{ form_widget(form.permanent_address.holding_number) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="parmanent_street" class="control-label col-xs-2">Street</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_street" class="control-label col-xs-2">Street</label>
 
                 <div class="col-xs-10">
-                    <input name="permanent_address[street]" class="form-control" id="parmanent_street" placeholder="Street">
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="permanent_area_mouja" class="control-label col-xs-2">Area Mouja</label>
-
-                <div class="col-xs-10">
-                    <input name="permanent_address[area_mouja]" class="form-control" id="permanent_area_mouja"
-                           placeholder="Area Mouja">
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="form-group">
-                <label for="permanent_village" class="control-label col-xs-2">Village</label>
-
-                <div class="col-xs-10">
-                    <input name="permanent_address[village]" class="form-control" id="permanent_village"
-                           placeholder="Village">
+                    {{ form_widget(form.permanent_address.street) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="post_office" class="control-label col-xs-2">Post Office</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_area_mouja" class="control-label col-xs-2">Area Mouja</label>
 
                 <div class="col-xs-10">
-                    <input name="permanent_address[post_office]" class="form-control" id="post_office"
-                           placeholder="Post Office">
+                    {{ form_widget(form.permanent_address.area_mouja) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_permanent_address_village" class="control-label col-xs-2">Village</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.permanent_address.village) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="permanent_post_code" class="control-label col-xs-2">Post Code</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_post_office" class="control-label col-xs-2">Post Office</label>
 
                 <div class="col-xs-10">
-                    <input name="permanent_address[post_code]" class="form-control" id="permanent_post_code"
-                           placeholder="Post Code">
+                    {{ form_widget(form.permanent_address.post_office) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_permanent_address_post_code" class="control-label col-xs-2">Post Code</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.permanent_address.post_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -441,35 +418,33 @@
 
         <div>
             <div class="form-group">
-                <label for="country_code" class="control-label col-xs-2">Country Code</label>
+                <label for="mci_bundle_patientBundle_patients_phone_number_country_code" class="control-label col-xs-2">Country Code</label>
 
                 <div class="col-xs-10">
-                    <input name="phone_number[country_code]" class="form-control" id="country_code"
-                           placeholder="Country Code">
+                    {{ form_widget(form.phone_number.country_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="area_code" class="control-label col-xs-2">Area Code</label>
+                <label for="mci_bundle_patientBundle_patients_phone_number_area_code" class="control-label col-xs-2">Area Code</label>
 
                 <div class="col-xs-10">
-                    <input name="phone_number[area_code]" class="form-control" id="area_code" placeholder="Area Code">
+                    {{ form_widget(form.phone_number.area_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="number" class="control-label col-xs-2">Number</label>
+                <label for="mci_bundle_patientBundle_patients_phone_number_number" class="control-label col-xs-2">Number</label>
 
                 <div class="col-xs-10">
-                    <input name="phone_number[number]" class="form-control" id="number" placeholder="Number">
+                    {{ form_widget(form.phone_number.number) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="extension" class="control-label col-xs-2">Extension</label>
-
+                <label for="mci_bundle_patientBundle_patients_phone_number_extension" class="control-label col-xs-2">Extension</label>
                 <div class="col-xs-10">
-                    <input name="phone_number[extension]" class="form-control" id="extension" placeholder="Extension">
+                    {{ form_widget(form.phone_number.extension) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -479,38 +454,35 @@
     </div>
 
     <div id="primaryContactNo" class="tab-pane inputBoxSize fade">
-
         <div>
             <div class="form-group">
-                <label for="primary_country_code" class="control-label col-xs-2">Country Code</label>
+                <label for="mci_bundle_patientBundle_patients_primary_contact_number_country_code" class="control-label col-xs-2">Country Code</label>
 
                 <div class="col-xs-10">
-                    <input name="primary_contact_number[country_code]" class="form-control" id="primary_country_code"
-                           placeholder="Country Code">
+                    {{ form_widget(form.primary_contact_number.country_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="primary_area_code" class="control-label col-xs-2">Area Code</label>
+                <label for="mci_bundle_patientBundle_patients_primary_contact_number_area_code" class="control-label col-xs-2">Area Code</label>
 
                 <div class="col-xs-10">
-                    <input name="primary_contact_number[area_code]" class="form-control" id="primary_area_code" placeholder="Area Code">
+                    {{ form_widget(form.primary_contact_number.area_code) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="primary_number" class="control-label col-xs-2">Number</label>
+                <label for="mci_bundle_patientBundle_patients_primary_contact_number_number" class="control-label col-xs-2">Number</label>
 
                 <div class="col-xs-10">
-                    <input name="primary_contact_number[number]" class="form-control" id="primary_number" placeholder="Number">
+                    {{ form_widget(form.primary_contact_number.number) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="primary_extension" class="control-label col-xs-2">Extension</label>
-
+                <label for="mci_bundle_patientBundle_patients_primary_contact_number_extension" class="control-label col-xs-2">Extension</label>
                 <div class="col-xs-10">
-                    <input name="primary_contact_number[extension]" class="form-control" id="primary_extension" placeholder="Extension">
+                    {{ form_widget(form.primary_contact_number.extension) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
