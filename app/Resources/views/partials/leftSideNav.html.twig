@@ -38,10 +38,13 @@
                                 <input name="hid" type="text" class="form-control hid" placeholder="Enter HID">
                             <span class="input-group-btn">
                             <button id ="searchHidButton" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
+
                         </form>
                     </span>
+
                     </div>
                     <!-- /input-group -->
+                  <div id="error-note"></div>
                 </li>
                 <li><a class="active" href="{{ path('mci_dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
                 <li>
@@ -87,11 +90,14 @@
                             number: true
                         }
                     },
+
                     messages: {
                         hid: {
                             number: "Invalid hid"
                         }
-                    }
+                    },
+                    errorLabelContainer: "#error-note",
+                    wrapper: "span"
                 }
         );
 
