@@ -181,15 +181,15 @@ class PatientController extends Controller
 
             switch ($value->code) {
                 case 1006:
-                    $SystemAPiError = "Invalid Search Parameter";
+                    $SystemAPiError[] = "Invalid Search Parameter";
                     break;
 
                 case 1002:
-                    $SystemAPiError = "Invalid Pattern";
+                    $SystemAPiError[] = "Invalid Pattern";
                     break;
 
                 default:
-                    $SystemAPiError = "Service Unavailable";
+                    $SystemAPiError[] = "Service Unavailable";
             }
         }
         return $SystemAPiError;
