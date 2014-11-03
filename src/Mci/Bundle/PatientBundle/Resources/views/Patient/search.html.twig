@@ -123,6 +123,10 @@
 {% if responseBody.results is defined %}
     <h4>Search Results:</h4>
 
+    {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
+        <p>{{ responseBody.additional_info.note }}</p>
+   {% endif %}
+
     <table class="table table-striped table-bordered table-hover dataTable" id="search-results">
         <thead>
         <tr>

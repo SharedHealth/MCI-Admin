@@ -100,6 +100,7 @@ class PatientController extends Controller
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                    $response = $request->send();
                    $responseBody = json_decode($response->getBody());
+
                 }
 
             } catch(RequestException $e){
