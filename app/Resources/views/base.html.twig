@@ -55,9 +55,12 @@
 
 <script>
     $(document).ready(function() {
-        $('.dataTable').dataTable({
+        $('.search-patient').dataTable({
             "searching": false,
-            "paging": false
+            "paging": false,
+            "oLanguage": {
+                "sEmptyTable":     "No patient found"
+            }
         });
     });
 </script>

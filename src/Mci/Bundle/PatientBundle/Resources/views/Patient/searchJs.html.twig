@@ -9,8 +9,12 @@
         var $division = jQuery('#division').val();
         var $district = jQuery('#district').val();
         var $upazilla = jQuery('#upazilla').val();
+        var $phoneNo = jQuery('#phone_no').val();
+        var $areaCode = jQuery('#area_code').val();
+        var $extension = jQuery('#extension').val();
+        var $countryCode = jQuery('#country_code').val();
 
-        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == ''  ){
+        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == '' && $phoneNo == ''  ){
             jQuery('.fillOne').show();
             jQuery('.selectlocation').hide();
             jQuery('.systeError').hide();
@@ -19,7 +23,14 @@
             jQuery('.fillOne').hide();
         }
 
-        if ($surName != '' || $givenName != '' || $division != '') {
+        if(($areaCode || $extension || $countryCode) && $phoneNo == ''  ){
+            jQuery('.phoneNoError').show();
+            jQuery('.fillOne').hide();
+            jQuery('.systeError').hide();
+            return false;
+        }
+
+        if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {
 
             if ($division == '' || $district == '' || $upazilla == '') {
                 jQuery('.selectlocation').show();
@@ -48,6 +59,15 @@
                         },
                         uid: {
                             exactlength: 11
+                        },
+                        country_code: {
+                            number: true
+                        },
+                        area_code: {
+                            number: true
+                        },
+                        phone_no: {
+                            number: true
                         }
                     },
                     messages: {

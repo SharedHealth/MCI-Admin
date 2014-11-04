@@ -17,11 +17,11 @@
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
-                    <label>Health ID(HID):</label>
+                    <label>Health Identification(HID):</label>
                     <p class="form-control-static">{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>National ID(NID):</label>
+                    <label>National Identification(NID):</label>
                     <p class="form-control-static">{% if responseBody.nid is defined %}{{ responseBody.nid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
@@ -90,21 +90,92 @@
                     <label>Primary Contact:</label>
                     <p class="form-control-static">{% if responseBody.primary_contact is defined %}{{ responseBody.primary_contact }}{% endif %}</p>
                 </div>
+
                 <div class="col-lg-3">
-                    <label>Phone Number:</label>
-                    <p class="form-control-static">{% if responseBody.phone_number is defined %}{{ responseBody.phone_number.number }}{% endif %}</p>
+                    <label>Marital Status:</label>
+                    <p class="form-control-static">{% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
                 </div>
             </div>
             <div class="panel-body">
 
                 <div class="col-lg-3">
                     <label>Primary Phone Number:</label>
-                    <p class="form-control-static">{% if responseBody.primary_contact_number is defined %}{{ responseBody.primary_contact_number.number }}{% endif %}</p>
+                    <p class="form-control-static">
+                        {% if responseBody.primary_contact_number is defined %}
+                    <table style="font-size: 12px;" class="table table-bordered">
+                        <thead>
+                        <th>Country Code</th>
+                        <th>Area Code</th>
+                        <th>Ph:</th>
+                        <th>Ext:</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% if responseBody.primary_contact_number.country_code is defined %}
+                                    {{ responseBody.primary_contact_number.country_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.primary_contact_number.area_code is defined %}
+                                    {{ responseBody.primary_contact_number.area_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.primary_contact_number.number is defined %}
+                                    {{ responseBody.primary_contact_number.number }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.primary_contact_number.extension is defined %}
+                                    {{ responseBody.primary_contact_number.extension }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}
+                    </p>
                 </div>
-                <div class="col-lg-3">
-                    <label>Marital Status:</label>
-                    <p class="form-control-static">{% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
+                <div style="margin-left: 54px;" class="col-lg-3">
+                    <label>Phone Number:</label>
+                    <p class="form-control-static">
+                        {% if responseBody.phone_number is defined %}
+                    <table style="font-size: 12px;" class="table table-bordered">
+                        <thead>
+                        <th>Country Code</th>
+                        <th>Area Code</th>
+                        <th>Ph:</th>
+                        <th>Ext:</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% if responseBody.phone_number.country_code is defined %}
+                                    {{ responseBody.phone_number.country_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.area_code is defined %}
+                                    {{ responseBody.phone_number.area_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.number is defined %}
+                                    {{ responseBody.phone_number.number }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.extension is defined %}
+                                    {{ responseBody.phone_number.extension }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}</p>
                 </div>
+
             </div>
         </div>
     </div>
@@ -180,10 +251,7 @@
                     <label>Street:</label>
                     <p class="form-control-static">{% if responseBody.present_address.street is defined %}{{ responseBody.present_address.street }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
-                    <label>Area Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.present_address.area_mouja is defined  %}{{ responseBody.present_address.area_mouja }}{% endif %}</p>
-                </div>
+
                 <div class="col-lg-3">
                     <label>Village:</label>
                     <p class="form-control-static">{% if responseBody.present_address.village is defined  %}{{ responseBody.present_address.village }}{% endif %}</p>
@@ -264,10 +332,6 @@
                 <div class="col-lg-3">
                     <label>Street:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.street  %}{{ responseBody.permanent_address.street }}{% endif %}</p>
-                </div>
-                <div class="col-lg-3">
-                    <label>Area Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Village:</label>

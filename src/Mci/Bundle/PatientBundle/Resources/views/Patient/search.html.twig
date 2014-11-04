@@ -15,6 +15,7 @@
     </div>
     <div style="display: none;" class="fillOne error">Please fill at least one field</div>
     <div style="display: none;" class="selectlocation error">Please select division and district and upazilla </div>
+    <div style="display: none;" class="phoneNoError error">Please enter phone no </div>
     <!-- /.row -->
     <form id="searchPatientForm" name="searchPatient"  method="get">
 
@@ -56,6 +57,33 @@
                     <input id="phone_number" name="phone" value ="{% if queryparam.date_of_birth is defined  %}{{ queryparam.date_of_birth|trim }}{% endif %}" class="form-control" placeholder="Date of Birth">
                 </div>
             </div>#}
+        </div>
+
+        <h5>Phone Number:</h5>
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="country_code" name="country_code" value ="{% if queryparam.country_code is defined  %}{{ queryparam.country_code|trim }}{% endif %}" class="form-control" placeholder="Country Code">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="area_code" name="area_code" value ="{% if queryparam.area_code is defined  %}{{ queryparam.area_code|trim }}{% endif %}" class="form-control" placeholder="Area Code">
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control" placeholder="Phone No">
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <input id="extension" name="extension" value ="{% if queryparam.extension is defined  %}{{ queryparam.extension|trim }}{% endif %}" class="form-control" placeholder="Extension">
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -128,18 +156,19 @@
     <h4>Search Results:</h4>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
-        <p>{{ responseBody.additional_info.note }}</p>
+        <p><strong>{{ responseBody.additional_info.note }}</strong></p>
    {% endif %}
 
-    <table class="table table-striped table-bordered table-hover dataTable" id="search-results">
+    <table style="font-size: 13px;" class="table table-striped table-bordered table-hover search-patient" id="search-results">
         <thead>
         <tr>
             <th>HID</th>
             <th>NID</th>
+            <th>Gender</th>
             <th>Given Name</th>
             <th>Surname</th>
             <th>DOB</th>
-            <th>Address</th>
+            <th>Present Address</th>
             <th>Contact Number</th>
         </tr>
         </thead>
@@ -150,10 +179,11 @@
                 <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">{{ result.hid }}</a></td>
                 <td>{% if result.nid is defined %}{{ result.nid }}{% endif %}</td>
                 <td>{{ result.given_name }}</td>
+                <td>{{ result.gender|gender }}</td>
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>
-                <td>{{ result.present_address.address_line }}</td>
-                <td> {% if result.primary_contact_number.number is defined %}{{ result.primary_contact_number.number }}{% endif %}</td>
+                <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|district }} {{ result.present_address.upazilla_id|upazilla(result.present_address.district_id) }}</td>
+                <td> {% if result.phone_number.number is defined %}{{ result.phone_number.number }}{% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>

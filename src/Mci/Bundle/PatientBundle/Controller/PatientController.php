@@ -84,6 +84,19 @@ class PatientController extends Controller
                 if($request->get('dob')){
                     $queryParam['date_of_birth'] = trim($request->get('dob'));
                 }
+                if($request->get('phone_no')){
+                    $queryParam['phone_no'] = trim($request->get('phone_no'));
+                }
+                if($request->get('area_code')){
+                    $queryParam['area_code'] = trim($request->get('area_code'));
+                }
+                if($request->get('country_code')){
+                    $queryParam['country_code'] = trim($request->get('country_code'));
+                }
+                if($request->get('extension')){
+                    $queryParam['extension'] = trim($request->get('extension'));
+                }
+
                 if($request->get('district_id')){
                    $district =  str_pad($request->get('district_id'),2,'0',STR_PAD_LEFT);
                 }
@@ -99,6 +112,7 @@ class PatientController extends Controller
                    $client = $this->get('mci_patient.client');
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                    $response = $request->send();
+                   $response->getEffectiveUrl();
                    $responseBody = json_decode($response->getBody());
 
                 }
@@ -114,7 +128,7 @@ class PatientController extends Controller
                         $SystemAPiError = $this->getErrorMessages($messages);
                     }
                 }catch (Exception $e) {
-                    echo "Error";
+                    echo "Unknown Error";
                 }
               }
 
