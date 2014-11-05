@@ -97,8 +97,46 @@
                 </div>
             </div>
             <div class="panel-body">
+                <div style="" class="col-lg-6">
+                    <label>Phone Number:</label>
+                    <p class="form-control-static">
+                        {% if responseBody.phone_number is defined %}
+                    <table style="font-size: 12px;" class="table table-bordered">
+                        <thead>
+                        <th>Country Code</th>
+                        <th>Area Code</th>
+                        <th>Ph:</th>
+                        <th>Ext:</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% if responseBody.phone_number.country_code is defined %}
+                                    {{ responseBody.phone_number.country_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.area_code is defined %}
+                                    {{ responseBody.phone_number.area_code }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.number is defined %}
+                                    {{ responseBody.phone_number.number }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.phone_number.extension is defined %}
+                                    {{ responseBody.phone_number.extension }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}</p>
+                </div>
 
-                <div class="col-lg-3">
+                <div class="col-lg-6">
                     <label>Primary Phone Number:</label>
                     <p class="form-control-static">
                         {% if responseBody.primary_contact_number is defined %}
@@ -137,44 +175,7 @@
                     {% endif %}
                     </p>
                 </div>
-                <div style="margin-left: 54px;" class="col-lg-3">
-                    <label>Phone Number:</label>
-                    <p class="form-control-static">
-                        {% if responseBody.phone_number is defined %}
-                    <table style="font-size: 12px;" class="table table-bordered">
-                        <thead>
-                        <th>Country Code</th>
-                        <th>Area Code</th>
-                        <th>Ph:</th>
-                        <th>Ext:</th>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>
-                                {% if responseBody.phone_number.country_code is defined %}
-                                    {{ responseBody.phone_number.country_code }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if responseBody.phone_number.area_code is defined %}
-                                    {{ responseBody.phone_number.area_code }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if responseBody.phone_number.number is defined %}
-                                    {{ responseBody.phone_number.number }}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if responseBody.phone_number.extension is defined %}
-                                    {{ responseBody.phone_number.extension }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    {% endif %}</p>
-                </div>
+
 
             </div>
         </div>
