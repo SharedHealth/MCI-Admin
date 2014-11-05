@@ -7,11 +7,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">MCI Administration</a>
+        <a class="navbar-brand" href="#">MCI Administration</a>
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-top-links navbar-right">
+    {#<ul class="nav navbar-top-links navbar-right">
 
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -26,7 +26,7 @@
             <!-- /.dropdown-user -->
         </li>
         <!-- /.dropdown -->
-    </ul>
+    </ul>#}
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">
@@ -48,14 +48,14 @@
                   <div id="error-note"></div>
                 </li>
                 <li><a class="active" href="{{ path('mci_dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
-                <li>
+                <li><a  href="{{ path('mci_patient_searchpage') }}"><i class="fa fa-dashboard fa-fw"></i> Search Patient</a></li>
+                {#<li>
                     <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Manage Patients<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li><a href="{{ path('mci_patient_searchpage') }}"> Search Patient</a></li>
-                        <li><a href="#"> Create Patient</a></li>
+
                     </ul>
-                </li>
-                <li>
+                </li>#}
+                {#<li>
                     <a href="#"><i class="fa fa-dashboard fa-fw"></i> User Management<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#"> Manage Users</a></li>
@@ -63,14 +63,14 @@
                         <li><a href="#"> Manage Permissions</a></li>
                     </ul>
                     <!-- /.nav-second-level -->
-                </li>
-                <li>
+                </li>#}
+                {#<li>
                     <a href="#"><i class="fa fa-dashboard fa-fw"></i> Configuration<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li><a href="#"> Audit Logs</a></li>
                         <li><a href="#"> Settings</a></li>
                     </ul>
-                </li>
+                </li>#}
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
