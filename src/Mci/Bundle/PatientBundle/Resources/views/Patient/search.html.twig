@@ -85,7 +85,7 @@
             </div>
 
         </div>
-
+        <h5>Location:</h5>
         <div class="row">
 
             <div class="col-lg-3">
@@ -178,8 +178,8 @@
             <tr>
                 <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">{{ result.hid }}</a></td>
                 <td>{% if result.nid is defined %}{{ result.nid }}{% endif %}</td>
-                <td>{{ result.given_name }}</td>
                 <td>{{ result.gender|gender }}</td>
+                <td>{{ result.given_name }}</td>
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>
                 <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|district }} {{ result.present_address.upazilla_id|upazilla(result.present_address.district_id) }}</td>
