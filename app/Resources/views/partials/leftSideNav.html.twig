@@ -36,7 +36,7 @@
                 <li class="sidebar-search">
                         <form id="searchHidForm" name="searchHid"  method="get" action="{{ path('mci_patient_searchpage') }}">
                             <div class="input-group custom-search-form">
-                                <input name="hid" type="text" class="form-control hid" placeholder="Enter HID" value="{% if hid is defined %}{{ hid }}{% endif %}" >
+                                <input name="hid" type="text" class="form-control hid" placeholder="HID" value="{% if hid is defined %}{{ hid }}{% endif %}" >
                             <span class="input-group-btn">
                             <button id ="searchHidButton" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
 
@@ -93,7 +93,8 @@
                     },
                     messages: {
                         hid: {
-                            number: "Invalid hid"
+                            number: "Invalid hid",
+                            required: "Please enter HID"
                         }
                     },
                     errorLabelContainer: "#error-note",

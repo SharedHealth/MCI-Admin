@@ -4,6 +4,8 @@ namespace Mci\Bundle\PatientBundle\Controller;
 
 use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\PatientBundle\Form\PatientType;
+use Mci\Bundle\PatientBundle\FormMapper\Patient;
+use Mci\Bundle\PatientBundle\FormMapper\Relation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
@@ -112,7 +114,6 @@ class PatientController extends Controller
                    $client = $this->get('mci_patient.client');
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                    $response = $request->send();
-                   $response->getEffectiveUrl();
                    $responseBody = json_decode($response->getBody());
 
                 }
@@ -154,7 +155,21 @@ class PatientController extends Controller
         if (!$responseBody) {
             throw $this->createNotFoundException('Unable to find patient');
         }
-        $form = $this->createForm(new PatientType(),$data = array('test'));
+        $patient = new Patient();
+        $relation = new Relation();
+
+        $relation->setNid('4444444');
+        $relation->setBinBrn('brn');
+        $relation->setUid('uid');
+        $relation->setType('FTH');
+        $relation->setGivenName('Imran Rahman');
+        $relation->setSurName('Mizan');
+        $relation->setNameBangla('Bangla Name');
+        $patient->setNid('677777777777777');
+        $patient->addRelations($relation);
+        $patient->addRelations($relation);
+        $patient->addRelations($relation);
+        $form = $this->createForm(new PatientType(), $patient);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView()

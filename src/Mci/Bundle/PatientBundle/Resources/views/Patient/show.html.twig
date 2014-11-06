@@ -188,34 +188,39 @@
                 Relations
             </div>
 
+            <table class="table" >
+                <thead>
+                    <th>Type</th>
+                    <th>Given Name</th>
+                    <th>Sur Name</th>
+                    <th>HID</th>
+                    <th>NID</th>
+                    <th>BRN</th>
+                    <th>UID</th>
+                    <th>Status</th>
+                    <th>Marriage Id</th>
+                </thead>
+
+            <tbody>
             {% for key,relation in responseBody.relations %}
+                   <tr>
+                       <td>{% if relation.type is defined %}{{ relation.type|relation }}{% endif %}</td>
+                       <td>{% if relation.given_name is defined %}{{ relation.given_name }}{% endif %}</td>
+                       <td>{% if relation.sur_name is defined %}{{ relation.sur_name }}{% endif %}</td>
+                       <td>{% if relation.hid is defined %}{{ relation.hid }}{% endif %}</td>
+                       <td>{% if relation.nid is defined %}{{ relation.nid }}{% endif %}</td>
+                       <td>{% if relation.bin_brn is defined %}{{ relation.bin_brn }}{% endif %}</td>
+                       <td>{% if relation.uid is defined %}{{ relation.uid }}{% endif %}</td>
+                       <td>{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
+                       <td>{% if relation.marriage_id is defined %}{{ relation.uid }}{% endif %}</td>
 
-                <div class="panel-body" style="padding: 5px;">
-                    <div class="col-lg-3">
-                        {% if key == 0 %}
-                            <label>Type:</label>
-                        {% endif %}
-                        <p class="form-control-static">{{ relation.type|relation }}</p>
-                    </div>
-                    <div class="col-lg-3">
-                        {% if key == 0 %}
-                            <label>Name:</label>
-                        {% endif %}
-                        <p class="form-control-static">{{ relation.given_name }} {{ relation.sur_name }}</p>
-                    </div>
-                    <div class="col-lg-3">
-                        {% if key == 0 %}
-                            <label>National ID:</label>
-                        {% endif %}
-                        <p class="form-control-static">{% if relation.nid %}{{ relation.nid }}{% endif %}</p>
-                    </div>
-                    <div class="col-lg-3">
-                        {% if key == 0 %}<label>Status:</label>{% endif %}
-                        <p class="form-control-static">{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</p>
-                    </div>
-                </div>
+                   </tr>
+
+
+
             {% endfor %}
-
+                </tbody>
+                </table>
         </div>
     </div>
 {% endif %}
@@ -238,56 +243,42 @@
                     <label>Upazilla:</label>
                     <p class="form-control-static">{{ responseBody.present_address.upazilla_id|upazilla(responseBody.present_address.district_id , responseBody.present_address.upazilla_id) }}</p>
                 </div>
-                {#<div class="col-lg-3">
-                    <label>Union:</label>
-                    <p class="form-control-static">{% if responseBody.responseBody.present_address.union_id is defined %}{{ responseBody.present_address.union_id }}{% endif %}</p>
-                </div>#}
-            </div>
-            <div class="panel-body">
+
+
                 <div class="col-lg-3">
                     <label>Holding Number:</label>
                     <p class="form-control-static">{% if responseBody.present_address.holding_number is defined %}{{ responseBody.present_address.holding_number }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
-                    <label>Street:</label>
-                    <p class="form-control-static">{% if responseBody.present_address.street is defined %}{{ responseBody.present_address.street }}{% endif %}</p>
-                </div>
+
+            </div>
+            <div class="panel-body">
 
                 <div class="col-lg-3">
                     <label>Village:</label>
                     <p class="form-control-static">{% if responseBody.present_address.village is defined  %}{{ responseBody.present_address.village }}{% endif %}</p>
                 </div>
-            </div>
-            <div class="panel-body">
-
                 <div class="col-lg-3">
                     <label>Street:</label>
                     <p class="form-control-static">{% if responseBody.present_address.street is defined  %}{{ responseBody.present_address.street }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>Area Mouja:</label>
+                    <label>Area/Mouja:</label>
                     <p class="form-control-static">{% if responseBody.present_address.area_mouja is defined  %}{{ responseBody.present_address.area_mouja }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
-                    <label>Village:</label>
-                    <p class="form-control-static">{% if responseBody.present_address.village is defined  %}{{ responseBody.present_address.village }}{% endif %}</p>
-                </div>
+
                 <div class="col-lg-3">
                     <label>Post Office:</label>
                     <p class="form-control-static">{% if responseBody.present_address.post_office is defined  %}{{ responseBody.present_address.post_office }}{% endif %}</p>
                 </div>
-            </div>
 
+            </div>
             <div class="panel-body">
+
 
                 <div class="col-lg-3">
                     <label>Post Code :</label>
                     <p class="form-control-static">{% if responseBody.present_address.post_code is defined  %}{{ responseBody.present_address.post_code }}{% endif %}</p>
                 </div>
-                {#<div class="col-lg-3">
-                    <label>City Corporation:</label>
-                    <p class="form-control-static">{% if responseBody.present_address.city_corporation_id is defined  %}{{ responseBody.present_address.city_corporation_id }}{% endif %}</p>
-                </div>#}
                 <div class="col-lg-3">
                     <label>Country:</label>
                     <p class="form-control-static">{% if responseBody.present_address.country_code is defined  %}{{ responseBody.present_address.country_code|countrycode }}{% endif %}</p>
@@ -296,6 +287,23 @@
                     <label>Address Line:</label>
                     <p class="form-control-static">{% if responseBody.present_address.address_line is defined  %}{{ responseBody.present_address.address_line }}{% endif %}</p>
                 </div>
+
+            </div>
+
+            <div class="panel-body">
+
+
+                {#<div class="col-lg-3">
+                    <label>City Corporation:</label>
+                    <p class="form-control-static">{% if responseBody.present_address.city_corporation_id is defined  %}{{ responseBody.present_address.city_corporation_id }}{% endif %}</p>
+                </div>#}
+
+                {#<div class="col-lg-3">
+                   <label>Union:</label>
+                   <p class="form-control-static">{% if responseBody.responseBody.present_address.union_id is defined %}{{ responseBody.present_address.union_id }}{% endif %}</p>
+               </div>#}
+
+
 
             </div>
 
@@ -320,48 +328,42 @@
                     <label>Upazilla:</label>
                     <p class="form-control-static">{{ responseBody.permanent_address.upazilla_id|upazilla(responseBody.permanent_address.district_id)  }}</p>
                 </div>
-               {# <div class="col-lg-3">
-                    <label>Union:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.union_id is defined  %}{{ responseBody.permanent_address.union_id }} {% endif %}</p>
-                </div>#}
-            </div>
-            <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Holding Number:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.holding_number %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
                 </div>
-                <div class="col-lg-3">
-                    <label>Street:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.street  %}{{ responseBody.permanent_address.street }}{% endif %}</p>
-                </div>
-                <div class="col-lg-3">
-                    <label>Village:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.village %}{{ responseBody.permanent_address.village }}{% endif %}
-                </div>
-                <div class="col-lg-3">
-                    <label>Area Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
-                </div>
+
+            </div>
+            <div class="panel-body">
+
                 <div class="col-lg-3">
                     <label>Village:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.village %}{{ responseBody.permanent_address.village }}{% endif %}</p>
                 </div>
+
+                <div class="col-lg-3">
+                    <label>Street:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.street  %}{{ responseBody.permanent_address.street }}{% endif %}</p>
+                </div>
+
+                <div class="col-lg-3">
+                    <label>Area/Mouja:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
+                </div>
+
                 <div class="col-lg-3">
                     <label>Post Office:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.post_office %}{{ responseBody.permanent_address.post_office }}{% endif %}</p>
                 </div>
+
+
             </div>
 
             <div class="panel-body">
-
                 <div class="col-lg-3">
                     <label>Post Code :</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.post_code %}{{ responseBody.permanent_address.post_code }}{% endif %}</p>
                 </div>
-                {#<div class="col-lg-3">
-                    <label>City Corporation:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.city_corporation_id %}{{ responseBody.permanent_address.city_corporation_id }}{% endif %}</p>
-                </div>#}
                 <div class="col-lg-3">
                     <label>Country:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.country_code %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
@@ -373,6 +375,16 @@
                 </div>
 
             </div>
+           <div class="panel-body">
+               {#<div class="col-lg-3">
+                   <label>City Corporation:</label>
+                   <p class="form-control-static">{% if responseBody.permanent_address.city_corporation_id %}{{ responseBody.permanent_address.city_corporation_id }}{% endif %}</p>
+               </div>#}
+               {# <div class="col-lg-3">
+                   <label>Union:</label>
+                   <p class="form-control-static">{% if responseBody.permanent_address.union_id is defined  %}{{ responseBody.permanent_address.union_id }} {% endif %}</p>
+               </div>#}
+           </div>
 
         </div>
     </div>

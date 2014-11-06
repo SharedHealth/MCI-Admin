@@ -7,18 +7,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ContactType extends AbstractType
 {
-    public $data;
-
-    public function __construct($contact){
-        $this->data = $contact;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
         $builder
             ->add('number','text',array(
-                'data' => 'Default value',
+
                 'attr' => array('class'=>'form-control')
             ))
             ->add('country_code','text',array(

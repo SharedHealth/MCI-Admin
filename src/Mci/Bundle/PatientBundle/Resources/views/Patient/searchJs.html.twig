@@ -33,6 +33,18 @@
         if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {
 
             if ($division == '' || $district == '' || $upazilla == '') {
+                if($division && $district == '' && $upazilla == '' ){
+                    jQuery('.selectlocation').html('Please select district and upazilla')
+                }
+
+                if($division && $district && $upazilla == '' ){
+                    jQuery('.selectlocation').html('Please select  upazilla')
+                }
+
+                if($division && $district == '' && $upazilla ){
+                    jQuery('.selectlocation').html('Please select  district')
+                }
+
                 jQuery('.selectlocation').show();
                 jQuery('.systeError').hide();
                 return false;
@@ -72,11 +84,13 @@
                     },
                     messages: {
                         nid:{
-                            number:"Please enter  numbers"
+                            number:"Please enter  numbers",
+                            minlength:"Please enter exactly 13 or 17 characters",
+                            maxlength:"Please enter exactly 13 or 17 characters"
                         },
                         brn:{
                             number:"Please enter numbers",
-                            exactlength: "please use exactly 17 numbers"
+                            exactlength: "Please enter exactly 17 characters"
                         }
                     }
                 }

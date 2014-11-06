@@ -8,12 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressType extends AbstractType
 {
-    public $data;
 
-    public function __construct($address)
-    {
-        $this->data = $address;
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,31 +21,24 @@ class AddressType extends AbstractType
 
         $builder
             ->add('address_line', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('holding_number', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('street', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('area_mouja', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('village', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('post_office', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('post_code', 'text', array(
-                'data' => 'Default value',
                 'attr' => array('class' => 'form-control')
             ))
             ->add('division_id', 'choice', array(

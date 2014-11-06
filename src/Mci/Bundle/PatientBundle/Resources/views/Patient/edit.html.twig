@@ -491,15 +491,15 @@
 
     </div>
 
-    <div id="relations" class="tab-pane  fade">
 
+    <div id="relations" class="tab-pane  fade">
         <span id="addRelation" style="cursor: pointer;" class="glyphicon glyphicon-plus">Add Relations</span>
         <table class="table">
             <thead>
             <tr>
-                <th>UID</th>
                 <th>NID</th>
                 <th>BRN</th>
+                <th>UID</th>
                 <th>Type</th>
                 <th>Bangla Name</th>
                 <th>Given Name</th>
@@ -508,25 +508,30 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td><input name ="uid[]" class="form-control" id="uid" placeholder="UID"></td>
-                <td><input name ="nid[]" class="form-control" id="nid" placeholder="UID"></td>
-                <td><input name ="bin_brn[]" class="form-control" id="brn" placeholder="BRN"></td>
-                <td><input name="type[]" class="form-control" id="type" placeholder="Type"></td>
-                <td><input name="name_bangla[]" class="form-control" id="name_bangla" placeholder="Bangla Name"></td>
-                <td><input name="given_name[]" class="form-control" id="given_name" placeholder="Given Name"></td>
-                <td><input name="sur_name[]" class="form-control" id="sur_name" placeholder="Sur Name"></td>
-                <td>
-                    <select name="relational_status" class="form-control">
-                        <option>Father</option>
-                        <option>Mother</option>
-                        <option>Spouse</option>
-                    </select>
-                </td>
-                <td><span  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
-            </tr>
-
+            <tbody  class="relation-body" data-prototype="&lt;tr&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__nid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][nid]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__bin_brn&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][bin_brn]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__uid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__type&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][type]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__name_bangla&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][name_bangla]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__given_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][given_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; required=&quot;required&quot; class=&quot;form-control&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;span style=&quot;margin-top: 7px;&quot; class=&quot;glyphicon glyphicon-remove remove&quot;&gt;&lt;/span&gt;&lt;/td&gt;
+    &lt;/tr&gt;">
+            {% for relation in form.relations %}
+                <tr>
+                    <td>{{ form_widget(relation.nid) }}</td>
+                    <td>{{ form_widget(relation.bin_brn) }}</td>
+                    <td>{{ form_widget(relation.uid) }}</td>
+                    <td>{{ form_widget(relation.type) }}</td>
+                    <td>{{ form_widget(relation.name_bangla) }}</td>
+                    <td>{{ form_widget(relation.given_name) }}</td>
+                    <td>{{ form_widget(relation.sur_name) }}</td>
+                    <td>{{ form_widget(relation.relational_status) }}</td>
+                    <td><span style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
@@ -534,5 +539,31 @@
     </div>
 
 {{ form_end(form) }}
+<script type="text/javascript">
+    var $collectionHolder;
+    $addRelation = $('#addRelation');
+    jQuery(document).ready(function() {
+    $collectionHolder = $('tbody.relation-body');
+    $collectionHolder.data('index', $collectionHolder.find('tr').length);
 
+    $addRelation.on('click', function(e) {
+    e.preventDefault();
+     addRelationForm($collectionHolder);
+
+        });
+    });
+
+    function addRelationForm($collectionHolder) {
+
+        var prototype = $collectionHolder.data('prototype');
+        var index = $collectionHolder.data('index');
+        var newForm = prototype.replace(/__name__/g, index);
+        $collectionHolder.data('index', index + 1);
+
+        var $newFormtd = $($collectionHolder).append(newForm);
+
+    }
+</script>
 {% endblock %}
+
+
