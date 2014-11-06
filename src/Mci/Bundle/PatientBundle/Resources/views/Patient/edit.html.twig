@@ -508,15 +508,128 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody  class="relation-body" data-prototype="&lt;tr&gt;
+       <tbody  class="relation-body" data-prototype="&lt;tr&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__nid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][nid]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__bin_brn&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][bin_brn]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__uid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__type&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][type]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;
+        &lt;select id=&quot;mci_bundle_patientBundle_patients_relations___name__type&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][type]&quot; required=&quot;required&quot; class=&quot;form-control&quot; &gt;
+          &lt;option value=&quot;FAMMEMB&quot;&gt;family member&lt;/option&gt;
+        &lt;option value=&quot;CHILD&quot;&gt;child&lt;/option&gt;
+        &lt;option value=&quot;CHLDADOPT&quot;&gt;adopted child&lt;/option&gt;
+        &lt;option value=&quot;DAUADOPT&quot;&gt;adopted daughter&lt;/option&gt;
+        &lt;option value=&quot;SONADOPT&quot;&gt;adopted son&lt;/option&gt;
+        &lt;option value=&quot;CHLDFOST&quot;&gt;foster child&lt;/option&gt;
+        &lt;option value=&quot;DAUFOST&quot;&gt;foster daughter&lt;/option&gt;
+        &lt;option value=&quot;SONFOST&quot;&gt;foster son&lt;/option&gt;
+        &lt;option value=&quot;DAUC&quot;&gt;daughter&lt;/option&gt;
+        &lt;option value=&quot;DAU&quot;&gt;natural daughter&lt;/option&gt;
+        &lt;option value=&quot;STPDAU&quot;&gt;stepdaughter&lt;/option&gt;
+        &lt;option value=&quot;NCHILD&quot;&gt;natural child&lt;/option&gt;
+        &lt;option value=&quot;SON&quot;&gt;natural son&lt;/option&gt;
+        &lt;option value=&quot;SONC&quot;&gt;son&lt;/option&gt;
+        &lt;option value=&quot;STPSON&quot;&gt;stepson&lt;/option&gt;
+        &lt;option value=&quot;STPCHLD&quot;&gt;step child&lt;/option&gt;
+        &lt;option value=&quot;EXT&quot;&gt;extended family member&lt;/option&gt;
+        &lt;option value=&quot;AUNT&quot;&gt;aunt&lt;/option&gt;
+        &lt;option value=&quot;MAUNT&quot;&gt;maternal aunt&lt;/option&gt;
+        &lt;option value=&quot;PAUNT&quot;&gt;paternal aunt&lt;/option&gt;
+        &lt;option value=&quot;COUSN&quot;&gt;cousin&lt;/option&gt;
+        &lt;option value=&quot;MCOUSN&quot;&gt;maternal cousin&lt;/option&gt;
+        &lt;option value=&quot;PCOUSN&quot;&gt;paternal cousin&lt;/option&gt;
+        &lt;option value=&quot;GGRPRN&quot;&gt;great grandparent&lt;/option&gt;
+        &lt;option value=&quot;GGRFTH&quot;&gt;great grandfather&lt;/option&gt;
+        &lt;option value=&quot;MGGRFTH&quot;&gt;maternal great-grandfather&lt;/option&gt;
+        &lt;option value=&quot;PGGRFTH&quot;&gt;paternal great-grandfather&lt;/option&gt;
+        &lt;option value=&quot;GGRMTH&quot;&gt;great grandmother&lt;/option&gt;
+        &lt;option value=&quot;MGGRMTH&quot;&gt;maternal great-grandmother&lt;/option&gt;
+        &lt;option value=&quot;PGGRMTH&quot;&gt;paternal great-grandmother&lt;/option&gt;
+        &lt;option value=&quot;MGGRPRN&quot;&gt;maternal great-grandparent&lt;/option&gt;
+        &lt;option value=&quot;PGGRPRN&quot;&gt;paternal great-grandparent&lt;/option&gt;
+        &lt;option value=&quot;GRNDCHILD&quot;&gt;grandchild&lt;/option&gt;
+        &lt;option value=&quot;GRNDDAU&quot;&gt;granddaughter&lt;/option&gt;
+        &lt;option value=&quot;GRNDSON&quot;&gt;grandson&lt;/option&gt;
+        &lt;option value=&quot;GRPRN&quot;&gt;grandparent&lt;/option&gt;
+        &lt;option value=&quot;GRFTH&quot;&gt;grandfather&lt;/option&gt;
+        &lt;option value=&quot;MGRFTH&quot;&gt;maternal grandfather&lt;/option&gt;
+        &lt;option value=&quot;PGRFTH&quot;&gt;paternal grandfather&lt;/option&gt;
+        &lt;option value=&quot;GRMTH&quot;&gt;grandmother&lt;/option&gt;
+        &lt;option value=&quot;MGRMTH&quot;&gt;maternal grandmother&lt;/option&gt;
+        &lt;option value=&quot;PGRMTH&quot;&gt;paternal grandmother&lt;/option&gt;
+        &lt;option value=&quot;MGRPRN&quot;&gt;maternal grandparent&lt;/option&gt;
+        &lt;option value=&quot;PGRPRN&quot;&gt;paternal grandparent&lt;/option&gt;
+        &lt;option value=&quot;INLAW&quot;&gt;inlaw&lt;/option&gt;
+        &lt;option value=&quot;CHLDINLAW&quot;&gt;child-in-law&lt;/option&gt;
+        &lt;option value=&quot;DAUINLAW&quot;&gt;daughter in-law&lt;/option&gt;
+        &lt;option value=&quot;SONINLAW&quot;&gt;son in-law&lt;/option&gt;
+        &lt;option value=&quot;PRNINLAW&quot;&gt;parent in-law&lt;/option&gt;
+        &lt;option value=&quot;FTHINLAW&quot;&gt;father-in-law&lt;/option&gt;
+        &lt;option value=&quot;MTHINLAW&quot;&gt;mother-in-law&lt;/option&gt;
+        &lt;option value=&quot;SIBINLAW&quot;&gt;sibling in-law&lt;/option&gt;
+        &lt;option value=&quot;BROINLAW&quot;&gt;brother-in-law&lt;/option&gt;
+        &lt;option value=&quot;SISINLAW&quot;&gt;sister-in-law&lt;/option&gt;
+        &lt;option value=&quot;NIENEPH&quot;&gt;niece/nephew&lt;/option&gt;
+        &lt;option value=&quot;NEPHEW&quot;&gt;nephew&lt;/option&gt;
+        &lt;option value=&quot;NIECE&quot;&gt;niece&lt;/option&gt;
+        &lt;option value=&quot;UNCLE&quot;&gt;uncle&lt;/option&gt;
+        &lt;option value=&quot;MUNCLE&quot;&gt;maternal uncle&lt;/option&gt;
+        &lt;option value=&quot;PUNCLE&quot;&gt;paternal uncle&lt;/option&gt;
+        &lt;option value=&quot;PRN&quot;&gt;parent&lt;/option&gt;
+        &lt;option value=&quot;ADOPTP&quot;&gt;adoptive parent&lt;/option&gt;
+        &lt;option value=&quot;ADOPTF&quot;&gt;adoptive father&lt;/option&gt;
+        &lt;option value=&quot;ADOPTM&quot;&gt;adoptive mother&lt;/option&gt;
+        &lt;option value=&quot;FTH&quot; selected=&quot;selected&quot;&gt;father&lt;/option&gt;
+        &lt;option value=&quot;FTHFOST&quot;&gt;foster father&lt;/option&gt;
+        &lt;option value=&quot;NFTH&quot;&gt;natural father&lt;/option&gt;
+        &lt;option value=&quot;NFTHF&quot;&gt;natural father of fetus&lt;/option&gt;
+        &lt;option value=&quot;STPFTH&quot;&gt;stepfather&lt;/option&gt;
+        &lt;option value=&quot;MTH&quot;&gt;mother&lt;/option&gt;
+        &lt;option value=&quot;GESTM&quot;&gt;gestational mother&lt;/option&gt;
+        &lt;option value=&quot;MTHFOST&quot;&gt;foster mother&lt;/option&gt;
+        &lt;option value=&quot;NMTH&quot;&gt;natural mother&lt;/option&gt;
+        &lt;option value=&quot;NMTHF&quot;&gt;natural mother of fetus&lt;/option&gt;
+        &lt;option value=&quot;STPMTH&quot;&gt;stepmother&lt;/option&gt;
+        &lt;option value=&quot;NPRN&quot;&gt;natural parent&lt;/option&gt;
+        &lt;option value=&quot;PRNFOST&quot;&gt;foster parent&lt;/option&gt;
+        &lt;option value=&quot;STPPRN&quot;&gt;step parent&lt;/option&gt;
+        &lt;option value=&quot;SIB&quot;&gt;sibling&lt;/option&gt;
+        &lt;option value=&quot;BRO&quot;&gt;brother&lt;/option&gt;
+        &lt;option value=&quot;HBRO&quot;&gt;half-brother&lt;/option&gt;
+        &lt;option value=&quot;NBRO&quot;&gt;natural brother&lt;/option&gt;
+        &lt;option value=&quot;TWINBRO&quot;&gt;twin brother&lt;/option&gt;
+        &lt;option value=&quot;FTWINBRO&quot;&gt;fraternal twin brother&lt;/option&gt;
+        &lt;option value=&quot;ITWINBRO&quot;&gt;identical twin brother&lt;/option&gt;
+        &lt;option value=&quot;STPBRO&quot;&gt;stepbrother&lt;/option&gt;
+        &lt;option value=&quot;HSIB&quot;&gt;half-sibling&lt;/option&gt;
+        &lt;option value=&quot;HSIS&quot;&gt;half-sister&lt;/option&gt;
+        &lt;option value=&quot;NSIB&quot;&gt;natural sibling&lt;/option&gt;
+        &lt;option value=&quot;NSIS&quot;&gt;natural sister&lt;/option&gt;
+        &lt;option value=&quot;TWINSIS&quot;&gt;twin sister&lt;/option&gt;
+        &lt;option value=&quot;FTWINSIS&quot;&gt;fraternal twin sister&lt;/option&gt;
+        &lt;option value=&quot;ITWINSIS&quot;&gt;identical twin sister&lt;/option&gt;
+        &lt;option value=&quot;TWIN&quot;&gt;twin&lt;/option&gt;
+        &lt;option value=&quot;FTWIN&quot;&gt;fraternal twin&lt;/option&gt;
+        &lt;option value=&quot;ITWIN&quot;&gt;identical twin&lt;/option&gt;
+        &lt;option value=&quot;SIS&quot;&gt;sister&lt;/option&gt;
+        &lt;option value=&quot;STPSIS&quot;&gt;stepsister&lt;/option&gt;
+        &lt;option value=&quot;STPSIB&quot;&gt;step sibling&lt;/option&gt;
+        &lt;option value=&quot;SIGOTHR&quot;&gt;significant other&lt;/option&gt;
+        &lt;option value=&quot;DOMPART&quot;&gt;domestic partner&lt;/option&gt;
+        &lt;option value=&quot;SPS&quot;&gt;spouse&lt;/option&gt;
+        &lt;option value=&quot;HUSB&quot;&gt;husband&lt;/option&gt;
+        &lt;option value=&quot;WIFE&quot;&gt;wife&lt;/option&gt;
+
+        &lt;select&gt;
+        &lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__name_bangla&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][name_bangla]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__given_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][given_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; required=&quot;required&quot; class=&quot;form-control&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; &gt; &lt;/td&gt;
+        &lt;td&gt;&lt;select  id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; required=&quot;required&quot; class=&quot;form-control&quot;&gt;
+         &lt;option value=&quot;3&quot;&gt;Widowed&lt;/option&gt;
+            &lt;option value=&quot;4&quot;&gt;Separated&lt;/option&gt;
+            &lt;option value=&quot;5&quot;&gt;Divorced&lt;/option&gt;
+         &lt;select&gt;
+        &lt;/td&gt;
         &lt;td&gt;&lt;span style=&quot;margin-top: 7px;&quot; class=&quot;glyphicon glyphicon-remove remove&quot;&gt;&lt;/span&gt;&lt;/td&gt;
     &lt;/tr&gt;">
             {% for relation in form.relations %}
@@ -563,6 +676,10 @@
         var $newFormtd = $($collectionHolder).append(newForm);
 
     }
+    $('table tbody ').delegate('.remove','click',function(){
+
+        $(this).parent().parent().remove();
+    });
 </script>
 {% endblock %}
 

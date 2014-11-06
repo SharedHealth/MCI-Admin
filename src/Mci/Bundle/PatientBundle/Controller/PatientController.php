@@ -115,7 +115,6 @@ class PatientController extends Controller
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                    $response = $request->send();
                    $responseBody = json_decode($response->getBody());
-
                 }
 
             } catch(RequestException $e){
@@ -132,7 +131,7 @@ class PatientController extends Controller
                     echo "Unknown Error";
                 }
               }
-
+            $searchQueryString = $this->getSearchParameterAsString($queryParam, $divisions, $districts,$upazillas,$forSeletedDropdown);
             return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError,'hid'=>$hid));
         }
 
@@ -231,6 +230,15 @@ class PatientController extends Controller
             }
         }
         return $SystemAPiError;
+    }
+
+    public function getSearchParameterAsString($queryParam, $divisions, $districts,$upazillas,$selectDropdown){
+        $searchParam = '';
+
+        foreach($queryParam as $key=>$searchItems){
+            $searchParam .= $key.' - '.$searchItems;
+        }
+        return $searchParam;
     }
 
 }

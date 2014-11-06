@@ -14,20 +14,21 @@
         var $extension = jQuery('#extension').val();
         var $countryCode = jQuery('#country_code').val();
 
-        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == '' && $phoneNo == ''  ){
-            jQuery('.fillOne').show();
-            jQuery('.selectlocation').hide();
-            jQuery('.systeError').hide();
-            return false;
-        }else{
-            jQuery('.fillOne').hide();
-        }
-
         if(($areaCode || $extension || $countryCode) && $phoneNo == ''  ){
             jQuery('.phoneNoError').show();
             jQuery('.fillOne').hide();
             jQuery('.systeError').hide();
             return false;
+        }
+
+        if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == '' && $phoneNo == ''  ){
+            jQuery('.fillOne').show();
+            jQuery('.phoneNoError').hide();
+            jQuery('.selectlocation').hide();
+            jQuery('.systeError').hide();
+            return false;
+        }else{
+            jQuery('.fillOne').hide();
         }
 
         if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {

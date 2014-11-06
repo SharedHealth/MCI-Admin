@@ -4,7 +4,7 @@
     {% if responseBody is defined and responseBody is not empty %}
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header">{% if responseBody.given_name is defined %}{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %} ({% if responseBody.name_bangla is defined %}{{ responseBody.name_bangla }}{% endif %})</h3>
+            <h3 class="page-header">{% if responseBody.given_name is defined %}{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %} {% if responseBody.name_bangla is defined %}({{ responseBody.name_bangla }}){% endif %}</h3>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -21,7 +21,7 @@
                     <p class="form-control-static">{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>National Identification(NID):</label>
+                    <label>National Identity Card No(NID):</label>
                     <p class="form-control-static">{% if responseBody.nid is defined %}{{ responseBody.nid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
@@ -29,7 +29,7 @@
                     <p class="form-control-static">{% if responseBody.bin_brn is defined %}{{ responseBody.bin_brn }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>Unique Identification(UID):</label>
+                    <label>Unified Identification No(UID):</label>
                     <p class="form-control-static">{% if responseBody.uid is defined %}{{ responseBody.uid }}{% endif %}</p>
                 </div>
             </div>
@@ -175,8 +175,6 @@
                     {% endif %}
                     </p>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -188,11 +186,12 @@
                 Relations
             </div>
 
-            <table class="table" >
+            <table class="table" style="font-size: 13px;" >
                 <thead>
-                    <th>Type</th>
+                    <th>Relation</th>
                     <th>Given Name</th>
                     <th>Sur Name</th>
+                    <th>Name</th>
                     <th>HID</th>
                     <th>NID</th>
                     <th>BRN</th>
@@ -207,16 +206,13 @@
                        <td>{% if relation.type is defined %}{{ relation.type|relation }}{% endif %}</td>
                        <td>{% if relation.given_name is defined %}{{ relation.given_name }}{% endif %}</td>
                        <td>{% if relation.sur_name is defined %}{{ relation.sur_name }}{% endif %}</td>
+                       <td>{% if relation.name_bangla is defined %}{{ relation.name_bangla }}{% endif %}</td>
                        <td>{% if relation.hid is defined %}{{ relation.hid }}{% endif %}</td>
                        <td>{% if relation.nid is defined %}{{ relation.nid }}{% endif %}</td>
                        <td>{% if relation.bin_brn is defined %}{{ relation.bin_brn }}{% endif %}</td>
                        <td>{% if relation.uid is defined %}{{ relation.uid }}{% endif %}</td>
                        <td>{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
-                       <td>{% if relation.marriage_id is defined %}{{ relation.uid }}{% endif %}</td>
-
                    </tr>
-
-
 
             {% endfor %}
                 </tbody>

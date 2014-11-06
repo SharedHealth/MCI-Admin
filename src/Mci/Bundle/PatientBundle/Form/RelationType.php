@@ -9,6 +9,8 @@ class RelationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $type = (array)json_decode(file_get_contents('/assets/json/relation.json'));
+        $relations = (array)json_decode(file_get_contents('/assets/json/relationalStatus.json'));
 
         $builder
             ->add('uid', 'text', array(
@@ -20,9 +22,11 @@ class RelationType extends AbstractType
             ->add('bin_brn', 'text', array(
                 'attr' => array('class' => 'form-control')
             ))
-            ->add('type', 'text', array(
+            ->add('type', 'choice', array(
+                'choices' => $type,
                 'attr' => array('class' => 'form-control')
-            ))
+              )
+            )
             ->add('sur_name', 'text', array(
                 'attr' => array('class' => 'form-control')
             ))
@@ -32,7 +36,8 @@ class RelationType extends AbstractType
             ->add('name_bangla', 'text', array(
                 'attr' => array('class' => 'form-control')
             ))
-            ->add('relational_status', 'text', array(
+            ->add('relational_status', 'choice', array(
+                'choices' => $relations,
                 'attr' => array('class' => 'form-control')
             ));
     }
