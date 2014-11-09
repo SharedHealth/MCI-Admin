@@ -252,6 +252,10 @@ class PatientController extends Controller
             $queryParam['phone No'] = $phone_number;
         }
 
+        if(isset ($queryParam['bin_brn'])){
+            $queryParam['brn'] = $queryParam['bin_brn'];
+        }
+        unset($queryParam['bin_brn']);
         unset($queryParam['phone_no']);
         unset($queryParam['area_code']);
         unset($queryParam['country_code']);
