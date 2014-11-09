@@ -131,8 +131,9 @@ class PatientController extends Controller
                     echo "Unknown Error";
                 }
               }
-            $searchQueryString = $this->getSearchParameterAsString($queryParam, $divisions, $districts,$upazillas,$forSeletedDropdown);
-            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError,'hid'=>$hid));
+            $searchQueryString = $this->getSearchParameterAsString($queryParam);
+
+            return $this->render('MciPatientBundle:Patient:search.html.twig',array('responseBody' => $responseBody,'queryparam'=>$queryParam,'divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'seletedDropdown'=>$forSeletedDropdown,'systemError'=>$SystemAPiError,'hid'=>$hid,'searchString'=>$searchQueryString));
         }
 
         return $this->render('MciPatientBundle:Patient:search.html.twig',array('divisions'=>$divisions,'districts'=>(array)$districts,'upazillas'=>(array)$upazillas,'systemError'=>$SystemAPiError,'hid'=>$hid));
@@ -232,13 +233,29 @@ class PatientController extends Controller
         return $SystemAPiError;
     }
 
-    public function getSearchParameterAsString($queryParam, $divisions, $districts,$upazillas,$selectDropdown){
-        $searchParam = '';
+    public function getSearchParameterAsString($queryParam){
+        $searchParam = array();
+        $name = '';
+        unset ($queryParam['present_address']);
+        $name =  isset($queryParam['given_name']) ? $queryParam['given_name']:'';
+        $name .= isset($queryParam['sur_name']) ? ' '.$queryParam['sur_name']:'';
 
-        foreach($queryParam as $key=>$searchItems){
-            $searchParam .= $key.' - '.$searchItems;
+        if($name){
+            $queryParam['name'] = $name;
         }
-        return $searchParam;
+
+        unset($queryParam['given_name']);
+        unset($queryParam['sur_name']);
+
+        unset ($queryParam['present_address']);
+
+        foreach($queryParam as $key => $searchItems){
+            $searchParam []= $key.' - '.$searchItems;
+        }
+        if(!empty($searchParam)){
+            return implode(' and ',$searchParam);
+        }
+        return false;
     }
 
 }

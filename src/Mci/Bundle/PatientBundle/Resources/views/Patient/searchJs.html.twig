@@ -16,6 +16,7 @@
 
         if(($areaCode || $extension || $countryCode) && $phoneNo == ''  ){
             jQuery('.phoneNoError').show();
+            jQuery('.selectlocation').hide();
             jQuery('.fillOne').hide();
             jQuery('.systeError').hide();
             return false;
@@ -34,19 +35,22 @@
         if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {
 
             if ($division == '' || $district == '' || $upazilla == '') {
-                if($division && $district == '' && $upazilla == '' ){
+
+                if($division != ''  && $district == '' && $upazilla == '' ){
+
                     jQuery('.selectlocation').html('Please select district and upazilla')
                 }
 
-                if($division && $district && $upazilla == '' ){
+                if($division != ''  && $district != '' && $upazilla == '' ){
                     jQuery('.selectlocation').html('Please select  upazilla')
                 }
 
-                if($division && $district == '' && $upazilla ){
+                if($division != '' && $district == '' && $upazilla != '' ){
                     jQuery('.selectlocation').html('Please select  district')
                 }
 
                 jQuery('.selectlocation').show();
+                jQuery('.phoneNoError').hide();
                 jQuery('.systeError').hide();
                 return false;
             }else {
@@ -54,33 +58,81 @@
             }
         }
 
-        jQuery.validator.addMethod("exactlength", function(value, element, param) {
-            return this.optional(element) || value.length == param;
+        jQuery.validator.addMethod("exactlengthNumber", function(value, element, param) {
+            return this.optional(element) || /^[0-9]{param}$/.test(value.replace(/\s/g, ''));
+        }, $.validator.format("Please enter exactly {0} numbers."));
+
+        jQuery.validator.addMethod("exactlengthCharacter", function(value, element, param) {
+            return this.optional(element) || /^[a-zA-Z0-9]{param}$/.test(value.replace(/\s/g, ''));
         }, $.validator.format("Please enter exactly {0} characters."));
+
+        jQuery.validator.addMethod("phoneNumber", function(value, element, param) {
+            return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
+        }, $.validator.format("Please enter maximum 12 digits."));
+
+        jQuery.validator.addMethod("givenName", function(value, element, param) {
+            return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
+        }, $.validator.format("Please enter maximum 100 characters."));
+
+        jQuery.validator.addMethod("surName", function(value, element) {
+            return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
+        }, $.validator.format("Please enter maximum 25 characters."));
+
+
+        jQuery.validator.addMethod(
+                "nationalId",
+                function(number, element) {
+                    return this.optional(element) || /^[0-9]{13,17}$/.test(number.replace(/\s/g, ''));
+                },
+                "Please enter  13 or 17 numbers only"
+        );
+
+        jQuery.validator.addMethod(
+                "onlyNumber",
+                function(number, element) {
+                    return this.optional(element) || /^[0-9]*$/.test(number.replace(/\s/g, ''));
+                },
+                "Please enter numbers"
+        );
+
+        jQuery.validator.addMethod(
+                "alphaNumeric",
+                function(number, element) {
+                    return this.optional(element) || /^[a-zA-Z0-9]*$/.test(number.replace(/\s/g, ''));
+                },
+                "Please enter numbers only"
+        );
 
         jQuery("#searchPatientForm").validate(
                 {
                     rules: {
                         nid: {
-                            number: true,
-                            minlength: 13,
-                            maxlength: 17
+                            nationalId: true
                         },
                         brn: {
-                            number: true,
-                            exactlength: 17
+                            exactlengthNumber: 17
                         },
                         uid: {
-                            exactlength: 11
+                            exactlengthCharacter: 11
                         },
-                        country_code: {
-                            number: true
+
+                        phone_no: {
+                            phoneNumber: 12
                         },
                         area_code: {
-                            number: true
+                            onlyNumber: true
                         },
-                        phone_no: {
-                            number: true
+                        country_code: {
+                            onlyNumber: true
+                        },
+                        extension: {
+                            onlyNumber: true
+                        },
+                        given_name: {
+                            givenName: true
+                        },
+                        sur_name: {
+                            surName: true
                         }
                     },
                     messages: {

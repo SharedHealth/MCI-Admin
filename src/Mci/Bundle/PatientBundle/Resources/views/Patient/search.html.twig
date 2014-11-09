@@ -14,7 +14,7 @@
         <!-- /.col-lg-12 -->
     </div>
     <div style="display: none;" class="fillOne error">Please fill at least one field</div>
-    <div style="display: none;" class="selectlocation error">Please select division and district and upazilla </div>
+    <div style="display: none;" class="selectlocation error">Please select location</div>
     <div style="display: none;" class="phoneNoError error">Please enter phone no </div>
     <!-- /.row -->
     <form id="searchPatientForm" name="searchPatient"  method="get">
@@ -152,8 +152,10 @@
 
 
    <hr/>
+
 {% if responseBody.results is defined %}
-    <h4>Search Results:</h4>
+
+    <h4>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} and pressent address - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</h4>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>
