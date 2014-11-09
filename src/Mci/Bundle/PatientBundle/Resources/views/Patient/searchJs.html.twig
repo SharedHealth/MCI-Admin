@@ -69,7 +69,7 @@
 
         jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element, param) {
             return this.optional(element) || /^\s*\d+\s*$/.test(value);
-        }, $.validator.format("Please enter numbers."));
+        }, $.validator.format("Please enter numbers accept symbol."));
 
 
         jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element, param) {
