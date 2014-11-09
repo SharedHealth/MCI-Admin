@@ -236,14 +236,26 @@ class PatientController extends Controller
     public function getSearchParameterAsString($queryParam){
         $searchParam = array();
         $name = '';
-        unset ($queryParam['present_address']);
         $name =  isset($queryParam['given_name']) ? $queryParam['given_name']:'';
         $name .= isset($queryParam['sur_name']) ? ' '.$queryParam['sur_name']:'';
 
         if($name){
             $queryParam['name'] = $name;
         }
+        $phone_number =  '';
 
+        $phone_number .= isset($queryParam['country_code']) ? $queryParam['country_code'] : '';
+        $phone_number .= isset($queryParam['area_code']) ? ' ' .$queryParam['area_code'] : '';
+        $phone_number .= isset($queryParam['phone_no']) ? ' '.$queryParam['phone_no'] : '';
+        $phone_number .= isset($queryParam['extension']) ? ' '.$queryParam['extension'] : '';
+        if($phone_number){
+            $queryParam['phone No'] = $phone_number;
+        }
+
+        unset($queryParam['phone_no']);
+        unset($queryParam['area_code']);
+        unset($queryParam['country_code']);
+        unset($queryParam['extension']);
         unset($queryParam['given_name']);
         unset($queryParam['sur_name']);
 
