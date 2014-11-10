@@ -88,13 +88,12 @@
             return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
         }, $.validator.format("Please enter maximum 25 characters."));
 
-
         jQuery.validator.addMethod(
                 "nationalId",
                 function(number, element) {
-                    return this.optional(element) || /^[0-9]{13,17}$/.test(number.replace(/\s/g, ''));
+                    return this.optional(element) || /^([\d]{13}|[\d]{17})$/.test(number.replace(/\s/g, ''));
                 },
-                "Please enter  13 or 17 numbers only"
+                "Please enter exactly 13 or 17 numbers"
         );
 
         jQuery.validator.addMethod(
@@ -153,11 +152,7 @@
                         }
                     },
                     messages: {
-                        nid:{
-                            number:"Please enter  numbers",
-                            minlength:"Please enter exactly 13 or 17 characters",
-                            maxlength:"Please enter exactly 13 or 17 characters"
-                        },
+
                         brn:{
                             number:"Please enter numbers",
                             exactlength: "Please enter exactly 17 characters"

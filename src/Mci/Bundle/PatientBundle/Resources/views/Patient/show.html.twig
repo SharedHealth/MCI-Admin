@@ -17,7 +17,7 @@
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
-                    <label>Health Identification(HID):</label>
+                    <label>Health Identification No(HID):</label>
                     <p class="form-control-static">{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
@@ -212,6 +212,7 @@
                        <td>{% if relation.bin_brn is defined %}{{ relation.bin_brn }}{% endif %}</td>
                        <td>{% if relation.uid is defined %}{{ relation.uid }}{% endif %}</td>
                        <td>{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
+                       <td>{% if relation.marriage_id is defined %}{{ relation.marriage_id }}{% endif %}</td>
                    </tr>
 
             {% endfor %}
