@@ -189,9 +189,8 @@
             <table class="table" style="font-size: 13px;" >
                 <thead>
                     <th>Relation</th>
-                    <th>Given Name</th>
-                    <th>Sur Name</th>
                     <th>Name</th>
+                    <th>Bangla Name</th>
                     <th>HID</th>
                     <th>NID</th>
                     <th>BRN</th>
@@ -204,8 +203,7 @@
             {% for key,relation in responseBody.relations %}
                    <tr>
                        <td>{% if relation.type is defined %}{{ relation.type|relation }}{% endif %}</td>
-                       <td>{% if relation.given_name is defined %}{{ relation.given_name }}{% endif %}</td>
-                       <td>{% if relation.sur_name is defined %}{{ relation.sur_name }}{% endif %}</td>
+                       <td>{% if relation.given_name is defined %}{{ relation.given_name }}{% endif %} {% if relation.sur_name is defined %}{{ relation.sur_name }}{% endif %}</td>
                        <td>{% if relation.name_bangla is defined %}{{ relation.name_bangla }}{% endif %}</td>
                        <td>{% if relation.hid is defined %}{{ relation.hid }}{% endif %}</td>
                        <td>{% if relation.nid is defined %}{{ relation.nid }}{% endif %}</td>
@@ -388,7 +386,7 @@
 {% endif %}
     <div class="row">
         <div class="col-lg-12">
-            <a href="{#{{ path('mci_patient_edit', { 'id': responseBody.hid }) }}#}" class="btn btn-primary">Edit Details</a>
+            <a href="{#{{ path('mci_patient_edit', { 'id': responseBody.hid }) }}#}" class="btn btn-primary">Update Patient Details</a>
         </div>
     </div>
     {% else %}

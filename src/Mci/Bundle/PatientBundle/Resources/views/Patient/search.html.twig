@@ -155,7 +155,7 @@
 
 {% if responseBody.results is defined %}
 
-    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} and pressent address - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</strong></h5>
+    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} pressent address - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</strong></h5>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>

@@ -169,6 +169,8 @@ class PatientController extends Controller
         $patient->addRelations($relation);
         $patient->addRelations($relation);
         $patient->addRelations($relation);
+
+
         $form = $this->createForm(new PatientType(), $patient);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(

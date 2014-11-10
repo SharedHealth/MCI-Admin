@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Mci\Bundle\UserBundle\MciUserBundle(),
             new Mci\Bundle\PatientBundle\MciPatientBundle(),
             new Misd\GuzzleBundle\MisdGuzzleBundle(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
