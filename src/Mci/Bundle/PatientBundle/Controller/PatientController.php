@@ -32,7 +32,6 @@ class PatientController extends Controller
         $districts = array();
         $upazillas = array();
         $responseBody = array();
-        $client = $this->get('mci.location');
         $divisions =  $this->getJsonData('division.json');
         $districtsAll =  $this->getJsonData('district.json');
 
