@@ -1,3 +1,4 @@
+
 <style type="text/css">
     input.error{
         color: #555 !important;
@@ -7,221 +8,242 @@
 
 <script type="text/javascript">
 
-    jQuery("#searchButton").click(function () {
+var registerValidators = function(){
+    jQuery.validator.addMethod("exact17lengthNumber", function(value, element, param) {
+        return this.optional(element) || /^[0-9]{17}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter exactly 17 numbers."));
+
+    jQuery.validator.addMethod("exact11lengthNumber", function(value, element, param) {
+        return this.optional(element) || /^[a-zA-Z0-9]{11}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter exactly 11 characters."));
+
+    jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element, param) {
+        return this.optional(element) || /^\s*\d+\s*$/.test(value);
+    }, $.validator.format("Please enter numbers except symbols."));
 
 
-        jQuery.validator.addMethod(
-                "location",
-                function(number, element) {
-                    var $givenName = jQuery('#given_name').val();
-                    var $surName = jQuery('#sur_name').val();
-                    var $division = jQuery('#division').val();
-                    var $district = jQuery('#district').val();
-                    var $upazilla = jQuery('#upazilla').val();
-                    var $phoneNo = jQuery('#phone_no').val();
+    jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element, param) {
+        return this.optional(element) || /^\s*[a-zA-Z0-9]*\s*$/.test(value);
+    }, $.validator.format("Please enter alphanumeric characters except symbols."));
 
-                    if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {
+    jQuery.validator.addMethod("phoneNumber", function(value, element, param) {
+        return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter maximum 12 digits."));
 
-                        if ($division == '' || $district == '' || $upazilla == '') {
+    jQuery.validator.addMethod("givenName", function(value, element, param) {
+        return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter maximum 100 characters."));
 
-                            if($division != ''  && $district == '' && $upazilla == '' ){
+    jQuery.validator.addMethod("surName", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter maximum 25 characters."));
 
-                                jQuery('.selectlocation').html('Please select district and upazilla');
-                            }
+    jQuery.validator.addMethod(
+            "nationalId",
+            function(number, element) {
+                return this.optional(element) || /^([\d]{13}|[\d]{17})$/.test(number.replace(/\s/g, ''));
+            },
+            "Please enter exactly 13 or 17 numbers"
+    );
 
-                            if($division != ''  && $district != '' && $upazilla == '' ){
-                                jQuery('.selectlocation').html('Please select  upazilla');
-                            }
+    jQuery.validator.addMethod(
+            "onlyNumber",
+            function(number, element) {
+                return this.optional(element) || /^[0-9]*$/.test(number.replace(/\s/g, ''));
+            },
+            "Please enter numbers"
+    );
 
-                            if($division != '' && $district == '' && $upazilla != '' ){
-                                jQuery('.selectlocation').html('Please select  district');
-                            }
-
-                            jQuery('.selectlocation').show();
-                            jQuery('.phoneNoError').hide();
-                            jQuery('.systeError').hide();
-
-                            return false;
-                        }else {
-                            jQuery('.selectlocation').hide();
-                            return true;
-                        }
-                    }else{
-                        return true;
-                    }
-
-                },
-                " "
-        );
-
-        jQuery.validator.addMethod(
-                "phone",
-                function(number, element) {
-                    var $phoneNo = jQuery('#phone_no').val();
-                    var $areaCode = jQuery('#area_code').val();
-                    var $extension = jQuery('#extension').val();
-                    var $countryCode = jQuery('#country_code').val();
-
-                    if(($areaCode || $extension || $countryCode) && $phoneNo == ''  ){
-                        jQuery('.phoneNoError').show();
-                        jQuery('.selectlocation').hide();
-                        jQuery('.fillOne').hide();
-                        jQuery('.systeError').hide();
-                        return false;
-                    }else{
-                        return true;
-                    }
-                },
-                " "
-        );
-
-        jQuery.validator.addMethod(
-                "atleastOne",
-                function(number, element) {
-
-                    var $nid = jQuery('#nid').val();
-                    var $brn = jQuery('#brn').val();
-                    var $uid = jQuery('#uid').val();
-                    var $givenName = jQuery('#given_name').val();
-                    var $surName = jQuery('#sur_name').val();
-                    var $division = jQuery('#division').val();
-                    var $phoneNo = jQuery('#phone_no').val();
-
-                    if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == '' && $phoneNo == ''  ){
-                        jQuery('.fillOne').show();
-                        jQuery('.phoneNoError').hide();
-                        jQuery('.selectlocation').hide();
-                        jQuery('.systeError').hide();
-                        return false;
-                    }else{
-                        jQuery('.fillOne').hide();
-                        return true;
-                    }
-                },
-                " "
-        );
-
-        jQuery.validator.addMethod("exact17lengthNumber", function(value, element, param) {
-            return this.optional(element) || /^[0-9]{17}$/.test(value.replace(/\s/g, ''));
-        }, $.validator.format("Please enter exactly 17 numbers."));
-
-        jQuery.validator.addMethod("exact11lengthNumber", function(value, element, param) {
-            return this.optional(element) || /^[a-zA-Z0-9]{11}$/.test(value.replace(/\s/g, ''));
-        }, $.validator.format("Please enter exactly 11 characters."));
-
-        jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element, param) {
-            return this.optional(element) || /^\s*\d+\s*$/.test(value);
-        }, $.validator.format("Please enter numbers except symbols."));
+    jQuery.validator.addMethod(
+            "alphaNumeric",
+            function(number, element) {
+                return this.optional(element) || /^[a-zA-Z0-9]*$/.test(number.replace(/\s/g, ''));
+            },
+            "Please enter numbers only"
+    );
+};
 
 
-        jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element, param) {
-            return this.optional(element) || /^\s*[a-zA-Z0-9]*\s*$/.test(value);
-        }, $.validator.format("Please enter alphanumeric characters."));
+var atLeastOneGiven = function() {
 
-        jQuery.validator.addMethod("phoneNumber", function(value, element, param) {
-            return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
-        }, $.validator.format("Please enter maximum 12 digits."));
+    var $nid = jQuery('#nid').val();
+    var $brn = jQuery('#brn').val();
+    var $uid = jQuery('#uid').val();
+    var $givenName = jQuery('#given_name').val();
+    var $surName = jQuery('#sur_name').val();
+    var $division = jQuery('#division').val();
+    var $phoneNo = jQuery('#phone_no').val();
 
-        jQuery.validator.addMethod("givenName", function(value, element, param) {
-            return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
-        }, $.validator.format("Please enter maximum 100 characters."));
+    if($nid == '' && $brn == '' && $uid == '' && $givenName == '' && $surName == '' && $division == '' && $phoneNo == ''  ){
+        jQuery('.fillOne').show();
+        jQuery('.phoneNoError').hide();
+        jQuery('.selectlocation').hide();
+        jQuery('.systeError').hide();
+        return false;
+    }else{
+        jQuery('.fillOne').hide();
+        return true;
+    }
+};
 
-        jQuery.validator.addMethod("surName", function(value, element) {
-            return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
-        }, $.validator.format("Please enter maximum 25 characters."));
+var phoneblock = function() {
+    var $phoneNo = jQuery('#phone_no').val();
+    var $areaCode = jQuery('#area_code').val();
+    var $extension = jQuery('#extension').val();
+    var $countryCode = jQuery('#country_code').val();
 
-        jQuery.validator.addMethod(
-                "nationalId",
-                function(number, element) {
-                    return this.optional(element) || /^([\d]{13}|[\d]{17})$/.test(number.replace(/\s/g, ''));
-                },
-                "Please enter exactly 13 or 17 numbers"
-        );
-
-        jQuery.validator.addMethod(
-                "onlyNumber",
-                function(number, element) {
-                    return this.optional(element) || /^[0-9]*$/.test(number.replace(/\s/g, ''));
-                },
-                "Please enter numbers"
-        );
-
-        jQuery.validator.addMethod(
-                "alphaNumeric",
-                function(number, element) {
-                    return this.optional(element) || /^[a-zA-Z0-9]*$/.test(number.replace(/\s/g, ''));
-                },
-                "Please enter numbers only"
-        );
+    if(($areaCode || $extension || $countryCode) && $phoneNo == ''  ){
+        jQuery('.phoneNoError').show();
+        jQuery('.selectlocation').hide();
+        jQuery('.fillOne').hide();
+        jQuery('.systeError').hide();
+        return false;
+    }else{
+        return true;
+    }
+};
 
 
-        var validator = jQuery("#searchPatientForm").validate(
-                {
-                    rules: {
-                        nid: {
-                            atleastOne:true,
-                            digitWithoutAnyCharacter:true,
-                            nationalId: true
-                        },
-                        brn: {
-                            atleastOne:true,
-                            digitWithoutAnyCharacter:true,
-                            exact17lengthNumber: true
-                        },
-                        uid: {
-                            atleastOne:true,
-                            CharacterWithoutAnySpecialCharacter:true,
-                            exact11lengthNumber: true
-                        },
+var locationValidate = function() {
+    var $givenName = jQuery('#given_name').val();
+    var $surName = jQuery('#sur_name').val();
+    var $division = jQuery('#division').val();
+    var $district = jQuery('#district').val();
+    var $upazilla = jQuery('#upazilla').val();
+    var $phoneNo = jQuery('#phone_no').val();
 
-                        phone_no: {
-                            atleastOne:true,
-                            digitWithoutAnyCharacter:true,
-                            phoneNumber: 12,
-                            location: true
+    if ($surName != '' || $givenName != '' || $division != '' || $phoneNo != '') {
 
-                        },
-                        area_code: {
-                            digitWithoutAnyCharacter:true,
-                            onlyNumber: true,
-                            phone: true
-                        },
-                        country_code: {
-                            digitWithoutAnyCharacter:true,
-                            onlyNumber: true,
-                            phone: true
-                        },
-                        extension: {
-                            digitWithoutAnyCharacter:true,
-                            onlyNumber: true,
-                            phone: true
-                        },
-                        given_name: {
-                            atleastOne:true,
-                            givenName: true,
-                            location: true
+        if ($division == '' || $district == '' || $upazilla == '') {
 
-                        },
-                        sur_name: {
-                            atleastOne:true,
-                            surName: true,
-                            location: true
+            if($division != ''  && $district == '' && $upazilla == '' ){
 
-                        }
-                    },
-                    messages: {
+                jQuery('.selectlocation').html('Please select district and upazilla');
+            }
 
-                        brn:{
-                            number:"Please enter numbers",
-                            exactlength: "Please enter exactly 17 characters"
-                        }
-                    },
-                    focusInvalid: false
-                }
-        );
+            if($division != ''  && $district != '' && $upazilla == '' ){
+                jQuery('.selectlocation').html('Please select  upazilla');
+            }
 
-        jQuery("#searchPatientForm").submit();
+            if($division != '' && $district == '' && $upazilla != '' ){
+                jQuery('.selectlocation').html('Please select  district');
+            }
+
+            jQuery('.selectlocation').show();
+            jQuery('.phoneNoError').hide();
+            jQuery('.systeError').hide();
+
+            return false;
+        }else {
+            jQuery('.selectlocation').hide();
+            return true;
+        }
+    }else{
+        return true;
+    }
+
+};
+
+
+
+
+jQuery(document).ready(function(){
+
+    registerValidators();
+
+    $("#searchPatientForm").on('change', 'select', function(){
+        jQuery('.selectlocation').hide();
+        jQuery('.phoneNoError').hide();
+        jQuery('.systeError').hide();
+        jQuery('.fillOne').hide();
     });
+    $("#searchPatientForm").on('keyup', 'input', function(){
+        jQuery('.selectlocation').hide();
+        jQuery('.phoneNoError').hide();
+        jQuery('.systeError').hide();
+        jQuery('.fillOne').hide();
+    });
+
+    var validator = jQuery("#searchPatientForm").validate(
+            {
+
+                rules: {
+                    nid: {
+                        digitWithoutAnyCharacter:true,
+                        nationalId: true
+                    },
+                    brn: {
+                        digitWithoutAnyCharacter:true,
+                        exact17lengthNumber: true
+                    },
+                    uid: {
+
+                        CharacterWithoutAnySpecialCharacter:true,
+                        exact11lengthNumber: true
+                    },
+
+                    phone_no: {
+
+                        digitWithoutAnyCharacter:true,
+                        phoneNumber: 12
+
+
+                    },
+                    area_code: {
+                        digitWithoutAnyCharacter:true,
+                        onlyNumber: true
+
+                    },
+                    country_code: {
+                        digitWithoutAnyCharacter:true,
+                        onlyNumber: true
+
+                    },
+                    extension: {
+                        digitWithoutAnyCharacter:true,
+                        onlyNumber: true
+
+                    },
+                    given_name: {
+
+                        givenName: true
+
+
+                    },
+                    sur_name: {
+
+                        surName: true
+
+
+                    }
+                },
+                messages: {
+
+                    brn:{
+                        number:"Please enter numbers",
+                        exactlength: "Please enter exactly 17 characters"
+                    }
+                },
+                focusInvalid: false
+            }
+    );
+
+});
+
+jQuery("#searchButton").click(function () {
+
+    if(!atLeastOneGiven()) {
+        return false;
+    }
+
+    if(!phoneblock()){
+        return false;
+    }
+    if(!locationValidate()){
+        return false;
+    }
+    jQuery("#searchPatientForm").submit();
+});
 
 
 $('#division').on('change', function () {
@@ -255,7 +277,7 @@ $('#division').on('change', function () {
             },
             complete: function() { $('.districtloader').hide(); }
         });
-  }
+    }
 });
 
 $('#district').on('change', function () {
@@ -283,7 +305,8 @@ $('#district').on('change', function () {
             },
             complete: function() { $('.upazillaloader').hide(); }
         });
-  }
+    }
 });
 
 </script>
+
