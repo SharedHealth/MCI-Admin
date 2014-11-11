@@ -18,47 +18,15 @@ class LocationController extends Controller
 
     public function districtAction($id)
     {
-        $districtByDivision = array();
-        if($id){
-            $districts =  $this->getJsonData('district.json');
-          //  $districts = json_decode($this->remove_utf8_bom($data));
-
-            foreach ($districts as $key => $value) {
-
-                if ($value['division_id'] == $id) {
-                    $districtByDivision[$key]['code'] = str_pad($value['code'],2,0,STR_PAD_LEFT);
-                    $districtByDivision[$key] ['name'] = $value['name'];
-                    $districtByDivision[$key]['id'] = $value['id'];
-                }
-            }
-            return new Response(json_encode($districtByDivision));
-        }else{
-            return new Response(json_encode($districtByDivision));
-        }
+      $districts = $this->container->get('mci.location')->getDistrict($id);
+      return  new Response(json_encode($districts));
 
     }
 
     public function upazillaAction($id)
     {
-        $upazillaByDistrict = array();
-
-        if ($id) {
-            $upazillas =  $this->getJsonData('upazilla.json');
-
-            foreach ($upazillas as $key => $value) {
-
-                if ($value['district_id'] == $id) {
-                    $upazillaByDistrict[$key]['code'] = $value['code'];
-                    $upazillaByDistrict[$key] ['name'] = $value['name'];
-                    $upazillaByDistrict[$key]['id'] = $value['id'];
-                }
-            }
-
-            return new Response(json_encode($upazillaByDistrict));
-
-        } else {
-            return new Response(json_encode($upazillaByDistrict));
-        }
+        $upazillas = $this->container->get('mci.location')->getUpazilla($id);
+        return  new Response(json_encode($upazillas));
     }
 
 

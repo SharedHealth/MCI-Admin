@@ -38,14 +38,14 @@ class PatientController extends Controller
 
        if($request->get('division_id')){
              $hrm_division_id = $this->getLocationId($divisions,$request->get('division_id'));
-             $districtUrl = $this->generateUrl('mci_location_district', array('id'=>$hrm_division_id));
-             $districts = json_decode(file_get_contents($baseUrl.$districtUrl));
+             $diastrictJson =  $this->container->get('mci.location')->getDistrict($hrm_division_id);
+             $districts = $diastrictJson;
        }
 
        if($request->get('district_id')){
              $hrm_district_id = $this->getLocationId($districtsAll,$request->get('district_id'));
-             $upazillaUrl = $this->generateUrl('mci_location_upazilla', array('id'=> $hrm_district_id));
-             $upazillas = json_decode(file_get_contents($baseUrl.$upazillaUrl));
+             $upazillasJson =  $this->container->get('mci.location')->getUpazilla($hrm_district_id);
+             $upazillas = $upazillasJson;
        }
 
 
@@ -109,7 +109,6 @@ class PatientController extends Controller
                 }
 
                 $forSeletedDropdown = array('division'=>$request->get('division_id'),'district'=>$request->get('district_id'),'upazilla'=>$request->get('upazilla_id'));
-
                if(!empty($queryParam)){
                    $client = $this->get('mci_patient.client');
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));

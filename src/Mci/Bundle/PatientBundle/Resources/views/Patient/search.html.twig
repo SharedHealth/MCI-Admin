@@ -109,6 +109,7 @@
                 <div class="form-group">
                     <select name="district_id" id="district" class="form-control" {% if seletedDropdown.district is null%} disabled="disabled" {% endif %} >
                         <option value="">Select District</option>
+
                         {% for district in districts  %}
 
                             <option data-id="{{ district.id }}"  value="{{ district.code }}"
