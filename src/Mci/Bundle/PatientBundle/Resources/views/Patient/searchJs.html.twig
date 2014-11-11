@@ -231,6 +231,8 @@ $('#division').on('change', function () {
     if(divisionId){
         x.removeAttr('disabled');
     }else{
+        x.find('option:first').attr('selected', 'selected');
+        $('#upazilla').find('option:first').attr('selected', 'selected');
         x.attr('disabled','disabled');
         $('#upazilla').attr('disabled','disabled');
     }

@@ -17,7 +17,7 @@
     <div style="display: none;" class="selectlocation error">Please select location</div>
     <div style="display: none;" class="phoneNoError error">Please enter phone no </div>
     <!-- /.row -->
-    <form id="searchPatientForm" name="searchPatient"  method="get">
+    <form id="searchPatientForm" name="searchPatient"  method="get" autocomplete="off">
 
         <h5>IDs:</h5>
 
@@ -74,7 +74,7 @@
 
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control" placeholder="Phone No">
+                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control" placeholder="Number">
                 </div>
             </div>
 
@@ -155,7 +155,7 @@
 
 {% if responseBody.results is defined %}
 
-    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} pressent address - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</strong></h5>
+    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</strong></h5>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>
