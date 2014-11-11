@@ -32,11 +32,11 @@ var registerValidators = function(){
 
     jQuery.validator.addMethod("givenName", function(value, element, param) {
         return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter maximum 100 characters."));
+    }, $.validator.format("Please enter maximum 100 alphabetic characters."));
 
     jQuery.validator.addMethod("surName", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter maximum 25 characters."));
+    }, $.validator.format("Please enter maximum 25 alphabetic characters."));
 
     jQuery.validator.addMethod(
             "nationalId",
@@ -232,13 +232,14 @@ jQuery(document).ready(function(){
 
 jQuery("#searchButton").click(function () {
 
+    if(!phoneblock()){
+        return false;
+    }
+
     if(!atLeastOneGiven()) {
         return false;
     }
 
-    if(!phoneblock()){
-        return false;
-    }
     if(!locationValidate()){
         return false;
     }

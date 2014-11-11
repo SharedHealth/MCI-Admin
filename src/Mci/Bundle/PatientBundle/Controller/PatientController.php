@@ -27,89 +27,41 @@ class PatientController extends Controller
 
     public function searchAction( Request $request)
     {
-        $baseUrl =  $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
         $results = array();
         $districts = array();
         $upazillas = array();
         $responseBody = array();
+
         $divisions =  $this->getJsonData('division.json');
         $districtsAll =  $this->getJsonData('district.json');
+        $client = $this->get('mci_patient.client');
+        $locationService = $this->container->get('mci.location');
 
        if($request->get('division_id')){
-             $hrm_division_id = $this->getLocationId($divisions,$request->get('division_id'));
-             $diastrictJson =  $this->container->get('mci.location')->getDistrict($hrm_division_id);
-             $districts = $diastrictJson;
+           $hrm_division_id = $this->getLocationId($divisions,$request->get('division_id'));
+           $districts =  $locationService->getDistrict($hrm_division_id);
        }
 
        if($request->get('district_id')){
              $hrm_district_id = $this->getLocationId($districtsAll,$request->get('district_id'));
-             $upazillasJson =  $this->container->get('mci.location')->getUpazilla($hrm_district_id);
-             $upazillas = $upazillasJson;
+             $upazillas =  $locationService->getUpazilla($hrm_district_id);
        }
-
-
-        $upazilas =  $this->getJsonData('upazilla-single.json');
 
         $SystemAPiError = '';
         $hid = '';
         if ('GET' === $request->getMethod()) {
             try{
                 $queryParam = array();
-                $district = null;
-
                 if($request->get('hid')){
                     $hid = trim($request->get('hid'));
                     return $this->redirect($this->generateUrl('mci_patient_showpage', array('id'=>$hid)));
                 }
 
-                if($request->get('nid')){
-                    $queryParam['nid'] = trim($request->get('nid'));
-                }
-
-                if($request->get('uid')){
-                    $queryParam['uid'] = trim($request->get('uid'));
-                }
-
-                if($request->get('brn')){
-                    $queryParam['bin_brn'] = trim($request->get('brn'));
-                }
-
-                if($request->get('given_name')){
-                    $queryParam['given_name'] = trim($request->get('given_name'));
-                }
-
-                if($request->get('sur_name')){
-                    $queryParam['sur_name'] = trim($request->get('sur_name'));
-                }
-
-                if($request->get('dob')){
-                    $queryParam['date_of_birth'] = trim($request->get('dob'));
-                }
-                if($request->get('phone_no')){
-                    $queryParam['phone_no'] = trim($request->get('phone_no'));
-                }
-                if($request->get('area_code')){
-                    $queryParam['area_code'] = trim($request->get('area_code'));
-                }
-                if($request->get('country_code')){
-                    $queryParam['country_code'] = trim($request->get('country_code'));
-                }
-                if($request->get('extension')){
-                    $queryParam['extension'] = trim($request->get('extension'));
-                }
-
-                if($request->get('district_id')){
-                   $district =  str_pad($request->get('district_id'),2,'0',STR_PAD_LEFT);
-                }
-                $location = $request->get('division_id').$district.$request->get('upazilla_id');
-
-                if($request->get('district_id')){
-                    $queryParam['present_address'] = $location;
-                }
+                $queryParam = $this->getQueryParam($request, $queryParam);
 
                 $forSeletedDropdown = array('division'=>$request->get('division_id'),'district'=>$request->get('district_id'),'upazilla'=>$request->get('upazilla_id'));
+
                if(!empty($queryParam)){
-                   $client = $this->get('mci_patient.client');
                    $request = $client->get($this->container->getParameter('api_end_point'), null, array('query' =>$queryParam ));
                    $response = $request->send();
                    $responseBody = json_decode($response->getBody());
@@ -234,6 +186,7 @@ class PatientController extends Controller
     }
 
     public function getSearchParameterAsString($queryParam){
+
         $searchParam = array();
         $name = '';
         $name =  isset($queryParam['given_name']) ? $queryParam['given_name']:'';
@@ -248,6 +201,7 @@ class PatientController extends Controller
         $phone_number .= isset($queryParam['area_code']) ? ' ' .$queryParam['area_code'] : '';
         $phone_number .= isset($queryParam['phone_no']) ? ' '.$queryParam['phone_no'] : '';
         $phone_number .= isset($queryParam['extension']) ? ' '.$queryParam['extension'] : '';
+
         if($phone_number){
             $queryParam['phone No'] = $phone_number;
         }
@@ -272,6 +226,66 @@ class PatientController extends Controller
             return implode(' and ',$searchParam);
         }
         return false;
+    }
+
+    /**
+     * @param Request $request
+     * @param $queryParam
+     * @return mixed
+     */
+    private function getQueryParam(Request $request, $queryParam)
+    {
+        $district = null;
+
+        if ($request->get('nid')) {
+            $queryParam['nid'] = trim($request->get('nid'));
+        }
+
+        if ($request->get('uid')) {
+            $queryParam['uid'] = trim($request->get('uid'));
+        }
+
+        if ($request->get('brn')) {
+            $queryParam['bin_brn'] = trim($request->get('brn'));
+        }
+
+        if ($request->get('given_name')) {
+            $queryParam['given_name'] = trim($request->get('given_name'));
+        }
+
+        if ($request->get('sur_name')) {
+            $queryParam['sur_name'] = trim($request->get('sur_name'));
+        }
+
+        if ($request->get('dob')) {
+            $queryParam['date_of_birth'] = trim($request->get('dob'));
+        }
+        if ($request->get('phone_no')) {
+            $queryParam['phone_no'] = trim($request->get('phone_no'));
+        }
+        if ($request->get('area_code')) {
+            $queryParam['area_code'] = trim($request->get('area_code'));
+        }
+        if ($request->get('country_code')) {
+            $queryParam['country_code'] = trim($request->get('country_code'));
+        }
+        if ($request->get('extension')) {
+            $queryParam['extension'] = trim($request->get('extension'));
+        }
+
+        if ($request->get('district_id')) {
+            $district = str_pad($request->get('district_id'), 2, '0', STR_PAD_LEFT);
+        }
+
+        $location = $request->get('division_id') . $district . $request->get('upazilla_id');
+
+        if ($request->get('district_id')) {
+            $queryParam['present_address'] = $location;
+
+            return $queryParam;
+        }
+
+        return $queryParam;
     }
 
 }
