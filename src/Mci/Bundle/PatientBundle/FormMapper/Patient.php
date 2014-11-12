@@ -2,30 +2,105 @@
 
 namespace Mci\Bundle\PatientBundle\FormMapper;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation\Type;
+
 class Patient
 {
+    /**
+     * @Type("string")
+     */
     private $nid;
+    /**
+     * @Type("string")
+     */
     private $uid;
+    /**
+     * @Type("string")
+     */
     private $bin_brn;
+    /**
+     * @Type("string")
+     */
     private $sur_name;
+    /**
+     * @Type("string")
+     */
     private $given_name;
+    /**
+     * @Type("string")
+     */
+
     private $name_bangla;
+    /**
+     * @Type("string")
+     */
+
     private $date_of_birth;
+    /**
+     * @Type("string")
+     */
     private $place_of_birth;
+    /**
+     * @Type("string")
+     */
+
     private $nationality;
+    /**
+     * @Type("string")
+     */
     private $primary_contact;
+    /**
+     * @Type("string")
+     */
+
     private $gender;
+    /**
+     * @Type("string")
+     */
     private $ethnicity;
+    /**
+     * @Type("string")
+     */
     private $religion;
+    /**
+     * @Type("string")
+     */
     private $blood_group;
+    /**
+     * @Type("string")
+     */
     private $occupation;
+    /**
+     * @Type("string")
+     */
     private $edu_level;
+    /**
+     * @Type("string")
+     */
     private $disability;
+    /**
+     * @Type("string")
+     */
     private $marital_status;
+    /**
+     * @Type("Mci\Bundle\PatientBundle\FormMapper\Address")
+     */
     private $present_address;
+    /**
+     * @Type("Mci\Bundle\PatientBundle\FormMapper\Address")
+     */
     private $permanent_address;
+    /**
+     * @Type("Mci\Bundle\PatientBundle\FormMapper\Contact")
+     */
     private $phone_number;
+    /**
+     * @Type("Mci\Bundle\PatientBundle\FormMapper\Contact")
+     */
     private $primary_contact_number;
+    /**
+     * @Type("ArrayCollection<Mci\Bundle\PatientBundle\FormMapper\Relation>")
+     */
     protected  $relations;
 
     public function __construct()

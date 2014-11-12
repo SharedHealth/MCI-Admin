@@ -42,37 +42,31 @@ class AddressType extends AbstractType
                 'attr' => array('class' => 'form-control')
             ))
             ->add('division_id', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $division
             )
             ->add('district_id', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $district
             )
             ->add('union_id', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $union
             )
             ->add('upazilla_id', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $upazilla
             )
             ->add('city_corporation_id', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $cityCorporation
             )
             ->add('country_code', 'choice', array(
-                    'data' => 'Default value',
                     'attr' => array('class' => 'form-control')
                 ),
                 $countryCode
@@ -82,5 +76,12 @@ class AddressType extends AbstractType
     public function getName()
     {
         return 'mci_bundle_patientBundle_patients_present_address';
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Mci\Bundle\PatientBundle\FormMapper\Address'
+        ));
     }
 }

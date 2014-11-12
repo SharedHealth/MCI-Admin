@@ -27,7 +27,6 @@ class PatientController extends Controller
 
     public function searchAction( Request $request)
     {
-        $results = array();
         $districts = array();
         $upazillas = array();
         $responseBody = array();
@@ -105,23 +104,11 @@ class PatientController extends Controller
         if (!$responseBody) {
             throw $this->createNotFoundException('Unable to find patient');
         }
-        $patient = new Patient();
-        $relation = new Relation();
 
-        $relation->setNid('4444444');
-        $relation->setBinBrn('brn');
-        $relation->setUid('uid');
-        $relation->setType('FTH');
-        $relation->setGivenName('Imran Rahman');
-        $relation->setSurName('Mizan');
-        $relation->setNameBangla('Bangla Name');
-        $patient->setNid('677777777777777');
-        $patient->addRelations($relation);
-        $patient->addRelations($relation);
-        $patient->addRelations($relation);
+        $serializer = $this->container->get('jms_serializer');
+        $object = $serializer->deserialize($response->getBody(), 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
 
-
-        $form = $this->createForm(new PatientType(), $patient);
+        $form = $this->createForm(new PatientType(), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView()
@@ -189,7 +176,7 @@ class PatientController extends Controller
 
         $searchParam = array();
         $name = '';
-        $name =  isset($queryParam['given_name']) ? $queryParam['given_name']:'';
+        $name .=  isset($queryParam['given_name']) ? $queryParam['given_name']:'';
         $name .= isset($queryParam['sur_name']) ? ' '.$queryParam['sur_name']:'';
 
         if($name){
@@ -282,7 +269,6 @@ class PatientController extends Controller
         if ($request->get('district_id')) {
             $queryParam['present_address'] = $location;
 
-            return $queryParam;
         }
 
         return $queryParam;

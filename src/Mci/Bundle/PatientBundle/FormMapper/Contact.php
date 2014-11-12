@@ -1,12 +1,24 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\FormMapper;
-
+use JMS\Serializer\Annotation\Type;
 class Contact
 {
+    /**
+     * @Type("string")
+     */
     private $number;
+    /**
+     * @Type("string")
+     */
     private $country_code;
+    /**
+     * @Type("string")
+     */
     private $area_code;
+    /**
+     * @Type("string")
+     */
     private $extension;
 
     /**

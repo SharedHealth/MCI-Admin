@@ -9,28 +9,28 @@
 <script type="text/javascript">
 
 var registerValidators = function(){
-    jQuery.validator.addMethod("exact17lengthNumber", function(value, element, param) {
+    jQuery.validator.addMethod("exact17lengthNumber", function(value, element) {
         return this.optional(element) || /^[0-9]{17}$/.test(value.replace(/\s/g, ''));
     }, $.validator.format("Please enter exactly 17 numbers."));
 
-    jQuery.validator.addMethod("exact11lengthNumber", function(value, element, param) {
+    jQuery.validator.addMethod("exact11lengthNumber", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]{11}$/.test(value.replace(/\s/g, ''));
     }, $.validator.format("Please enter exactly 11 characters."));
 
-    jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element, param) {
+    jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element) {
         return this.optional(element) || /^\s*\d+\s*$/.test(value);
     }, $.validator.format("Please enter numbers except symbols."));
 
 
-    jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element, param) {
+    jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element) {
         return this.optional(element) || /^\s*[a-zA-Z0-9]*\s*$/.test(value);
     }, $.validator.format("Please enter alphanumeric characters except symbols."));
 
-    jQuery.validator.addMethod("phoneNumber", function(value, element, param) {
+    jQuery.validator.addMethod("phoneNumber", function(value, element) {
         return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
     }, $.validator.format("Please enter maximum 12 digits."));
 
-    jQuery.validator.addMethod("givenName", function(value, element, param) {
+    jQuery.validator.addMethod("givenName", function(value, element) {
         return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
     }, $.validator.format("Please enter maximum 100 alphabetic characters."));
 

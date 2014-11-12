@@ -18,7 +18,8 @@
         "sensio/distribution-bundle": "~3.0",
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
-        "misd/guzzle-bundle": "1.1.*@dev"
+        "misd/guzzle-bundle": "1.1.*@dev",
+        "jms/serializer-bundle": "0.13.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

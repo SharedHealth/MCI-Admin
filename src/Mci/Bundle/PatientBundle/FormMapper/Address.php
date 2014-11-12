@@ -1,20 +1,62 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\FormMapper;
-
+use JMS\Serializer\Annotation\Type;
 class Address
 {
+    /**
+     * @Type("string")
+     */
     private $address_line;
+    /**
+     * @Type("string")
+     */
     private $holding_number;
+    /**
+     * @Type("string")
+     */
     private $street;
+    /**
+     * @Type("string")
+     */
     private $area_mouja;
+    /**
+     * @Type("string")
+     */
     private $village;
+    /**
+     * @Type("string")
+     */
     private $post_office;
+    /**
+     * @Type("string")
+     */
     private $post_code;
+    /**
+     * @Type("string")
+     */
     private $division_id;
+
+    /**
+     * @Type("string")
+     */
+    private $district_id;
+
+    /**
+     * @Type("string")
+     */
     private $union_id;
+    /**
+     * @Type("string")
+     */
     private $upazilla_id;
+    /**
+     * @Type("string")
+     */
     private $city_corporation_id;
+    /**
+     * @Type("string")
+     */
     private $country_code;
 
     /**
@@ -207,5 +249,21 @@ class Address
     public function getAreaMouja()
     {
         return $this->area_mouja;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDistrictId()
+    {
+        return $this->district_id;
+    }
+
+    /**
+     * @param mixed $district_id
+     */
+    public function setDistrictId($district_id)
+    {
+        $this->district_id = $district_id;
     }
 }

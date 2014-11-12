@@ -1,16 +1,40 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\FormMapper;
-
+use JMS\Serializer\Annotation\Type;
 class Relation
 {
+    /**
+     * @Type("string")
+     */
     private $uid;
+    /**
+     * @Type("string")
+     */
     private $nid;
+    /**
+     * @Type("string")
+     */
     private $bin_brn;
+    /**
+     * @Type("string")
+     */
     private $type;
+    /**
+     * @Type("string")
+     */
     private $sur_name;
+    /**
+     * @Type("string")
+     */
     private $given_name;
+    /**
+     * @Type("string")
+     */
     private $name_bangla;
+    /**
+     * @Type("string")
+     */
     private $relational_status;
 
     /**

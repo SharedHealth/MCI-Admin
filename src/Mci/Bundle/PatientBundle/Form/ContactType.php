@@ -17,15 +17,12 @@ class ContactType extends AbstractType
                 'attr' => array('class'=>'form-control')
             ))
             ->add('country_code','text',array(
-                'data' => 'Default value',
                 'attr' => array('class'=>'form-control')
             ))
             ->add('area_code','text',array(
-                'data' => 'Default value',
                 'attr' => array('class'=>'form-control')
             ))
             ->add('extension','text',array(
-                'data' => 'Default value',
                 'attr' => array('class'=>'form-control')
             ));
     }
@@ -33,5 +30,12 @@ class ContactType extends AbstractType
     public function getName()
     {
         return 'mci_bundle_patientBundle_patients_contact';
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Mci\Bundle\PatientBundle\FormMapper\Contact'
+        ));
     }
 }
