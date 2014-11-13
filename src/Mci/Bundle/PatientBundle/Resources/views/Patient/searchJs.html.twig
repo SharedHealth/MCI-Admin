@@ -31,11 +31,11 @@ var registerValidators = function(){
     }, $.validator.format("Please enter maximum 12 digits."));
 
     jQuery.validator.addMethod("givenName", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]{1,100}$/.test(value.replace(/\s/g, ''));
+        return this.optional(element) || /^[\s\S]{1,100}$/.test(value.replace(/\s/g, ''));
     }, $.validator.format("Please enter maximum 100 alphabetic characters."));
 
     jQuery.validator.addMethod("surName", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]{1,25}$/.test(value.replace(/\s/g, ''));
+        return this.optional(element) || /^(\s*)([A-Za-z0-9]{1,25})(\b\s*$)/.test(value);
     }, $.validator.format("Please enter maximum 25 alphabetic characters."));
 
     jQuery.validator.addMethod(
@@ -254,8 +254,8 @@ $('#division').on('change', function () {
     if(divisionId){
         x.removeAttr('disabled');
     }else{
-        x.find('option:first').attr('selected', 'selected');
-        $('#upazilla').find('option:first').attr('selected', 'selected');
+        x.val("");
+        $('#upazilla').val("");
         x.attr('disabled','disabled');
         $('#upazilla').attr('disabled','disabled');
     }
