@@ -7,59 +7,59 @@
 </style>
 
 <script type="text/javascript">
-
+var message;
 var registerValidators = function(){
-    jQuery.validator.addMethod("exact17lengthNumber", function(value, element) {
-        return this.optional(element) || /^[0-9]{17}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter exactly 17 numbers."));
-
-    jQuery.validator.addMethod("exact11lengthNumber", function(value, element) {
-        return this.optional(element) || /^[a-zA-Z0-9]{11}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter exactly 11 characters."));
-
-    jQuery.validator.addMethod("digitWithoutAnyCharacter", function(value, element) {
-        return this.optional(element) || /^\s*\d+\s*$/.test(value);
-    }, $.validator.format("Please enter numbers except symbols."));
-
-
-    jQuery.validator.addMethod("CharacterWithoutAnySpecialCharacter", function(value, element) {
-        return this.optional(element) || /^\s*[a-zA-Z0-9]*\s*$/.test(value);
-    }, $.validator.format("Please enter alphanumeric characters except symbols."));
-
-    jQuery.validator.addMethod("phoneNumber", function(value, element) {
-        return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter maximum 12 digits."));
-
-    jQuery.validator.addMethod("givenName", function(value, element) {
-        return this.optional(element) || /^[\s\S]{1,100}$/.test(value.replace(/\s/g, ''));
-    }, $.validator.format("Please enter maximum 100 alphabetic characters."));
-
-    jQuery.validator.addMethod("surName", function(value, element) {
-        return this.optional(element) || /^(\s*)([A-Za-z0-9]{1,25})(\b\s*$)/.test(value);
-    }, $.validator.format("Please enter maximum 25 alphabetic characters."));
 
     jQuery.validator.addMethod(
             "nationalId",
             function(number, element) {
                 return this.optional(element) || /^([\d]{13}|[\d]{17})$/.test(number.replace(/\s/g, ''));
             },
-            "Please enter exactly 13 or 17 numbers"
+            "Please enter valid NID"
+    );
+
+    jQuery.validator.addMethod("birthRegistration", function(value, element) {
+        return this.optional(element) || /^[0-9]{17}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter valid BRN"));
+
+    jQuery.validator.addMethod("unifiedIdentification", function(value, element) {
+        return this.optional(element) || /^[a-zA-Z0-9]{11}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter valid UID"));
+
+    jQuery.validator.addMethod("givenName", function(value, element) {
+        return this.optional(element) || /^[\s\S]{1,100}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter maximum 100 alphabetic characters"));
+
+    jQuery.validator.addMethod("phoneNumber", function(value, element) {
+        return this.optional(element) || /^[0-9]{1,12}$/.test(value.replace(/\s/g, ''));
+    }, $.validator.format("Please enter maximum 12 digits"));
+
+    jQuery.validator.addMethod("surName", function(value, element) {
+        return this.optional(element) || /^(\s*)([A-Za-z0-9]*)(\b\s*$)/.test(value);
+    }, $.validator.format("Surname must be single word except special characters"));
+
+    jQuery.validator.addMethod("maximum", function(value, element,param) {
+        var re = new RegExp("^[\\s\\S]{1,"+ param +"}$","g");
+
+        return this.optional(element) || re.test(value.replace(/\s/g, ''));
+    }, "Please enter maximum {0} alphabetic characters"
+
     );
 
     jQuery.validator.addMethod(
             "onlyNumber",
             function(number, element) {
-                return this.optional(element) || /^[0-9]*$/.test(number.replace(/\s/g, ''));
+                return this.optional(element) || /^\s*[0-9]*\s*$/.test(number);
             },
-            "Please enter numbers"
+            "Only digits are allowed"
     );
 
     jQuery.validator.addMethod(
-            "alphaNumeric",
+            "onlyCharacter",
             function(number, element) {
-                return this.optional(element) || /^[a-zA-Z0-9]*$/.test(number.replace(/\s/g, ''));
+                return this.optional(element) || /^\s*[^0-9]*\s*$/.test(number);
             },
-            "Please enter numbers only"
+            "Digits are not allowed"
     );
 };
 
@@ -144,9 +144,6 @@ var locationValidate = function() {
 
 };
 
-
-
-
 jQuery(document).ready(function(){
 
     registerValidators();
@@ -169,51 +166,36 @@ jQuery(document).ready(function(){
 
                 rules: {
                     nid: {
-                        digitWithoutAnyCharacter:true,
                         nationalId: true
                     },
                     brn: {
-                        digitWithoutAnyCharacter:true,
-                        exact17lengthNumber: true
+                        birthRegistration: true
                     },
                     uid: {
-
-                        CharacterWithoutAnySpecialCharacter:true,
-                        exact11lengthNumber: true
+                        unifiedIdentification:true
                     },
-
+                    given_name: {
+                        onlyCharacter: true,
+                        givenName: true
+                    },
+                    sur_name: {
+                        onlyCharacter: true,
+                        maximum: 25,
+                        surName: true
+                    },
                     phone_no: {
-
-                        digitWithoutAnyCharacter:true,
+                        onlyNumber: true,
                         phoneNumber: 12
-
-
                     },
                     area_code: {
-                        digitWithoutAnyCharacter:true,
                         onlyNumber: true
-
                     },
                     country_code: {
-                        digitWithoutAnyCharacter:true,
                         onlyNumber: true
 
                     },
                     extension: {
-                        digitWithoutAnyCharacter:true,
                         onlyNumber: true
-
-                    },
-                    given_name: {
-
-                        givenName: true
-
-
-                    },
-                    sur_name: {
-
-                        surName: true
-
 
                     }
                 },
