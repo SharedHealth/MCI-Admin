@@ -21,28 +21,34 @@ class AddressType extends AbstractType
 
         $builder
             ->add('address_line', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('holding_number', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('street', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('area_mouja', 'text', array(
                 'attr' => array('class' => 'form-control')
             ))
             ->add('village', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('post_office', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('post_code', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('division_id', 'choice', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array('class' => 'form-control'),
                 ),
                 $division
             )
@@ -67,7 +73,8 @@ class AddressType extends AbstractType
                 $cityCorporation
             )
             ->add('country_code', 'choice', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
                 ),
                 $countryCode
             );

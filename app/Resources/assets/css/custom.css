@@ -11,3 +11,8 @@
 .form-group {
     margin-bottom: 10px;
 }
+
+input.error{
+    color: #555 !important;
+    font-style: normal;
+}

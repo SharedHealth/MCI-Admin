@@ -9,6 +9,7 @@ use Mci\Bundle\PatientBundle\FormMapper\Relation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 class PatientController extends Controller
@@ -111,9 +112,14 @@ class PatientController extends Controller
         $form = $this->createForm(new PatientType(), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'hid'  => $id
 
         ));
+    }
+
+    public function updateAction(){
+        return new Response('Update is on progress');
     }
 
     public function showAction($id, Request $request)

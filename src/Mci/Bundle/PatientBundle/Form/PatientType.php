@@ -12,92 +12,109 @@ class PatientType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $gender = array();
+        $gender =  (array)json_decode(file_get_contents('assets/json/gender.json'));
         $ethnicity = array();
-        $religion = array();
-        $bloodGroup = array();
-        $eduLevel = array();
-        $occupation = array();
-        $disability = array();
-        $maritalStatus = array();
+
+        $religion = $this->getArrayFromJson('assets/json/religion.json');
+        $bloodGroup = $this->getArrayFromJson('assets/json/bloodGroup.json');
+        $eduLevel = $this->getArrayFromJson('assets/json/eduLevel.json');
+        $occupation = $this->getArrayFromJson('assets/json/occupation.json');
+        $disability = $this->getArrayFromJson('assets/json/disability.json');
+        $maritalStatus = $this->getArrayFromJson('assets/json/relationStat.json');
 
         $builder
             ->add('nid', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('uid', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('bin_brn', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('sur_name', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('given_name', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('name_bangla', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('place_of_birth', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('nationality', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('primary_contact', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('date_of_birth', 'text', array(
                 'attr' => array('class' => 'form-control')
             ))
             ->add('gender', 'choice',
                 array(
+                    'choices' =>$gender,
                     'attr' => array('class' => 'form-control')
-                ),
-                $gender
+                )
             )
             ->add('ethnicity', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $ethnicity
+                    'choices' =>$ethnicity,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('religion', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $religion
+                    'choices' =>$religion,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('blood_group', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $bloodGroup
+                    'choices' =>$bloodGroup,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('occupation', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $occupation
+                    'choices' =>$occupation,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('edu_level', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $eduLevel
+                    'choices' =>$eduLevel,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('disability', 'choice',
                 array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $disability
+                    'choices' =>$disability,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('marital_status', 'choice', array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $maritalStatus
+                    'choices' =>$maritalStatus,
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => false
+                )
             )
             ->add('present_address', new AddressType())
             ->add('permanent_address', new AddressType())
@@ -107,7 +124,7 @@ class PatientType extends AbstractType
                 'type' => new RelationType(),
                 'allow_add' => true,
             ))
-            ->add('save', 'button', array(
+            ->add('save', 'submit', array(
                 'attr' => array('class' => 'btn btn-primary form-group'),
             ));
     }
@@ -121,5 +138,13 @@ class PatientType extends AbstractType
     public function getName()
     {
         return 'mci_bundle_patientBundle_patients';
+    }
+
+    /**
+     * @return array
+     */
+    public function getArrayFromJson($url)
+    {
+        return (array)json_decode(file_get_contents($url));
     }
 }

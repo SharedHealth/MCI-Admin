@@ -5,7 +5,7 @@ mci_patient_searchpage:
 
 
 mci_patient_showpage:
-    path:     /show/{id}
+    path:     /{id}/show/
     defaults: { _controller: MciPatientBundle:Patient:show }
 
 mci_patient_edit:
@@ -16,7 +16,7 @@ mci_patient_edit:
            id:  \d+
 
 mci_patient_update:
-    path:     /{id}/edit
+    path:     /update
     defaults: { _controller: MciPatientBundle:Patient:update }
-    methods:   [PUT]
+    methods:   [PUT|POST]
 

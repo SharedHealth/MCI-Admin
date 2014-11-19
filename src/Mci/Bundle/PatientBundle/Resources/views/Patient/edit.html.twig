@@ -17,7 +17,7 @@
         </ul>
     </div>
 
-{{ form_start(form) }}
+{{ form_start(form, {'action': path('mci_patient_update',{'id': hid}), 'method': 'POST','attr': {'id': 'patientEditForm'}}) }}
 
     <div class="tab-content">
     <div id="personalInfo" class="tab-pane inputBoxSize fade in active">
@@ -50,6 +50,15 @@
             </div>
 
             <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_given_name" class="control-label col-xs-2">Given Name</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.given_name) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Sur Name</label>
 
                 <div class="col-xs-10">
@@ -58,14 +67,6 @@
                 <div style="clear: both;"></div>
             </div>
 
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_given_name" class="control-label col-xs-2">Given Name</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.given_name) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
 
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_name_bangla" class="control-label col-xs-2">Bangla Name</label>
@@ -509,11 +510,11 @@
             </tr>
             </thead>
        <tbody  class="relation-body" data-prototype="&lt;tr&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__nid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][nid]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__bin_brn&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][bin_brn]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__uid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input  type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__nid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][nid]&quot;  class=&quot;form-control relation-nid&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__bin_brn&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][bin_brn]&quot; class=&quot;form-control relation-brn&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__uid&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__]&quot;  class=&quot;form-control relation-uid &quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;
-        &lt;select id=&quot;mci_bundle_patientBundle_patients_relations___name__type&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][type]&quot; required=&quot;required&quot; class=&quot;form-control&quot; &gt;
+        &lt;select id=&quot;mci_bundle_patientBundle_patients_relations___name__type&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][type]&quot;  class=&quot;form-control relation-type&quot; &gt;
           &lt;option value=&quot;FAMMEMB&quot;&gt;family member&lt;/option&gt;
         &lt;option value=&quot;CHILD&quot;&gt;child&lt;/option&gt;
         &lt;option value=&quot;CHLDADOPT&quot;&gt;adopted child&lt;/option&gt;
@@ -621,10 +622,10 @@
 
         &lt;select&gt;
         &lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__name_bangla&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][name_bangla]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__given_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][given_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; value=&quot;&quot;&gt;&lt;/td&gt;
-        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot; required=&quot;required&quot; class=&quot;form-control&quot; &gt; &lt;/td&gt;
-        &lt;td&gt;&lt;select  id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; required=&quot;required&quot; class=&quot;form-control&quot;&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__name_bangla&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][name_bangla]&quot;  class=&quot;form-control relation-name-bangla&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__given_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][given_name]&quot;  class=&quot;form-control relation-given-name&quot; value=&quot;&quot;&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot;  class=&quot;form-control relation-sur-name&quot; &gt; &lt;/td&gt;
+        &lt;td&gt;&lt;select  id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; class=&quot;form-control relation-relational-status&quot;&gt;
          &lt;option value=&quot;3&quot;&gt;Widowed&lt;/option&gt;
             &lt;option value=&quot;4&quot;&gt;Separated&lt;/option&gt;
             &lt;option value=&quot;5&quot;&gt;Divorced&lt;/option&gt;
@@ -663,7 +664,15 @@
     e.preventDefault();
      addRelationForm($collectionHolder);
 
-        });
+    jQuery('.relation-nid').attr('name','relation[nid][]');
+    jQuery('.relation-brn').attr('name','relation[bin_brn][]');
+    jQuery('.relation-uid').attr('name','relation[uid][]');
+    jQuery('.relation-type').attr('name','relation[type][]');
+    jQuery('.relation-name-bangla').attr('name','relation[name_bangla][]');
+    jQuery('.relation-given-name').attr('name','relation[given_name][]');
+    jQuery('.relation-sur-name').attr('name','relation[sur_name][]');
+
+     });
     });
 
     function addRelationForm($collectionHolder) {

@@ -14,16 +14,20 @@ class ContactType extends AbstractType
         $builder
             ->add('number','text',array(
 
-                'attr' => array('class'=>'form-control')
+                'attr' => array('class'=>'form-control'),
+                'required'  => false
             ))
             ->add('country_code','text',array(
-                'attr' => array('class'=>'form-control')
+                'attr' => array('class'=>'form-control'),
+                'required'  => false
             ))
             ->add('area_code','text',array(
-                'attr' => array('class'=>'form-control')
+                'attr' => array('class'=>'form-control'),
+                'required'  => false
             ))
             ->add('extension','text',array(
-                'attr' => array('class'=>'form-control')
+                'attr' => array('class'=>'form-control'),
+                'required'  => false
             ));
     }
 
