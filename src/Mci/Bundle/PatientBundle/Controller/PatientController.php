@@ -109,7 +109,7 @@ class PatientController extends Controller
         $serializer = $this->container->get('jms_serializer');
         $object = $serializer->deserialize($response->getBody(), 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
 
-        $form = $this->createForm(new PatientType(), $object);
+        $form = $this->createForm(new PatientType($this->container), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView(),
@@ -118,7 +118,8 @@ class PatientController extends Controller
         ));
     }
 
-    public function updateAction(){
+    public function updateAction(Request $request){
+        var_dump($_POST);
         return new Response('Update is on progress');
     }
 

@@ -73,6 +73,28 @@ class Location {
         }
     }
 
+    public function getAllDivision(){
+        $divisions =  $this->getJsonData('division.json');
+
+        foreach($divisions as $key=>$val){
+            $filterDivisions[$val['code']] = $val['name'];
+        }
+
+        return $filterDivisions;
+    }
+
+
+    public function getAllDistrict(){
+        $districts =  $this->getJsonData('district.json');
+
+        foreach($districts as $key=>$val){
+            $filterDivisions[$val['code']] = $val['name'];
+        }
+
+        return $filterDivisions;
+    }
+
+
     private function getJsonData($fileName)
     {
         $filePath =  'assets/json/'.$fileName;

@@ -3,12 +3,19 @@
 namespace Mci\Bundle\PatientBundle\Form;
 
 use Mci\Bundle\PatientBundle\FormMapper\Relation;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PatientType extends AbstractType
 {
+
+    private $serviceContainer;
+
+    public function __construct(Container $container){
+        $this->serviceContainer = $container;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -116,8 +123,8 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
-            ->add('present_address', new AddressType())
-            ->add('permanent_address', new AddressType())
+            ->add('present_address', new AddressType($this->serviceContainer))
+            ->add('permanent_address', new AddressType($this->serviceContainer))
             ->add('phone_number', new ContactType())
             ->add('primary_contact_number', new ContactType())
             ->add('relations', 'collection', array(

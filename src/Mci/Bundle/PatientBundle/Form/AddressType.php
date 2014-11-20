@@ -2,20 +2,29 @@
 
 namespace Mci\Bundle\PatientBundle\Form;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressType extends AbstractType
 {
+    private $serviceContainer;
 
+    public function __construct( Container $container){
+        $this->serviceContainer = $container;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $division = array();
-        $district = array();
+        $locationService = $this->serviceContainer->get('mci.location');
+        $divisions = $locationService->getAllDivision();
+
+      //  $district = $this->getArrayFromJson('assets/json/district.json');
         $union = array();
+        $districts = $locationService->getAllDistrict();
         $upazilla = array();
+        // $upazilla = $this->getArrayFromJson('assets/json/upazilla.json');
         $cityCorporation = array();
         $countryCode = array();
 
@@ -49,23 +58,22 @@ class AddressType extends AbstractType
             ))
             ->add('division_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                ),
-                $division
+                    'choices' => $divisions
+                )
             )
             ->add('district_id', 'choice', array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $district
+                    'attr' => array('class' => 'form-control'),
+                    'choices' => $districts
+                )
             )
             ->add('union_id', 'choice', array(
                     'attr' => array('class' => 'form-control')
-                ),
-                $union
+                )
             )
             ->add('upazilla_id', 'choice', array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $upazilla
+                    'attr' => array('class' => 'form-control'),
+                    'choices' => $upazilla
+                )
             )
             ->add('city_corporation_id', 'choice', array(
                     'attr' => array('class' => 'form-control')
@@ -90,5 +98,13 @@ class AddressType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Mci\Bundle\PatientBundle\FormMapper\Address'
         ));
+    }
+
+    /**
+     * @return array
+     */
+    public function getArrayFromJson($url)
+    {
+        return (array)json_decode(file_get_contents($url));
     }
 }
