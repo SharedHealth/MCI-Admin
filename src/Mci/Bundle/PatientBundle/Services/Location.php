@@ -77,7 +77,7 @@ class Location {
         $divisions =  $this->getJsonData('division.json');
 
         foreach($divisions as $key=>$val){
-            $filterDivisions[$val['code']] = $val['name'];
+            $filterDivisions[$val['code'].'_'.$val['id']] = $val['name'];
         }
 
         return $filterDivisions;
@@ -88,10 +88,20 @@ class Location {
         $districts =  $this->getJsonData('district.json');
 
         foreach($districts as $key=>$val){
-            $filterDivisions[$val['code']] = $val['name'];
+            $filterDistricts[$val['code'].'_'.$val['id']] = $val['name'];
         }
 
-        return $filterDivisions;
+        return $filterDistricts;
+    }
+
+    public function getAllUpazilla(){
+        $upazillas =  $this->getJsonData('upazilla.json');
+
+        foreach($upazillas as $key=>$val){
+            $filterUpazillas[$val['code']] = $val['name'];
+        }
+
+        return $filterUpazillas;
     }
 
 

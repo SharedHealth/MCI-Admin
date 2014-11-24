@@ -9,14 +9,14 @@ mci_patient_showpage:
     defaults: { _controller: MciPatientBundle:Patient:show }
 
 mci_patient_edit:
-    path:     /{id}/edit
+    path:     /{id}/edit/
     defaults: { _controller: MciPatientBundle:Patient:edit }
     methods:   [GET]
     requirements:
            id:  \d+
 
 mci_patient_update:
-    path:     /update
+    path:     /{id}/update/
     defaults: { _controller: MciPatientBundle:Patient:update }
     methods:   [PUT|POST]
 

@@ -90,6 +90,7 @@ class PatientController extends Controller
     }
 
     public function editAction(Request $request, $id){
+
         $responseBody = null;
         try{
             if($id){
@@ -118,8 +119,15 @@ class PatientController extends Controller
         ));
     }
 
-    public function updateAction(Request $request){
-        var_dump($_POST);
+    public function updateAction(Request $request, $id){
+        if ($request->getMethod() == 'POST') {
+            $nids = $_POST['relation']['nid'];
+            if(!empty($nids)){
+                foreach($nids as $key => $val){
+
+                }
+            }
+        }
         return new Response('Update is on progress');
     }
 

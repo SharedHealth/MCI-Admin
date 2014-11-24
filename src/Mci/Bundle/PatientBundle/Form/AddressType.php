@@ -2,6 +2,7 @@
 
 namespace Mci\Bundle\PatientBundle\Form;
 
+use Mci\Bundle\PatientBundle\Form\Type\LocationType;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -19,14 +20,12 @@ class AddressType extends AbstractType
     {
         $locationService = $this->serviceContainer->get('mci.location');
         $divisions = $locationService->getAllDivision();
-
-      //  $district = $this->getArrayFromJson('assets/json/district.json');
         $union = array();
         $districts = $locationService->getAllDistrict();
-        $upazilla = array();
+        $upazillas = $locationService->getAllUpazilla();
         // $upazilla = $this->getArrayFromJson('assets/json/upazilla.json');
         $cityCorporation = array();
-        $countryCode = array();
+        $countryCode = $this->getArrayFromJson('assets/json/countryCode.json');
 
         $builder
             ->add('address_line', 'text', array(
@@ -56,14 +55,16 @@ class AddressType extends AbstractType
                 'attr' => array('class' => 'form-control'),
                 'required'  => false
             ))
-            ->add('division_id', 'choice', array(
+            ->add('division_id', new LocationType(), array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' => $divisions
+                    'choices' => $divisions,
+                    'empty_value' => '--Please select--'
                 )
             )
             ->add('district_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' => $districts
+                    'choices' => $districts,
+                    'empty_value' => '--Please select--'
                 )
             )
             ->add('union_id', 'choice', array(
@@ -72,7 +73,8 @@ class AddressType extends AbstractType
             )
             ->add('upazilla_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' => $upazilla
+                    'choices' => $upazillas,
+                    'empty_value' => '--Please select--'
                 )
             )
             ->add('city_corporation_id', 'choice', array(
@@ -82,9 +84,10 @@ class AddressType extends AbstractType
             )
             ->add('country_code', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'required'  => false
-                ),
-                $countryCode
+                    'choices' => $countryCode,
+                    'required'  => false,
+                    'empty_value' => '--Please select--'
+                )
             );
     }
 

@@ -130,6 +130,7 @@ class PatientType extends AbstractType
             ->add('relations', 'collection', array(
                 'type' => new RelationType(),
                 'allow_add' => true,
+                'label' => false
             ))
             ->add('save', 'submit', array(
                 'attr' => array('class' => 'btn btn-primary form-group'),
