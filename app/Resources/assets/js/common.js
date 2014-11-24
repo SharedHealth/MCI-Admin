@@ -79,14 +79,14 @@ var registerValidators = function () {
 
 jQuery(document).ready(function () {
     registerValidators();
-   jQuery('.relation-nid').attr('name','relation[nid][]');
-   jQuery('.relation-brn').attr('name','relation[bin_brn][]');
-   jQuery('.relation-uid').attr('name','relation[uid][]');
-   jQuery('.relation-type').attr('name','relation[type][]');
-   jQuery('.relation-name-bangla').attr('name','relation[name_bangla][]');
-   jQuery('.relation-given-name').attr('name','relation[given_name][]');
-    jQuery('.relation-sur_name').attr('name','relation[sur_name][]');
-    jQuery('.relation-relational-status').attr('name','relation[relational-status][]');
+    jQuery('.relation-nid').attr('name','mci_bundle_patientBundle_patients[relation][nid][]');
+    jQuery('.relation-brn').attr('name','mci_bundle_patientBundle_patients[relation][bin_brn][]');
+    jQuery('.relation-uid').attr('name','mci_bundle_patientBundle_patients[relation][uid][]');
+    jQuery('.relation-type').attr('name','mci_bundle_patientBundle_patients[relation][type][]');
+    jQuery('.relation-name-bangla').attr('name','mci_bundle_patientBundle_patients[relation][name_bangla][]');
+    jQuery('.relation-given-name').attr('name','mci_bundle_patientBundle_patients[relation][given_name][]');
+    jQuery('.relation-sur-name').attr('name','mci_bundle_patientBundle_patients[relation][sur_name][]');
+    jQuery('.relation-relational-status').attr('name','mci_bundle_patientBundle_patients[relation][relational-status][]');
 
    jQuery("#searchPatientForm").validate(
         {
@@ -140,26 +140,26 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[nid]': {
                     nationalId: true
                 },
-                'relation[nid][]': {
+                'mci_bundle_patientBundle_patients[relation][nid][]': {
                     nationalId: true
                 },
                 'mci_bundle_patientBundle_patients[bin_brn]': {
                     birthRegistration: true
                 },
-                'relation[bin_brn][]': {
+                'mci_bundle_patientBundle_patients[relation][bin_brn][]': {
                     birthRegistration: true
                 },
                 'mci_bundle_patientBundle_patients[uid]': {
                     unifiedIdentification: true
                 },
-                'relation[uid][]': {
+                'mci_bundle_patientBundle_patients[relation][uid][]': {
                     unifiedIdentification: true
                 },
                 'mci_bundle_patientBundle_patients[given_name]': {
                     onlyCharacter: true,
                     givenName: true
                 },
-                'relation[given_name][]': {
+                'mci_bundle_patientBundle_patients[relation][given_name][]': {
                     onlyCharacter: true,
                     givenName: true
                 },
@@ -168,7 +168,7 @@ jQuery(document).ready(function () {
                     maximum: 25,
                     surName: true
                 },
-                'relation[sur_name][]': {
+                'mci_bundle_patientBundle_patients[relation][sur_name][]': {
                     onlyCharacter: true,
                     maximum: 25,
                     surName: true
@@ -310,7 +310,7 @@ jQuery(document).ready(function () {
         upazillaDropdwon(x,districtId);
     });
 
-    function upazillaDropdwon(x,districtId,search) {
+    function upazillaDropdwon(x,districtId) {
 
         if (districtId) {
             x.removeAttr('disabled');
@@ -334,7 +334,7 @@ jQuery(document).ready(function () {
         }
     }
 
-    function populatedDistrictDropdown(x, y, divisionId, search) {
+    function populatedDistrictDropdown(x, y, divisionId) {
 
         if (divisionId) {
             x.removeAttr('disabled');

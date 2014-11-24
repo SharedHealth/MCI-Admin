@@ -19,13 +19,6 @@ class PatientController extends Controller
         return $this->render('MciPatientBundle:Patient:index.html.twig');
     }
 
-    function remove_utf8_bom($text)
-    {
-        $bom = pack('H*','EFBBBF');
-        $text = preg_replace("/^$bom/", '', $text);
-        return $text;
-    }
-
     public function searchAction( Request $request)
     {
         $districts = array();
@@ -120,16 +113,50 @@ class PatientController extends Controller
     }
 
     public function updateAction(Request $request, $id){
+        $client = $this->get('mci_patient.client');
+        $url = $this->container->getParameter('api_end_point').'/'.$id;
+        $postData = array();
         if ($request->getMethod() == 'POST') {
-            $nids = $_POST['relation']['nid'];
-            if(!empty($nids)){
-                foreach($nids as $key => $val){
 
+               $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
+               $postData =  $this->filterRelations($postData);
+               $postData = $this->filterPhoneNumber($postData);
+               $postData = $this->filterAddress($postData);
+               $postData = $this->unsetUnessaryData($postData);
+
+
+          try{
+              $request = $client->put($url,array(
+                  'content-type' => 'application/json'
+              ),array());
+              $request->setBody(json_encode($postData,JSON_UNESCAPED_UNICODE));
+              $request->send();
+          }
+          catch(RequestException $e){
+
+
+                if($e instanceof \Guzzle\Http\Exception\CurlException) {
+                    $SystemAPiError[] = 'Service Unvailable';
+                }
+
+                try{
+                    if(method_exists($e,'getResponse')){
+
+                        $messages =  json_decode($e->getResponse()->getBody());
+
+                        if($messages){
+                            $SystemAPiError = $this->getErrorMessages($messages);
+                        }
+                    }
+                }catch (Exception $e) {
+                    echo "Unknown Error";
                 }
             }
-        }
-        return new Response('Update is on progress');
+         }
+
+        return new Response( json_encode($postData,JSON_UNESCAPED_UNICODE));
     }
+
 
     public function showAction($id, Request $request)
     {
@@ -287,6 +314,99 @@ class PatientController extends Controller
         }
 
         return $queryParam;
+    }
+
+    /**
+     * @param $postData
+     * @return mixed
+     */
+    private function filterRelations($postData)
+    {
+        if (!empty($postData['relation']['nid'])) {
+
+            foreach ($postData['relation']['nid'] as $key => $val) {
+
+                if ($val) {
+                    $postData['relations'][$key]['nid'] = $val;
+                }
+                if (isset($postData['relation']['bin_brn'][$key])) {
+                    $postData['relations'][$key]['bin_brn'] = $postData['relation']['bin_brn'][$key];
+                }
+                if (isset($postData['relation']['uid'][$key])) {
+                    $postData['relations'][$key]['uid'] = $postData['relation']['uid'][$key];
+                }
+                if (isset($postData['relation']['type'][$key])) {
+                    $postData['relations'][$key]['type'] = $postData['relation']['type'][$key];
+                }
+                if (isset($postData['relation']['name_bangla'][$key])) {
+                    $postData['relations'][$key]['name_bangla'] = $postData['relation']['name_bangla'][$key];
+                }
+                if (isset($postData['relation']['given_name'][$key])) {
+                    $postData['relations'][$key]['given_name'] = $postData['relation']['given_name'][$key];
+                }
+                if (isset($postData['relation']['sur_name'][$key])) {
+                    $postData['relations'][$key]['sur_name'] = $postData['relation']['sur_name'][$key];
+                }
+                if (isset($postData['relation']['relational-status'][$key])) {
+                    $postData['relations'][$key]['relational-status'] = $postData['relation']['relational-status'][$key];
+                }
+            }
+            return $postData;
+        }
+        return $postData;
+    }
+
+    /**
+     * @param $postData
+     * @return mixed
+     */
+    private function filterPhoneNumber($postData)
+    {
+        if (empty($postData['phone_number']['number'])) {
+            unset($postData['phone_number']);
+        } else {
+            $postData['phone_number'] = array_filter($postData['phone_number']);
+        }
+
+        if (empty($postData['primary_contact_number']['number'])) {
+            unset($postData['primary_contact_number']);
+            return $postData;
+        } else {
+            $postData['primary_contact_number'] = array_filter($postData['primary_contact_number']);
+            return $postData;
+        }
+    }
+
+    /**
+     * @param $postData
+     * @return mixed
+     */
+    private function filterAddress($postData)
+    {
+        if (empty($postData['permanent_address']['division_id'])) {
+            unset($postData['permanent_address']);
+        } else {
+            $postData['permanent_address'] = array_filter($postData['permanent_address']);
+        }
+
+        if (empty($postData['present_address']['division_id'])) {
+            unset($postData['present_address']);
+            return $postData;
+        } else {
+            $postData['present_address'] = array_filter($postData['present_address']);
+            return $postData;
+        }
+    }
+
+    /**
+     * @param $postData
+     */
+    private function unsetUnessaryData($postData)
+    {
+        unset($postData['relation']);
+        unset($postData['save']);
+        unset($postData['_token']);
+        return $postData;
     }
 
 }
