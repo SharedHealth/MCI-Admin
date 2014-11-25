@@ -169,6 +169,7 @@ class PatientController extends Controller
      */
     public function getErrorMessages($messages)
     {
+        var_dump($messages);
         foreach ($messages->errors as $value) {
 
             switch ($value->code) {
