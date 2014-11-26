@@ -6,7 +6,7 @@
  * Copyright (c) 2014 Jörn Zaefferer
  * Released under the MIT license
  */
-(function( factory ) {
+;(function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 		define( ["jquery"], factory );
 	} else {

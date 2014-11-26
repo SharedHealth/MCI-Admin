@@ -10,7 +10,6 @@
         'assets/css/bootstrap.min.css'
         'assets/font-awesome/css/font-awesome.css'
         'assets/css/plugins/metisMenu/metisMenu.min.css'
-        'assets/css/plugins/dataTables.bootstrap.css'
         'assets/css/sb-admin-2.css'
         'assets/css/plugins/morris.css'
         'assets/css/custom.css'
@@ -27,8 +26,6 @@
         'assets/js/jquery-1.11.0.js'
         'assets/js/bootstrap.min.js'
         'assets/js/plugins/metisMenu/metisMenu.min.js'
-        'assets/js/plugins/dataTables/jquery.dataTables.js'
-        'assets/js/plugins/dataTables/dataTables.bootstrap.js'
         'assets/js/sb-admin-2.js'
         'assets/js/jquery.validate.js'
         'assets/js/common.js'
@@ -53,18 +50,11 @@
   </div>
 
 
-
-<script>
-    $(document).ready(function() {
-        $('.search-patient').dataTable({
-            "searching": false,
-            "paging": false,
-            "oLanguage": {
-                "sEmptyTable":     "No patient found"
-            }
-        });
+<script type="text/javascript">
+    $(document).ready(function(){
+        {% block documentReady %}
+        {% endblock documentReady %}
     });
 </script>
-
 </body>
 </html>

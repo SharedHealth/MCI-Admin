@@ -6,35 +6,29 @@
         <div class="col-lg-12">
             <h3 class="page-header">Search Patient</h3>
         </div>
-      <span class="systeError" style="color: red;">
-      {% for syserror in systemError  %}
-          {{ syserror }} <br/>
-      {% endfor %}
-      </span>
-        <!-- /.col-lg-12 -->
     </div>
-    <div style="display: none;" class="fillOne error">Please fill at least one field</div>
-    <div style="display: none;" class="selectlocation error">Please select location</div>
-    <div style="display: none;" class="phoneNoError error">Number field is required</div>
-    <!-- /.row -->
     <form id="searchPatientForm" name="searchPatient"  method="get" autocomplete="off">
-
+    <div class="alert alert-danger" id="error_div" style="{% if  systemError|length < 1 %}display: none {% endif %};width: 100%">
+      {% for syserror in systemError  %}
+          {{ syserror }}
+      {% endfor %}
+      </div>
         <h5>IDs:</h5>
 
         <div class="row">
             <div class="col-lg-3" >
                 <div class="form-group">
-                    <input id="nid" name="nid" class="form-control " value="{% if queryparam.nid is defined  %}{{ queryparam.nid|trim }}{% endif %}"  placeholder="NID">
+                    <input id="nid" name="nid" class="form-control single-searchable" value="{% if queryparam.nid is defined  %}{{ queryparam.nid|trim }}{% endif %}"  placeholder="NID">
                 </div>
             </div>
             <div class="col-lg-3 ">
                 <div class="form-group group-error-block">
-                    <input id="brn" name="brn" class="form-control " value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
+                    <input id="brn" name="brn" class="form-control single-searchable" value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group group-error-block">
-                    <input id="uid" name="uid" class="form-control " value="{% if queryparam.uid is defined  %}{{ queryparam.uid|trim }}{% endif %}" placeholder="UID">
+                    <input id="uid" name="uid" class="form-control single-searchable" value="{% if queryparam.uid is defined  %}{{ queryparam.uid|trim }}{% endif %}" placeholder="UID">
                 </div>
             </div>
 
@@ -52,35 +46,30 @@
                     <input id="sur_name" name="sur_name" value ="{% if queryparam.sur_name is defined  %}{{ queryparam.sur_name|trim }}{% endif %}" class="form-control" placeholder="Surname">
                 </div>
             </div>
-            {#<div class="col-lg-3">
-                <div class="form-group">
-                    <input id="phone_number" name="phone" value ="{% if queryparam.date_of_birth is defined  %}{{ queryparam.date_of_birth|trim }}{% endif %}" class="form-control" placeholder="Date of Birth">
-                </div>
-            </div>#}
         </div>
 
         <h5>Phone Number:</h5>
         <div class="row">
             <div class="col-lg-2">
                 <div class="form-group">
-                    <input  id="country_code" name="country_code" value ="{% if queryparam.country_code is defined  %}{{ queryparam.country_code|trim }}{% endif %}" class="form-control" placeholder="Country Code">
+                    <input  id="country_code" name="country_code" value ="{% if queryparam.country_code is defined  %}{{ queryparam.country_code|trim }}{% endif %}" class="form-control phone-block" placeholder="Country Code">
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
-                    <input  id="area_code" name="area_code" value ="{% if queryparam.area_code is defined  %}{{ queryparam.area_code|trim }}{% endif %}" class="form-control" placeholder="Area Code">
+                    <input  id="area_code" name="area_code" value ="{% if queryparam.area_code is defined  %}{{ queryparam.area_code|trim }}{% endif %}" class="form-control phone-block" placeholder="Area Code">
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control" placeholder="Number">
+                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control single-searchable" placeholder="Number">
                 </div>
             </div>
 
             <div class="col-lg-2">
                 <div class="form-group">
-                    <input  id="extension" name="extension" value ="{% if queryparam.extension is defined  %}{{ queryparam.extension|trim }}{% endif %}" class="form-control" placeholder="Extension">
+                    <input  id="extension" name="extension" value ="{% if queryparam.extension is defined  %}{{ queryparam.extension|trim }}{% endif %}" class="form-control phone-block" placeholder="Extension">
                 </div>
             </div>
 
@@ -146,7 +135,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <button id="searchButton" type="button" class="btn btn-primary">Submit</button>
+                <button id="searchButton" type="submit" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </form>
@@ -192,5 +181,32 @@
         </tbody>
     </table>
 {% endif %}
-{% include 'MciPatientBundle:Patient:searchJs.html.twig' %}
 {% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- BEGIN GLOBAL STYLES -->
+    {% stylesheets filter='cssrewrite'
+    'assets/css/plugins/dataTables.bootstrap.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- END GLOBAL STYLES -->
+{% endblock stylesheets %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL JS -->
+    {% javascripts
+    'assets/js/plugins/dataTables/jquery.dataTables.js'
+    'assets/js/plugins/dataTables/dataTables.bootstrap.js'
+    "bundles/mcipatient/js/search.js"
+    %}
+    <!-- END PAGE LEVEL JS -->
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascripts %}
+
+{% block documentReady %}
+    PatientSearch.init();
+{% endblock documentReady %}

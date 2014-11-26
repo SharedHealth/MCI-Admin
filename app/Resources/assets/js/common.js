@@ -1,11 +1,12 @@
-var registerValidators = function () {
+;var registerValidators = function () {
 
     jQuery.validator.addMethod(
-        "nationalId",
-        function (number, element) {
-            return this.optional(element) || /^([\d]{13}|[\d]{17})$/.test(number.replace(/\s/g, ''));
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(jQuery.trim(value));
         },
-        "Please enter valid NID"
+        "Invalid input pattern"
     );
 
     jQuery.validator.addMethod("birthRegistration", function (value, element) {
@@ -51,14 +52,6 @@ var registerValidators = function () {
         "Digits are not allowed"
     );
 
-    jQuery.validator.addMethod(
-        "dateFormat",
-        function(value, element) {
-            var re = /^\d{4}-\d{2}-\d{2}$/;
-            return  re.test(value);
-        },
-        "Please enter a valid date format yyyy-mm-dd"
-    );
 
     jQuery.validator.addMethod("maximumAlphaneumeric", function (value, element,param) {
         var re = new RegExp("^[a-zA-Z0-9]{1," + param + "}$", "g");
@@ -88,50 +81,7 @@ jQuery(document).ready(function () {
     jQuery('.relation-sur-name').attr('name','mci_bundle_patientBundle_patients[relation][sur_name][]');
     jQuery('.relation-relational-status').attr('name','mci_bundle_patientBundle_patients[relation][relational-status][]');
 
-   jQuery("#searchPatientForm").validate(
-        {
-            rules: {
-                nid: {
-                    nationalId: true
-                },
-                brn: {
-                    birthRegistration: true
-                },
-                uid: {
-                    unifiedIdentification: true
-                },
-                given_name: {
-                    onlyCharacter: true,
-                    givenName: true
-                },
-                sur_name: {
-                    onlyCharacter: true,
-                    maximum: 25,
-                    surName: true
-                },
-                phone_no: {
-                    onlyNumber: true,
-                    phoneNumber: 12
-                },
-                area_code: {
-                    onlyNumber: true
-                },
-                country_code: {
-                    onlyNumber: true
 
-                },
-                extension: {
-                    onlyNumber: true
-
-                }
-            },
-            messages: {
-
-
-            },
-            focusInvalid: false
-        }
-    );
 
 
  jQuery("#patientEditForm").validate(
