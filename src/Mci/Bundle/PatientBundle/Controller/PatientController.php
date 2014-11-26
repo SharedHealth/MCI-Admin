@@ -84,26 +84,19 @@ class PatientController extends Controller
 
     public function editAction(Request $request, $id){
 
-        $responseBody = null;
-        try{
-            if($id){
-                $client = $this->get('mci_patient.client');
-                $request = $client->get($this->container->getParameter('api_end_point').'/'.$id);
-                $response = $request->send();
-                $responseBody = json_decode($response->getBody());
-            }
-        } catch(RequestException $e){
-            $e->getMessage();
+        $patient = $this->getPatientById($id);
+
+        if($patient['systemError']){
+            throw $this->createNotFoundException('Service Unavailable');
         }
 
-        if (!$responseBody) {
+        if (!json_decode($patient['responseBody'])) {
             throw $this->createNotFoundException('Unable to find patient');
         }
 
-        $serializer = $this->container->get('jms_serializer');
-        $object = $serializer->deserialize($response->getBody(), 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
+        $object = $this->getFormMappingObject($patient['responseBody']);
 
-        $form = $this->createForm(new PatientType($this->container), $object);
+        $form = $this->createForm(new PatientType($this->container,$object), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView(),
@@ -113,9 +106,9 @@ class PatientController extends Controller
     }
 
     public function updateAction(Request $request, $id){
-        $client = $this->get('mci_patient.client');
-        $url = $this->container->getParameter('api_end_point').'/'.$id;
+
         $postData = array();
+
         if ($request->getMethod() == 'POST') {
 
                $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
@@ -123,38 +116,18 @@ class PatientController extends Controller
                $postData = $this->filterPhoneNumber($postData);
                $postData = $this->filterAddress($postData);
                $postData = $this->unsetUnessaryData($postData);
+               $errors =  $this->updatePatientById($id,$postData);
+               $patient = $this->getPatientById($id);
+               $object = $this->getFormMappingObject($patient['responseBody']);
+               $form = $this->createForm(new PatientType($this->container,$object), $object);
 
-
-          try{
-              $request = $client->put($url,array(
-                  'content-type' => 'application/json'
-              ),array());
-              $request->setBody(json_encode($postData,JSON_UNESCAPED_UNICODE));
-              $request->send();
-          }
-          catch(RequestException $e){
-
-
-                if($e instanceof \Guzzle\Http\Exception\CurlException) {
-                    $SystemAPiError[] = 'Service Unvailable';
-                }
-
-                try{
-                    if(method_exists($e,'getResponse')){
-
-                        $messages =  json_decode($e->getResponse()->getBody());
-
-                        if($messages){
-                            $SystemAPiError = $this->getErrorMessages($messages);
-                        }
-                    }
-                }catch (Exception $e) {
-                    echo "Unknown Error";
-                }
-            }
+               return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
+                    'form' => $form->createView(),
+                    'hid'  => $id,
+                    'errors' => $errors
+               ));
          }
 
-        return new Response( json_encode($postData,JSON_UNESCAPED_UNICODE));
     }
 
 
@@ -205,6 +178,18 @@ class PatientController extends Controller
 
                 case 1002:
                     $SystemAPiError[] = "Invalid Pattern";
+                    break;
+
+                case 1005:
+                    $SystemAPiError[] = "Invalid Marital Status";
+                    break;
+
+                case 1004:
+                    $SystemAPiError[] = "Invalid Relational Status";
+                    break;
+
+                case 2001:
+                    $SystemAPiError[] = "Invalid json";
                     break;
 
                 default:
@@ -329,26 +314,26 @@ class PatientController extends Controller
                 if ($val) {
                     $postData['relations'][$key]['nid'] = $val;
                 }
-                if (isset($postData['relation']['bin_brn'][$key])) {
+                if (!empty($postData['relation']['bin_brn'][$key])) {
                     $postData['relations'][$key]['bin_brn'] = $postData['relation']['bin_brn'][$key];
                 }
-                if (isset($postData['relation']['uid'][$key])) {
+                if (!empty($postData['relation']['uid'][$key])) {
                     $postData['relations'][$key]['uid'] = $postData['relation']['uid'][$key];
                 }
-                if (isset($postData['relation']['type'][$key])) {
+                if (!empty($postData['relation']['type'][$key])) {
                     $postData['relations'][$key]['type'] = $postData['relation']['type'][$key];
                 }
-                if (isset($postData['relation']['name_bangla'][$key])) {
+                if (!empty($postData['relation']['name_bangla'][$key])) {
                     $postData['relations'][$key]['name_bangla'] = $postData['relation']['name_bangla'][$key];
                 }
-                if (isset($postData['relation']['given_name'][$key])) {
+                if (!empty($postData['relation']['given_name'][$key])) {
                     $postData['relations'][$key]['given_name'] = $postData['relation']['given_name'][$key];
                 }
-                if (isset($postData['relation']['sur_name'][$key])) {
+                if (!empty($postData['relation']['sur_name'][$key])) {
                     $postData['relations'][$key]['sur_name'] = $postData['relation']['sur_name'][$key];
                 }
-                if (isset($postData['relation']['relational-status'][$key])) {
-                    $postData['relations'][$key]['relational-status'] = $postData['relation']['relational-status'][$key];
+                if (!empty($postData['relation']['relational-status'][$key])) {
+                    $postData['relations'][$key]['relational_status'] = $postData['relation']['relational-status'][$key];
                 }
             }
             return $postData;
@@ -407,6 +392,71 @@ class PatientController extends Controller
         unset($postData['save']);
         unset($postData['_token']);
         return $postData;
+    }
+
+    private  function getPatientById($id){
+        $responseBody = null;
+        $SystemAPiError = null;
+        try{
+            if($id){
+                $client = $this->get('mci_patient.client');
+                $request = $client->get($this->container->getParameter('api_end_point').'/'.$id);
+                $response = $request->send();
+                $responseBody = $response->getBody();
+            }
+        }catch(RequestException $e){
+
+            if($e instanceof \Guzzle\Http\Exception\CurlException) {
+                $SystemAPiError[] = 'Service Unvailable';
+            }
+        }
+
+        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
+    }
+
+    /**
+     * @param $response
+     * @return mixed
+     */
+    private function getFormMappingObject($responseBody)
+    {
+        $serializer = $this->container->get('jms_serializer');
+        $object = $serializer->deserialize($responseBody, 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
+        return $object;
+    }
+
+    private function updatePatientById($id, $postData){
+
+        $client = $this->get('mci_patient.client');
+        $SystemAPiError = array();
+        $url = $this->container->getParameter('api_end_point').'/'.$id;
+        try{
+            $request = $client->put($url,array(
+                'content-type' => 'application/json'
+            ),array());
+            $request->setBody(json_encode($postData,JSON_UNESCAPED_UNICODE));
+            $request->send();
+        }
+        catch(RequestException $e){
+            if($e instanceof \Guzzle\Http\Exception\CurlException) {
+                $SystemAPiError[] = 'Service Unvailable';
+            }
+
+            try{
+                if(method_exists($e,'getResponse')){
+
+                    $messages =  json_decode($e->getResponse()->getBody());
+                    var_dump($messages);
+                    if($messages){
+                        $SystemAPiError = $this->getErrorMessages($messages);
+                    }
+                }
+            }catch (Exception $e) {
+                $SystemAPiError[]= "Unknown Error";
+            }
+        }
+        return $SystemAPiError;
+
     }
 
 }

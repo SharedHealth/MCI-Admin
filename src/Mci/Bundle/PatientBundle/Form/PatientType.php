@@ -12,13 +12,18 @@ class PatientType extends AbstractType
 {
 
     private $serviceContainer;
+    private $patientObject;
 
-    public function __construct(Container $container){
+    public function __construct(Container $container,$object){
         $this->serviceContainer = $container;
+        $this->patientObject = $object;
+
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+
         $gender =  (array)json_decode(file_get_contents('assets/json/gender.json'));
         $ethnicity = array();
 
@@ -123,8 +128,8 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
-            ->add('present_address', new AddressType($this->serviceContainer))
-            ->add('permanent_address', new AddressType($this->serviceContainer))
+            ->add('present_address', new AddressType($this->serviceContainer,$this->patientObject->getPresentAddress()))
+            ->add('permanent_address', new AddressType($this->serviceContainer,$this->patientObject->getPermanentAddress()))
             ->add('phone_number', new ContactType())
             ->add('primary_contact_number', new ContactType())
             ->add('relations', 'collection', array(

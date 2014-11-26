@@ -45,10 +45,8 @@ class Location {
                     $districtByDivision[$key]['id'] = $value['id'];
                 }
             }
-            return $districtByDivision;
-        }else{
-            return $districtByDivision;
         }
+        return $districtByDivision;
     }
 
     public function getUpazilla($id){
@@ -65,43 +63,71 @@ class Location {
                     $upazillaByDistrict[$key]['id'] = $value['id'];
                 }
             }
-
-            return $upazillaByDistrict;
-
-        } else {
-            return $upazillaByDistrict;
         }
+        return $upazillaByDistrict;
     }
 
     public function getAllDivision(){
         $divisions =  $this->getJsonData('division.json');
 
         foreach($divisions as $key=>$val){
-            $filterDivisions[$val['code'].'_'.$val['id']] = $val['name'];
+            $filterDivisions[$val['code']] = $val['name'];
         }
 
         return $filterDivisions;
     }
 
 
-    public function getAllDistrict(){
+    public function getAllDistrict($id){
         $districts =  $this->getJsonData('district.json');
 
         foreach($districts as $key=>$val){
-            $filterDistricts[$val['code'].'_'.$val['id']] = $val['name'];
+            if ($val['division_id'] == $id) {
+                $filterDistricts[str_pad($val['code'], 2, 0, STR_PAD_LEFT)] = $val['name'];
+            }
         }
 
         return $filterDistricts;
     }
 
-    public function getAllUpazilla(){
-        $upazillas =  $this->getJsonData('upazilla.json');
+    public function getAllUpazilla($id){
+        $upazillaByDistrict = array();
 
-        foreach($upazillas as $key=>$val){
-            $filterUpazillas[$val['code']] = $val['name'];
+        if ($id) {
+            $upazillas =  $this->getJsonData('upazilla.json');
+
+            foreach ($upazillas as $key => $value) {
+
+                if ($value['district_id'] == $id) {
+                    $upazillaByDistrict[$value['code']] = $value['name'] ;
+
+                }
+            }
+
+        }
+        return $upazillaByDistrict;
+    }
+
+
+    public function getDivisionId($code){
+        $divisions =  $this->getJsonData('division.json');
+        foreach($divisions as $key=>$val){
+            $divisionCode = str_pad($val['code'],2,0,STR_PAD_LEFT);
+            if($divisionCode == $code){
+               return $val['id'];
+            }
+        }
+    }
+
+    public function getDistictId($code){
+        $districts =  $this->getJsonData('district.json');
+        foreach($districts as $key=>$val){
+            $disctrictCode = str_pad($val['code'],2,0,STR_PAD_LEFT);
+            if($disctrictCode == $code){
+                return $val['id'];
+            }
         }
 
-        return $filterUpazillas;
     }
 
 

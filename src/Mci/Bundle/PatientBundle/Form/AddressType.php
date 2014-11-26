@@ -11,9 +11,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class AddressType extends AbstractType
 {
     private $serviceContainer;
+    private $addressObject;
 
-    public function __construct( Container $container){
+    public function __construct( Container $container,  $object){
         $this->serviceContainer = $container;
+        $this->addressObject = $object;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -21,9 +23,10 @@ class AddressType extends AbstractType
         $locationService = $this->serviceContainer->get('mci.location');
         $divisions = $locationService->getAllDivision();
         $union = array();
-        $districts = $locationService->getAllDistrict();
-        $upazillas = $locationService->getAllUpazilla();
-        // $upazilla = $this->getArrayFromJson('assets/json/upazilla.json');
+        $divisionId = $locationService->getDivisionId($this->addressObject->getDivisionId());
+        $districts = $locationService->getAllDistrict($divisionId);
+        $districtId = $locationService->getDistictId($this->addressObject->getDistrictId());
+        $upazillas = $locationService->getAllUpazilla($districtId);
         $cityCorporation = array();
         $countryCode = $this->getArrayFromJson('assets/json/countryCode.json');
 
@@ -55,7 +58,7 @@ class AddressType extends AbstractType
                 'attr' => array('class' => 'form-control'),
                 'required'  => false
             ))
-            ->add('division_id', new LocationType(), array(
+            ->add('division_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $divisions,
                     'empty_value' => '--Please select--'

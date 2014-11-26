@@ -9,10 +9,7 @@
                     {{- block('choice_widget_options') -}}
                 </optgroup>
             {%- else -%}
-                {% set choiceArray = choice.value|split('_') %}
-                {% set choiceId =  (choiceArray.1 is defined) ? choiceArray.1:'' %}
-                {% set choiceValue =  (choiceArray.1 is not defined) ? choice.value:choiceArray.0 %}
-                <option data-id="{{choiceId }}" value="{{ choiceValue }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
+            <option data-id = "{{ choice.value|divisionCodeToId }}" value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
             {%- endif -%}
         {% endfor %}
     {% endspaceless %}

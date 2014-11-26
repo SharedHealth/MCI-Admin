@@ -14,13 +14,16 @@ class RelationType extends AbstractType
 
         $builder
             ->add('uid', 'text', array(
-                'attr' => array('class' => 'form-control relation-uid')
+                'attr' => array('class' => 'form-control relation-uid'),
+                'required'  => false
             ))
             ->add('nid', 'text', array(
-                'attr' => array('class' => 'form-control relation-nid')
+                'attr' => array('class' => 'form-control relation-nid'),
+                'required'  => false
             ))
             ->add('bin_brn', 'text', array(
-                'attr' => array('class' => 'form-control relation-brn')
+                'attr' => array('class' => 'form-control relation-brn'),
+                'required'  => false
             ))
             ->add('type', 'choice', array(
                 'choices' => $type,
@@ -28,16 +31,21 @@ class RelationType extends AbstractType
               )
             )
             ->add('sur_name', 'text', array(
-                'attr' => array('class' => 'form-control relation-sur_name')
+                'attr' => array('class' => 'form-control relation-sur_name'),
+                'required'  => false
             ))
             ->add('given_name', 'text', array(
-                'attr' => array('class' => 'form-control relation-given-name')
+                'attr' => array('class' => 'form-control relation-given-name'),
+                'required'  => false
             ))
             ->add('name_bangla', 'text', array(
-                'attr' => array('class' => 'form-control relation-name-bangla')
+                'attr' => array('class' => 'form-control relation-name-bangla'),
+                'required'  => false,
             ))
             ->add('relational_status', 'choice', array(
                 'choices' => $relations,
+                'empty_value' => '--Please select--',
+                'required'  => false,
                 'attr' => array('class' => 'form-control relation-relational-status')
             ));
     }

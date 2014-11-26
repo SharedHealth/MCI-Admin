@@ -20,7 +20,8 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('upazilla', array($this, 'upazillaFilter')),
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
-            new \Twig_SimpleFilter('relation', array($this, 'relationFilter'))
+            new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
+            new \Twig_SimpleFilter('divisionCodeToId', array($this, 'divisionCodeConvertFilter'))
         );
     }
 
@@ -115,6 +116,17 @@ class MciExtension extends \Twig_Extension
              $FilterArray[$code] = $value['name'];
          }
         return $FilterArray;
+    }
+
+
+    public function divisionCodeConvertFilter($code){
+        $divisions =  $this->getJsonData('division.json');
+        foreach($divisions as $key=>$val){
+            $divisionCode = str_pad($val['code'],2,0,STR_PAD_LEFT);
+            if($divisionCode == $code){
+                return $val['id'];
+            }
+        }
     }
 
 

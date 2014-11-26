@@ -268,7 +268,6 @@ jQuery(document).ready(function () {
     $('#mci_bundle_patientBundle_patients_present_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_district_id');
         var y = $('#mci_bundle_patientBundle_patients_present_address_upazilla_id');
-        var z = $('#mci_bundle_patientBundle_patients_present_address_division_id');
         var divisionId = $('option:selected', this).attr('data-id');
         populatedDistrictDropdown(x, y,divisionId);
     });
@@ -276,21 +275,18 @@ jQuery(document).ready(function () {
     $('#mci_bundle_patientBundle_patients_permanent_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_permanent_address_district_id');
         var y = $('#mci_bundle_patientBundle_patients_permanent_address_upazilla_id');
-        var z = $('#mci_bundle_patientBundle_patients_permanent_address_division_id');
         var divisionId = $('option:selected', this).attr('data-id');
         populatedDistrictDropdown(x, y,divisionId);
     });
 
     $('#mci_bundle_patientBundle_patients_present_address_district_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_upazilla_id');
-        var y = $('#mci_bundle_patientBundle_patients_present_address_district_id');
         var districtId = $('option:selected', this).attr('data-id');
         upazillaDropdwon(x,districtId);
     });
 
     $('#mci_bundle_patientBundle_patients_permanent_address_district_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_permanent_address_upazilla_id');
-        var y = $('#mci_bundle_patientBundle_patients_permanent_address_district_id');
         var districtId = $('option:selected', this).attr('data-id');
         upazillaDropdwon(x,districtId);
     });
