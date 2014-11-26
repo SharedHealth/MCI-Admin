@@ -82,79 +82,67 @@ jQuery(document).ready(function () {
     jQuery('.relation-relational-status').attr('name','mci_bundle_patientBundle_patients[relation][relational-status][]');
 
 
-
  jQuery("#patientEditForm").validate(
         {
             rules: {
                 'mci_bundle_patientBundle_patients[nid]': {
-                    nationalId: true
+                    regex: '^([0-9]{13}|[0-9]{17})$'
                 },
                 'mci_bundle_patientBundle_patients[relation][nid][]': {
-                    nationalId: true
+                    regex: '^([0-9]{13}|[0-9]{17})$'
                 },
                 'mci_bundle_patientBundle_patients[bin_brn]': {
-                    birthRegistration: true
+                    regex: '^[0-9]{17}$'
                 },
                 'mci_bundle_patientBundle_patients[relation][bin_brn][]': {
-                    birthRegistration: true
+                    regex: '^[0-9]{17}$'
                 },
                 'mci_bundle_patientBundle_patients[uid]': {
-                    unifiedIdentification: true
+                    regex: '^[a-zA-Z0-9]{11}$'
                 },
                 'mci_bundle_patientBundle_patients[relation][uid][]': {
-                    unifiedIdentification: true
+                    regex: '^[a-zA-Z0-9]{11}$'
                 },
                 'mci_bundle_patientBundle_patients[given_name]': {
-                    onlyCharacter: true,
-                    givenName: true
+                    regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 'mci_bundle_patientBundle_patients[relation][given_name][]': {
-                    onlyCharacter: true,
-                    givenName: true
+                    regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 'mci_bundle_patientBundle_patients[sur_name]': {
-                    onlyCharacter: true,
-                    maximum: 25,
-                    surName: true
+                    regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 'mci_bundle_patientBundle_patients[relation][sur_name][]': {
-                    onlyCharacter: true,
-                    maximum: 25,
-                    surName: true
+                    regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 'mci_bundle_patientBundle_patients[phone_number][number]': {
-                    onlyNumber: true,
-                    phoneNumber: 12
+                    regex: '^[0-9]{1,12}$'
                 },
                 'mci_bundle_patientBundle_patients[phone_number][area_code]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
                 },
                 'mci_bundle_patientBundle_patients[phone_number][country_code]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
 
                 },
                 'mci_bundle_patientBundle_patients[phone_number][extension]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
                 },
 
                 'mci_bundle_patientBundle_patients[primary_contact_number][number]': {
-                    onlyNumber: true,
-                    phoneNumber: 12
+                    regex: '^[0-9]{1,12}$'
                 },
                 'mci_bundle_patientBundle_patients[primary_contact_number][area_code]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
                 },
                 'mci_bundle_patientBundle_patients[primary_contact_number][country_code]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
 
                 },
                 'mci_bundle_patientBundle_patients[primary_contact_number][extension]': {
-                    onlyNumber: true
+                    regex: '^\\s*[0-9]*\\s*$'
                 },
 
-                'mci_bundle_patientBundle_patients[date_of_birth]': {
-                    dateFormat: true
-                },
                 'mci_bundle_patientBundle_patients[nationality]': {
                     maximum: 50
                 },

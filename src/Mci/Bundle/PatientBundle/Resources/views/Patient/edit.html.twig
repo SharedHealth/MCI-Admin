@@ -13,6 +13,13 @@
             <strong>Success!</strong> Patient update successfully.
         </div>
     {% endif %}
+
+    {% if errors is defined and errors is not empty %}
+        <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert">&times;</a>
+            <strong>Woops!</strong> error occurred.
+        </div>
+    {% endif %}
     <div style="margin-bottom: 10px;" class="bs-example">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#personalInfo">Personal Information</a></li>
