@@ -1,26 +1,45 @@
 ;var PatientSearch = function ($) {
     var errors_el;
 
-    var atLeastOneGiven = function() {
-        var $selected = $("input,select").map(function() { return this.value; }).get().join('');
-
-        if(isNotBlank($selected)) {
-            console.log($selected)
-            return true;
-        }
-
-        errors_el.html("Please fill at least one field").show();
-        return false;
+    var isEmptySearchParameter = function() {
+        return isBlank(getValueBySelector("input,select"));
     };
 
-    function isNotBlank($phoneBlockExtraValue) {
-        return "" !== $phoneBlockExtraValue.replace(/\s/g, '');
+    var isSingleSearchableBlockGiven = function() {
+        return isNotBlank(getValueBySelector(".single-searchable"));
+    }
+
+    var atLeastOneGiven = function() {
+
+        if(isEmptySearchParameter()) {
+            errors_el.html("No search parameter selected").show();
+            return false;
+        }
+
+        return true;
+    };
+
+    function isBlank(str) {
+        console.log(str);
+        return "" == str.replace(/\s/g, '');
+    }
+
+    function isNotBlank(str) {
+        return !isBlank(str);
+    }
+
+    function getValueBySelector(selector) {
+        return $(selector).map(function () {
+            return this.value;
+        }).get().join('');
     }
 
     var isPhoneNoRequired = function() {
-        var $phoneBlockExtraValue = $(".phone-block").map(function() { return this.value; }).get().join('');
+        return isNotBlank(getValueBySelector(".phone-block"));
+    };
 
-        return isNotBlank($phoneBlockExtraValue);
+    var isGivenNameRequired = function() {
+        return (isNotBlank($("#sur_name").val()) && !isSingleSearchableBlockGiven());
     };
 
     function initializeDataTable() {
@@ -33,20 +52,31 @@
         });
     }
 
+    function isNameAndAddressGiven() {
+        return isNotBlank($("#sur_name").val()) && $("#division").val() != ""
+    }
+
     function validateAgainstBusinessRules() {
 
         if(!atLeastOneGiven()) {
             return false;
         }
 
+        if(isSingleSearchableBlockGiven()) {
+            return true;
+        }
 
+        if(isNameAndAddressGiven()) {
+            return true;
+        }
 
-        return true;
+        errors_el.html("Incomplete search criteria!").show();
+
+        return false;
     }
 
     function initValidator() {
 
-        console.log("initial");
         var form = $('#searchPatientForm');
 
         form.validate({
@@ -63,6 +93,7 @@
                     regex: '^[a-zA-Z0-9]{11}$'
                 },
                 given_name: {
+                    required: isGivenNameRequired,
                     regex: '^[\\s\\S^0-9]{1,100}'
                 },
                 sur_name: {
@@ -71,11 +102,6 @@
                 phone_no: {
                     regex: '^[0-9]{1,12}',
                     required : isPhoneNoRequired
-                },
-                division_id : {
-                    required : function(element) {
-                        return isNotBlank($("#given_name").val())
-                    }
                 },
                 district_id : {
                     required : function(element) {

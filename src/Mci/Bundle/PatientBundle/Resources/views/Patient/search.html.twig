@@ -8,7 +8,7 @@
         </div>
     </div>
     <form id="searchPatientForm" name="searchPatient"  method="get" autocomplete="off">
-    <div class="alert alert-danger" id="error_div" style="display: none;width: 100%">
+    <div class="alert alert-danger" id="error_div" style="{% if  systemError|length < 1 %}display: none {% endif %};width: 100%">
       {% for syserror in systemError  %}
           {{ syserror }}
       {% endfor %}
@@ -18,17 +18,17 @@
         <div class="row">
             <div class="col-lg-3" >
                 <div class="form-group">
-                    <input id="nid" name="nid" class="form-control " value="{% if queryparam.nid is defined  %}{{ queryparam.nid|trim }}{% endif %}"  placeholder="NID">
+                    <input id="nid" name="nid" class="form-control single-searchable" value="{% if queryparam.nid is defined  %}{{ queryparam.nid|trim }}{% endif %}"  placeholder="NID">
                 </div>
             </div>
             <div class="col-lg-3 ">
                 <div class="form-group group-error-block">
-                    <input id="brn" name="brn" class="form-control " value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
+                    <input id="brn" name="brn" class="form-control single-searchable" value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group group-error-block">
-                    <input id="uid" name="uid" class="form-control " value="{% if queryparam.uid is defined  %}{{ queryparam.uid|trim }}{% endif %}" placeholder="UID">
+                    <input id="uid" name="uid" class="form-control single-searchable" value="{% if queryparam.uid is defined  %}{{ queryparam.uid|trim }}{% endif %}" placeholder="UID">
                 </div>
             </div>
 
@@ -63,7 +63,7 @@
 
             <div class="col-lg-3">
                 <div class="form-group">
-                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control" placeholder="Number">
+                    <input id="phone_no" name="phone_no" value ="{% if queryparam.phone_no is defined  %}{{ queryparam.phone_no|trim }}{% endif %}" class="form-control single-searchable" placeholder="Number">
                 </div>
             </div>
 
