@@ -680,7 +680,7 @@
     jQuery('.relation-sur-name').attr('name','mci_bundle_patientBundle_patients[relation][sur_name][]');
     jQuery('.relation-relational-status').attr('name','mci_bundle_patientBundle_patients[relation][relational-status][]');
 
-     });
+      });
     });
 
     function addRelationForm($collectionHolder) {
@@ -693,8 +693,8 @@
         var $newFormtd = $($collectionHolder).append(newForm);
 
     }
-    $('table tbody ').delegate('.remove','click',function(){
 
+    $('table tbody ').delegate('.remove','click',function(){
         $(this).parent().parent().remove();
     });
 

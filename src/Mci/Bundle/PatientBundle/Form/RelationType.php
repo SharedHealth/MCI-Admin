@@ -31,7 +31,7 @@ class RelationType extends AbstractType
               )
             )
             ->add('sur_name', 'text', array(
-                'attr' => array('class' => 'form-control relation-sur_name'),
+                'attr' => array('class' => 'form-control relation-sur-name'),
                 'required'  => false
             ))
             ->add('given_name', 'text', array(

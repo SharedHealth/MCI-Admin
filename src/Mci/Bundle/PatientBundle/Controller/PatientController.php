@@ -75,7 +75,6 @@ class PatientController extends Controller
     public function editAction(Request $request, $id){
 
         $patient = $this->getPatientById($id);
-
         if($patient['systemError']){
             throw $this->createNotFoundException('Service Unavailable');
         }
@@ -241,12 +240,13 @@ class PatientController extends Controller
      */
     private function filterRelations($postData)
     {
-        if (!empty($postData['relation']['nid'])) {
 
-            foreach ($postData['relation']['nid'] as $key => $val) {
+        if (!empty($postData['relation']['type'])) {
+
+            foreach ($postData['relation']['type'] as $key => $val) {
 
                 if ($val) {
-                    $postData['relations'][$key]['nid'] = $val;
+                    $postData['relations'][$key]['type'] = $val;
                 }
                 if (!empty($postData['relation']['bin_brn'][$key])) {
                     $postData['relations'][$key]['bin_brn'] = $postData['relation']['bin_brn'][$key];
@@ -254,8 +254,8 @@ class PatientController extends Controller
                 if (!empty($postData['relation']['uid'][$key])) {
                     $postData['relations'][$key]['uid'] = $postData['relation']['uid'][$key];
                 }
-                if (!empty($postData['relation']['type'][$key])) {
-                    $postData['relations'][$key]['type'] = $postData['relation']['type'][$key];
+                if (!empty($postData['relation']['nid'][$key])) {
+                    $postData['relations'][$key]['nid'] = $postData['relation']['nid'][$key];
                 }
                 if (!empty($postData['relation']['name_bangla'][$key])) {
                     $postData['relations'][$key]['name_bangla'] = $postData['relation']['name_bangla'][$key];
@@ -380,7 +380,7 @@ class PatientController extends Controller
                 if(method_exists($e,'getResponse')){
 
                     $messages =  json_decode($e->getResponse()->getBody());
-                    var_dump($messages);
+
                     if($messages){
                         $SystemAPiError = $this->getErrorMessages($messages);
                     }

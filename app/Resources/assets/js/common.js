@@ -83,7 +83,6 @@ jQuery(document).ready(function () {
 
 
 
-
  jQuery("#patientEditForm").validate(
         {
             rules: {
