@@ -53,7 +53,7 @@
     }
 
     function isNameAndAddressGiven() {
-        return isNotBlank($("#sur_name").val()) && $("#division").val() != ""
+        return isNotBlank($("#given_name").val()) && $("#division").val() != ""
     }
 
     function validateAgainstBusinessRules() {
@@ -84,7 +84,7 @@
             ignore: "",
             rules: {
                 nid: {
-                    regex: '^([\\d]{13}|[\\d]{17})$'
+                    regex: '^([0-9]{13}|[0-9]{17})$'
                 },
                 brn: {
                     regex: '^[0-9]{17}$'
@@ -94,22 +94,22 @@
                 },
                 given_name: {
                     required: isGivenNameRequired,
-                    regex: '^[\\s\\S^0-9]{1,100}'
+                    regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 sur_name: {
-                    regex: '^(\\s*)([A-Za-z^0-9]*)(\\b\\s*)$'
+                    regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 phone_no: {
-                    regex: '^[0-9]{1,12}',
+                    regex: '^[0-9]{1,12}$',
                     required : isPhoneNoRequired
                 },
                 district_id : {
-                    required : function(element) {
+                    required : function() {
                         return $("#division").val() != ""
                     }
                 },
                 upazilla_id : {
-                    required : function(element) {
+                    required : function() {
                         return $("#district").val() != ""
                     }
                 },
@@ -126,8 +126,6 @@
             messages: {},
 
             submitHandler: function (form) {
-                console.log("submit");
-
                 if(validateAgainstBusinessRules()) {
                     errors_el.hide();
                     return form.submit();

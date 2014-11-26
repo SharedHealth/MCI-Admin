@@ -16,3 +16,7 @@ input.error{
     color: #555 !important;
     font-style: normal;
 }
+
+select.error option {
+    color: #555;
+}

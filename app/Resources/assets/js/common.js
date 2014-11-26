@@ -4,7 +4,7 @@
         "regex",
         function(value, element, regexp) {
             var re = new RegExp(regexp);
-            return this.optional(element) || re.test(value.replace(/\s/g, ''));
+            return this.optional(element) || re.test(jQuery.trim(value));
         },
         "Invalid input pattern"
     );
