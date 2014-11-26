@@ -23,7 +23,7 @@
             </div>
             <div class="col-lg-3 ">
                 <div class="form-group group-error-block">
-                    <input id="brn" name="brn" class="form-control single-searchable" value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
+                    <input id="bin_brn" name="bin_brn" class="form-control single-searchable" value="{% if queryparam.bin_brn is defined  %}{{ queryparam.bin_brn|trim }}{% endif %}" placeholder="BRN">
                 </div>
             </div>
             <div class="col-lg-3">
@@ -85,9 +85,9 @@
                         {% for division in divisions  %}
 
                             <option data-id="{{ division.id }}"  value="{{ division.code }}"
-                                    {% if seletedDropdown.division is defined %}
+                                    {% if queryparam.division_id is defined %}
 
-                                    {% if division.code == seletedDropdown.division %} {{ "selected" }} {% endif %}
+                                    {% if division.code == queryparam.division_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
                                     >{{ division.name }}</option>
                         {% endfor %}
@@ -96,15 +96,13 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <select name="district_id" id="district" class="form-control" {% if seletedDropdown.district is null%} disabled="disabled" {% endif %} >
+                    <select name="district_id" id="district" class="form-control" >
                         <option value="">Select District</option>
-
                         {% for district in districts  %}
 
                             <option data-id="{{ district.id }}"  value="{{ district.code }}"
-                                    {% if seletedDropdown.district is defined %}
-
-                                        {% if district.code == seletedDropdown.district %} {{ "selected" }} {% endif %}
+                                    {% if queryparam.district_id is defined %}
+                                        {% if district.code == queryparam.district_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
                                     >{{ district.name }}</option>
                         {% endfor %}
@@ -115,14 +113,13 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                       <select name="upazilla_id" id="upazilla" class="form-control" {% if seletedDropdown.district is null%} disabled="disabled" {% endif %} >
+                       <select name="upazilla_id" id="upazilla" class="form-control" >
                         <option value="">Select Upazilla</option>
                         {% for upazilla in upazillas  %}
 
                             <option data-id="{{ upazilla.id }}"  value="{{ upazilla.code }}"
-                                    {% if seletedDropdown.upazilla is defined %}
-
-                                        {% if upazilla.code == seletedDropdown.upazilla %} {{ "selected" }} {% endif %}
+                                    {% if queryparam.upazilla_id is defined %}
+                                        {% if upazilla.code == queryparam.upazilla_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
                                     >{{ upazilla.name }}</option>
                         {% endfor %}
@@ -145,7 +142,7 @@
 
 {% if responseBody.results is defined %}
 
-    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if seletedDropdown.division is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ seletedDropdown.division|division  }} {{ seletedDropdown.district|district  }} {{ seletedDropdown.upazilla|upazilla(seletedDropdown.district)  }}{% endif %}</strong></h5>
+    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if queryparam.division_id is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ queryparam.division_id|division  }} {{ queryparam.district_id|district  }} {{ queryparam.upazilla_id|upazilla(queryparam.district_id)  }}{% endif %}</strong></h5>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>

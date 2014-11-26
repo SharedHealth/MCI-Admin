@@ -18,5 +18,5 @@ mci_patient_edit:
 mci_patient_update:
     path:     /{id}/update/
     defaults: { _controller: MciPatientBundle:Patient:update }
-    methods:   [PUT|POST]
+    methods:   [POST]
 

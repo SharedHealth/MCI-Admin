@@ -16,3 +16,7 @@ services:
     mci.location:
         class:        Mci\Bundle\PatientBundle\Services\Location
         arguments: ["@service_container"]
+
+    mci.patient:
+        class:        Mci\Bundle\PatientBundle\Services\Patient
+        arguments: ["@mci_patient.client", %api_end_point%]
