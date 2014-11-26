@@ -1,4 +1,4 @@
-var registerValidators = function () {
+;var registerValidators = function () {
 
     jQuery.validator.addMethod(
         "regex",
