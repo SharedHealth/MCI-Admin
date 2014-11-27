@@ -50,7 +50,8 @@ class AddressType extends AbstractType
                 'required'  => false
             ))
             ->add('area_mouja', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
             ))
             ->add('village', 'text', array(
                 'attr' => array('class' => 'form-control'),
@@ -67,13 +68,15 @@ class AddressType extends AbstractType
             ->add('division_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $divisions,
-                    'empty_value' => '--Please select--'
+                    'empty_value' => '--Please select--',
+                    'required'  => false
                 )
             )
             ->add('district_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $districts,
-                    'empty_value' => '--Please select--'
+                    'empty_value' => '--Please select--',
+                     'required'  => false
                 )
             )
             ->add('union_id', 'choice', array(
