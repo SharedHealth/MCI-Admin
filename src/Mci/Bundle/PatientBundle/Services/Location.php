@@ -137,4 +137,12 @@ class Location {
         return  json_decode(file_get_contents($filePath), true);
     }
 
+     public function getLocationId($data, $code){
+        foreach($data as $value){
+            if($value['code'] == $code ){
+                return $value['id'];
+            }
+        }
+    }
+
 }

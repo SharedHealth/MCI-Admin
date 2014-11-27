@@ -19,4 +19,4 @@ services:
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
-        arguments: ["@mci_patient.client", %api_end_point%]
+        arguments: ["@service_container", %api_end_point%]

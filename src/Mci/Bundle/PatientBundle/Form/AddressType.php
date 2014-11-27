@@ -23,10 +23,16 @@ class AddressType extends AbstractType
         $locationService = $this->serviceContainer->get('mci.location');
         $divisions = $locationService->getAllDivision();
         $union = array();
-        $divisionId = $locationService->getDivisionId($this->addressObject->getDivisionId());
-        $districts = $locationService->getAllDistrict($divisionId);
-        $districtId = $locationService->getDistictId($this->addressObject->getDistrictId());
-        $upazillas = $locationService->getAllUpazilla($districtId);
+        $districts = array();
+        $upazillas = array();
+
+        if($this->addressObject){
+            $divisionId = $locationService->getDivisionId($this->addressObject->getDivisionId());
+            $districtId = $locationService->getDistictId($this->addressObject->getDistrictId());
+            $districts = $locationService->getAllDistrict($divisionId);
+            $upazillas = $locationService->getAllUpazilla($districtId);
+        }
+
         $cityCorporation = array();
         $countryCode = $this->getArrayFromJson('assets/json/countryCode.json');
 
@@ -71,19 +77,23 @@ class AddressType extends AbstractType
                 )
             )
             ->add('union_id', 'choice', array(
-                    'attr' => array('class' => 'form-control')
+                    'attr' => array('class' => 'form-control'),
+                     'required'  => false
                 )
             )
             ->add('upazilla_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $upazillas,
-                    'empty_value' => '--Please select--'
+                    'empty_value' => '--Please select--',
+                     'required'  => false
                 )
             )
             ->add('city_corporation_id', 'choice', array(
-                    'attr' => array('class' => 'form-control')
-                ),
-                $cityCorporation
+                    'attr' => array('class' => 'form-control'),
+                    'choices' =>  $cityCorporation,
+                    'empty_value' => '--Please select--',
+                     'required'  => false
+                )
             )
             ->add('country_code', 'choice', array(
                     'attr' => array('class' => 'form-control'),

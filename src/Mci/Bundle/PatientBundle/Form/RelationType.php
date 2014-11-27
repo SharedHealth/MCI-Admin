@@ -13,6 +13,10 @@ class RelationType extends AbstractType
         $relations = (array)json_decode(file_get_contents('assets/json/relationalStatus.json'));
 
         $builder
+            ->add('id', 'hidden', array(
+                'attr' => array('class' => 'form-control relation-id'),
+                'required'  => false
+            ))
             ->add('uid', 'text', array(
                 'attr' => array('class' => 'form-control relation-uid'),
                 'required'  => false
@@ -40,6 +44,10 @@ class RelationType extends AbstractType
             ))
             ->add('name_bangla', 'text', array(
                 'attr' => array('class' => 'form-control relation-name-bangla'),
+                'required'  => false,
+            ))
+            ->add('marriage_id', 'text', array(
+                'attr' => array('class' => 'form-control relation-marriage-id'),
                 'required'  => false,
             ))
             ->add('relational_status', 'choice', array(

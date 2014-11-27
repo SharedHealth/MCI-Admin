@@ -525,6 +525,7 @@
                 <th>Bangla Name</th>
                 <th>Given Name</th>
                 <th>Sur Name</th>
+                <th>Marriage ID</th>
                 <th>Relational Status</th>
                 <th></th>
             </tr>
@@ -645,6 +646,7 @@
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__name_bangla&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][name_bangla]&quot;  class=&quot;form-control relation-name-bangla&quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__given_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][given_name]&quot;  class=&quot;form-control relation-given-name&quot; value=&quot;&quot;&gt;&lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot;  class=&quot;form-control relation-sur-name&quot; &gt; &lt;/td&gt;
+        &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__marriage_id&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][marriage_id]&quot;  class=&quot;form-control relation-marriage-id&quot; &gt; &lt;/td&gt;
         &lt;td&gt;&lt;select  id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; class=&quot;form-control relation-relational-status&quot;&gt;
             &lt;option value=&quot;&quot;&gt;--Please Select--&lt;/option&gt;
             &lt;option value=&quot;3&quot;&gt;Widowed&lt;/option&gt;
@@ -656,13 +658,15 @@
     &lt;/tr&gt;">
             {% for relation in form.relations %}
                 <tr>
-                    <td>{{ form_widget(relation.nid) }}</td>
+
+                    <td>{{ form_widget(relation.id) }}{{ form_widget(relation.nid) }}</td>
                     <td>{{ form_widget(relation.bin_brn) }}</td>
                     <td>{{ form_widget(relation.uid) }}</td>
                     <td>{{ form_widget(relation.type) }}</td>
                     <td>{{ form_widget(relation.name_bangla) }}</td>
                     <td>{{ form_widget(relation.given_name) }}</td>
                     <td>{{ form_widget(relation.sur_name) }}</td>
+                    <td>{{ form_widget(relation.marriage_id) }}</td>
                     <td>{{ form_widget(relation.relational_status) }}</td>
                     <td><span style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
                 </tr>
@@ -671,51 +675,21 @@
         </table>
     </div>
 
+
+ {{ form_widget(form.save) }} <a class="btn btn-primary form-group" type="button" href="{{ path('mci_patient_showpage',{ 'id': hid }) }}"> Cancel </a>
     </div>
 
 {{ form_end(form) }}
-<script type="text/javascript">
-    var $collectionHolder;
-    $addRelation = $('#addRelation');
-    jQuery(document).ready(function() {
-    $collectionHolder = $('tbody.relation-body');
-    $collectionHolder.data('index', $collectionHolder.find('tr').length);
 
-    $addRelation.on('click', function(e) {
-    e.preventDefault();
-     addRelationForm($collectionHolder);
-
-    jQuery('.relation-nid').attr('name','mci_bundle_patientBundle_patients[relation][nid][]');
-    jQuery('.relation-brn').attr('name','mci_bundle_patientBundle_patients[relation][bin_brn][]');
-    jQuery('.relation-uid').attr('name','mci_bundle_patientBundle_patients[relation][uid][]');
-    jQuery('.relation-type').attr('name','mci_bundle_patientBundle_patients[relation][type][]');
-    jQuery('.relation-name-bangla').attr('name','mci_bundle_patientBundle_patients[relation][name_bangla][]');
-    jQuery('.relation-given-name').attr('name','mci_bundle_patientBundle_patients[relation][given_name][]');
-    jQuery('.relation-sur-name').attr('name','mci_bundle_patientBundle_patients[relation][sur_name][]');
-    jQuery('.relation-relational-status').attr('name','mci_bundle_patientBundle_patients[relation][relational-status][]');
-
-      });
-    });
-
-    function addRelationForm($collectionHolder) {
-
-        var prototype = $collectionHolder.data('prototype');
-        var index = $collectionHolder.data('index');
-        var newForm = prototype.replace(/__name__/g, index);
-        $collectionHolder.data('index', index + 1);
-
-        var $newFormtd = $($collectionHolder).append(newForm);
-
-    }
-
-    $('table tbody ').delegate('.remove','click',function(){
-        $(this).parent().parent().remove();
-    });
-
-
-
-
-</script>
 {% endblock %}
 
-
+{% block javascripts %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL JS -->
+    {% javascripts
+        "bundles/mcipatient/js/patient-edit.js"
+    %}
+    <!-- END PAGE LEVEL JS -->
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascripts %}

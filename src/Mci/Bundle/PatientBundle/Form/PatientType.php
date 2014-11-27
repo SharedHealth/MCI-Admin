@@ -23,10 +23,11 @@ class PatientType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-
+        $presentAddress =  $this->patientObject->getPresentAddress();
+        $permanentAddress =  property_exists($this->patientObject,'permanent_address') ? $this->patientObject->getPermanentAddress():null;
         $gender =  (array)json_decode(file_get_contents('assets/json/gender.json'));
-        $ethnicity = array();
 
+        $ethnicity = array();
         $religion = $this->getArrayFromJson('assets/json/religion.json');
         $bloodGroup = $this->getArrayFromJson('assets/json/bloodGroup.json');
         $eduLevel = $this->getArrayFromJson('assets/json/eduLevel.json');
@@ -128,8 +129,8 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
-            ->add('present_address', new AddressType($this->serviceContainer,$this->patientObject->getPresentAddress()))
-            ->add('permanent_address', new AddressType($this->serviceContainer,$this->patientObject->getPermanentAddress()))
+            ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))
+            ->add('permanent_address', new AddressType($this->serviceContainer,$permanentAddress))
             ->add('phone_number', new ContactType())
             ->add('primary_contact_number', new ContactType())
             ->add('relations', 'collection', array(

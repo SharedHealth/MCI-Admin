@@ -7,6 +7,10 @@ class Relation
     /**
      * @Type("string")
      */
+    private $id;
+    /**
+     * @Type("string")
+     */
     private $uid;
     /**
      * @Type("string")
@@ -32,6 +36,10 @@ class Relation
      * @Type("string")
      */
     private $name_bangla;
+    /**
+     * @Type("string")
+     */
+    private $marriage_id;
     /**
      * @Type("string")
      */
@@ -163,6 +171,38 @@ class Relation
     public function setRelationalStatus($relational_status)
     {
         $this->relational_status = $relational_status;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $marriage_id
+     */
+    public function setMarriageId($marriage_id)
+    {
+        $this->marriage_id = $marriage_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMarriageId()
+    {
+        return $this->marriage_id;
     }
 
 }
