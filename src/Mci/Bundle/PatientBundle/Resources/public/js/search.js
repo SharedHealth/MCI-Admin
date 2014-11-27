@@ -1,5 +1,18 @@
 ;var PatientSearch = function ($) {
     var errors_el;
+    var hide_time_out = null;
+
+    var showErrorMessage =function (message) {
+        errors_el.html(message).show(200);
+
+        if(hide_time_out) {
+            clearTimeout(hide_time_out);
+        }
+
+        hide_time_out = setTimeout(function(){
+            errors_el.hide(500);
+        }, 3000);
+    };
 
     var isEmptySearchParameter = function() {
         return isBlank(getValueBySelector("input,select"));
@@ -12,7 +25,7 @@
     var atLeastOneGiven = function() {
 
         if(isEmptySearchParameter()) {
-            errors_el.html("No search parameter selected").show();
+            showErrorMessage("No search parameter selected");
             return false;
         }
 
@@ -70,7 +83,7 @@
             return true;
         }
 
-        errors_el.html("Incomplete search criteria!").show();
+        showErrorMessage("Incomplete search criteria!");
 
         return false;
     }
