@@ -126,7 +126,6 @@ class PatientType extends AbstractType
             ->add('marital_status', 'choice', array(
                     'choices' =>$maritalStatus,
                     'attr' => array('class' => 'form-control'),
-                    'required'  => false
                 )
             )
             ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))

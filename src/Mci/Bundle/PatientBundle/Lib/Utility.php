@@ -25,7 +25,8 @@ class Utility {
     public static function getErrorMessages($messages)
     {
         $SystemAPiError = array();
-
+       // var_dump($messages->errors);
+        //exit;
         if(!isset($messages->errors)) {
             return array('Please check your configuration');
         }
