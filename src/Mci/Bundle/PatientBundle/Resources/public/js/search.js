@@ -32,20 +32,7 @@
         return true;
     };
 
-    function isBlank(str) {
-        console.log(str);
-        return "" == str.replace(/\s/g, '');
-    }
 
-    function isNotBlank(str) {
-        return !isBlank(str);
-    }
-
-    function getValueBySelector(selector) {
-        return $(selector).map(function () {
-            return this.value;
-        }).get().join('');
-    }
 
     var isPhoneNoRequired = function() {
         return isNotBlank(getValueBySelector(".phone-block"));

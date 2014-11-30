@@ -6,7 +6,7 @@
  * Time: 2:46 PM
  */
 
-namespace Mci\Bundle\PatientBundle\Lib;
+namespace Mci\Bundle\PatientBundle\Utills;
 
 
 class Utility {

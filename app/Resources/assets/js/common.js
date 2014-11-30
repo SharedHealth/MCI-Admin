@@ -1,5 +1,16 @@
 
 jQuery(document).ready(function () {
+
+    jQuery.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(jQuery.trim(value));
+        },
+        "Invalid input pattern"
+    );
+
+
     $('#mci_bundle_patientBundle_patients_present_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_district_id');
         var y = $('#mci_bundle_patientBundle_patients_present_address_upazilla_id');
@@ -100,7 +111,6 @@ jQuery(document).ready(function () {
     }
 
 
-
   function generatedOptions(result) {
         var obj = $.parseJSON(result);
         var options = "<option value=''>-Please Select-</option>";
@@ -111,4 +121,17 @@ jQuery(document).ready(function () {
     }
 
 
+function isBlank(str) {
+    console.log(str);
+    return "" == str.replace(/\s/g, '');
+}
 
+function isNotBlank(str) {
+    return !isBlank(str);
+}
+
+function getValueBySelector(selector) {
+    return $(selector).map(function () {
+        return this.value;
+    }).get().join('');
+}

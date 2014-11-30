@@ -1,11 +1,10 @@
 <?php
-use Mci\Bundle\PatientBundle\Lib\Utility;
 namespace Mci\Bundle\PatientBundle\Services;
 
 use Guzzle\Http\Exception\RequestException;
 use Symfony\Component\DependencyInjection\Container;
 use Guzzle\Http\Exception\CurlException;
-use Mci\Bundle\PatientBundle\Lib\Utility;
+use Mci\Bundle\PatientBundle\Utills\Utility;
 
 class Patient
 {

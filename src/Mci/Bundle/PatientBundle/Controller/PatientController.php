@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
-use Mci\Bundle\PatientBundle\Lib\Utility;
+use Mci\Bundle\PatientBundle\Utills\Utility;
 
 
 class PatientController extends Controller

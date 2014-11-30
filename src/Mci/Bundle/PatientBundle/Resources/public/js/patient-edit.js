@@ -1,14 +1,5 @@
 ;var registerValidators = function () {
 
-    jQuery.validator.addMethod(
-        "regex",
-        function(value, element, regexp) {
-            var re = new RegExp(regexp);
-            return this.optional(element) || re.test(jQuery.trim(value));
-        },
-        "Invalid input pattern"
-    );
-
     jQuery.validator.addMethod("maximum", function (value, element, param) {
             var re = new RegExp("^[\\s\\S]{1," + param + "}$", "g");
 
@@ -31,6 +22,15 @@
 
 };
 
+
+
+var isPhoneNoRequired = function() {
+    return isNotBlank(getValueBySelector("#phoneNumber .phone-block"));
+};
+
+var isPrimaryPhoneNoRequired = function() {
+    return isNotBlank(getValueBySelector("#primaryContactNo .phone-block"));
+};
 
 function changedNameForValidation() {
 
@@ -86,7 +86,8 @@ jQuery(document).ready(function () {
                     regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 'mci_bundle_patientBundle_patients[phone_number][number]': {
-                    regex: '^[0-9]{1,12}$'
+                    regex: '^[0-9]{1,12}$',
+                    required : isPhoneNoRequired
                 },
                 'mci_bundle_patientBundle_patients[phone_number][area_code]': {
                     regex: '^\\s*[0-9]*\\s*$'
@@ -100,7 +101,8 @@ jQuery(document).ready(function () {
                 },
 
                 'mci_bundle_patientBundle_patients[primary_contact_number][number]': {
-                    regex: '^[0-9]{1,12}$'
+                    regex: '^[0-9]{1,12}$',
+                    required : isPrimaryPhoneNoRequired
                 },
                 'mci_bundle_patientBundle_patients[primary_contact_number][area_code]': {
                     regex: '^\\s*[0-9]*\\s*$'
