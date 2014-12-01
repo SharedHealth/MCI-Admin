@@ -189,7 +189,22 @@ jQuery(document).ready(function () {
    });
 
    $('table tbody ').delegate('.remove','click',function(){
+       if (!confirm('Are you sure?')) return false;
         $(this).parent().parent().remove();
+        var hid = $(this).attr('data-hid');
+        var rid = $(this).parent().parent().find('.relation-id').val();
+        var rtype = $(this).parent().parent().find('.relation-type').val();
+    if(rid){
+        $.ajax({
+            type: "POST",
+            url: "/patients/"+hid+"/relation/remove/",
+            data:{ realtianId: rid, relationType: rtype },
+            success: function (result) {
+
+            }
+        });
+    }
+        return true;
    });
 
 

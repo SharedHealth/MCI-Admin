@@ -20,3 +20,9 @@ mci_patient_update:
     defaults: { _controller: MciPatientBundle:Patient:update }
     methods:   [POST]
 
+mci_patient_relation_remove:
+    path:     /{id}/relation/remove/
+    defaults: { _controller: MciPatientBundle:Patient:removeRelation }
+    methods:   [POST]
+
+

@@ -668,7 +668,7 @@
                     <td>{{ form_widget(relation.sur_name) }}</td>
                     <td>{{ form_widget(relation.marriage_id) }}</td>
                     <td>{{ form_widget(relation.relational_status) }}</td>
-                    <td><span style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
+                    <td><span data-hid="{{ hid }}"  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
                 </tr>
             {% endfor %}
             </tbody>

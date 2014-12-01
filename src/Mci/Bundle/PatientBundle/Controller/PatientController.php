@@ -116,6 +116,18 @@ class PatientController extends Controller
 
     }
 
+    public function removeRelationAction(Request $request, $id){
+
+        if($id){
+                 $relationId = $this->get('request')->request->get('realtianId');
+                 $relationtype = $this->get('request')->request->get('relationType');
+                 $postData = array('relations'=>array(array('id'=>$relationId,'type'=>$relationtype)));
+                 $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
+                 return new Response('successfully deleted');
+        }
+
+    }
+
     public function showAction($id, Request $request)
     {
         $responseBody = array();

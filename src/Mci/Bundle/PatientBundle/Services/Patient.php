@@ -146,7 +146,6 @@ class Patient
             if($e instanceof CurlException) {
                 $SystemAPiError[] = 'Service Unvailable';
             }
-
             try{
                 if(method_exists($e,'getResponse')){
 
