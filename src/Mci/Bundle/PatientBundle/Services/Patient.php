@@ -146,17 +146,18 @@ class Patient
             if($e instanceof CurlException) {
                 $SystemAPiError[] = 'Service Unvailable';
             }
-            try{
+
                 if(method_exists($e,'getResponse')){
 
                     $messages =  json_decode($e->getResponse()->getBody());
+
                     if($messages){
                         $SystemAPiError = Utility::getErrorMessages($messages);
                     }
-                }
-            }catch (Exception $e) {
-                $SystemAPiError[]= "Unknown Error";
-            }
+                 }
+
+
+                 $SystemAPiError[]= "Unknown Error";
         }
         return $SystemAPiError;
 
