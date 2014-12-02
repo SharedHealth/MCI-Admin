@@ -1,4 +1,15 @@
 {% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- BEGIN GLOBAL STYLES -->
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite'
+    'bundles/mcipatient/css/datepicker.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    <!-- END GLOBAL STYLES -->
+{% endblock stylesheets %}
 {% block content %}
 
    <div class="col-lg-12">
@@ -10,14 +21,18 @@
     {% if errors is defined and errors is empty %}
         <div class="alert alert-success">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>Success!</strong> Patient update successfully.
+           Patient is updated successfully.
         </div>
     {% endif %}
 
     {% if errors is defined and errors is not empty %}
         <div class="alert alert-warning">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
-            <strong>Woops!</strong> error occurred.
+            <ul>
+           {% for error in errors %}
+           <li>{{ error }}</li>
+           {% endfor %}
+            </ul>
         </div>
     {% endif %}
     <div style="margin-bottom: 10px;" class="bs-example">
@@ -687,6 +702,7 @@
     {{ parent() }}
     <!-- BEGIN PAGE LEVEL JS -->
     {% javascripts
+        "bundles/mcipatient/js/bootstrap-datepicker.js"
         "bundles/mcipatient/js/patient-edit.js"
     %}
     <!-- END PAGE LEVEL JS -->

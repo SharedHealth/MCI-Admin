@@ -73,7 +73,7 @@ class PatientType extends AbstractType
                 'required'  => false
             ))
             ->add('date_of_birth', 'text', array(
-                'attr' => array('class' => 'form-control')
+                'attr' => array('class' => 'form-control','readonly'=>'readonly')
             ))
             ->add('gender', 'choice',
                 array(
@@ -85,6 +85,7 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$ethnicity,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
@@ -92,6 +93,7 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$religion,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
@@ -99,6 +101,7 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$bloodGroup,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
@@ -106,6 +109,7 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$occupation,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
@@ -113,6 +117,7 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$eduLevel,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
@@ -120,12 +125,15 @@ class PatientType extends AbstractType
                 array(
                     'choices' =>$disability,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
                     'required'  => false
                 )
             )
             ->add('marital_status', 'choice', array(
                     'choices' =>$maritalStatus,
                     'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
+                    'required'  => false
                 )
             )
             ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))

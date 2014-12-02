@@ -186,7 +186,7 @@
                 Relations
             </div>
 
-            <table class="table" style="font-size: 13px;" >
+            <table class="table relation-block" style="font-size: 13px;" >
                 <thead>
                     <th>Relation</th>
                     <th>Name</th>
@@ -195,8 +195,8 @@
                     <th>NID</th>
                     <th>BRN</th>
                     <th>UID</th>
-                    <th>Status</th>
-                    <th>Marriage Id</th>
+                    <th class="spsblock">Status</th>
+                    <th class="spsblock">Marriage Id</th>
                 </thead>
 
             <tbody>
@@ -209,8 +209,8 @@
                        <td>{% if relation.nid is defined %}{{ relation.nid }}{% endif %}</td>
                        <td>{% if relation.bin_brn is defined %}{{ relation.bin_brn }}{% endif %}</td>
                        <td>{% if relation.uid is defined %}{{ relation.uid }}{% endif %}</td>
-                       <td>{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
-                       <td>{% if relation.marriage_id is defined %}{{ relation.marriage_id }}{% endif %}</td>
+                       <td class="spsblock" >{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
+                       <td class="spsblock" >{% if relation.marriage_id is defined %}{{ relation.marriage_id }}{% endif %}</td>
                    </tr>
 
             {% endfor %}
@@ -325,7 +325,7 @@
                 </div>
                 <div class="col-lg-3">
                     <label>Holding Number:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.holding_number %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.holding_number is defined %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
                 </div>
 
             </div>
@@ -333,22 +333,22 @@
 
                 <div class="col-lg-3">
                     <label>Village:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.village %}{{ responseBody.permanent_address.village }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.village is defined %}{{ responseBody.permanent_address.village }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
                     <label>Street:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.street  %}{{ responseBody.permanent_address.street }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.street is defined %}{{ responseBody.permanent_address.street }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
                     <label>Area/Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja is defined %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
                     <label>Post Office:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.post_office %}{{ responseBody.permanent_address.post_office }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.post_office is defined %}{{ responseBody.permanent_address.post_office }}{% endif %}</p>
                 </div>
 
 
@@ -357,11 +357,11 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Post Code :</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.post_code %}{{ responseBody.permanent_address.post_code }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.post_code is defined %}{{ responseBody.permanent_address.post_code }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Country:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.country_code %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.country_code is defined %}{{ responseBody.permanent_address.country_code|countrycode }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">

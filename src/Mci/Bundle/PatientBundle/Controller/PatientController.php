@@ -99,9 +99,38 @@ class PatientController extends Controller
     public function updateAction(Request $request, $id){
 
         $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
-        $postData = Utility::filterRelations($postData);
-        $postData = Utility::filterPhoneNumber($postData);
-        $postData = Utility::filterAddress($postData);
+        $relations = Utility::filterRelations($postData['relation']);
+        $presentAddress = Utility::filterAddress($postData['present_address']);
+
+        $postData['relations'] = $relations;
+        $postData['present_address'] = $presentAddress;
+
+        if(!empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazilla_id'])){
+            $permanentAddress = Utility::filterAddress($postData['permanent_address']);
+            $postData['permanent_address'] = $permanentAddress;
+        }else{
+            unset($postData['permanent_address']);
+        }
+
+       if(!empty($postData['phone_number']['number'])){
+           $phoneNumber = Utility::filterPhoneNumber($postData['phone_number']);
+           if($phoneNumber){
+               $postData['phone_number'] = $phoneNumber;
+           }else{
+               unset($postData['phone_number']);
+           }
+       }
+
+        if(!empty($postData['primary_contact_number']['number'])){
+            $primaryPhoneNumber = Utility::filterPhoneNumber($postData['primary_contact_number']);
+            if($primaryPhoneNumber){
+                $postData['primary_contact_number'] = $primaryPhoneNumber;
+            }else{
+                unset($postData['primary_contact_number']);
+            }
+        }
+
+
         $postData = Utility::unsetUnessaryData($postData);
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
         $patient = $this->get('mci.patient')->getPatientById($id);

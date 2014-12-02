@@ -132,7 +132,7 @@ class Patient
     }
 
     public function updatePatientById($id, $postData){
-        //echo json_encode($postData,JSON_UNESCAPED_UNICODE);
+
         $SystemAPiError = array();
         $url = $this->endpoint.'/'.$id;
         try{
@@ -146,18 +146,16 @@ class Patient
             if($e instanceof CurlException) {
                 $SystemAPiError[] = 'Service Unvailable';
             }
+            if(method_exists($e,'getResponse')){
 
-                if(method_exists($e,'getResponse')){
-
-                    $messages =  json_decode($e->getResponse()->getBody());
-
-                    if($messages){
-                        $SystemAPiError = Utility::getErrorMessages($messages);
-                    }
-                 }
-
-
-                 $SystemAPiError[]= "Unknown Error";
+                $messages =  json_decode($e->getResponse()->getBody());
+                if($messages){
+                    $SystemAPiError = Utility::getErrorMessages($messages);
+                }
+             }
+            if(empty($SystemAPiError)){
+                $SystemAPiError[]= "Unknown Error";
+            }
         }
         return $SystemAPiError;
 

@@ -74,16 +74,24 @@ jQuery(document).ready(function () {
                     regex: '^[a-zA-Z0-9]{11}$'
                 },
                 'mci_bundle_patientBundle_patients[given_name]': {
+                    required: true,
                     regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 'mci_bundle_patientBundle_patients[relation][given_name][]': {
                     regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 'mci_bundle_patientBundle_patients[sur_name]': {
+                    required: true,
                     regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 'mci_bundle_patientBundle_patients[relation][sur_name][]': {
                     regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
+                },
+                'mci_bundle_patientBundle_patients[date_of_birth]': {
+                    required: true
+                },
+                'mci_bundle_patientBundle_patients[gender]': {
+                    required: true
                 },
                 'mci_bundle_patientBundle_patients[phone_number][number]': {
                     regex: '^[0-9]{1,12}$',
@@ -130,6 +138,21 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[present_address][holding_number]': {
                     maximum: 50
                 },
+
+                'mci_bundle_patientBundle_patients[present_address][address_line]': {
+                    minlength:3,
+                    maximum: 50
+                },
+
+                'mci_bundle_patientBundle_patients[present_address][division_id]': {
+                    required: true
+                },
+                'mci_bundle_patientBundle_patients[present_address][district_id]': {
+                    required: true
+                },
+                'mci_bundle_patientBundle_patients[present_address][upazilla_id]': {
+                    required: true
+                },
                 'mci_bundle_patientBundle_patients[present_address][street]': {
                     maximum: 50
                 },
@@ -145,6 +168,11 @@ jQuery(document).ready(function () {
 
                 'mci_bundle_patientBundle_patients[present_address][post_code]': {
                     postcode: true
+                },
+
+                'mci_bundle_patientBundle_patients[permanent_address][address_line]': {
+                    minlength :3,
+                    maximum: 255
                 },
 
                 'mci_bundle_patientBundle_patients[permanent_address][holding_number]': {
@@ -207,6 +235,12 @@ jQuery(document).ready(function () {
         return true;
    });
 
+    $('#mci_bundle_patientBundle_patients_date_of_birth').datepicker({
+        format: 'yyyy-mm-dd'
+
+    });
+
+
 
 });
 
@@ -219,6 +253,8 @@ jQuery(document).ready(function () {
         $($collectionHolder).append(newForm);
 
  }
+
+
 
 
 
