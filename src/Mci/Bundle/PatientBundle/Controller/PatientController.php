@@ -99,10 +99,13 @@ class PatientController extends Controller
     public function updateAction(Request $request, $id){
 
         $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
-        $relations = Utility::filterRelations($postData['relation']);
-        $presentAddress = Utility::filterAddress($postData['present_address']);
 
-        $postData['relations'] = $relations;
+        $presentAddress = Utility::filterAddress($postData['present_address']);
+        if(!empty($postData['relation'])){
+            $relations = Utility::filterRelations($postData['relation']);
+            $postData['relations'] = $relations;
+        }
+
         $postData['present_address'] = $presentAddress;
 
         if(!empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazilla_id'])){
