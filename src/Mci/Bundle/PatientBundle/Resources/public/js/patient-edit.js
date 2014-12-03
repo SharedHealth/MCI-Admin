@@ -259,6 +259,8 @@ jQuery(document).ready(function () {
 
     });
 
+   $('.alert-success').fadeOut(2000);
+
 });
 
     function addRelationForm($collectionHolder) {
