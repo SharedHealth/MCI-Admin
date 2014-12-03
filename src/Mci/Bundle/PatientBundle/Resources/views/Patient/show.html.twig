@@ -313,15 +313,15 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Division:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.division_id|division }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.division_id is defined %}{{ responseBody.permanent_address.division_id|division }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>District:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.district_id|district }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.district_id is defined %}{{ responseBody.permanent_address.district_id|district }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Upazilla:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.upazilla_id|upazilla(responseBody.permanent_address.district_id)  }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.upazilla_id is defined %}{{ responseBody.permanent_address.upazilla_id|upazilla(responseBody.permanent_address.district_id)  }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Holding Number:</label>

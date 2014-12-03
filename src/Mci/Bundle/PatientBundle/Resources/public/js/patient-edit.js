@@ -220,15 +220,19 @@ jQuery(document).ready(function () {
        if (!confirm('Are you sure?')) return false;
         $(this).parent().parent().remove();
         var hid = $(this).attr('data-hid');
+        var marital_status = $(this).attr('data-marital-status');
         var rid = $(this).parent().parent().find('.relation-id').val();
         var rtype = $(this).parent().parent().find('.relation-type').val();
     if(rid){
         $.ajax({
             type: "POST",
             url: "/patients/"+hid+"/relation/remove/",
-            data:{ realtianId: rid, relationType: rtype },
+            data:{ realtianId: rid, relationType: rtype, maritalStatus: marital_status },
             success: function (result) {
-
+                if(result != 'ok'){
+                    alert(result);
+                    window.location.href = "/patients/"+hid+"/edit/";
+                }
             }
         });
     }

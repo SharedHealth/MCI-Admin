@@ -80,7 +80,7 @@ class Location {
 
     public function getAllDistrict($id){
         $districts =  $this->getJsonData('district.json');
-
+        $filterDistricts = array();
         foreach($districts as $key=>$val){
             if ($val['division_id'] == $id) {
                 $filterDistricts[str_pad($val['code'], 2, 0, STR_PAD_LEFT)] = $val['name'];

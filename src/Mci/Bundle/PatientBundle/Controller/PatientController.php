@@ -153,9 +153,21 @@ class PatientController extends Controller
         if($id){
                  $relationId = $this->get('request')->request->get('realtianId');
                  $relationtype = $this->get('request')->request->get('relationType');
+                 $maritalStatus = $this->get('request')->request->get('maritalStatus');
+
                  $postData = array('relations'=>array(array('id'=>$relationId,'type'=>$relationtype)));
+
+                if(!empty($maritalStatus)){
+                     $postData['marital_status'] = $maritalStatus;
+                 }
                  $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
-                 return new Response('successfully deleted');
+
+                 if($errors){
+                     return new Response(json_encode($postData));
+                 }else{
+                     return new Response("ok");
+                 }
+
         }
 
     }

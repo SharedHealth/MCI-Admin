@@ -66,18 +66,22 @@ class Utility {
      */
     public static  function filterAddress($postData)
     {
-        if($postData['union_id'] == ''){
+        if(empty($postData['union_id'])){
             unset($postData['union_id']);
         }
 
-        if($postData['city_corporation_id'] == ''){
+        if(empty($postData['ward_id'])){
+            unset($postData['ward_id']);
+        }
+
+        if(empty($postData['city_corporation_id'])){
             unset($postData['city_corporation_id']);
         }
 
-        if($postData['country_code'] == ''){
+        if(empty($postData['country_code'])){
             unset($postData['country_code']);
         }
-        if($postData['post_code'] == ''){
+        if(empty($postData['post_code'])){
             unset($postData['post_code']);
         }
 

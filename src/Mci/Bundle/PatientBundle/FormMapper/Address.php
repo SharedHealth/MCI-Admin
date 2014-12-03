@@ -46,6 +46,11 @@ class Address
      * @Type("string")
      */
     private $union_id;
+
+    /**
+     * @Type("string")
+     */
+    private $ward_id;
     /**
      * @Type("string")
      */
@@ -265,5 +270,21 @@ class Address
     public function setDistrictId($district_id)
     {
         $this->district_id = $district_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWardId()
+    {
+        return $this->ward_id;
+    }
+
+    /**
+     * @param mixed $ward_id
+     */
+    public function setWardId($ward_id)
+    {
+        $this->ward_id = $ward_id;
     }
 }

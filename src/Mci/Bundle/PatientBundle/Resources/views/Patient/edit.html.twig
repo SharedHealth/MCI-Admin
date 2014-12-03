@@ -35,6 +35,7 @@
             </ul>
         </div>
     {% endif %}
+    <div class="ajax_error"></div>
     <div style="margin-bottom: 10px;" class="bs-example">
         <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#personalInfo">Personal Information</a></li>
@@ -89,7 +90,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Sur Name</label>
+                <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Surname</label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.sur_name) }}
@@ -261,6 +262,17 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_ward_id" class="control-label col-xs-2">Ward</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.ward_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_present_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
 
@@ -380,6 +392,16 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_permanent_address_ward_id" class="control-label col-xs-2">Ward</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.permanent_address.ward_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_permanent_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
 
@@ -539,7 +561,7 @@
                 <th>Type</th>
                 <th>Bangla Name</th>
                 <th>Given Name</th>
-                <th>Sur Name</th>
+                <th>Surname</th>
                 <th>Marriage ID</th>
                 <th>Relational Status</th>
                 <th></th>
@@ -683,11 +705,12 @@
                     <td>{{ form_widget(relation.sur_name) }}</td>
                     <td>{{ form_widget(relation.marriage_id) }}</td>
                     <td>{{ form_widget(relation.relational_status) }}</td>
-                    <td><span data-hid="{{ hid }}"  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
+                    <td><span data-marital-status="{{ form.marital_status.vars.value }}" data-hid="{{ hid }}"  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+
     </div>
 
 

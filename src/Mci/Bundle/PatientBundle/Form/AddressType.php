@@ -81,7 +81,10 @@ class AddressType extends AbstractType
             )
             ->add('union_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                     'required'  => false
+                     'required'  => false,
+                    'choices' => array(),
+                    'empty_value' => '--Please select--'
+
                 )
             )
             ->add('upazilla_id', 'choice', array(
@@ -91,11 +94,20 @@ class AddressType extends AbstractType
                      'required'  => false
                 )
             )
+            ->add('ward_id', 'choice', array(
+                    'attr' => array('class' => 'form-control'),
+                    'choices' => array(),
+                    'empty_value' => '--Please select--',
+                    'required'  => false,
+
+                )
+            )
             ->add('city_corporation_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' =>  $cityCorporation,
                     'empty_value' => '--Please select--',
-                     'required'  => false
+                     'required'  => false,
+
                 )
             )
             ->add('country_code', 'choice', array(
