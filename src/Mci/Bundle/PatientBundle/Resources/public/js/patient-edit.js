@@ -192,6 +192,9 @@ jQuery(document).ready(function () {
                 },
                 'mci_bundle_patientBundle_patients[permanent_address][post_code]': {
                     postcode: true
+                },
+                'mci_bundle_patientBundle_patients[relation][marriage_id][]': {
+                    regex: '^[0-9]{8}$'
                 }
             },
             messages: {
@@ -244,7 +247,17 @@ jQuery(document).ready(function () {
 
     });
 
+    $('table tbody tr').delegate('.relation-type','change',function(){
+       var relationType =  $(this).val();
+        if(relationType == 'SPS'){
+            $(this).parent().parent().find('.relation-marriage-id').removeAttr('disabled');
+            $(this).parent().parent().find('.relation-relational-status').removeAttr('disabled');
+        }else{
+            $(this).parent().parent().find('.relation-marriage-id').attr('disabled', 'disabled');
+            $(this).parent().parent().find('.relation-relational-status').attr('disabled', 'disabled');
+        }
 
+    });
 
 });
 

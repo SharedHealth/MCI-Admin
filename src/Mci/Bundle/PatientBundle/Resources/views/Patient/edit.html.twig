@@ -685,7 +685,7 @@
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__sur_name&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][sur_name]&quot;  class=&quot;form-control relation-sur-name&quot; &gt; &lt;/td&gt;
         &lt;td&gt;&lt;input type=&quot;text&quot; id=&quot;mci_bundle_patientBundle_patients_relations___name__marriage_id&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][marriage_id]&quot;  class=&quot;form-control relation-marriage-id&quot; &gt; &lt;/td&gt;
         &lt;td&gt;&lt;select  id=&quot;mci_bundle_patientBundle_patients_relations___name__relational_status&quot; name=&quot;mci_bundle_patientBundle_patients[relations][__name__][relational_status]&quot; class=&quot;form-control relation-relational-status&quot;&gt;
-            &lt;option value=&quot;&quot;&gt;--Please Select--&lt;/option&gt;
+            &lt;option value=&quot;&quot;&gt;N/A&lt;/option&gt;
             &lt;option value=&quot;3&quot;&gt;Widowed&lt;/option&gt;
             &lt;option value=&quot;4&quot;&gt;Separated&lt;/option&gt;
             &lt;option value=&quot;5&quot;&gt;Divorced&lt;/option&gt;
@@ -703,8 +703,18 @@
                     <td>{{ form_widget(relation.name_bangla) }}</td>
                     <td>{{ form_widget(relation.given_name) }}</td>
                     <td>{{ form_widget(relation.sur_name) }}</td>
-                    <td>{{ form_widget(relation.marriage_id) }}</td>
-                    <td>{{ form_widget(relation.relational_status) }}</td>
+                    <td>
+                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.marriage_id , { 'attr': {'disabled': 'disabled', 'placeholder': 'N/A'},  value : '' } ) }}
+                        {% else %}
+                        {{ form_widget(relation.marriage_id) }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.relational_status, { 'attr': {'disabled': 'disabled'},  value : '' }) }}
+                        {% else %}
+                            {{ form_widget(relation.relational_status) }}
+                        {% endif %}
+                    </td>
                     <td><span data-marital-status="{{ form.marital_status.vars.value }}" data-hid="{{ hid }}"  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
                 </tr>
             {% endfor %}

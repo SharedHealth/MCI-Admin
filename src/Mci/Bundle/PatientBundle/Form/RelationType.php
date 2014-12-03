@@ -52,7 +52,7 @@ class RelationType extends AbstractType
             ))
             ->add('relational_status', 'choice', array(
                 'choices' => $relations,
-                'empty_value' => '--Please select--',
+                'empty_value' => 'N/A',
                 'required'  => false,
                 'attr' => array('class' => 'form-control relation-relational-status')
             ));
