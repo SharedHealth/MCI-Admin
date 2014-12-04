@@ -250,11 +250,11 @@ jQuery(document).ready(function () {
     $('table tbody tr').delegate('.relation-type','change',function(){
        var relationType =  $(this).val();
         if(relationType == 'SPS'){
-            $(this).parent().parent().find('.relation-marriage-id').removeAttr('disabled');
-            $(this).parent().parent().find('.relation-relational-status').removeAttr('disabled');
+            $(this).parent().parent().find('.relation-marriage-id').removeAttr('readonly');
+            $(this).parent().parent().find('.relation-relational-status').removeAttr('readonly');
         }else{
-            $(this).parent().parent().find('.relation-marriage-id').attr('disabled', 'disabled');
-            $(this).parent().parent().find('.relation-relational-status').attr('disabled', 'disabled');
+            $(this).parent().parent().find('.relation-marriage-id').attr('readonly', 'readonly');
+            $(this).parent().parent().find('.relation-relational-status').attr('readonly', 'readonly');
         }
 
     });

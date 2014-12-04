@@ -704,13 +704,13 @@
                     <td>{{ form_widget(relation.given_name) }}</td>
                     <td>{{ form_widget(relation.sur_name) }}</td>
                     <td>
-                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.marriage_id , { 'attr': {'disabled': 'disabled', 'placeholder': 'N/A'},  value : '' } ) }}
+                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.marriage_id , { 'attr': {'readonly': 'readonly', 'placeholder': 'N/A'},  value : '' } ) }}
                         {% else %}
                         {{ form_widget(relation.marriage_id) }}
                         {% endif %}
                     </td>
                     <td>
-                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.relational_status, { 'attr': {'disabled': 'disabled'},  value : '' }) }}
+                        {% if relation.type.vars.value != 'SPS'    %} {{ form_widget(relation.relational_status, { 'attr': {'readonly': 'readonly'},  value : '' }) }}
                         {% else %}
                             {{ form_widget(relation.relational_status) }}
                         {% endif %}
