@@ -27,6 +27,6 @@ mci_patient_relation_remove:
 
 mci_patient_approval:
     path:     /approval/{lastItemId}
-    defaults: { _controller: MciPatientBundle:Patient:approval,  lastItem: null }
+    defaults: { _controller: MciPatientBundle:Patient:approval,  lastItemId: null }
 
 

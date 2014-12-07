@@ -54,7 +54,7 @@ class Address
     /**
      * @Type("string")
      */
-    private $upazilla_id;
+    private $upazila_id;
     /**
      * @Type("string")
      */
@@ -97,19 +97,19 @@ class Address
     }
 
     /**
-     * @param mixed $upazilla_id
+     * @param mixed $upazila_id
      */
-    public function setUpazillaId($upazilla_id)
+    public function setUpazilaId($upazila_id)
     {
-        $this->upazilla_id = $upazilla_id;
+        $this->upazila_id = $upazila_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUpazillaId()
+    public function getUpazilaId()
     {
-        return $this->upazilla_id;
+        return $this->upazila_id;
     }
 
     /**

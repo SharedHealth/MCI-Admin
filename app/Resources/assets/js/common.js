@@ -13,49 +13,49 @@ jQuery(document).ready(function () {
 
     $('#mci_bundle_patientBundle_patients_present_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_district_id');
-        var y = $('#mci_bundle_patientBundle_patients_present_address_upazilla_id');
+        var y = $('#mci_bundle_patientBundle_patients_present_address_upazila_id');
         var divisionId = $('option:selected', this).attr('data-id');
         populatedDistrictDropdown(x, y,divisionId);
     });
 
     $('#mci_bundle_patientBundle_patients_permanent_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_permanent_address_district_id');
-        var y = $('#mci_bundle_patientBundle_patients_permanent_address_upazilla_id');
+        var y = $('#mci_bundle_patientBundle_patients_permanent_address_upazila_id');
         var divisionId = $('option:selected', this).attr('data-id');
         populatedDistrictDropdown(x, y,divisionId);
     });
 
     $('#mci_bundle_patientBundle_patients_present_address_district_id').on('change', function () {
-        var x = $('#mci_bundle_patientBundle_patients_present_address_upazilla_id');
+        var x = $('#mci_bundle_patientBundle_patients_present_address_upazila_id');
         var districtId = $('option:selected', this).attr('data-id');
-        upazillaDropdwon(x,districtId);
+        upazilaDropdwon(x,districtId);
     });
 
     $('#mci_bundle_patientBundle_patients_permanent_address_district_id').on('change', function () {
-        var x = $('#mci_bundle_patientBundle_patients_permanent_address_upazilla_id');
+        var x = $('#mci_bundle_patientBundle_patients_permanent_address_upazila_id');
         var districtId = $('option:selected', this).attr('data-id');
-        upazillaDropdwon(x,districtId);
+        upazilaDropdwon(x,districtId);
     });
 
     $('#division').on('change', function () {
 
         var x = $('#district');
-        var y = $('#upazilla');
+        var y = $('#upazila');
         var divisionId = $('option:selected', this).attr('data-id');
         populatedDistrictDropdown(x, y,divisionId);
 
     });
 
     $('#district').on('change', function () {
-        var x = $('#upazilla');
+        var x = $('#upazila');
         var districtId = $('option:selected', this).attr('data-id');
-        upazillaDropdwon(x,districtId);
+        upazilaDropdwon(x,districtId);
     });
 
 });
 
 
- function upazillaDropdwon(x,districtId) {
+ function upazilaDropdwon(x,districtId) {
 
         if (districtId) {
             x.removeAttr('disabled');
@@ -64,16 +64,16 @@ jQuery(document).ready(function () {
             x.empty();
             $.ajax({
                 type: "POST",
-                url: "/location/upazilla/" + districtId,
+                url: "/location/upazila/" + districtId,
                 beforeSend: function () {
-                    $('.upazillaloader').show();
+                    $('.upazilaloader').show();
                 },
                 success: function (result) {
                     var options = generatedOptions(result);
                     x.append(options);
                 },
                 complete: function () {
-                    $('.upazillaloader').hide();
+                    $('.upazilaloader').hide();
                 }
             });
         }

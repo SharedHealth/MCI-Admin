@@ -48,10 +48,10 @@ class Patient
 
         if (isset($queryParam['district_id']) && !empty($queryParam['district_id'])) {
             $district = str_pad($queryParam['district_id'], 2, '0', STR_PAD_LEFT);
-            $queryParam['present_address'] = $queryParam['division_id'] . $district . $queryParam['upazilla_id'];
+            $queryParam['present_address'] = $queryParam['division_id'] . $district . $queryParam['upazila_id'];
             unset($queryParam['division_id']);
             unset($queryParam['district_id']);
-            unset($queryParam['upazilla_id']);
+            unset($queryParam['upazila_id']);
         }
 
         return $queryParam;
@@ -152,8 +152,8 @@ class Patient
 
     public function getApprovarLocation(){
        return array(
-           'division_id,' => '10',
-           'district_id,' => '04',
+           'division_id' => '10',
+           'district_id' => '04',
            'upazila_id' => '09'
        );
     }
@@ -164,8 +164,8 @@ class Patient
     }
 
     public function getPatients($url, $header = null){
-        echo $url;
         $responseBody = array();
+        $SystemAPiError = array();
         try{
             $request = $this->client->get($url,$header);
             $response = $request->send();
@@ -177,6 +177,7 @@ class Patient
             $messages = json_decode($e->getResponse()->getBody());
             $SystemAPiError = Utility::getErrorMessages($messages);
         } catch (RequestException $e) {
+            echo $e->getMessage();
             $SystemAPiError[] = 'Something went wrong';
         }
 

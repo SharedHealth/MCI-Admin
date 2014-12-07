@@ -127,7 +127,7 @@
                         return $("#division").val() != ""
                     }
                 },
-                upazilla_id : {
+                upazila_id : {
                     required : function() {
                         return $("#district").val() != ""
                     }

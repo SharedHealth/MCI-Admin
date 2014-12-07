@@ -235,8 +235,8 @@
                     <p class="form-control-static">{{ responseBody.present_address.district_id|district }}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>Upazilla:</label>
-                    <p class="form-control-static">{{ responseBody.present_address.upazilla_id|upazilla(responseBody.present_address.district_id , responseBody.present_address.upazilla_id) }}</p>
+                    <label>Upazila:</label>
+                    <p class="form-control-static">{{ responseBody.present_address.upazila_id|upazila(responseBody.present_address.district_id , responseBody.present_address.upazila_id) }}</p>
                 </div>
 
 
@@ -320,8 +320,8 @@
                     <p class="form-control-static">{% if responseBody.permanent_address.district_id is defined %}{{ responseBody.permanent_address.district_id|district }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
-                    <label>Upazilla:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.upazilla_id is defined %}{{ responseBody.permanent_address.upazilla_id|upazilla(responseBody.permanent_address.district_id)  }}{% endif %}</p>
+                    <label>Upazila:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.upazila_id is defined %}{{ responseBody.permanent_address.upazila_id|upazila(responseBody.permanent_address.district_id)  }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Holding Number:</label>

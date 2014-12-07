@@ -17,7 +17,7 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('disability', array($this, 'disabilityFilter')),
             new \Twig_SimpleFilter('division', array($this, 'divisionFilter')),
             new \Twig_SimpleFilter('district', array($this, 'districtFilter')),
-            new \Twig_SimpleFilter('upazilla', array($this, 'upazillaFilter')),
+            new \Twig_SimpleFilter('upazila', array($this, 'upazilaFilter')),
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
@@ -74,11 +74,11 @@ class MciExtension extends \Twig_Extension
         return isset($district[$number])?$district[$number]:'';
     }
 
-    public function upazillaFilter( $district_code='',$upazilla_code='')
+    public function upazilaFilter( $district_code='',$upazila_code='')
     {
 
-        $data = $this->getJsonData('upazilla-single.json');
-        return $data[$upazilla_code][$district_code];
+        $data = $this->getJsonData('upazila-single.json');
+        return $data[$upazila_code][$district_code];
     }
 
     public function countryCodeFilter($number)

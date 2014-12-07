@@ -30,12 +30,11 @@ class PatientController extends Controller
         }
 
         $districts = array();
-        $upazillas = array();
+        $upazilas = array();
         $responseBody = array();
 
         $divisions = Utility::getJsonData('division.json');
         $districtsAll = Utility::getJsonData('district.json');
-        $client = $this->get('mci_patient.client');
         $locationService = $this->container->get('mci.location');
 
         if ($request->get('division_id')) {
@@ -45,7 +44,7 @@ class PatientController extends Controller
 
         if ($request->get('district_id')) {
             $hrm_district_id = $locationService->getLocationId($districtsAll, $request->get('district_id'));
-            $upazillas = $locationService->getUpazilla($hrm_district_id);
+            $upazilas = $locationService->getupazila($hrm_district_id);
         }
 
         $SystemAPiError = '';
@@ -68,7 +67,7 @@ class PatientController extends Controller
                 'queryparam' => $queryParam,
                 'divisions' => $divisions,
                 'districts' => (array)$districts,
-                'upazillas' => (array)$upazillas,
+                'upazilas' => (array)$upazilas,
                 'systemError' => $SystemAPiError,
                 'searchString' => $this->get('mci.patient')->getSearchParameterAsString($queryParam)
             ));
@@ -77,15 +76,16 @@ class PatientController extends Controller
     public function editAction(Request $request, $id){
 
         $patient = $this->get('mci.patient')->getPatientById($id);
+
         if($patient['systemError']){
             throw $this->createNotFoundException('Service Unavailable');
         }
 
-        if (!json_decode($patient['responseBody'])) {
+        if (!$patient['responseBody']) {
             throw $this->createNotFoundException('Unable to find patient');
         }
 
-        $object = $this->get('mci.patient')->getFormMappingObject($patient['responseBody']);
+        $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
 
         $form = $this->createForm(new PatientType($this->container,$object), $object);
 
@@ -108,7 +108,7 @@ class PatientController extends Controller
 
         $postData['present_address'] = $presentAddress;
 
-        if(!empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazilla_id'])){
+        if(!empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazila_id'])){
             $permanentAddress = Utility::filterAddress($postData['permanent_address']);
             $postData['permanent_address'] = $permanentAddress;
         }else{
@@ -137,7 +137,7 @@ class PatientController extends Controller
         $postData = Utility::unsetUnessaryData($postData);
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
         $patient = $this->get('mci.patient')->getPatientById($id);
-        $object = $this->get('mci.patient')->getFormMappingObject($patient['responseBody']);
+        $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
         $form = $this->createForm(new PatientType($this->container, $object), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
@@ -174,19 +174,8 @@ class PatientController extends Controller
 
     public function showAction($id, Request $request)
     {
-        $responseBody = array();
-
-        try{
-            if($id){
-                $client = $this->get('mci_patient.client');
-                $request = $client->get($this->container->getParameter('api_end_point').'/'.$id);
-                $response = $request->send();
-                $responseBody = json_decode($response->getBody());
-            }
-        } catch(RequestException $e){
-            $e->getMessage();
-        }
-
+        $response = $this->get('mci.patient')->getPatientById($id);
+        $responseBody = !empty($response['responseBody'])?$response['responseBody']: array();
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
     }
 

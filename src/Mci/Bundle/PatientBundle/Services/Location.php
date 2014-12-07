@@ -28,22 +28,22 @@ class Location {
         return $districtByDivision;
     }
 
-    public function getUpazilla($id){
-        $upazillaByDistrict = array();
+    public function getupazila($id){
+        $upazilaByDistrict = array();
 
         if ($id) {
-            $upazillas =  $this->getJsonData('upazilla.json');
+            $upazilas =  $this->getJsonData('upazila.json');
 
-            foreach ($upazillas as $key => $value) {
+            foreach ($upazilas as $key => $value) {
 
                 if ($value['district_id'] == $id) {
-                    $upazillaByDistrict[$key]['code'] = $value['code'];
-                    $upazillaByDistrict[$key] ['name'] = $value['name'];
-                    $upazillaByDistrict[$key]['id'] = $value['id'];
+                    $upazilaByDistrict[$key]['code'] = $value['code'];
+                    $upazilaByDistrict[$key] ['name'] = $value['name'];
+                    $upazilaByDistrict[$key]['id'] = $value['id'];
                 }
             }
         }
-        return $upazillaByDistrict;
+        return $upazilaByDistrict;
     }
 
     public function getAllDivision(){
@@ -69,22 +69,22 @@ class Location {
         return $filterDistricts;
     }
 
-    public function getAllUpazilla($id){
-        $upazillaByDistrict = array();
+    public function getAllupazila($id){
+        $upazilaByDistrict = array();
 
         if ($id) {
-            $upazillas =  $this->getJsonData('upazilla.json');
+            $upazilas =  $this->getJsonData('upazila.json');
 
-            foreach ($upazillas as $key => $value) {
+            foreach ($upazilas as $key => $value) {
 
                 if ($value['district_id'] == $id) {
-                    $upazillaByDistrict[$value['code']] = $value['name'] ;
+                    $upazilaByDistrict[$value['code']] = $value['name'] ;
 
                 }
             }
 
         }
-        return $upazillaByDistrict;
+        return $upazilaByDistrict;
     }
 
 

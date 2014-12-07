@@ -150,7 +150,7 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[present_address][district_id]': {
                     required: true
                 },
-                'mci_bundle_patientBundle_patients[present_address][upazilla_id]': {
+                'mci_bundle_patientBundle_patients[present_address][upazila_id]': {
                     required: true
                 },
                 'mci_bundle_patientBundle_patients[present_address][street]': {

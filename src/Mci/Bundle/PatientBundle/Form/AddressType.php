@@ -24,13 +24,13 @@ class AddressType extends AbstractType
         $divisions = $locationService->getAllDivision();
         $union = array();
         $districts = array();
-        $upazillas = array();
+        $upazilas = array();
 
         if($this->addressObject){
             $divisionId = $locationService->getDivisionId($this->addressObject->getDivisionId());
             $districtId = $locationService->getDistictId($this->addressObject->getDistrictId());
             $districts = $locationService->getAllDistrict($divisionId);
-            $upazillas = $locationService->getAllUpazilla($districtId);
+            $upazilas = $locationService->getAllupazila($districtId);
         }
 
         $cityCorporation = array();
@@ -87,9 +87,9 @@ class AddressType extends AbstractType
 
                 )
             )
-            ->add('upazilla_id', 'choice', array(
+            ->add('upazila_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' => $upazillas,
+                    'choices' => $upazilas,
                     'empty_value' => '--Please select--',
                      'required'  => false
                 )

@@ -113,18 +113,18 @@
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                       <select name="upazilla_id" id="upazilla" class="form-control" >
-                        <option value="">Select Upazilla</option>
-                        {% for upazilla in upazillas  %}
+                       <select name="upazila_id" id="upazila" class="form-control" >
+                        <option value="">Select upazila</option>
+                        {% for upazila in upazilas  %}
 
-                            <option data-id="{{ upazilla.id }}"  value="{{ upazilla.code }}"
-                                    {% if queryparam.upazilla_id is defined %}
-                                        {% if upazilla.code == queryparam.upazilla_id %} {{ "selected" }} {% endif %}
+                            <option data-id="{{ upazila.id }}"  value="{{ upazila.code }}"
+                                    {% if queryparam.upazila_id is defined %}
+                                        {% if upazila.code == queryparam.upazila_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ upazilla.name }}</option>
+                                    >{{ upazila.name }}</option>
                         {% endfor %}
                     </select>
-                    <span class="upazillaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
+                    <span class="upazilaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
             </div>
 
@@ -142,7 +142,7 @@
 
 {% if responseBody.results is defined %}
 
-    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if queryparam.division_id is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ queryparam.division_id|division  }} {{ queryparam.district_id|district  }} {{ queryparam.upazilla_id|upazilla(queryparam.district_id)  }}{% endif %}</strong></h5>
+    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if queryparam.division_id is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ queryparam.division_id|division  }} {{ queryparam.district_id|district  }} {{ queryparam.upazila_id|upazila(queryparam.district_id)  }}{% endif %}</strong></h5>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>
@@ -171,7 +171,7 @@
                 <td>{{ result.given_name }}</td>
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>
-                <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|district }} {{ result.present_address.upazilla_id|upazilla(result.present_address.district_id) }}</td>
+                <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|district }} {{ result.present_address.upazila_id|upazila(result.present_address.district_id) }}</td>
                 <td> {% if result.phone_number.number is defined %}{{ result.phone_number.number }}{% endif %}</td>
             </tr>
         {% endfor %}

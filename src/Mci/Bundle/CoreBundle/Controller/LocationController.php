@@ -23,10 +23,10 @@ class LocationController extends Controller
 
     }
 
-    public function upazillaAction($id)
+    public function upazilaAction($id)
     {
-        $upazillas = $this->container->get('mci.location')->getUpazilla($id);
-        return  new Response(json_encode($upazillas));
+        $upazilas = $this->container->get('mci.location')->getupazila($id);
+        return  new Response(json_encode($upazilas));
     }
 
 

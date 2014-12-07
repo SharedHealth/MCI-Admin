@@ -12,8 +12,8 @@ mci_location_district:
     requirements:
            id:  \d+
 
-mci_location_upazilla:
-    path:    /location/upazilla/{id}
-    defaults: { _controller: MciCoreBundle:Location:upazilla }
+mci_location_upazila:
+    path:    /location/upazila/{id}
+    defaults: { _controller: MciCoreBundle:Location:upazila }
     requirements:
                id:  \d+
