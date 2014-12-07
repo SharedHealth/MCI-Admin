@@ -25,4 +25,8 @@ mci_patient_relation_remove:
     defaults: { _controller: MciPatientBundle:Patient:removeRelation }
     methods:   [POST]
 
+mci_patient_approval:
+    path:     /approval/{lastItemId}
+    defaults: { _controller: MciPatientBundle:Patient:approval,  lastItem: null }
+
 

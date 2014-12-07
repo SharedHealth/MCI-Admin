@@ -102,22 +102,11 @@ class Patient
 
 
        public  function getPatientById($id){
-        $responseBody = null;
-        $SystemAPiError = null;
-        try{
-            if($id){
-                $request = $this->client->get($this->endpoint.'/'.$id);
-                $response = $request->send();
-                $responseBody = $response->getBody();
-            }
-        }catch(RequestException $e){
 
-            if($e instanceof CurlException) {
-                $SystemAPiError[] = 'Service Unvailable';
-            }
-        }
+           $url = $this->endpoint.'/'.$id;
+           return $this->getPatients($url);
 
-        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
+
     }
 
     /**
@@ -161,5 +150,36 @@ class Patient
 
     }
 
+    public function getApprovarLocation(){
+       return array(
+           'division_id,' => '10',
+           'district_id,' => '04',
+           'upazila_id' => '09'
+       );
+    }
 
+    public function getApprovalPatientsList($url){
+        $header = $this->getApprovarLocation();
+        return $this->getPatients($url,$header);
+    }
+
+    public function getPatients($url, $header = null){
+        echo $url;
+        $responseBody = array();
+        try{
+            $request = $this->client->get($url,$header);
+            $response = $request->send();
+            $responseBody = json_decode($response->getBody());
+
+        }catch (CurlException $e) {
+            $SystemAPiError[] = 'Service Unavailable';
+        } catch (BadResponseException $e) {
+            $messages = json_decode($e->getResponse()->getBody());
+            $SystemAPiError = Utility::getErrorMessages($messages);
+        } catch (RequestException $e) {
+            $SystemAPiError[] = 'Something went wrong';
+        }
+
+        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
+    }
 }

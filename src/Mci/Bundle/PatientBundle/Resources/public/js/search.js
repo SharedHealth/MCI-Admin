@@ -46,7 +46,6 @@
     };
 
 
-
     var isPhoneNoRequired = function() {
         return isNotBlank(getValueBySelector(".phone-block"));
     };

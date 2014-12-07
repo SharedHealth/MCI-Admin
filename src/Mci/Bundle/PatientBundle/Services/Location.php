@@ -10,27 +10,6 @@ class Location {
        $this->container = $servicecontainer;
    }
 
-   public function getLocations($url = ''){
-        try{
-            $client = $this->container->get('mci_patient.client');
-            $client->setDefaultOption('headers',
-                array(
-                    'X-Auth-Token' => $this->container->getParameter('location_auth_key'),
-                    'Content-Type'=>'application/json'
-                )
-            );
-
-            $request = $client->get($this->container->getParameter('location_api_end_point').'/'.$url);
-            $response = $request->send();
-
-            return $response->getBody();
-
-        } catch(RequestException $e){
-            echo  $e->getMessage();
-        }
-    }
-
-
     public function getDistrict($id){
         $districtByDivision = array();
         if($id){

@@ -190,5 +190,11 @@ class PatientController extends Controller
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
     }
 
+    public function approvalAction($lastItemId){
+        $url =  $this->container->getParameter('api_end_point').'/pendingapprovals?last_item_id='.$lastItemId;
+        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
+        return $this->render('MciPatientBundle:Patient:approval.html.twig', $response);
+    }
+
 
 }
