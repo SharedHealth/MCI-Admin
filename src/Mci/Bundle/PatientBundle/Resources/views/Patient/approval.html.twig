@@ -11,17 +11,31 @@
 {% endblock stylesheets %}
 {% block content %}
     <div>
-        <h1 style="float: left;">Patient approval list</h1>
-       <div style="float: right">
-           <form>
-               <p></p>
-               <input name="approvalPatientSearch" type="text" placeholder="Searach">
-               <input type="submit" name="submit">
-           </form>
-       </div>
 
+    <div class="alert alert-danger"   style="margin-top: 10px;">
+    <ul>
+        {% for sysError in systemError  %}
+            <li>{{ sysError }}</li>
+        {% endfor %}
+    </ul>
     </div>
 
+        <h1 style="float: left; width: 50%;">Patient approval list</h1>
+
+       <div  style="float: right;">
+           <form>
+               <p></p>
+
+               <div style="float: left; display: block; width: 10%px;">
+                    <input  name="last_item_id" type="text" value="{{ last_item_id }}" class="form-control single-searchable">
+               </div>
+               <div style="float: left; display: block; width: 10%px; padding-left: 10px;"><input   class="btn btn-primary" type="submit" name="submit"></div>
+
+           </form>
+       </div>
+<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -31,13 +45,15 @@
         </tr>
         </thead>
         <tbody>
-        {% for result in responseBody.results %}
-            <tr>
-                <td>{{ result.hid }}</td>
-                <td>{{ result.given_name }} {{ result.sur_name }}</td>
-                <td>view</td>
-            </tr>
-        {% endfor %}
+        {% if responseBody.results is defined %}
+            {% for result in responseBody.results %}
+                <tr>
+                    <td>{{ result.hid }}</td>
+                    <td>{{ result.given_name }} {{ result.sur_name }}</td>
+                    <td>view</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
 
     </table>
