@@ -2,6 +2,19 @@
     var errors_el;
     var hide_time_out = null;
 
+    function isInvalidName() {
+        return isBlank($("#given_name").val()) && isGivenNameRequired();
+    }
+
+    function resolveErrorMessage() {
+        switch (true) {
+            case isInvalidName() : return "Please enter a valid name"
+            case onlyNameGiven(): return "Please provide a valid ID, Address or Phone number"
+            case onlyAddressGiven(): return "Please provide a valid ID, Name or Phone number"
+            default : return "Incomplete search criteria!"
+        }
+    }
+
     var showErrorMessage =function (message) {
         errors_el.html(message).show(200);
 
@@ -56,6 +69,14 @@
         return isNotBlank($("#given_name").val()) && $("#division").val() != ""
     }
 
+    function onlyNameGiven() {
+        return isNotBlank($("#given_name").val()) || isNotBlank($("#sur_name").val())
+    }
+
+    function onlyAddressGiven() {
+        return $("#division").val() != ""
+    }
+
     function validateAgainstBusinessRules() {
 
         if(!atLeastOneGiven()) {
@@ -70,7 +91,7 @@
             return true;
         }
 
-        showErrorMessage("Incomplete search criteria!");
+        showErrorMessage(resolveErrorMessage());
 
         return false;
     }
@@ -93,7 +114,6 @@
                     regex: '^[a-zA-Z0-9]{11}$'
                 },
                 given_name: {
-                    required: isGivenNameRequired,
                     regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 sur_name: {
