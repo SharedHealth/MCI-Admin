@@ -163,6 +163,10 @@ class Patient
         return $this->getPatients($url,$header);
     }
 
+    public function getApprovalPatientsDetails($url){
+        return $this->getPatients($url);
+    }
+
     public function getPatients($url, $header = null){
         $responseBody = array();
         $SystemAPiError = array();
@@ -177,7 +181,6 @@ class Patient
             $messages = json_decode($e->getResponse()->getBody());
             $SystemAPiError = Utility::getErrorMessages($messages);
         } catch (RequestException $e) {
-            echo $e->getMessage();
             $SystemAPiError[] = 'Something went wrong';
         }
 

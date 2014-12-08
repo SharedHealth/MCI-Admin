@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <!-- BEGIN GLOBAL STYLES -->
+    {{ parent() }}
+    {% stylesheets filter='cssrewrite'
+    'bundles/mcipatient/css/datepicker.css' %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+    <!-- END GLOBAL STYLES -->
+{% endblock stylesheets %}
+{% block content %}
+    <div>
+
+    <div class="alert alert-danger"   style="margin-top: 10px;">
+    <ul>
+        {% for sysError in systemError  %}
+            <li>{{ sysError }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+
+        <h1 style="float: left; width: 50%;">Patient approval list</h1>
+
+       <div  style="float: right;">
+           <form>
+               <p></p>
+
+               <div style="float: left; display: block; width: 10%px;">
+                    <input  name="last_item_id" type="text" value="{{ last_item_id }}" class="form-control single-searchable">
+               </div>
+               <div style="float: left; display: block; width: 10%px; padding-left: 10px;"><input   class="btn btn-primary" type="submit" name="submit"></div>
+
+           </form>
+       </div>
+<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+        <table class="table table-bordered pending-approval">
+            <thead>
+            <tr>
+                <th>Hid</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+             {% if responseBody.results is defined %}
+                {% for result in responseBody.results %}
+                    <tr>
+                        <td>{{ result.hid }}</td>
+                        <td>{{ result.given_name }} {{ result.sur_name }}</td>
+                        <td><a href="{{ path('mci_patient_approval_details', { 'hid': result.hid }) }}">View</a> </td>
+                    </tr>
+                {% endfor %}
+               {% endif %}
+            </tbody>
+
+        </table>
+
+    {% block javascripts %}
+    {{ parent() }}
+    <!-- BEGIN PAGE LEVEL JS -->
+    {% javascripts
+    'assets/js/plugins/dataTables/jquery.dataTables.js'
+    'assets/js/plugins/dataTables/dataTables.bootstrap.js'
+    %}
+    <!-- END PAGE LEVEL JS -->
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock javascripts %}
+
+    <script type="text/javascript">
+
+        $('.pending-approval').dataTable({
+            "searching": false,
+            "paging": false,
+            "oLanguage": {
+                "sEmptyTable":     "No patient found for approval"
+            }
+        });
+
+    </script>
+
+{% endblock %}

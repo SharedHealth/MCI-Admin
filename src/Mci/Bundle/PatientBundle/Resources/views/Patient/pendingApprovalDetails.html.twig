@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div>
+
+    <div class="alert alert-danger"   style="margin-top: 10px;">
+    <ul>
+        {% for sysError in systemError  %}
+            <li>{{ sysError }}</li>
+        {% endfor %}
+    </ul>
+    </div>
+
+<h1>Patient Pending Approval Details</h1>
+
+<div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Facility</th>
+            <th>Provider</th>
+            <th>Request Date</th>
+            <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if responseBody.results is defined %}
+            {% for result in responseBody.results %}
+                <tr>
+                    <td>{{ result.facility_id }}</td>
+                    <td>{{ result.provider_id }}</td>
+                    <td>{{ result.request_date }}</td>
+                    <td>{{ result.value }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+
+    </table>
+
+{% endblock %}
