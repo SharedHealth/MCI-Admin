@@ -35,7 +35,7 @@
     </div>
     <div style="clear: both;"></div>
 </div>
-    {% if responseBody.results is defined %}
+    {% if responseBody.results is defined and responseBody.results is not empty %}
     <table  width="100%" class="table table-bordered">
             <thead>
             <tr>
