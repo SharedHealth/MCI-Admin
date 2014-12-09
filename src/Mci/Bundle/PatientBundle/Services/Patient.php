@@ -121,7 +121,9 @@ class Patient
     }
 
     public function updatePatientById($id, $postData){
-        $postData['present_address']['upazilla_id'] = $postData['present_address']['upazila_id'];
+        if(isset( $postData['present_address']['upazila_id'])){
+            $postData['present_address']['upazilla_id'] = $postData['present_address']['upazila_id'];
+        }
         if(isset($postData['permanent_address']['upazila_id'])){
             $postData['permanent_address']['upazilla_id'] = $postData['permanent_address']['upazila_id'];
         }
@@ -160,7 +162,7 @@ class Patient
        return array(
            'division_id' => '10',
            'district_id' => '04',
-           'upazilla_id' => '09'
+           'upazila_id' => '09'
        );
     }
 
