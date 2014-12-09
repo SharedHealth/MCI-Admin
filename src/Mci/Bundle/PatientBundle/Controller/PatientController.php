@@ -115,23 +115,22 @@ class PatientController extends Controller
             unset($postData['permanent_address']);
         }
 
-       if(!empty($postData['phone_number']['number'])){
+
            $phoneNumber = Utility::filterPhoneNumber($postData['phone_number']);
            if($phoneNumber){
                $postData['phone_number'] = $phoneNumber;
            }else{
                unset($postData['phone_number']);
            }
-       }
 
-        if(!empty($postData['primary_contact_number']['number'])){
+
+
             $primaryPhoneNumber = Utility::filterPhoneNumber($postData['primary_contact_number']);
             if($primaryPhoneNumber){
                 $postData['primary_contact_number'] = $primaryPhoneNumber;
             }else{
                 unset($postData['primary_contact_number']);
             }
-        }
 
 
         $postData = Utility::unsetUnessaryData($postData);
