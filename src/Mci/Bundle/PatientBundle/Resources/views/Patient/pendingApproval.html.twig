@@ -11,7 +11,7 @@
 {% endblock stylesheets %}
 {% block content %}
     <div>
-
+{% if sysError is defined %}
     <div class="alert alert-danger"   style="margin-top: 10px;">
     <ul>
         {% for sysError in systemError  %}
@@ -19,6 +19,7 @@
         {% endfor %}
     </ul>
     </div>
+  {% endif %}
 
         <h1 style="float: left; width: 50%;">Patient approval list</h1>
 
@@ -36,7 +37,7 @@
 <div class="clear"></div>
     </div>
     <div class="clear"></div>
-        <table class="table table-bordered pending-approval">
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th>Hid</th>
@@ -57,29 +58,5 @@
             </tbody>
 
         </table>
-
-    {% block javascripts %}
-    {{ parent() }}
-    <!-- BEGIN PAGE LEVEL JS -->
-    {% javascripts
-    'assets/js/plugins/dataTables/jquery.dataTables.js'
-    'assets/js/plugins/dataTables/dataTables.bootstrap.js'
-    %}
-    <!-- END PAGE LEVEL JS -->
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock javascripts %}
-
-    <script type="text/javascript">
-
-        $('.pending-approval').dataTable({
-            "searching": false,
-            "paging": false,
-            "oLanguage": {
-                "sEmptyTable":     "No patient found for approval"
-            }
-        });
-
-    </script>
 
 {% endblock %}
