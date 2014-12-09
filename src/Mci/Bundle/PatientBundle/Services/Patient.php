@@ -121,6 +121,12 @@ class Patient
     }
 
     public function updatePatientById($id, $postData){
+        $postData['present_address']['upazilla_id'] = $postData['present_address']['upazila_id'];
+        if(isset($postData['permanent_address']['upazilla_id'])){
+            $postData['permanent_address']['upazilla_id'] = $postData['permanent_address']['upazila_id'];
+        }
+        unset($postData['present_address']['upazila_id']);
+        unset($postData['permanent_address']['upazila_id']);
 
         $SystemAPiError = array();
         $url = $this->endpoint.'/'.$id;
@@ -154,7 +160,7 @@ class Patient
        return array(
            'division_id' => '10',
            'district_id' => '04',
-           'upazila_id' => '09'
+           'upazilla_id' => '09'
        );
     }
 
@@ -173,8 +179,11 @@ class Patient
         try{
             $request = $this->client->get($url,$header);
             $response = $request->send();
-            $responseBody = json_decode($response->getBody());
-
+            $responseBody = json_decode($response->getBody(), true);
+            $responseBody['present_address']['upazila_id'] = $responseBody['present_address']['upazilla_id'];
+            if(isset($responseBody['permanent_address']['upazilla_id'])){
+                $responseBody['permanent_address']['upazila_id'] = $responseBody['permanent_address']['upazilla_id'];
+            }
         }catch (CurlException $e) {
             $SystemAPiError[] = 'Service Unavailable';
         } catch (BadResponseException $e) {
