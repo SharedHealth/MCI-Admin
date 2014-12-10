@@ -162,7 +162,7 @@ class Patient
        return array(
            'division_id' => '10',
            'district_id' => '04',
-           'upazila_id' => '09'
+           'upazilla_id' => '09'
        );
     }
 
@@ -182,7 +182,9 @@ class Patient
             $request = $this->client->get($url,$header);
             $response = $request->send();
             $responseBody = json_decode($response->getBody(), true);
-            $responseBody['present_address']['upazila_id'] = $responseBody['present_address']['upazilla_id'];
+            if(isset($responseBody['present_address']['upazilla_id'])){
+                $responseBody['present_address']['upazila_id'] = $responseBody['present_address']['upazilla_id'];
+            }
             if(isset($responseBody['permanent_address']['upazilla_id'])){
                 $responseBody['permanent_address']['upazila_id'] = $responseBody['permanent_address']['upazilla_id'];
             }
