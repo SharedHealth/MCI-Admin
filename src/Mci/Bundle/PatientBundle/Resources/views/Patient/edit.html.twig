@@ -251,7 +251,6 @@
                 <span class="districtloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 <div style="clear: both;"></div>
             </div>
-
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_present_address_upazila_id" class="control-label col-xs-2">Upazila</label>
 
@@ -261,26 +260,6 @@
                 <span class="upazilaloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 <div style="clear: both;"></div>
             </div>
-
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_union_id" class="control-label col-xs-2">Union</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.present_address.union_id) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_ward_id" class="control-label col-xs-2">Ward</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.present_address.ward_id) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-
-
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_present_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
 
@@ -289,6 +268,25 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_union_id" class="control-label col-xs-2">Union/Urban Ward </label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.union_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_present_address_ward_id" class="control-label col-xs-2">Rural Ward</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.present_address.ward_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_present_address_country_code" class="control-label col-xs-2">Country Code</label>
 
@@ -393,7 +391,16 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_permanent_address_union_id" class="control-label col-xs-2">Union</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.permanent_address.city_corporation_id) }}
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_permanent_address_union_id" class="control-label col-xs-2">Union/Urban Ward</label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.permanent_address.union_id) }}
@@ -402,19 +409,10 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_permanent_address_ward_id" class="control-label col-xs-2">Ward</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_ward_id" class="control-label col-xs-2">Rural Ward</label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.permanent_address.ward_id) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_permanent_address_city_corporation_id" class="control-label col-xs-2">City Corporation</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.permanent_address.city_corporation_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
