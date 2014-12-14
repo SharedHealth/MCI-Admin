@@ -21,7 +21,8 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
-            new \Twig_SimpleFilter('divisionCodeToId', array($this, 'divisionCodeConvertFilter'))
+            new \Twig_SimpleFilter('divisionCodeToId', array($this, 'divisionCodeConvertFilter')),
+            new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter'))
         );
     }
 
@@ -127,6 +128,11 @@ class MciExtension extends \Twig_Extension
                 return $val['id'];
             }
         }
+    }
+
+    public function livingStatusFilter($number){
+        $livingStatus = $this->getJsonData('livingStatus.json');
+        return isset($livingStatus[$number])?$livingStatus[$number]:'';
     }
 
 

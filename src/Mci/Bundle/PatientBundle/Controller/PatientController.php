@@ -6,13 +6,9 @@ use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\PatientBundle\Form\PatientType;
-use Mci\Bundle\PatientBundle\FormMapper\Patient;
-use Mci\Bundle\PatientBundle\FormMapper\Relation;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 
 
@@ -49,7 +45,6 @@ class PatientController extends Controller
 
         $SystemAPiError = '';
             try {
-
                 $queryParam = $request->query->all();
                 $responseBody = $this->get('mci.patient')->findPatientByRequestQueryParameter($queryParam);
 
@@ -73,7 +68,7 @@ class PatientController extends Controller
             ));
     }
 
-    public function editAction(Request $request, $id){
+    public function editAction( $id){
 
         $patient = $this->get('mci.patient')->getPatientById($id);
 
@@ -100,14 +95,14 @@ class PatientController extends Controller
 
         $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
 
-        $presentAddress = Utility::filterAddress($postData['present_address']);
         if(!empty($postData['relation'])){
             $relations = Utility::filterRelations($postData['relation']);
             $postData['relations'] = $relations;
         }
-
-        $postData['present_address'] = $presentAddress;
-
+        if(!empty($postData['present_address'])){
+            $presentAddress = Utility::filterAddress($postData['present_address']);
+            $postData['present_address'] = $presentAddress;
+        }
         if(!empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazila_id'])){
             $permanentAddress = Utility::filterAddress($postData['permanent_address']);
             $postData['permanent_address'] = $permanentAddress;
@@ -115,23 +110,20 @@ class PatientController extends Controller
             unset($postData['permanent_address']);
         }
 
+        $phoneNumber = Utility::filterPhoneNumber($postData['phone_number']);
+        if ($phoneNumber) {
+            $postData['phone_number'] = $phoneNumber;
+        } else {
+            unset($postData['phone_number']);
+        }
 
-           $phoneNumber = Utility::filterPhoneNumber($postData['phone_number']);
-           if($phoneNumber){
-               $postData['phone_number'] = $phoneNumber;
-           }else{
-               unset($postData['phone_number']);
-           }
+        $primaryPhoneNumber = Utility::filterPhoneNumber($postData['primary_contact_number']);
 
-
-
-            $primaryPhoneNumber = Utility::filterPhoneNumber($postData['primary_contact_number']);
-            if($primaryPhoneNumber){
-                $postData['primary_contact_number'] = $primaryPhoneNumber;
-            }else{
-                unset($postData['primary_contact_number']);
-            }
-
+        if ($primaryPhoneNumber) {
+            $postData['primary_contact_number'] = $primaryPhoneNumber;
+        } else {
+            unset($postData['primary_contact_number']);
+        }
 
         $postData = Utility::unsetUnessaryData($postData);
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
@@ -147,10 +139,10 @@ class PatientController extends Controller
 
     }
 
-    public function removeRelationAction(Request $request, $id){
+    public function removeRelationAction($id){
 
         if($id){
-                 $relationId = $this->get('request')->request->get('realtianId');
+                 $relationId = $this->get('request')->request->get('realtionId');
                  $relationtype = $this->get('request')->request->get('relationType');
                  $maritalStatus = $this->get('request')->request->get('maritalStatus');
 
@@ -160,26 +152,23 @@ class PatientController extends Controller
                      $postData['marital_status'] = $maritalStatus;
                  }
                  $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
-
                  if($errors){
                      return new Response(json_encode($postData));
                  }else{
                      return new Response("ok");
                  }
-
         }
 
     }
 
-    public function showAction($id, Request $request)
+    public function showAction($id)
     {
         $response = $this->get('mci.patient')->getPatientById($id);
-        $responseBody = !empty($response['responseBody'])?$response['responseBody']: array();
+        $responseBody = $response['responseBody'];
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
     }
 
-    public function pendingApprovalAction(Request $request){
-        $lastItemId = $request->get('last_item_id')?$request->get('last_item_id'):"";
+    public function pendingApprovalAction($lastItemId){
         $url =  $this->container->getParameter('api_end_point').'/pendingapprovals?last_item_id='.$lastItemId;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         $response['last_item_id'] = $lastItemId;

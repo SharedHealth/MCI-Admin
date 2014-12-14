@@ -1,8 +1,10 @@
 <?php
 namespace Mci\Bundle\PatientBundle\Services;
 
+use Guzzle\Http\Client;
+use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\RequestException;
-use Symfony\Component\DependencyInjection\Container;
+use JMS\Serializer\Serializer;
 use Guzzle\Http\Exception\CurlException;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 
@@ -11,15 +13,22 @@ class Patient
     /**
      * @var Client
      */
-    private $container;
-    private $endpoint;
     private $client;
 
-    public function __construct(Container $container, $endpoint) {
+    /**
+     * @var Serializer
+     */
 
-        $this->client = $container->get('mci_patient.client');
+    private $serializer;
+
+    private $endpoint;
+
+
+    public function __construct(Client $client, Serializer $serializer, $endpoint) {
+
+        $this->client = $client;
         $this->endpoint = $endpoint;
-        $this->container = $container;
+        $this->serializer = $serializer;
     }
 
     public function findPatientByRequestQueryParameter($query)
@@ -102,11 +111,8 @@ class Patient
 
 
        public  function getPatientById($id){
-
            $url = $this->endpoint.'/'.$id;
            return $this->getPatients($url);
-
-
     }
 
     /**
@@ -115,8 +121,7 @@ class Patient
      */
     public function getFormMappingObject($responseBody)
     {
-        $serializer = $this->container->get('jms_serializer');
-        $object = $serializer->deserialize($responseBody, 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
+        $object = $this->serializer->deserialize($responseBody, 'Mci\Bundle\PatientBundle\FormMapper\Patient', 'json');
         return $object;
     }
 

@@ -26,10 +26,10 @@ mci_patient_relation_remove:
     methods:   [POST]
 
 mci_patient_pending_approval:
-    path:     /pendingApproval/{lastItemId}
+    path:     /pendingapproval/{lastItemId}
     defaults: { _controller: MciPatientBundle:Patient:pendingApproval,  lastItemId: null }
 
 mci_patient_approval_details:
-    path:     /pendingApproval/details/{hid}
+    path:     /pendingapproval/details/{hid}
     defaults: { _controller: MciPatientBundle:Patient:pendingApprovalDetails }
 

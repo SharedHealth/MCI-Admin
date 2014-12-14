@@ -15,6 +15,10 @@ class Relation
     /**
      * @Type("string")
      */
+    private $hid;
+    /**
+     * @Type("string")
+     */
     private $nid;
     /**
      * @Type("string")
@@ -203,6 +207,22 @@ class Relation
     public function getMarriageId()
     {
         return $this->marriage_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHid()
+    {
+        return $this->hid;
+    }
+
+    /**
+     * @param mixed $hid
+     */
+    public function setHid($hid)
+    {
+        $this->hid = $hid;
     }
 
 }

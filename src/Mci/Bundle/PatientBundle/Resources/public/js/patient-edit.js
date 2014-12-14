@@ -7,7 +7,6 @@
         }, "Please enter maximum {0} alphabetic characters"
     );
 
-
     jQuery.validator.addMethod("maximumAlphaneumeric", function (value, element,param) {
         var re = new RegExp("^[a-zA-Z0-9]{1," + param + "}$", "g");
         return this.optional(element) || re.test(value.replace(/\s/g, ''));
@@ -22,8 +21,6 @@
 
 };
 
-
-
 var isPhoneNoRequired = function() {
     return isNotBlank(getValueBySelector("#phoneNumber .phone-block"));
 };
@@ -37,6 +34,7 @@ function changedNameForValidation() {
     var relation = 'mci_bundle_patientBundle_patients[relation]';
     jQuery('.relation-id').attr('name', relation + '[id][]');
     jQuery('.relation-nid').attr('name', relation + '[nid][]');
+    jQuery('.relation-hid').attr('name', relation + '[hid][]');
     jQuery('.relation-brn').attr('name', relation + '[bin_brn][]');
     jQuery('.relation-uid').attr('name', relation + '[uid][]');
     jQuery('.relation-type').attr('name', relation + '[type][]');
@@ -230,7 +228,7 @@ jQuery(document).ready(function () {
         $.ajax({
             type: "POST",
             url: "/patients/"+hid+"/relation/remove/",
-            data:{ realtianId: rid, relationType: rtype, maritalStatus: marital_status },
+            data:{ realtionId: rid, relationType: rtype, maritalStatus: marital_status },
             success: function (result) {
                 if(result != 'ok'){
                     alert(result);
@@ -244,7 +242,6 @@ jQuery(document).ready(function () {
 
     $('#mci_bundle_patientBundle_patients_date_of_birth').datepicker({
         format: 'yyyy-mm-dd'
-
     });
 
     $('table tbody tr').delegate('.relation-type','change',function(){
