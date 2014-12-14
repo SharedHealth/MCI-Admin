@@ -21,6 +21,10 @@ class RelationType extends AbstractType
                 'attr' => array('class' => 'form-control relation-uid'),
                 'required'  => false
             ))
+            ->add('hid', 'text', array(
+                'attr' => array('class' => 'form-control relation-hid'),
+                'required'  => false
+            ))
             ->add('nid', 'text', array(
                 'attr' => array('class' => 'form-control relation-nid'),
                 'required'  => false

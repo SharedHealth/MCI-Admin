@@ -38,6 +38,9 @@ class Utility {
                 if (!empty($postData['nid'][$key])) {
                     $postData['relations'][$key]['nid'] = $postData['nid'][$key];
                 }
+                if (!empty($postData['hid'][$key])) {
+                    $postData['relations'][$key]['hid'] = $postData['hid'][$key];
+                }
                  $postData['relations'][$key]['name_bangla'] = $postData['name_bangla'][$key];
 
                 if (!empty($postData['given_name'][$key])) {
@@ -183,6 +186,9 @@ class Utility {
         }
         if(empty($postData['place_of_birth'])){
             $postData['place_of_birth'] = "";
+        }
+        if(empty($postData['is_alive'])){
+            $postData['is_alive'] = 0;
         }
 
         return $postData;
