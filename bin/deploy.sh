@@ -11,7 +11,7 @@ echo "Generating bootstrap cache"
 php vendor/sensio/distribution-bundle/Sensio/Bundle/DistributionBundle/Resources/bin/build_bootstrap.php
 
 echo "Creating assets symlink"
-ln -s app/Resources/assets/ web/assets
+ln -s ../app/Resources/assets/ web/assets
 
 echo "Dumping assets"
 app/console  assets:install --symlink --relative --env=prod --no-debug
