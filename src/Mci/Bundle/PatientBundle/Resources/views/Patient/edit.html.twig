@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
     <!-- END GLOBAL STYLES -->
+    <style type="text/css">
+         a.tabError{
+            background: #FEEFB3 !important;
+        }
+    </style>
 {% endblock stylesheets %}
 {% block content %}
 
@@ -37,10 +42,10 @@
     {% endif %}
     <div class="ajax_error"></div>
     <div style="margin-bottom: 10px;" class="bs-example">
-        <ul class="nav nav-tabs">
+        <ul class="nav nav-tabs" id="patient-update-tabs">
             <li class="active"><a data-toggle="tab" href="#personalInfo">Personal Information</a></li>
-            <li><a data-toggle="tab" href="#presentAddreess">Present Address</a></li>
-            <li><a data-toggle="tab" href="#permanentAddreess">Permanent Address</a></li>
+            <li><a data-toggle="tab" href="#presentAddress">Present Address</a></li>
+            <li><a data-toggle="tab" href="#permanentAddress">Permanent Address</a></li>
             <li><a data-toggle="tab" href="#phoneNumber">Phone Number</a></li>
             <li><a data-toggle="tab" href="#primaryContactNo">Primary Contact Number</a></li>
             <li><a data-toggle="tab" href="#relations">Relations</a></li>
@@ -220,7 +225,7 @@
         </div>
     </div>
 
-    <div id="presentAddreess" class="tab-pane inputBoxSize fade">
+    <div id="presentAddress" class="tab-pane inputBoxSize fade">
 
         <div>
             <div class="form-group">
@@ -350,7 +355,7 @@
         </div>
     </div>
 
-    <div id="permanentAddreess" class="tab-pane inputBoxSize fade">
+    <div id="permanentAddress" class="tab-pane inputBoxSize fade">
         <div>
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_permanent_address_address_line" class="control-label col-xs-2">Address Line</label>

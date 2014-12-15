@@ -202,6 +202,9 @@ jQuery(document).ready(function () {
         }
     );
 
+    $('#mci_bundle_patientBundle_patients_present_address_division_id').on('change', function() {
+        $(this).valid();
+    });
 
     var $collectionHolder;
     var $addRelation = $('#addRelation');
@@ -214,6 +217,8 @@ jQuery(document).ready(function () {
      addRelationForm($collectionHolder);
 
      changedNameForValidation();
+
+
 
    });
 
@@ -231,7 +236,6 @@ jQuery(document).ready(function () {
             data:{ realtionId: rid, relationType: rtype, maritalStatus: marital_status },
             success: function (result) {
                 if(result != 'ok'){
-                    alert(result);
                     window.location.href = "/patients/"+hid+"/edit/";
                 }
             }
@@ -258,10 +262,13 @@ jQuery(document).ready(function () {
 
    $('.alert-success').fadeOut(2000);
 
+    tabError();
+
 });
 
-    function addRelationForm($collectionHolder) {
 
+
+function addRelationForm($collectionHolder) {
         var prototype = $collectionHolder.data('prototype');
         var index = $collectionHolder.data('index');
         var newForm = prototype.replace(/__name__/g, index);
@@ -269,6 +276,21 @@ jQuery(document).ready(function () {
         $($collectionHolder).append(newForm);
 
  }
+
+ function tabError () {
+    $('#mci_bundle_patientBundle_patients_save').click(function(){
+
+        $("#patient-update-tabs li").each(function () {
+            var aEl = $(this).find('a');
+            if($(aEl.attr('href')).find('input.error,select.error').length > 0) {
+                aEl.addClass('tabError')
+            }else{
+                aEl.removeClass('tabError')
+            }
+        });
+
+    });
+}
 
 
 
