@@ -9,6 +9,9 @@
 !app/logs/.gitkeep
 /build/
 /vendor/
-/bin/
+/bin/*
+!/bin/.exclude
+!/bin/build.sh
+!/bin/deploy.sh
 /composer.phar
 /.idea

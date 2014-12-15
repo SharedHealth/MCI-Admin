@@ -1,0 +1,12 @@
+app/cache
+app/logs
+app/config/parameters.yml
+app/bootstrap.php.cache
+bin/.exclude
+.idea
+data
+web/bundle
+web/css
+web/js
+web/assets
+build
