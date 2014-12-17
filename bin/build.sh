@@ -1,19 +1,25 @@
 #!/bin/sh
 ####################################
 #
-# Backup as tgz.
-# use tar -xzf mci-*.tgz to restore
+# Package as tgz.
 #
 ####################################
 
+#DEFINE Some VARIABLES
 WORKING_DIR=$(pwd)
-
-# Create archive filename.
 varsion="1.0"
+ARCHIVE_FILE_NAME="build/mci-ui-$varsion.tgz"
+
+#Download composer
+if [ ! -f "composer.phar" ]; then
+    echo "Installing composer"
+    curl -sS https://getcomposer.org/installer | php
+fi
+
+#Download dependencies
+php composer.phar install --no-dev -o -n --no-scripts
 
 mkdir -p build
-
-ARCHIVE_FILE_NAME="build/mci-ui-$varsion.tgz"
 
 # Print start status message.
 echo "Building package from $WORKING_DIR"

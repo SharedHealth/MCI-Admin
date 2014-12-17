@@ -10,3 +10,4 @@ web/css
 web/js
 web/assets
 build
+composer.phar
