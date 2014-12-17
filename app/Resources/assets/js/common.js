@@ -10,30 +10,29 @@ jQuery(document).ready(function () {
         "Invalid input pattern"
     );
 
-
     $('#mci_bundle_patientBundle_patients_present_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_district_id');
         var y = $('#mci_bundle_patientBundle_patients_present_address_upazila_id');
-        var divisionId = $('option:selected', this).attr('data-id');
+        var divisionId = $('option:selected', this).val();
         populatedDistrictDropdown(x, y,divisionId);
     });
 
     $('#mci_bundle_patientBundle_patients_permanent_address_division_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_permanent_address_district_id');
         var y = $('#mci_bundle_patientBundle_patients_permanent_address_upazila_id');
-        var divisionId = $('option:selected', this).attr('data-id');
+        var divisionId = $('option:selected', this).val();
         populatedDistrictDropdown(x, y,divisionId);
     });
 
     $('#mci_bundle_patientBundle_patients_present_address_district_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_present_address_upazila_id');
-        var districtId = $('option:selected', this).attr('data-id');
+        var districtId = $('option:selected', this).val();
         upazilaDropdwon(x,districtId);
     });
 
     $('#mci_bundle_patientBundle_patients_permanent_address_district_id').on('change', function () {
         var x = $('#mci_bundle_patientBundle_patients_permanent_address_upazila_id');
-        var districtId = $('option:selected', this).attr('data-id');
+        var districtId = $('option:selected', this).val();
         upazilaDropdwon(x,districtId);
     });
 
@@ -41,19 +40,18 @@ jQuery(document).ready(function () {
 
         var x = $('#district');
         var y = $('#upazila');
-        var divisionId = $('option:selected', this).attr('data-id');
+        var divisionId = $('option:selected', this).val();
         populatedDistrictDropdown(x, y,divisionId);
 
     });
 
     $('#district').on('change', function () {
         var x = $('#upazila');
-        var districtId = $('option:selected', this).attr('data-id');
+        var districtId = $('option:selected', this).val();
         upazilaDropdwon(x,districtId);
     });
 
 });
-
 
  function upazilaDropdwon(x,districtId) {
 
@@ -64,7 +62,7 @@ jQuery(document).ready(function () {
             x.empty();
             $.ajax({
                 type: "POST",
-                url: "/location/upazila/" + districtId,
+                url: "/location/" + districtId,
                 beforeSend: function () {
                     $('.upazilaloader').show();
                 },
@@ -94,7 +92,7 @@ jQuery(document).ready(function () {
             x.empty();
             $.ajax({
                 type: "POST",
-                url: "/location/district/" + divisionId,
+                url: "/location/" + divisionId,
                 beforeSend: function () {
                     $('.districtloader').show();
                 },
@@ -115,7 +113,7 @@ jQuery(document).ready(function () {
         var obj = $.parseJSON(result);
         var options = "<option value=''>-Please Select-</option>";
         for (var i in obj) {
-            options += '<option data-id = "' + obj[i]['id'] + '"  value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
+            options += '<option   value="' + obj[i]['code'] + '">' + obj[i]['name'] + '</option>';
         }
         return options;
     }

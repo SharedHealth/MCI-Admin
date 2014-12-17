@@ -2,9 +2,22 @@
 namespace Mci\Bundle\PatientBundle\Twig;
 
 
+use Mci\Bundle\PatientBundle\Services\Location;
 
 class MciExtension extends \Twig_Extension
 {
+
+    /**
+     * Location
+     */
+    private $client;
+
+    public function __construct(Location $client, $endpoint)
+    {
+        $this->client = $client;
+        // $this->endpoint = $endpoint;
+        $this->endpoint = "http://localhost/sample.json";
+    }
 
     public function getFilters()
     {
@@ -21,7 +34,6 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
-            new \Twig_SimpleFilter('divisionCodeToId', array($this, 'divisionCodeConvertFilter')),
             new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter'))
         );
     }
@@ -62,24 +74,20 @@ class MciExtension extends \Twig_Extension
 
     public function divisionFilter($number)
     {
-        $data = $this->getJsonData('division.json');
-        $division = $this->getFilterData($data);
-
-        return isset($division[$number])?$division[$number]:'';
+        $data = $this->client->prepairFormData($this->client->getLocation());
+        return isset($data[$number])?$data[$number]:'';
     }
 
     public function districtFilter($number)
     {
-        $data = $this->getJsonData('district.json');
-        $district = $this->getFilterData($data);
-        return isset($district[$number])?$district[$number]:'';
+        $data = $this->client->prepairFormData($this->client->getLocation());
+        return isset($data[$number])?$data[$number]:'';
     }
 
     public function upazilaFilter( $district_code='',$upazila_code='')
     {
-
-        $data = $this->getJsonData('upazila-single.json');
-        return $data[$upazila_code][$district_code];
+        $data = $this->client->prepairFormData($this->client->getLocation($district_code.$upazila_code));
+        return isset($data[$upazila_code])?$data[$upazila_code]:'';
     }
 
     public function countryCodeFilter($number)
@@ -104,31 +112,6 @@ class MciExtension extends \Twig_Extension
         return 'mci_extension';
     }
 
-    private function getJsonData($fileName)
-    {
-       $filePath =  'assets/json/'.$fileName;
-       return  json_decode(file_get_contents($filePath), true);
-    }
-
-    private function getFilterData($data){
-        $FilterArray = array();
-        foreach ($data as $value) {
-             $code = str_pad($value['code'],2,'0',STR_PAD_LEFT);
-             $FilterArray[$code] = $value['name'];
-         }
-        return $FilterArray;
-    }
-
-
-    public function divisionCodeConvertFilter($code){
-        $divisions =  $this->getJsonData('division.json');
-        foreach($divisions as $key=>$val){
-            $divisionCode = str_pad($val['code'],2,0,STR_PAD_LEFT);
-            if($divisionCode == $code){
-                return $val['id'];
-            }
-        }
-    }
 
     public function livingStatusFilter($number){
         $livingStatus = $this->getJsonData('livingStatus.json');

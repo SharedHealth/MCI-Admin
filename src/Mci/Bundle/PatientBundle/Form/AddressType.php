@@ -21,16 +21,15 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $locationService = $this->serviceContainer->get('mci.location');
-        $divisions = $locationService->getAllDivision();
-        $union = array();
+        $divisions = $locationService->prepairFormData($locationService->getLocation());
         $districts = array();
         $upazilas = array();
 
         if($this->addressObject){
-            $divisionId = $locationService->getDivisionId($this->addressObject->getDivisionId());
-            $districtId = $locationService->getDistictId($this->addressObject->getDistrictId());
-            $districts = $locationService->getAllDistrict($divisionId);
-            $upazilas = $locationService->getAllupazila($districtId);
+            $divisionId = $this->addressObject->getDivisionId();
+            $districtId = $this->addressObject->getDistrictId();
+            $districts = $locationService->prepairFormData($locationService->getLocation($divisionId));
+            $upazilas = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId));
         }
 
         $cityCorporation = array();

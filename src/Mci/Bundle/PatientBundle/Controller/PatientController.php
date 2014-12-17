@@ -29,33 +29,30 @@ class PatientController extends Controller
         $upazilas = array();
         $responseBody = array();
 
-        $divisions = Utility::getJsonData('division.json');
-        $districtsAll = Utility::getJsonData('district.json');
         $locationService = $this->container->get('mci.location');
-
-        if ($request->get('division_id')) {
-            $hrm_division_id = $locationService->getLocationId($divisions, $request->get('division_id'));
-            $districts = $locationService->getDistrict($hrm_division_id);
+        $division_code = $request->get('division_id');
+        $district_code = $request->get('district_id');
+        $divisions = $locationService->getLocation();
+        if ($division_code) {
+            $districts = $locationService->getLocation($division_code);
         }
 
-        if ($request->get('district_id')) {
-            $hrm_district_id = $locationService->getLocationId($districtsAll, $request->get('district_id'));
-            $upazilas = $locationService->getupazila($hrm_district_id);
+        if ($district_code && $division_code) {
+            $upazilas = $locationService->getLocation($district_code.$division_code);
         }
 
         $SystemAPiError = '';
-            try {
-                $queryParam = $request->query->all();
-                $responseBody = $this->get('mci.patient')->findPatientByRequestQueryParameter($queryParam);
-
-            } catch (CurlException $e) {
-                $SystemAPiError[] = 'Service Unavailable';
-            } catch (BadResponseException $e) {
-                $messages = json_decode($e->getResponse()->getBody());
-                $SystemAPiError = Utility::getErrorMessages($messages);
-            } catch (RequestException $e) {
-                $SystemAPiError[] = 'Something went wrong';
-            }
+        try {
+            $queryParam = $request->query->all();
+            $responseBody = $this->get('mci.patient')->findPatientByRequestQueryParameter($queryParam);
+        } catch (CurlException $e) {
+            $SystemAPiError[] = 'Service Unavailable';
+        } catch (BadResponseException $e) {
+            $messages = json_decode($e->getResponse()->getBody());
+            $SystemAPiError = Utility::getErrorMessages($messages);
+        } catch (RequestException $e) {
+            $SystemAPiError[] = 'Something went wrong';
+        }
 
         return $this->render('MciPatientBundle:Patient:search.html.twig', array(
                 'responseBody' => $responseBody,

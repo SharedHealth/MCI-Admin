@@ -84,7 +84,7 @@
                         <option value="">Select Division</option>
                         {% for division in divisions  %}
 
-                            <option data-id="{{ division.id }}"  value="{{ division.code }}"
+                            <option  value="{{ division.code }}"
                                     {% if queryparam.division_id is defined %}
 
                                     {% if division.code == queryparam.division_id %} {{ "selected" }} {% endif %}
@@ -100,7 +100,7 @@
                         <option value="">Select District</option>
                         {% for district in districts  %}
 
-                            <option data-id="{{ district.id }}"  value="{{ district.code }}"
+                            <option   value="{{ district.code }}"
                                     {% if queryparam.district_id is defined %}
                                         {% if district.code == queryparam.district_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
@@ -117,7 +117,7 @@
                         <option value="">Select upazila</option>
                         {% for upazila in upazilas  %}
 
-                            <option data-id="{{ upazila.id }}"  value="{{ upazila.code }}"
+                            <option  value="{{ upazila.code }}"
                                     {% if queryparam.upazila_id is defined %}
                                         {% if upazila.code == queryparam.upazila_id %} {{ "selected" }} {% endif %}
                                     {% endif %}

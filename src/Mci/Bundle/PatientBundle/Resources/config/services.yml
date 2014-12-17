@@ -10,12 +10,13 @@ services:
 
     mci.twig.mci_extension:
         class: Mci\Bundle\PatientBundle\Twig\MciExtension
+        arguments: [ @mci.location, %api_end_point%]
         tags:
             - { name: twig.extension }
 
     mci.location:
         class:        Mci\Bundle\PatientBundle\Services\Location
-        arguments: ["@service_container"]
+        arguments: [@mci_patient.client, %api_end_point%]
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
