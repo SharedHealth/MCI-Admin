@@ -206,6 +206,14 @@ jQuery(document).ready(function () {
         $(this).valid();
     });
 
+    $('#mci_bundle_patientBundle_patients_present_address_district_id').on('change', function() {
+        $(this).valid();
+    });
+
+    $('#mci_bundle_patientBundle_patients_present_address_upazila_id').on('change', function() {
+        $(this).valid();
+    });
+
     var $collectionHolder;
     var $addRelation = $('#addRelation');
 
@@ -261,12 +269,8 @@ jQuery(document).ready(function () {
     });
 
    $('.alert-success').fadeOut(2000);
-
     tabError();
-
 });
-
-
 
 function addRelationForm($collectionHolder) {
         var prototype = $collectionHolder.data('prototype');
