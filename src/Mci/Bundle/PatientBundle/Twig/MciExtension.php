@@ -15,8 +15,8 @@ class MciExtension extends \Twig_Extension
     public function __construct(Location $client, $endpoint)
     {
         $this->client = $client;
-        // $this->endpoint = $endpoint;
-        $this->endpoint = "http://localhost/sample.json";
+        $this->endpoint = $endpoint."/locations";
+
     }
 
     public function getFilters()
@@ -29,8 +29,7 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('religion', array($this, 'religionFilter')),
             new \Twig_SimpleFilter('disability', array($this, 'disabilityFilter')),
             new \Twig_SimpleFilter('division', array($this, 'divisionFilter')),
-            new \Twig_SimpleFilter('district', array($this, 'districtFilter')),
-            new \Twig_SimpleFilter('upazila', array($this, 'upazilaFilter')),
+            new \Twig_SimpleFilter('location', array($this, 'locationFilter')),
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
@@ -78,17 +77,13 @@ class MciExtension extends \Twig_Extension
         return isset($data[$number])?$data[$number]:'';
     }
 
-    public function districtFilter($number)
+    public function locationFilter($number,$locationCode)
     {
-        $data = $this->client->prepairFormData($this->client->getLocation());
+        $data = $this->client->prepairFormData($this->client->getLocation($locationCode));
         return isset($data[$number])?$data[$number]:'';
     }
 
-    public function upazilaFilter( $district_code='',$upazila_code='')
-    {
-        $data = $this->client->prepairFormData($this->client->getLocation($district_code.$upazila_code));
-        return isset($data[$upazila_code])?$data[$upazila_code]:'';
-    }
+
 
     public function countryCodeFilter($number)
         {
@@ -117,7 +112,11 @@ class MciExtension extends \Twig_Extension
         $livingStatus = $this->getJsonData('livingStatus.json');
         return isset($livingStatus[$number])?$livingStatus[$number]:'';
     }
-
+    private function getJsonData($fileName)
+    {
+        $filePath =  'assets/json/'.$fileName;
+        return  json_decode(file_get_contents($filePath), true);
+    }
 
 }
 ?>

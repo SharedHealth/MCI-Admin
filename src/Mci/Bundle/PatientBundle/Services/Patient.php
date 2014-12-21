@@ -58,11 +58,11 @@ class Patient
         if (isset($queryParam['district_id']) && !empty($queryParam['district_id'])) {
             $district = str_pad($queryParam['district_id'], 2, '0', STR_PAD_LEFT);
             $searchQueryParam = $queryParam['division_id'] . $district . $queryParam['upazila_id'];
-            if($queryParam['citycorporation_id']){
+            if(isset($queryParam['citycorporation_id'])){
                 $searchQueryParam .= $queryParam['citycorporation_id'];
             }
 
-            if($queryParam['union_id']){
+            if(isset($queryParam['union_id'])){
                 $searchQueryParam .= $queryParam['union_id'];
             }
 

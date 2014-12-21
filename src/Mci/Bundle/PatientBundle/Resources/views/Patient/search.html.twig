@@ -201,7 +201,7 @@
 
 {% if responseBody.results is defined %}
 
-    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if queryparam.division_id is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ queryparam.division_id|division  }} {{ queryparam.district_id|district  }} {{ queryparam.upazila_id|upazila(queryparam.district_id)  }}{% endif %}</strong></h5>
+    <h5><strong>Showing results {% if searchString is defined  %} for {{ searchString }}{% endif %} {% if queryparam.division_id is not empty %} {% if searchString is defined and searchString is not empty  %} and {% endif %} location - {{ queryparam.division_id|division  }} {{ queryparam.district_id|location(queryparam.division_id)  }} {{ queryparam.upazila_id|location(queryparam.division_id~queryparam.district_id)  }}{% endif %}</strong></h5>
 
     {% if responseBody.additional_info.note is defined and responseBody.additional_info.note is not empty  %}
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>
@@ -230,7 +230,7 @@
                 <td>{{ result.given_name }}</td>
                 <td>{{ result.sur_name }}</td>
                 <td>{{ result.date_of_birth }}</td>
-                <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|district }} {{ result.present_address.upazila_id|upazila(result.present_address.district_id) }}</td>
+                <td>{{ result.present_address.division_id|division }} {{ result.present_address.district_id|location(result.present_address.division_id) }} {{ result.present_address.upazila_id|location(result.present_address.division_id~result.present_address.district_id) }}</td>
                 <td> {% if result.phone_number.number is defined %}{{ result.phone_number.number }}{% endif %}</td>
             </tr>
         {% endfor %}
