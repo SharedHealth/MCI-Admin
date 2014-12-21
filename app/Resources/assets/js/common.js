@@ -37,77 +37,75 @@ jQuery(document).ready(function () {
     });
 
     $('#division').on('change', function () {
-
         var x = $('#district');
-        var y = $('#upazila');
-        var divisionId = $('option:selected', this).val();
-        populatedDistrictDropdown(x, y,divisionId);
-
+        var locationCode = $('option:selected', this).val();
+        populatedDropdown(x,locationCode,'divisionloader');
     });
 
     $('#district').on('change', function () {
         var x = $('#upazila');
         var districtId = $('option:selected', this).val();
-        upazilaDropdwon(x,districtId);
+        var divisionId = $('option:selected', '#division').val();
+        if(districtId){
+            populatedDropdown(x,divisionId+districtId,'districtloader');
+        }
+    });
+
+    $('#upazila').on('change', function () {
+        var x = $('#citycorporation');
+        var upazilaId = $('option:selected', this).val();
+        var divisionId = $('option:selected', '#division').val();
+        var districtId = $('option:selected', '#district').val();
+        if(upazilaId) {
+            populatedDropdown(x, divisionId + districtId + upazilaId,'upazilaloader');
+        }
+    });
+
+    $('#citycorporation').on('change', function () {
+        var x = $('#union');
+        var citycorporationId= $('option:selected', this).val();
+        var divisionId = $('option:selected', '#division').val();
+        var districtId = $('option:selected', '#district').val();
+        var upazilaId = $('option:selected', '#upazila').val();
+        if(citycorporationId) {
+            populatedDropdown(x, divisionId + districtId + upazilaId + citycorporationId,'citycorporationloader');
+        }
+    });
+
+    $('#union').on('change', function () {
+        var x = $('#ward');
+        var unionId= $('option:selected', this).val();
+        var divisionId = $('option:selected', '#division').val();
+        var districtId = $('option:selected', '#district').val();
+        var upazilaId = $('option:selected', '#upazila').val();
+        var citycorporationId = $('option:selected', '#citycorporation').val();
+        if(unionId){
+            populatedDropdown(x,divisionId+districtId+upazilaId+citycorporationId+unionId,'unionloader');
+        }
     });
 
 });
 
- function upazilaDropdwon(x,districtId) {
+ function populatedDropdown(selectcontainer,locationCode,loader) {
 
-        if (districtId) {
-            x.removeAttr('disabled');
-        }
-        if (districtId) {
-            x.empty();
+        if (locationCode) {
+            selectcontainer.empty();
             $.ajax({
                 type: "POST",
-                url: "/location/" + districtId,
+                url: "/location/" + locationCode,
                 beforeSend: function () {
-                    $('.upazilaloader').show();
+                    $('.'+loader).show();
                 },
                 success: function (result) {
                     var options = generatedOptions(result);
-                    x.append(options);
+                    selectcontainer.append(options);
                 },
                 complete: function () {
-                    $('.upazilaloader').hide();
+                    $('.'+loader).hide();
                 }
             });
         }
     }
-
-    function populatedDistrictDropdown(x, y, divisionId) {
-
-        if (divisionId) {
-            x.removeAttr('disabled');
-        } else {
-            x.val("");
-            y.val("");
-            x.attr('disabled', 'disabled');
-            y.attr('disabled', 'disabled');
-        }
-
-        if (divisionId) {
-            x.empty();
-            $.ajax({
-                type: "POST",
-                url: "/location/" + divisionId,
-                beforeSend: function () {
-                    $('.districtloader').show();
-                },
-
-                success: function (result) {
-                    var options = generatedOptions(result);
-                    x.append(options);
-                },
-                complete: function () {
-                    $('.districtloader').hide();
-                }
-            });
-        }
-    }
-
 
   function generatedOptions(result) {
         var obj = $.parseJSON(result);

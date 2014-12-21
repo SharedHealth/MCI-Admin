@@ -92,6 +92,7 @@
                                     >{{ division.name }}</option>
                         {% endfor %}
                     </select>
+                    <span class="divisionloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
                 </div>
             </div>
             <div class="col-lg-3">
@@ -128,6 +129,64 @@
                 </div>
             </div>
 
+        </div>
+
+        <div class="row">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+
+                    <select name="citycorporation_id" id="citycorporation" class="form-control" >
+                        <option value="">Select City Corporation</option>
+                        {% for citycorporation in citycorporations  %}
+
+                            <option  value="{{ citycorporation.code }}"
+                                    {% if queryparam.citycorporation_id is defined %}
+
+                                        {% if citycorporation.code == queryparam.citycorporation_id %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ citycorporation.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="citycorporationloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select name="union_id" id="union" class="form-control" >
+                        <option value="">Select Union</option>
+                        {% for union in unions  %}
+
+                            <option  value="{{ union.code }}"
+                                    {% if queryparam.union_id is defined %}
+                                        {% if union.code == queryparam.union_id %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ union.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <span class="unionloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <select name="ward_id" id="ward" class="form-control" >
+                        <option value="">Select Ward</option>
+                        {% for ward in wards  %}
+
+                            <option   value="{{ ward.code }}"
+                                    {% if queryparam.ward_id is defined %}
+                                        {% if ward.code == queryparam.ward_id %} {{ "selected" }} {% endif %}
+                                    {% endif %}
+                                    >{{ ward.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <span class="wardloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
+                </div>
+
+            </div>
         </div>
 
         <div class="row">

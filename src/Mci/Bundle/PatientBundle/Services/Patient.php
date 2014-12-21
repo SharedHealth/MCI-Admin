@@ -27,7 +27,7 @@ class Patient
     public function __construct(Client $client, Serializer $serializer, $endpoint) {
 
         $this->client = $client;
-        $this->endpoint = $endpoint;
+        $this->endpoint = $endpoint."/patients";
         $this->serializer = $serializer;
     }
 
@@ -57,10 +57,26 @@ class Patient
 
         if (isset($queryParam['district_id']) && !empty($queryParam['district_id'])) {
             $district = str_pad($queryParam['district_id'], 2, '0', STR_PAD_LEFT);
-            $queryParam['present_address'] = $queryParam['division_id'] . $district . $queryParam['upazila_id'];
+            $searchQueryParam = $queryParam['division_id'] . $district . $queryParam['upazila_id'];
+            if($queryParam['citycorporation_id']){
+                $searchQueryParam .= $queryParam['citycorporation_id'];
+            }
+
+            if($queryParam['union_id']){
+                $searchQueryParam .= $queryParam['union_id'];
+            }
+
+            if(isset($queryParam['ward_id'])){
+                $searchQueryParam .= $queryParam['ward_id'];
+            }
+            $queryParam['present_address'] = $searchQueryParam;
             unset($queryParam['division_id']);
             unset($queryParam['district_id']);
             unset($queryParam['upazila_id']);
+
+            unset($queryParam['citycorporation_id']);
+            unset($queryParam['union_id']);
+            unset($queryParam['ward_id']);
         }
 
         return $queryParam;
