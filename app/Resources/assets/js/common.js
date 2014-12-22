@@ -22,10 +22,11 @@ jQuery(document).ready(function () {
     var $unionEl =  $(unionSelector);
     var $wardEl =  $(wardSelector);
 
-    var emptyOptionUpazila = "<option>Select Upazila</option>";
-    var emptyOptionCityCorporation = "<option>Select City Corporation</option>";
-    var emptyOptionUnion = "<option>Select Union Or Urban Ward</option>";
-    var emptyOptionWard = "<option>Select Rural Ward</option>";
+    var emptyOptionDistrict = "<option value=''>Select District</option>";
+    var emptyOptionUpazila = "<option value=''>Select Upazila</option>";
+    var emptyOptionCityCorporation = "<option value=''>Select City Corporation</option>";
+    var emptyOptionUnion = "<option value=''>Select Union Or Urban Ward</option>";
+    var emptyOptionWard = "<option value=''>Select Rural Ward</option>";
 
     $divisionEl.on('change', function () {
         var divisionId = $('option:selected', this).val();
@@ -33,6 +34,9 @@ jQuery(document).ready(function () {
         $citycorporationEl.html(emptyOptionCityCorporation);
         $unionEl.html(emptyOptionUnion);
         $wardEl.html(emptyOptionWard);
+        if(!divisionId){
+            $districtEl.html(emptyOptionDistrict);
+        }
         populatedDropdown($districtEl, divisionId);
     });
 
@@ -43,6 +47,9 @@ jQuery(document).ready(function () {
         $wardEl.html(emptyOptionWard);
         var $divisionPeresentSelectEl = $('option:selected', divisionSelector);
         var divisionId = $divisionPeresentSelectEl.val();
+        if(!districtId){
+            $upazilaEl.html(emptyOptionUpazila);
+        }
         populatedDropdown($upazilaEl,divisionId+districtId);
     });
 
@@ -54,6 +61,9 @@ jQuery(document).ready(function () {
         var $divisionPeresentSelectEl = $('option:selected', divisionSelector);
         var divisionId = $divisionPeresentSelectEl.val();
         var districtId = $districtPresentSelectEl.val();
+        if(!upazilaId){
+            $citycorporationEl.html(emptyOptionCityCorporation);
+        }
         populatedDropdown($citycorporationEl,divisionId+districtId+upazilaId);
     });
 
@@ -66,6 +76,9 @@ jQuery(document).ready(function () {
         var divisionId = $divisionPeresentSelectEl.val();
         var districtId = $districtPresentSelectEl.val();
         var upazilaId = $upazilaPresentSelectEl.val();
+        if(!cityCorportationId){
+            $unionEl.html(emptyOptionUnion);
+        }
 
         if(cityCorportationId && divisionId && districtId && upazilaId ){
             populatedDropdown($unionEl,divisionId+districtId+upazilaId+cityCorportationId);
@@ -106,6 +119,9 @@ jQuery(document).ready(function () {
         $cityCorpPermanentEl.html(emptyOptionCityCorporation);
         $unionPermanentEl.html(emptyOptionUnion);
         $wardPermanentEl.html(emptyOptionWard);
+        if(!divisionId){
+            $districtPermanentEl.html(emptyOptionDistrict);
+        }
         populatedDropdown($districtPermanentEl, divisionId);
     });
 
@@ -116,6 +132,9 @@ jQuery(document).ready(function () {
         $wardPermanentEl.html(emptyOptionWard);
         var $divisionPermanetSelectEl = $('option:selected', divisionPermaSelector);
         var divisionId = $divisionPermanetSelectEl.val();
+        if(!districtId){
+            $upazilaPermanentEl.html(emptyOptionUpazila);
+        }
         populatedDropdown($upazilaPermanentEl,divisionId+districtId);
     });
 
@@ -127,7 +146,9 @@ jQuery(document).ready(function () {
         var $districtPermanentSelectEl = $('option:selected', districtPermaSelector);
         var divisionId = $divisionPermanetSelectEl.val();
         var districtId = $districtPermanentSelectEl.val();
-
+        if(!upazilaId){
+            $cityCorpPermanentEl.html(emptyOptionCityCorporation);
+        }
         populatedDropdown($cityCorpPermanentEl,divisionId+districtId+upazilaId);
     });
 
@@ -140,7 +161,9 @@ jQuery(document).ready(function () {
         var divisionId = $divisionPermanetSelectEl.val();
         var districtId = $districtPermanentSelectEl.val();
         var upazilaId = $upazilaPermanentSelectEl.val();
-
+        if(!cityCorportationId){
+            $unionPermanentEl.html(emptyOptionUnion);
+        }
         if(cityCorportationId && divisionId && districtId && upazilaId  ){
             populatedDropdown($unionPermanentEl,divisionId+districtId+upazilaId+cityCorportationId);
         }
@@ -168,6 +191,9 @@ jQuery(document).ready(function () {
         $('#citycorporation').html(emptyOptionCityCorporation);
         $('#ward').html(emptyOptionWard);
         var locationCode = $('option:selected', this).val();
+        if(!locationCode){
+            x.html(emptyOptionDistrict);
+        }
         populatedDropdown(x,locationCode,'divisionloader');
     });
 
@@ -178,6 +204,9 @@ jQuery(document).ready(function () {
         $('#ward').html(emptyOptionWard);
         var districtId = $('option:selected', this).val();
         var divisionId = $('option:selected', '#division').val();
+        if(!districtId){
+            x.html(emptyOptionUpazila);
+        }
         if(districtId && divisionId){
             populatedDropdown(x,divisionId+districtId,'districtloader');
         }
@@ -190,6 +219,10 @@ jQuery(document).ready(function () {
         var upazilaId = $('option:selected', this).val();
         var divisionId = $('option:selected', '#division').val();
         var districtId = $('option:selected', '#district').val();
+        if(!upazilaId){
+            x.html(emptyOptionCityCorporation);
+        }
+
         if(upazilaId && divisionId && districtId ) {
             populatedDropdown(x, divisionId + districtId + upazilaId,'upazilaloader');
         }
@@ -202,6 +235,9 @@ jQuery(document).ready(function () {
         var divisionId = $('option:selected', '#division').val();
         var districtId = $('option:selected', '#district').val();
         var upazilaId = $('option:selected', '#upazila').val();
+        if(!citycorporationId){
+            x.html(emptyOptionUnion);
+        }
         if(citycorporationId && divisionId && districtId && upazilaId ) {
             populatedDropdown(x, divisionId + districtId + upazilaId + citycorporationId,'citycorporationloader');
         }
