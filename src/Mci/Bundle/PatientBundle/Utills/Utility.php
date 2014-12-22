@@ -69,12 +69,12 @@ class Utility {
      */
     public static  function filterAddress($postData)
     {
-        if(empty($postData['union_id'])){
-            unset($postData['union_id']);
+        if(empty($postData['union_or_urban_ward_id'])){
+            unset($postData['union_or_urban_ward_id']);
         }
 
-        if(empty($postData['ward_id'])){
-            unset($postData['ward_id']);
+        if(empty($postData['rural_ward_id'])){
+            unset($postData['rural_ward_id']);
         }
 
         if(empty($postData['city_corporation_id'])){

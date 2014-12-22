@@ -45,12 +45,12 @@ class Address
     /**
      * @Type("string")
      */
-    private $union_id;
+    private $union_or_urban_ward_id;
 
     /**
      * @Type("string")
      */
-    private $ward_id;
+    private $rural_ward_id;
     /**
      * @Type("string")
      */
@@ -129,19 +129,19 @@ class Address
     }
 
     /**
-     * @param mixed $union_id
+     * @param mixed $union_or_urban_ward_id
      */
-    public function setUnionId($union_id)
+    public function setUnionOrurbanwardId($union_or_urban_ward_id)
     {
-        $this->union_id = $union_id;
+        $this->union_or_urban_ward_id = $union_or_urban_ward_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUnionId()
+    public function getUnionOrurbanwardId()
     {
-        return $this->union_id;
+        return $this->union_or_urban_ward_id;
     }
 
     /**
@@ -275,16 +275,16 @@ class Address
     /**
      * @return mixed
      */
-    public function getWardId()
+    public function getRuralWardId()
     {
-        return $this->ward_id;
+        return $this->rural_ward_id;
     }
 
     /**
-     * @param mixed $ward_id
+     * @param mixed $rural_ward_id
      */
-    public function setWardId($ward_id)
+    public function setRuralWardId($rural_ward_id)
     {
-        $this->ward_id = $ward_id;
+        $this->rural_ward_id = $rural_ward_id;
     }
 }

@@ -24,15 +24,33 @@ class AddressType extends AbstractType
         $divisions = $locationService->prepairFormData($locationService->getLocation());
         $districts = array();
         $upazilas = array();
+        $citycorporations = array();
+        $unions = array();
+        $wards = array();
 
         if($this->addressObject){
             $divisionId = $this->addressObject->getDivisionId();
             $districtId = $this->addressObject->getDistrictId();
+            $upazilaId = $this->addressObject->getUpazilaId();
+            $cityCorporationId = $this->addressObject->getCityCorporationId();
+            $unionId = $this->addressObject->getUnionOrurbanwardId();
+            $wardId = $this->addressObject->getRuralWardId();
             $districts = $locationService->prepairFormData($locationService->getLocation($divisionId));
             $upazilas = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId));
+
+            if($upazilaId){
+                $citycorporations = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId));
+            }
+
+            if($cityCorporationId){
+                $unions = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId));
+            }
+
+            if($unionId){
+                $wards = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId.$unionId));
+            }
         }
 
-        $cityCorporation = array();
         $countryCode = $this->getArrayFromJson('assets/json/countryCode.json');
 
         $builder
@@ -78,14 +96,7 @@ class AddressType extends AbstractType
                      'required'  => false
                 )
             )
-            ->add('union_id', 'choice', array(
-                    'attr' => array('class' => 'form-control'),
-                     'required'  => false,
-                    'choices' => array(),
-                    'empty_value' => '--Please select--'
 
-                )
-            )
             ->add('upazila_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $upazilas,
@@ -93,22 +104,31 @@ class AddressType extends AbstractType
                      'required'  => false
                 )
             )
-            ->add('ward_id', 'choice', array(
+            ->add('city_corporation_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' => array(),
+                    'choices' =>  $citycorporations,
                     'empty_value' => '--Please select--',
                     'required'  => false,
 
                 )
             )
-            ->add('city_corporation_id', 'choice', array(
+            ->add('union_or_urban_ward_id', 'choice', array(
                     'attr' => array('class' => 'form-control'),
-                    'choices' =>  $cityCorporation,
-                    'empty_value' => '--Please select--',
-                     'required'  => false,
+                    'required'  => false,
+                    'choices' => $unions,
+                    'empty_value' => '--Please select--'
 
                 )
             )
+            ->add('rural_ward_id', 'choice', array(
+                    'attr' => array('class' => 'form-control'),
+                    'choices' => $wards,
+                    'empty_value' => '--Please select--',
+                    'required'  => false,
+
+                )
+            )
+
             ->add('country_code', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $countryCode,

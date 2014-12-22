@@ -275,19 +275,19 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_union_id" class="control-label col-xs-2">Union/Urban Ward </label>
+                <label for="mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id" class="control-label col-xs-2">Union/Urban Ward </label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.present_address.union_id) }}
+                    {{ form_widget(form.present_address.union_or_urban_ward_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_ward_id" class="control-label col-xs-2">Rural Ward</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_rural_ward_id" class="control-label col-xs-2">Rural Ward</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.present_address.ward_id) }}
+                    {{ form_widget(form.present_address.rural_ward_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -296,7 +296,7 @@
                 <label for="mci_bundle_patientBundle_patients_present_address_country_code" class="control-label col-xs-2">Country Code</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.present_address.country_code) }}
+                    {{ form_widget(form.present_address.country_code, { 'attr':{'disabled':'disabled'} } ) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -405,19 +405,19 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_permanent_address_union_id" class="control-label col-xs-2">Union/Urban Ward</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_union_or_urban_ward_id" class="control-label col-xs-2">Union/Urban Ward</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.permanent_address.union_id) }}
+                    {{ form_widget(form.permanent_address.union_or_urban_ward_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_permanent_address_ward_id" class="control-label col-xs-2">Rural Ward</label>
+                <label for="mci_bundle_patientBundle_patients_permanent_address_rural_ward_id" class="control-label col-xs-2">Rural Ward</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.permanent_address.ward_id) }}
+                    {{ form_widget(form.permanent_address.rural_ward_id) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>

@@ -48,7 +48,7 @@ class Location
     public function prepairFormData($data){
         $newArray = array();
         foreach($data as $val){
-            $newArray[$val->code] = $val->name;
+            $newArray[$val->code] = ucfirst(strtolower($val->name));
         }
         return $newArray;
     }

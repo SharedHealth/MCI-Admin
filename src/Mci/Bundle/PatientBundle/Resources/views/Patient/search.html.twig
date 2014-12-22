@@ -115,7 +115,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                        <select name="upazila_id" id="upazila" class="form-control" >
-                        <option value="">Select upazila</option>
+                        <option value="">Select Upazila</option>
                         {% for upazila in upazilas  %}
 
                             <option  value="{{ upazila.code }}"
@@ -155,7 +155,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <select name="union_id" id="union" class="form-control" >
-                        <option value="">Select Union</option>
+                        <option value="">Select Union Or Urban Ward</option>
                         {% for union in unions  %}
 
                             <option  value="{{ union.code }}"
@@ -173,7 +173,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <select name="ward_id" id="ward" class="form-control" >
-                        <option value="">Select Ward</option>
+                        <option value="">Select Rural Ward</option>
                         {% for ward in wards  %}
 
                             <option   value="{{ ward.code }}"
@@ -195,8 +195,6 @@
             </div>
         </div>
     </form>
-
-
    <hr/>
 
 {% if responseBody.results is defined %}
