@@ -89,7 +89,7 @@
 
                                     {% if division.code == queryparam.division_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ division.name }}</option>
+                                    >{{ division.name|lower|capitalize }}</option>
                         {% endfor %}
                     </select>
                     <span class="divisionloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
@@ -105,7 +105,7 @@
                                     {% if queryparam.district_id is defined %}
                                         {% if district.code == queryparam.district_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ district.name }}</option>
+                                    >{{ district.name|lower|capitalize }}</option>
                         {% endfor %}
                     </select>
                      <span class="districtloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
@@ -122,7 +122,7 @@
                                     {% if queryparam.upazila_id is defined %}
                                         {% if upazila.code == queryparam.upazila_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ upazila.name }}</option>
+                                    >{{ upazila.name|lower|capitalize }}</option>
                         {% endfor %}
                     </select>
                     <span class="upazilaloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
@@ -145,7 +145,7 @@
 
                                         {% if citycorporation.code == queryparam.citycorporation_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ citycorporation.name }}</option>
+                                    >{{ citycorporation.name|lower|capitalize }}</option>
                         {% endfor %}
                     </select>
                     <span class="citycorporationloader" style="float: right; display: none"><img src="/assets/images/ajax-loader.gif"></span>
@@ -162,7 +162,7 @@
                                     {% if queryparam.union_id is defined %}
                                         {% if union.code == queryparam.union_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ union.name }}
+                                    >{{ union.name|lower|capitalize }}
                             </option>
                         {% endfor %}
                     </select>
@@ -180,7 +180,7 @@
                                     {% if queryparam.ward_id is defined %}
                                         {% if ward.code == queryparam.ward_id %} {{ "selected" }} {% endif %}
                                     {% endif %}
-                                    >{{ ward.name }}</option>
+                                    >{{ ward.name|lower|capitalize }}</option>
                         {% endfor %}
                     </select>
                     <span class="wardloader" style="float: right;display: none"><img src="/assets/images/ajax-loader.gif"></span>
