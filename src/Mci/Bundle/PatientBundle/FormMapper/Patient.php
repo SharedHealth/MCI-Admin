@@ -14,10 +14,7 @@ class Patient
      * @Type("string")
      */
     private $uid;
-    /**
-     * @Type("string")
-     */
-    private $is_alive;
+
     /**
      * @Type("string")
      */
@@ -491,22 +488,5 @@ class Patient
     {
         $this->date_of_birth = $date_of_birth;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getIsAlive()
-    {
-        return $this->is_alive;
-    }
-
-    /**
-     * @param mixed $is_alive
-     */
-    public function setIsAlive($is_alive)
-    {
-        $this->is_alive = $is_alive;
-    }
-
 
 }

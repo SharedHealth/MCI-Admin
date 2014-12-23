@@ -136,12 +136,6 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
-            ->add('is_alive', 'choice', array(
-                    'choices' =>$livingStatus,
-                    'attr' => array('class' => 'form-control'),
-                    'required'  => true
-                )
-            )
             ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))
             ->add('permanent_address', new AddressType($this->serviceContainer,$permanentAddress))
             ->add('phone_number', new ContactType())

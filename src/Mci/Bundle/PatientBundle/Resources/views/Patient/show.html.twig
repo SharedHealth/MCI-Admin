@@ -96,10 +96,6 @@
                     <p class="form-control-static"> {% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
                 </div>
 
-                <div class="col-lg-3">
-                    <label>Living Status:</label>
-                    <p class="form-control-static"> {% if responseBody.is_alive is defined %}{{ responseBody.is_alive|livingStatus }}{% endif %}</p>
-                </div>
             </div>
             <div class="panel-body">
                 <div style="" class="col-lg-6">
