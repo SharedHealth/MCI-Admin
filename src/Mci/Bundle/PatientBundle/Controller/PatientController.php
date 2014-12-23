@@ -185,10 +185,15 @@ class PatientController extends Controller
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
     }
 
-    public function pendingApprovalAction($lastItemId){
-        $url =  $this->container->getParameter('api_end_point').'/pendingapprovals?last_item_id='.$lastItemId;
+    public function pendingApprovalNextAction($after){
+        $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals?'.'after='.$after;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
-        $response['last_item_id'] = $lastItemId;
+        return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
+    }
+
+    public function pendingApprovalPreviousAction($before){
+        $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals?'.'before='.$before;
+        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
