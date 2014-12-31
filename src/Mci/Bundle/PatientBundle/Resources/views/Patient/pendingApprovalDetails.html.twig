@@ -2,43 +2,73 @@
 
 {% block content %}
     <div>
+        {% if systemError is not empty %}
+            <div class="alert alert-danger" style="margin-top: 10px;">
+                <ul>
+                    {% for sysError in systemError %}
+                        <li>{{ sysError }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
 
-    <div class="alert alert-danger"   style="margin-top: 10px;">
-    <ul>
-        {% for sysError in systemError  %}
-            <li>{{ sysError }}</li>
-        {% endfor %}
-    </ul>
-    </div>
-
-<h1>Patient Pending Approval Details</h1>
-
-<div class="clear"></div>
+        <h3>Patient Pending Approval Details</h3>
     </div>
     <div class="clear"></div>
 
     <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Facility</th>
-            <th>Provider</th>
-            <th>Request Date</th>
-            <th>Value</th>
-        </tr>
-        </thead>
         <tbody>
         {% if responseBody.results is defined %}
-            {% for result in responseBody.results %}
-                <tr>
-                    <td>{{ result.facility_id }}</td>
-                    <td>{{ result.provider_id }}</td>
-                    <td>{{ result.request_date }}</td>
-                    <td>{{ result.value }}</td>
-                </tr>
+            {% for results in responseBody.results %}
+                {% for keyLevel1,result in results %}
+                    <tr>
+                        <td>
+                            {% if result is iterable %}
+
+                                {% if keyLevel1 == 'current_value' %}
+                                    {% for k,v in result %}
+                                        <p style="padding:0 10px;"> {{ k }}:{{ v }}</p>
+                                    {% endfor %}
+                                {% endif %}
+                                {% for keyLevel2,valueLevel2  in result %}
+                                    <div style="border-radius: 5px; background:#f7e1b5; margin-bottom:10px; ">
+                                        {% if valueLevel2 is iterable and keyLevel1=='field_details' %}
+                                            <table width="100%">
+                                                <tr>
+                                                    <td>
+                                                        {% for keyLevel3,valueLevel3 in valueLevel2 %}
+                                                            {% if valueLevel3 is iterable %}
+                                                                {% for level,value in valueLevel3 %}
+                                                                    <p style="padding:0 10px;">{{ level }}:{{ value }}</p>
+                                                                {% endfor %}
+                                                            {% else %}
+                                                                <p style="padding:0 10px;">{{ keyLevel3 }}:{{ valueLevel3 }}</p>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </td>
+                                                    <td>
+                                                        <div style="margin-bottom: 10px; padding:0 10px 10px 10px; float: right;">
+                                                            {% if keyLevel1 != 'current_value' %}
+                                                                <a class="btn btn-success" href="{{ keyLevel2 }}">Accept</a>
+                                                                <a class="btn btn-danger" href="{{ keyLevel2 }}">Reject</a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        {% endif %}
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                {{ result }}
+                            {% endif %}
+
+                        </td>
+                    </tr>
+                {% endfor %}
             {% endfor %}
         {% endif %}
         </tbody>
-
     </table>
 
 {% endblock %}

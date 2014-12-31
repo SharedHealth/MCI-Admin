@@ -198,8 +198,9 @@ class PatientController extends Controller
     }
 
     public function pendingApprovalDetailsAction($hid){
-        $url =  $this->container->getParameter('api_end_point').'/pendingapprovals/details?hid='.$hid;
+        $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url);
+
         return $this->render('MciPatientBundle:Patient:pendingApprovalDetails.html.twig', $response);
     }
 
