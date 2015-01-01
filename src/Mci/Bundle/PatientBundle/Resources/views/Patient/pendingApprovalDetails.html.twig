@@ -1,8 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+<style type="text/css">
+    .changes{
+        background: #f7e1b5;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+</style>
     <div>
-        {% if systemError is not empty %}
+        {% if systemError is defined and systemError is not empty %}
             <div class="alert alert-danger" style="margin-top: 10px;">
                 <ul>
                     {% for sysError in systemError %}
@@ -16,56 +24,46 @@
     </div>
     <div class="clear"></div>
 
-    <table class="table table-bordered">
+    <table width="100%" cellspacing="10" class="table table-bordered">
         <tbody>
         {% if responseBody.results is defined %}
             {% for results in responseBody.results %}
-                {% for keyLevel1,result in results %}
                     <tr>
+                        <th>{{ results.field_name }}</th>
                         <td>
-                            {% if result is iterable %}
-
-                                {% if keyLevel1 == 'current_value' %}
-                                    {% for k,v in result %}
-                                        <p style="padding:0 10px;"> {{ k }}:{{ v }}</p>
-                                    {% endfor %}
-                                {% endif %}
-                                {% for keyLevel2,valueLevel2  in result %}
-                                    <div style="border-radius: 5px; background:#f7e1b5; margin-bottom:10px; ">
-                                        {% if valueLevel2 is iterable and keyLevel1=='field_details' %}
-                                            <table width="100%">
-                                                <tr>
-                                                    <td>
-                                                        {% for keyLevel3,valueLevel3 in valueLevel2 %}
-                                                            {% if valueLevel3 is iterable %}
-                                                                {% for level,value in valueLevel3 %}
-                                                                    <p style="padding:0 10px;">{{ level }}:{{ value }}</p>
-                                                                {% endfor %}
-                                                            {% else %}
-                                                                <p style="padding:0 10px;">{{ keyLevel3 }}:{{ valueLevel3 }}</p>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </td>
-                                                    <td>
-                                                        <div style="margin-bottom: 10px; padding:0 10px 10px 10px; float: right;">
-                                                            {% if keyLevel1 != 'current_value' %}
-                                                                <a class="btn btn-success" href="{{ keyLevel2 }}">Accept</a>
-                                                                <a class="btn btn-danger" href="{{ keyLevel2 }}">Reject</a>
-                                                            {% endif %}
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        {% endif %}
-                                    </div>
+                            {% if results.current_value is iterable %}
+                                {% for fieldLevel,value in results.current_value  %}
+                                    <p>{{ fieldLevel }} : {{ value }}</p>
                                 {% endfor %}
                             {% else %}
-                                {{ result }}
+                                {{ results.current_value }}
                             {% endif %}
-
                         </td>
                     </tr>
-                {% endfor %}
+                <tr>
+                    <td colspan="2">
+                         {% for id,field_details in results.field_details %}
+                            <div class="changes">
+                                 <div class="col-lg-3">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
+                                 <div class="col-lg-2">{{ field_details.facility_id }}</div>
+                                 <div class="col-lg-4">
+                                     {% if field_details.value is iterable %}
+                                         {% for changeFieldsLevel,changeFields in field_details.value  %}
+                                             <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                         {% endfor %}
+                                     {% else %}
+                                         {{ field_details.value }}
+                                     {% endif %}
+                                 </div>
+                                 <div class="col-lg-3" style="text-align: right">
+                                     <a class="btn btn-success" href="{{ id }}">Accept</a>
+                                     <a class="btn btn-danger" href="{{ id }}">Reject</a>
+                                 </div>
+                                 <div style="clear: both;"></div>
+                            </div>
+                         {% endfor %}
+                    </td>
+                </tr>
             {% endfor %}
         {% endif %}
         </tbody>

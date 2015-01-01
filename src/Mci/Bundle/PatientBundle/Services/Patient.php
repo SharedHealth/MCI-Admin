@@ -184,14 +184,16 @@ class Patient
 
     public function getApprovalPatientsDetails($url){
        $result =  $this->getPatients($url);
-        foreach ($result['responseBody']['results'] as $keyFirstLevel => $value) {
-            if($value['field_name'] == 'present_address' || $value['field_name'] == 'phone_number'  ){
-               foreach($value['field_details'] as $keySecondLevel => $val){
-                   $diffArray =  array_diff($val['value'],$value['current_value']);
-                   $result['responseBody']['results'][$keyFirstLevel]['field_details'][$keySecondLevel]['value'] = $diffArray;
-               }
+        if(isset($result['responseBody']['results'])){
+            foreach ($result['responseBody']['results'] as $keyFirstLevel => $value) {
+                if($value['field_name'] == 'present_address' || $value['field_name'] == 'phone_number'  ){
+                    foreach($value['field_details'] as $keySecondLevel => $val){
+                        $diffArray =  array_diff($val['value'],$value['current_value']);
+                        $result['responseBody']['results'][$keyFirstLevel]['field_details'][$keySecondLevel]['value'] = $diffArray;
+                    }
+                }
             }
-         }
+        }
         return $result;
     }
 
