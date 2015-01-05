@@ -49,7 +49,12 @@
                                  <div class="col-lg-5">
                                      {% if field_details.value is iterable %}
                                          {% for changeFieldsLevel,changeFields in field_details.value  %}
-                                             <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                             {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}
+                                                <p style="color: green;">{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                             {% else %}
+                                                 <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                             {% endif %}
+
                                          {% endfor %}
                                      {% else %}
                                          {{ field_details.value }}
