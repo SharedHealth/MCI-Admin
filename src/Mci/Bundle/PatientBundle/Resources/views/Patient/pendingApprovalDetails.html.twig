@@ -44,9 +44,9 @@
                     <td colspan="2">
                          {% for id,field_details in results.field_details %}
                             <div class="changes">
-                                 <div class="col-lg-3">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
-                                 <div class="col-lg-2">{{ field_details.facility_id }}</div>
-                                 <div class="col-lg-4">
+                                 <div class="col-lg-4">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
+
+                                 <div class="col-lg-5">
                                      {% if field_details.value is iterable %}
                                          {% for changeFieldsLevel,changeFields in field_details.value  %}
                                              <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
