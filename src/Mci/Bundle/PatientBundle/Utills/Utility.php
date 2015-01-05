@@ -187,9 +187,6 @@ class Utility {
         if(empty($postData['place_of_birth'])){
             $postData['place_of_birth'] = "";
         }
-        if(empty($postData['is_alive'])){
-            $postData['is_alive'] = 0;
-        }
 
         return $postData;
     }
