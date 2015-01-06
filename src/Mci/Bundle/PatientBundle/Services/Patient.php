@@ -142,35 +142,15 @@ class Patient
     }
 
     public function updatePatientById($id, $postData){
-        $SystemAPiError = array();
         $url = $this->endpoint.'/'.$id;
-        try{
-            $request = $this->client->put($url,array(
-                'content-type' => 'application/json'
-            ),array());
-            $request->setBody(json_encode($postData,JSON_UNESCAPED_UNICODE));
-            $request->send();
-        }
-        catch(RequestException $e){
-            if($e instanceof CurlException) {
-                $SystemAPiError[] = 'Service Unvailable';
-            }
-            if(method_exists($e,'getResponse')){
-                $messages =  json_decode($e->getResponse()->getBody());
-                if($messages){
-                    $SystemAPiError = Utility::getErrorMessages($messages);
-                }
-             }
-            if(empty($SystemAPiError)){
-                $SystemAPiError[]= "Unknown Error";
-            }
-        }
-        return $SystemAPiError;
+
+        return $this->update($postData, $url,$header = array('content-type' => 'application/json'));
 
     }
 
     public function getApprovarLocation(){
        return array(
+           'content-type' => 'application/json',
            'division_id' => '10',
            'district_id' => '04',
            'upazila_id' => '09'
@@ -205,5 +185,77 @@ class Patient
         }
 
         return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
+    }
+
+    public function pendingApproved($url,$payload){
+        $header = $this->getApprovarLocation();
+        return  $this->update($payload,$url,$header);
+    }
+
+    public function pendingReject($url,$payload){
+        $header = $this->getApprovarLocation();
+        return  $this->delete($payload,$url,$header);
+    }
+
+    public function delete($postData,$url,$header = null){
+
+        $SystemAPiError = array();
+        try {
+            $request = $this->client->delete(
+                $url,
+                $header
+            );
+            $request->setBody(json_encode($postData, JSON_UNESCAPED_UNICODE));
+            $request->send();
+        } catch (RequestException $e) {
+            if ($e instanceof CurlException) {
+                $SystemAPiError[] = 'Service Unvailable';
+            }
+            if (method_exists($e, 'getResponse')) {
+                $messages = json_decode($e->getResponse()->getBody());
+                if ($messages) {
+                    $SystemAPiError = Utility::getErrorMessages($messages);
+                }
+            }
+            if (empty($SystemAPiError)) {
+                $SystemAPiError[] = "Unknown Error";
+            }
+        }
+
+        return $SystemAPiError;
+    }
+
+
+    /**
+     * @param $postData
+     * @param $url
+     * @return array|string
+     */
+    protected function update($postData,$url,$header = null)
+    {
+        $SystemAPiError = array();
+        try {
+            $request = $this->client->put(
+                $url,
+                $header
+            );
+            $request->setBody(json_encode($postData, JSON_UNESCAPED_UNICODE));
+            $request->send();
+        } catch (RequestException $e) {
+            if ($e instanceof CurlException) {
+                $SystemAPiError[] = 'Service Unvailable';
+            }
+            if (method_exists($e, 'getResponse')) {
+                $messages = json_decode($e->getResponse()->getBody());
+                if ($messages) {
+                    $SystemAPiError = Utility::getErrorMessages($messages);
+                }
+            }
+            if (empty($SystemAPiError)) {
+                $SystemAPiError[] = "Unknown Error";
+            }
+        }
+
+        return $SystemAPiError;
     }
 }

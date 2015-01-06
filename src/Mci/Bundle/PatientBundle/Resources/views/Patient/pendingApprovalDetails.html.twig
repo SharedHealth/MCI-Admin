@@ -61,8 +61,8 @@
                                      {% endif %}
                                  </div>
                                  <div class="col-lg-3" style="text-align: right">
-                                     <a class="btn btn-success" href="{{ id }}">Accept</a>
-                                     <a class="btn btn-danger" href="{{ id }}">Reject</a>
+                                     <a class="btn btn-success" href="{{ path('mci_patient_approval_accept',{ 'hid': app.request.get('hid'),'payload':field_details|json_encode  }) }}">Accept</a>
+                                     <a class="btn btn-danger" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details|json_encode }) }}">Reject</a>
                                  </div>
                                  <div style="clear: both;"></div>
                             </div>
