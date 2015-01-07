@@ -200,20 +200,27 @@ class PatientController extends Controller
     public function pendingApprovalDetailsAction($hid){
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url);
+        if(empty($response['responseBody']['results'])){
+            return $this->redirect($this->generateUrl('mci_patient_pending_approval'));
+        }
         return $this->render('MciPatientBundle:Patient:pendingApprovalDetails.html.twig', $response);
     }
 
     public function pendingApprovalAcceptAction(Request $request, $hid){
+        $fieldName = $request->query->get('field_name');
         $value = $request->query->get('payload');
+        $payload = array($fieldName => json_decode($value));
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
-        $data = $this->get('mci.patient')->pendingApproved($url,$value);
+        $data = $this->get('mci.patient')->pendingApproved($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
     }
 
     public function pendingApprovalRejectAction(Request $request, $hid){
+        $fieldName = $request->query->get('field_name');
         $value = $request->query->get('payload');
+        $payload = array($fieldName => json_decode($value));
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
-        $data = $this->get('mci.patient')->pendingReject($url,$value);
+        $data = $this->get('mci.patient')->pendingReject($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
     }
 
