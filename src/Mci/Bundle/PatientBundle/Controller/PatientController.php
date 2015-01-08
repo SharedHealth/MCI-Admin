@@ -219,7 +219,7 @@ class PatientController extends Controller
         $value = $request->query->get('payload');
         $payload = array($fieldName => json_decode($value));
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
-        $data = $this->get('mci.patient')->pendingApproved($url,$payload);
+        $this->get('mci.patient')->pendingApproved($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
     }
 
@@ -228,7 +228,7 @@ class PatientController extends Controller
         $value = $request->query->get('payload');
         $payload = array($fieldName => json_decode($value));
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
-        $data = $this->get('mci.patient')->pendingReject($url,$payload);
+        $this->get('mci.patient')->pendingReject($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
     }
 
