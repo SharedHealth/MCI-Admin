@@ -108,9 +108,17 @@ class PatientController extends Controller
         ));
     }
 
+    private function filterAcceptZero($var){
+        if($var == '' || $var == null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public function updateAction(Request $request, $id){
 
-        $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'));
+        $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'), array($this,'filterAcceptZero'));
 
         if(!empty($postData['relation'])){
             $relations = Utility::filterRelations($postData['relation']);

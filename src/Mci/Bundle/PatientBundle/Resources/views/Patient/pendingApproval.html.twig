@@ -11,7 +11,7 @@
 {% endblock stylesheets %}
 {% block content %}
 
-{% if sysError is defined %}
+{% if systemError is defined  and systemError is not empty %}
     <div class="alert alert-danger"   style="margin-top: 10px;">
     <ul>
         {% for sysError in systemError  %}
@@ -19,7 +19,7 @@
         {% endfor %}
     </ul>
     </div>
-  {% endif %}
+  {% else %}
 
 <div style="width: 100%; padding-top: 10px;">
     <h3 style="float: left; width: 50%;">Patient approval list</h3>
@@ -57,4 +57,5 @@
     {% else %}
         <div>No Approval Awaiting Patient Found</div>
     {% endif %}
+{% endif %}
 {% endblock %}
