@@ -104,6 +104,38 @@ class Patient
      */
     protected  $relations;
 
+    /**
+     * @Type("string")
+     */
+    private $status;
+
+    /**
+     * @Type("string")
+     */
+    private $date_of_death;
+
+    /**
+     * @Type("string")
+     */
+    private $confidential;
+
+    /**
+     * @return mixed
+     */
+    public function getConfidential()
+    {
+        return $this->confidential;
+    }
+
+    /**
+     * @param mixed $confidential
+     */
+    public function setConfidential($confidential)
+    {
+        $this->confidential = $confidential;
+    }
+
+
     public function __construct()
     {
         $this->relations = new ArrayCollection();
@@ -487,6 +519,38 @@ class Patient
     public function setDateOfBirth($date_of_birth)
     {
         $this->date_of_birth = $date_of_birth;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param mixed $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateOfDeath()
+    {
+        return $this->date_of_death;
+    }
+
+    /**
+     * @param mixed $date_of_death
+     */
+    public function setDateOfDeath($date_of_death)
+    {
+        $this->date_of_death = $date_of_death;
     }
 
 }

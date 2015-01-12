@@ -1,4 +1,5 @@
 {
     "1" :"Alive",
-    "0" :"Deceased"
+    "2" :"Deceased",
+    "3" :"Unknown"
 }

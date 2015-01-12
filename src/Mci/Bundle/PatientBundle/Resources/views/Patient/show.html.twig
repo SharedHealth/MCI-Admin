@@ -96,7 +96,26 @@
                     <p class="form-control-static"> {% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
                 </div>
 
+                <div class="col-lg-3">
+                    <label>Date of Death:</label>
+                    <p class="form-control-static"> {% if responseBody.date_of_death is defined %}{{ responseBody.date_of_death }}{% endif %}</p>
+                </div>
+
             </div>
+
+            <div class="panel-body">
+                <div class="col-lg-3">
+                    <label>Patient Status:</label>
+                    <p class="form-control-static">{% if responseBody.status is defined %}{{ responseBody.status|livingStatus }}{% endif %}</p>
+                </div>
+
+                <div class="col-lg-3">
+                    <label>Confidential:</label>
+                    <p class="form-control-static">{% if responseBody.confidential is defined %}{{ responseBody.confidential|capitalize  }}{% endif %}</p>
+                </div>
+
+            </div>
+
             <div class="panel-body">
                 <div style="" class="col-lg-6">
                     <label>Phone Number:</label>

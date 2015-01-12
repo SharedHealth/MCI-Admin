@@ -34,7 +34,7 @@ class PatientType extends AbstractType
         $occupation = $this->getArrayFromJson('assets/json/occupation.json');
         $disability = $this->getArrayFromJson('assets/json/disability.json');
         $maritalStatus = $this->getArrayFromJson('assets/json/relationStat.json');
-        $livingStatus = $this->getArrayFromJson('assets/json/livingStatus.json');
+        $patientStatus = $this->getArrayFromJson('assets/json/livingStatus.json');
         $builder
             ->add('nid', 'text', array(
                 'attr' => array('class' => 'form-control'),
@@ -136,6 +136,24 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
+            ->add('status', 'choice', array(
+                    'choices' =>$patientStatus,
+                    'attr' => array('class' => 'form-control'),
+                    'empty_value' => '--Please select--',
+                    'required'  => false,
+                    'label' => 'Patient Status'
+                )
+            )
+            ->add('confidential', 'choice', array(
+                    'choices' =>array('no' =>'No','yes'=>'Yes'),
+                    'attr' => array('class' => 'form-control'),
+                    'required'  => true
+                )
+            )
+            ->add('date_of_death', 'text', array(
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
+            ))
             ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))
             ->add('permanent_address', new AddressType($this->serviceContainer,$permanentAddress))
             ->add('phone_number', new ContactType())

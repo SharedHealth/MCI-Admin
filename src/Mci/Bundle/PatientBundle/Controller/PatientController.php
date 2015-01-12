@@ -109,11 +109,7 @@ class PatientController extends Controller
     }
 
     private function filterAcceptZero($var){
-        if($var == '' || $var == null){
-            return false;
-        }else{
-            return true;
-        }
+        return !($var == '' || $var == null);
     }
 
     public function updateAction(Request $request, $id){
