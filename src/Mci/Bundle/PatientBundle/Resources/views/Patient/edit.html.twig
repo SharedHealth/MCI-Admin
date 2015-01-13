@@ -117,7 +117,7 @@
                 <label for="mci_bundle_patientBundle_patients_date_of_birth" class="control-label col-xs-2">Date of Birth</label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.date_of_birth) }}
+                    {{ form_widget(form.date_of_birth) }}<span title="clear" class="clearBtn">X</span>
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -189,6 +189,15 @@
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_date_of_death" class="control-label col-xs-2">Date Of Death</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.date_of_death) }}<span title="clear" class="clearBtn">X</span>
+
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_ethnicity" class="control-label col-xs-2">Ethnicity</label>
 
                 <div class="col-xs-10">
@@ -227,14 +236,6 @@
 
                 <div class="col-xs-10">
                     {{ form_widget(form.confidential) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_date_of_death" class="control-label col-xs-2">Date Of Death</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.date_of_death) }}(Format: yyyy-MM-DD, Example: 2001-01-01)
                 </div>
                 <div style="clear: both;"></div>
             </div>

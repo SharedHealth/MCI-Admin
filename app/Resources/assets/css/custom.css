@@ -20,3 +20,14 @@ input.error{
 select.error option {
     color: #555;
 }
+
+.floatLeft{
+    float:left;
+}
+
+.clearBtn{
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 0 0 5px;
+    display: inline-block;
+}

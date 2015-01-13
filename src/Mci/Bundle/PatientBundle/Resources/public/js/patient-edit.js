@@ -252,8 +252,12 @@ jQuery(document).ready(function () {
         return true;
    });
 
-    $('#mci_bundle_patientBundle_patients_date_of_birth').datepicker({
+    $('.datepicker_common').datepicker({
         format: 'yyyy-mm-dd'
+    });
+
+    $(".clearBtn").on('click',function(){
+        $(this).parent().find('.datepicker_common').val("")
     });
 
     $('table tbody tr').delegate('.relation-type','change',function(){
@@ -295,8 +299,6 @@ function addRelationForm($collectionHolder) {
 
     });
 }
-
-
 
 
 
