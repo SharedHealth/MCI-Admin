@@ -31,3 +31,8 @@ select.error option {
     padding: 5px 0 0 5px;
     display: inline-block;
 }
+
+#mci_bundle_patientBundle_patients_date_of_birth,#mci_bundle_patientBundle_patients_date_of_death{
+    cursor: pointer;
+    background: #FFFFFF;
+}
