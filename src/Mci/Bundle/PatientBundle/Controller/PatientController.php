@@ -211,12 +211,12 @@ class PatientController extends Controller
     }
 
     public function pendingApprovalAcceptAction(Request $request, $hid){
-        $fieldName = $request->query->get('field_name');
         $value = $request->query->get('payload');
+        $fieldName = $request->query->get('field_name');
         $payload = array($fieldName => json_decode($value));
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
         $this->get('mci.patient')->pendingApproved($url,$payload);
-        return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
+        return new Response("ok");
     }
 
     public function pendingApprovalRejectAction(Request $request, $hid){

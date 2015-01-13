@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+{{ include('::partials/confirmModal.html.twig') }}
 <style type="text/css">
     .changes{
         background: #f7e1b5;
@@ -9,6 +10,7 @@
         border-radius: 5px;
     }
 </style>
+
     <div>
         {% if systemError is defined and systemError is not empty %}
             <div class="alert alert-danger" style="margin-top: 10px;">
@@ -61,8 +63,8 @@
                                      {% endif %}
                                  </div>
                                  <div class="col-lg-3" style="text-align: right">
-                                     <a class="btn btn-success" href="{{ path('mci_patient_approval_accept',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Accept</a>
-                                     <a class="btn btn-danger" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Reject</a>
+                                     <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ field_details.value|json_encode }}'>Accept</button>
+                                     <button type="button" class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Reject</button>
                                  </div>
                                  <div style="clear: both;"></div>
                             </div>
@@ -73,5 +75,37 @@
         {% endif %}
         </tbody>
     </table>
-
 {% endblock %}
+
+ {% block documentReady %}
+
+     $('button.accept').on('click',function(){
+         var hid = $(this).data('hid');
+         var fieldName = $(this).data('fieldname');
+         var payload = $(this).data('payload');
+         $('#hid').html(hid);
+         $('#fieldName').html(fieldName);
+         $('#payload').html(payload);
+         $('#myModal').modal('show');
+     });
+
+    $('.apporval_details_accept').on('click',function(){
+        var hid = $('#hid').html();
+        var fieldName = $('#fieldName').html();
+        var payload = $('#payload').html();
+        var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
+        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace'} ) }}"
+        acceptUrl = acceptUrl.replace("hid_replace", hid);
+        PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid);
+        if(hid){
+             $.ajax({
+             url: acceptUrl,
+             data: { payload: payload, field_name: fieldName }
+             })
+             .done(function( html ) {
+                  $('#myModal').modal('hide');
+                  window.location = PendingApprovalDetailsUrl;
+             });
+        }
+     });
+ {% endblock documentReady %}
