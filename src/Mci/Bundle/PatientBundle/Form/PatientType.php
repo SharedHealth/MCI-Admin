@@ -145,7 +145,7 @@ class PatientType extends AbstractType
                 )
             )
             ->add('confidential', 'choice', array(
-                    'choices' =>array('no' =>'No','yes'=>'Yes'),
+                    'choices' =>array('No' =>'No','Yes'=>'Yes'),
                     'attr' => array('class' => 'form-control'),
                     'required'  => true
                 )

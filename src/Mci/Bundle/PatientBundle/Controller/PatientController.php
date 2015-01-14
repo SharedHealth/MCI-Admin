@@ -186,7 +186,8 @@ class PatientController extends Controller
     {
         $response = $this->get('mci.patient')->getPatientById($id);
         $responseBody = $response['responseBody'];
-        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id));
+        $systemError = $response['systemError'];
+        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError));
     }
 
     public function pendingApprovalNextAction($after){

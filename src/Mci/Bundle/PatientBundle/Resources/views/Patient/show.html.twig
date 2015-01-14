@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+  {% if systemError is empty  %}
     {% if responseBody is defined and responseBody is not empty %}
     <div class="row">
         <div class="col-lg-12">
@@ -446,6 +447,7 @@
         </div>
     </div>
     {% else %}
+
         <div class="row">
             <div class="col-lg-12">
                 <h3 class="page-header">Patient not found</h3>
@@ -453,4 +455,15 @@
             <!-- /.col-lg-12 -->
         </div>
     {% endif %}
+{% else %}
+    {% if systemError is defined and systemError is not empty %}
+        <div class="alert alert-danger" style="margin-top: 10px;">
+            <ul>
+                {% for sysError in systemError %}
+                    <li>{{ sysError }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endif %}
 {% endblock %}
