@@ -64,7 +64,7 @@
                                  </div>
                                  <div class="col-lg-3" style="text-align: right">
                                      <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ field_details.value|json_encode }}'>Accept</button>
-                                     <button type="button" class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Reject</button>
+                                     <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Reject</a>
                                  </div>
                                  <div style="clear: both;"></div>
                             </div>
@@ -83,6 +83,9 @@
          var hid = $(this).data('hid');
          var fieldName = $(this).data('fieldname');
          var payload = $(this).data('payload');
+         if(payload !== null && typeof payload === 'object'){
+              payload = JSON.stringify(payload);
+         }
          $('#hid').html(hid);
          $('#fieldName').html(fieldName);
          $('#payload').html(payload);
@@ -105,7 +108,23 @@
              .done(function( html ) {
                   $('#myModal').modal('hide');
                   window.location = PendingApprovalDetailsUrl;
-             });
+             }).fail(function(jqXHR,exception) {
+                 if (jqXHR.status === 0) {
+                 alert('Not connect.\n Verify Network.');
+                 } else if (jqXHR.status == 404) {
+                 alert('Requested page not found. [404]');
+                 } else if (jqXHR.status == 500) {
+                 alert('Internal Server Error [500].');
+                 } else if (exception === 'parsererror') {
+                 alert('Requested JSON parse failed.');
+                 } else if (exception === 'timeout') {
+                 alert('Time out error.');
+                 } else if (exception === 'abort') {
+                 alert('Ajax request aborted.');
+                 } else {
+                 alert('Uncaught Error.\n' + jqXHR.responseText);
+                 }
+             })
         }
      });
  {% endblock documentReady %}
