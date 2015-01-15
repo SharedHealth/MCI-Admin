@@ -208,6 +208,8 @@ class PatientController extends Controller
         if(empty($response['responseBody']['results'])){
             return $this->redirect($this->generateUrl('mci_patient_pending_approval'));
         }
+        $patient = $this->get('mci.patient')->getPatientById($hid);
+        $response['patient'] = $patient;
         return $this->render('MciPatientBundle:Patient:pendingApprovalDetails.html.twig', $response);
     }
 

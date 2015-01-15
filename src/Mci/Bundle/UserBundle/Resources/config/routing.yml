@@ -1,3 +1,9 @@
-mci_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: MciUserBundle:Default:index }
+
+mci_user_login:
+    path:     /login
+    defaults: { _controller: MciUserBundle:User:login }
+
+
+mci_user_logout:
+    path:     /login
+    defaults: { _controller: MciUserBundle:User:logout }
