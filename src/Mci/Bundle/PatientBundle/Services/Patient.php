@@ -209,11 +209,11 @@ class Patient
         $header = array(
             'content-type' => 'application/json',
             'division_id' => $allCatchments[0]['division_id'],
-            'district_id' => $allCatchments[0]['district_id']
+            'district_id' => $allCatchments[0]['district_id'],
         );
 
         if(isset($allCatchments[0]['upazila_id'])){
-            $header['upazila_id'] = $allCatchments[0]['district_id'];
+            $header['upazila_id'] = $allCatchments[0]['upazila_id'];
         }
 
         return $header;
