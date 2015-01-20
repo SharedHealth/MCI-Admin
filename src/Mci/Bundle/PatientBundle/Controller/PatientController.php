@@ -190,15 +190,33 @@ class PatientController extends Controller
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError));
     }
 
-    public function pendingApprovalNextAction($after){
+
+
+    public function pendingApprovalNextAction($after,Request $request){
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals?'.'after='.$after;
-        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
+        $catchment = $request->get('catchment');
+        if($catchment){
+            $catchments = explode('-',$catchment);
+        }else{
+            $catchments = null;
+        }
+        $header = $this->get('mci.patient')->getHeader($catchments);
+        $response = $this->get('mci.patient')->getApprovalPatientsList($url,$header);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
-    public function pendingApprovalPreviousAction($before){
+    public function pendingApprovalPreviousAction($before, Request $request){
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals?'.'before='.$before;
-        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
+        $catchment = $request->get('catchment');
+
+        if($catchment){
+            $catchments = explode('-',$catchment);
+        }else{
+            $catchments = null;
+        }
+
+        $header = $this->get('mci.patient')->getHeader($catchments);
+        $response = $this->get('mci.patient')->getApprovalPatientsList($url,$header);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 

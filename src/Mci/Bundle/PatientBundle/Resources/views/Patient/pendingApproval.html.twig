@@ -23,7 +23,29 @@
 
 <div style="width: 100%; padding-top: 10px;">
     <h3 style="float: left; width: 50%;">Patient approval list</h3>
-    <div style="clear: both;"></div>
+    <div style="float: right; width: 50%">
+        <form action="" autocomplete="off">
+            <div style="float: left;">
+                <select name="catchment" class="form-control">
+                    {% for catchment in catchments  %}
+                        {% set queryString = catchment|join('-') %}
+                        <option {{ (queryString == app.request.get('catchment')) ? 'selected=selected' : '' }}  value="{{ queryString }}">
+                            {{ catchment.division_id|division }}
+                            {{ catchment.district_id|location(catchment.division_id) }}
+                            {% if catchment.upazila_id is defined %}
+                            {{ catchment.upazila_id|location(catchment.division_id~catchment.district_id) }}
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="float:left; margin-left: 10px;">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+        </form>
+    </div>
+    <div style="clear: both"></div>
 </div>
     {% if responseBody.results is defined and responseBody.results is not empty %}
     <table  width="100%" class="table table-bordered">
@@ -50,8 +72,8 @@
 <div class="clear"></div>
         <nav>
             <ul  class="pager">
-                <li> <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated }) }}"> Previous</a></li>
-                <li> <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated  }) }}"> Next</a></li>
+                <li> <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': app.request.get('catchment') }) }}"> Previous</a></li>
+                <li> <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': app.request.get('catchment')   }) }}"> Next</a></li>
             </ul>
         </nav>
     {% else %}

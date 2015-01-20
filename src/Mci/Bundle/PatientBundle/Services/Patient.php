@@ -148,17 +148,8 @@ class Patient
 
     }
 
-    public function getApprovarLocation(){
-       return array(
-           'content-type' => 'application/json',
-           'division_id' => '10',
-           'district_id' => '04',
-           'upazila_id' => '09'
-       );
-    }
 
-    public function getApprovalPatientsList($url){
-        $header = $this->getApprovarLocation();
+    public function getApprovalPatientsList($url,$header){
         return $this->getPatients($url,$header);
     }
 
@@ -184,7 +175,75 @@ class Patient
             $SystemAPiError[] = 'Something went wrong';
         }
 
-        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
+        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError,'catchments'=> $this->getAllCatchment());
+    }
+
+    public function getAllCatchment(){
+
+        return array(
+            array(
+            'division_id' => '10',
+            'district_id' => '04',
+            'upazila_id' => '09'
+            ),
+            array(
+                'division_id' => '10',
+                'district_id' => '05',
+                'upazila_id' => '09'
+            ),
+            array(
+                'division_id' => '10',
+                'district_id' => '06',
+                'upazila_id' => '09'
+            ),
+            array(
+                'division_id' => '10',
+                'district_id' => '07',
+                'upazila_id' => '09'
+            )
+        );
+    }
+
+    public function getApprovarDefaultLocation(){
+        $allCatchments =  $this->getAllCatchment();
+        $header = array(
+            'content-type' => 'application/json',
+            'division_id' => $allCatchments[0]['division_id'],
+            'district_id' => $allCatchments[0]['district_id']
+        );
+
+        if(isset($allCatchments[0]['upazila_id'])){
+            $header['upazila_id'] = $allCatchments[0]['district_id'];
+        }
+
+        return $header;
+    }
+
+    /**
+     * @param $catchments
+     * @return array
+     */
+    public function getHeader($catchments)
+    {
+        if (!isset($catchments)) {
+            $header = $this->getApprovarDefaultLocation();
+            return $header;
+        } else {
+            $header = array(
+                'content-type' => 'application/json',
+                'division_id' => $catchments[0],
+                'district_id' => $catchments[1],
+            );
+            if(isset($catchments[2])){
+                $header['upazila_id'] = $catchments[2];
+            }
+            if(isset($catchments[3])){
+                $header['city_corporation_id'] = $catchments[3];
+            }
+
+            return $header;
+
+        }
     }
 
     public function pendingApproved($url,$payload){
