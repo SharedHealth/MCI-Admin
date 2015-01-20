@@ -23,9 +23,7 @@
         {% endif %}
 
         <h4>
-            HID-{{ patient.responseBody.hid }} <br/>
-
-            {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }}
+            {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }} ({{ patient.responseBody.hid }})
         </h4>
     </div>
     <div class="clear"></div>
