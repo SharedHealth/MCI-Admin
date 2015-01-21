@@ -153,8 +153,8 @@ class Patient
         return $this->getPatients($url,$header);
     }
 
-    public function getApprovalPatientsDetails($url){
-       $result =  $this->getPatients($url);
+    public function getApprovalPatientsDetails($url, $header){
+       $result =  $this->getPatients($url,$header);
         return $result;
     }
 
@@ -188,18 +188,10 @@ class Patient
             ),
             array(
                 'division_id' => '10',
-                'district_id' => '05',
-                'upazila_id' => '09'
-            ),
-            array(
-                'division_id' => '10',
-                'district_id' => '06',
-                'upazila_id' => '09'
-            ),
-            array(
-                'division_id' => '10',
-                'district_id' => '07',
-                'upazila_id' => '09'
+                'district_id' => '04',
+                'upazila_id' => '28',
+                'citycorporation_id' => '99',
+                'union_or_urban_ward_id' => '28'
             )
         );
     }
@@ -214,6 +206,13 @@ class Patient
 
         if(isset($allCatchments[0]['upazila_id'])){
             $header['upazila_id'] = $allCatchments[0]['upazila_id'];
+        }
+
+        if(isset($allCatchments[0]['city_corporation_id'])){
+            $header['city_corporation_id'] = $allCatchments[0]['city_corporation_id'];
+        }
+        if(isset($allCatchments[0]['union_or_urban_ward_id'])){
+            $header['union_or_urban_ward_id'] = $allCatchments[0]['union_or_urban_ward_id'];
         }
 
         return $header;
@@ -240,19 +239,20 @@ class Patient
             if(isset($catchments[3])){
                 $header['city_corporation_id'] = $catchments[3];
             }
+            if(isset($catchments[4])){
+                $header['union_or_urban_ward_id'] = $catchments[4];
+            }
 
             return $header;
 
         }
     }
 
-    public function pendingApproved($url,$payload){
-        $header = $this->getApprovarLocation();
+    public function pendingApproved($url,$payload,$header){
         return  $this->update($payload,$url,$header);
     }
 
-    public function pendingReject($url,$payload){
-        $header = $this->getApprovarLocation();
+    public function pendingReject($url,$payload,$header){
         return  $this->delete($payload,$url,$header);
     }
 

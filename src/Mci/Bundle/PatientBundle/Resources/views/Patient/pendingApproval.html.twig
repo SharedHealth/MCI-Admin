@@ -22,18 +22,27 @@
   {% else %}
 
 <div style="width: 100%; padding-top: 10px;">
-    <h3 style="float: left; width: 50%;">Patient approval list</h3>
-    <div style="float: right; width: 50%">
+    <h3 style="float: left; width: 30%;">Patient approval list</h3>
+    <div style="float: right; width: 70%; margin-top: 20px;margin-bottom: 10px;">
         <form action="" autocomplete="off">
             <div style="float: left;">
                 <select name="catchment" class="form-control">
                     {% for catchment in catchments  %}
+
                         {% set queryString = catchment|join('-') %}
                         <option {{ (queryString == app.request.get('catchment')) ? 'selected=selected' : '' }}  value="{{ queryString }}">
                             {{ catchment.division_id|division }}
-                            {{ catchment.district_id|location(catchment.division_id) }}
+                            -{{ catchment.district_id|location(catchment.division_id) }}
                             {% if catchment.upazila_id is defined %}
-                            {{ catchment.upazila_id|location(catchment.division_id~catchment.district_id) }}
+                            -{{ catchment.upazila_id|location(catchment.division_id~catchment.district_id) }}
+                            {% endif %}
+
+                            {% if catchment.citycorporation_id is defined %}
+                                -{{ catchment.citycorporation_id|location(catchment.division_id~catchment.district_id~catchment.upazila_id) }}
+                            {% endif %}
+
+                            {% if catchment.union_or_urban_ward_id is defined %}
+                               -{{ catchment.union_or_urban_ward_id|location(catchment.division_id~catchment.district_id~catchment.upazila_id~catchment.citycorporation_id) }}
                             {% endif %}
                         </option>
                     {% endfor %}
@@ -62,7 +71,7 @@
                     <tr>
                         <td>{{ result.hid }}</td>
                         <td>{{ result.given_name }} {{ result.sur_name }}</td>
-                        <td><a  class="btn btn-default" href="{{ path('mci_patient_approval_details', { 'hid': result.hid }) }}">View</a> </td>
+                        <td><a  class="btn btn-default" href="{{ path('mci_patient_approval_details', { 'hid': result.hid,'catchment': app.request.get('catchment') }) }}">View</a> </td>
                     </tr>
                 {% endfor %}
 

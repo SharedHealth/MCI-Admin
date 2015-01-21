@@ -22,15 +22,17 @@
             </div>
         {% endif %}
 
+        {% if patient.responseBody.given_name is defined %}
         <h4>
             {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }} ({{ patient.responseBody.hid }})
         </h4>
+        {% endif %}
     </div>
     <div class="clear"></div>
 
     <table width="100%" cellspacing="10" class="table table-bordered">
         <tbody>
-        {% if responseBody.results is defined %}
+        {% if responseBody.results is defined and responseBody.results is not empty %}
             {% for results in responseBody.results %}
                     <tr>
                         <th>{{ results.field_name }}</th>
@@ -65,8 +67,8 @@
                                      {% endif %}
                                  </div>
                                  <div class="col-lg-3" style="text-align: right">
-                                     <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ field_details.value|json_encode }}'>Accept</button>
-                                     <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name  }) }}">Reject</a>
+                                     <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ field_details.value|json_encode }}' data-catchment='{{ app.request.get("catchment") }}'>Accept</button>
+                                     <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload':field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Reject</a>
                                  </div>
                                  <div style="clear: both;"></div>
                             </div>
@@ -74,6 +76,8 @@
                     </td>
                 </tr>
             {% endfor %}
+        {% else %}
+            <tr><td class="alert alert-danger">No pending approval details available</td></tr>
         {% endif %}
         </tbody>
     </table>
@@ -85,12 +89,14 @@
          var hid = $(this).data('hid');
          var fieldName = $(this).data('fieldname');
          var payload = $(this).data('payload');
+         var catchment = $(this).data('catchment');
          if(payload !== null && typeof payload === 'object'){
               payload = JSON.stringify(payload);
          }
          $('#hid').html(hid);
          $('#fieldName').html(fieldName);
          $('#payload').html(payload);
+         $('#catchment').html(catchment);
          $('#myModal').modal('show');
      });
 
@@ -98,6 +104,7 @@
         var hid = $('#hid').html();
         var fieldName = $('#fieldName').html();
         var payload = $('#payload').html();
+        var catchment = $('#catchment').html();
         var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
         var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace'} ) }}"
         acceptUrl = acceptUrl.replace("hid_replace", hid);
@@ -105,7 +112,7 @@
         if(hid){
              $.ajax({
              url: acceptUrl,
-             data: { payload: payload, field_name: fieldName }
+             data: { payload: payload, field_name: fieldName, catchment: catchment }
              })
              .done(function( html ) {
                   $('#myModal').modal('hide');
