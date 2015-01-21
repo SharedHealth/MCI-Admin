@@ -306,6 +306,8 @@ class Patient
             }
             if (method_exists($e, 'getResponse')) {
                 $messages = json_decode($e->getResponse()->getBody());
+                var_dump($messages);
+                exit;
                 if ($messages) {
                     $SystemAPiError = Utility::getErrorMessages($messages);
                 }

@@ -266,7 +266,7 @@ class PatientController extends Controller
 
         $url =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$hid;
         $this->get('mci.patient')->pendingReject($url,$payload,$header);
-        return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid)));
+        return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
     }
 
 }

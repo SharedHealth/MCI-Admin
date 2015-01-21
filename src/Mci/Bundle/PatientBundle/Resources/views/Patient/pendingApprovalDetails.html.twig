@@ -106,9 +106,10 @@
         var payload = $('#payload').html();
         var catchment = $('#catchment').html();
         var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
-        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace'} ) }}"
+        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace','catchment':'catchment_replace'} ) }}"
         acceptUrl = acceptUrl.replace("hid_replace", hid);
         PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid);
+        PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("catchment_replace", catchment);
         if(hid){
              $.ajax({
              url: acceptUrl,
