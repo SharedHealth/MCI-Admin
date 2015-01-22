@@ -44,6 +44,11 @@
                             {% if catchment.union_or_urban_ward_id is defined %}
                                -{{ catchment.union_or_urban_ward_id|location(catchment.division_id~catchment.district_id~catchment.upazila_id~catchment.citycorporation_id) }}
                             {% endif %}
+
+                            {% if catchment.rural_ward_id is defined %}
+                                -{{ catchment.union_or_urban_ward_id|location(catchment.division_id~catchment.district_id~catchment.upazila_id~catchment.citycorporation_id~catchment.union_or_urban_ward_id) }}
+                            {% endif %}
+
                         </option>
                     {% endfor %}
                 </select>

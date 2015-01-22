@@ -22,7 +22,7 @@
             </div>
         {% endif %}
 
-        {% if patient.responseBody.given_name is defined %}
+        {% if patient.responseBody.given_name is defined and systemError is empty %}
         <h4>
             {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }} ({{ patient.responseBody.hid }})
         </h4>
@@ -32,7 +32,7 @@
 
     <table width="100%" cellspacing="10" class="table table-bordered">
         <tbody>
-        {% if responseBody.results is defined and responseBody.results is not empty %}
+        {% if responseBody.results is defined and responseBody.results is not empty and and systemError is empty %}
             {% for results in responseBody.results %}
                     <tr>
                         <th>{{ results.field_name }}</th>
