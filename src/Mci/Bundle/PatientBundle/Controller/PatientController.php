@@ -187,7 +187,26 @@ class PatientController extends Controller
         $response = $this->get('mci.patient')->getPatientById($id);
         $responseBody = $response['responseBody'];
         $systemError = $response['systemError'];
-        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError));
+        $pendingApprovalUrl =  $this->container->getParameter('api_end_point').'/patients/pendingapprovals/'.$id;
+
+        $header = array(
+            'division_id' => $responseBody['present_address']['division_id'],
+            'district_id' => $responseBody['present_address']['district_id'],
+            'upazila_id' => $responseBody['present_address']['upazila_id']
+        );
+        if(isset($responseBody['present_address']['city_corporation_id'])){
+            $header['city_corporation_id'] = $responseBody['present_address']['city_corporation_id'];
+        }
+
+        if(isset($responseBody['present_address']['union_or_urban_ward_id'])){
+            $header['union_or_urban_ward_id'] = $responseBody['present_address']['union_or_urban_ward_id'];
+        }
+        if(isset($responseBody['present_address']['rural_ward_id'])){
+            $header['rural_ward_id'] = $responseBody['present_address']['rural_ward_id'];
+        }
+        $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl,$header);
+
+        return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError,'approvalDetails'=>$pendingApprovalDetails['responseBody']['results']));
     }
 
     public function pendingApprovalNextAction($after,Request $request){

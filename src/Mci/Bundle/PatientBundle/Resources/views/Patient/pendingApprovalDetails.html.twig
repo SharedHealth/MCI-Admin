@@ -35,7 +35,7 @@
         {% if responseBody.results is defined and responseBody.results is not empty and systemError is empty %}
             {% for results in responseBody.results %}
                     <tr>
-                        <th>{{ results.field_name }}</th>
+                        <th>{{ results.field_name|camelize }}</th>
                         <td>
                             {% if results.current_value is iterable %}
                                 {% for fieldLevel,value in results.current_value  %}

@@ -33,7 +33,8 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('countrycode', array($this, 'countryCodeFilter')),
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
-            new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter'))
+            new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter')),
+            'camelize' => new \Twig_Filter_Method($this, 'camelizeFilter')
         );
     }
 
@@ -116,6 +117,18 @@ class MciExtension extends \Twig_Extension
     {
         $filePath =  'assets/json/'.$fileName;
         return  json_decode(file_get_contents($filePath), true);
+    }
+
+    public function camelizeFilter($value)
+    {
+        if(!is_string($value)) {
+            return $value;
+        }
+
+        $chunks    = explode('_', $value);
+        $ucfirsted = array_map(function($s) { return ucfirst($s); }, $chunks);
+
+        return implode(' ', $ucfirsted);
     }
 
 }

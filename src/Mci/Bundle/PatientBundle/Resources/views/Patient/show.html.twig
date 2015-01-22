@@ -3,6 +3,16 @@
 {% block content %}
   {% if systemError is empty  %}
     {% if responseBody is defined and responseBody is not empty %}
+        {% if approvalDetails is defined and approvalDetails is not empty %}
+            <h4 class="alert alert-warning">{% if responseBody.given_name is defined %}{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %} has approval waiting updates for the following field(s):</h4>
+            <ul>
+            {% for approvalDetail in approvalDetails %}
+                <li> {{ approvalDetail.field_name|camelize}}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">{% if responseBody.given_name is defined %}{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %} {% if responseBody.name_bangla is defined %}({{ responseBody.name_bangla }}){% endif %}</h3>
