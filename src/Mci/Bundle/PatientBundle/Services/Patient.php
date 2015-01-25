@@ -180,9 +180,11 @@ class Patient
         /** @var $twigExtension  MciExtension */
         if($fieldKey == 'gender'){
             $val['current_value'] = $twigExtension->genderFilter($val['current_value']);
+            $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->genderFilter($changeValue['value']);
             }
+            $val['payload'] = $field_details;
             return $val;
         }
     }
@@ -224,6 +226,7 @@ class Patient
                 }
 
             }
+            $val['payload'] = $field_details;
             return $val;
         }
 
