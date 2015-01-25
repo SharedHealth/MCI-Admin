@@ -7,6 +7,7 @@ use Guzzle\Http\Exception\RequestException;
 use JMS\Serializer\Serializer;
 use Guzzle\Http\Exception\CurlException;
 use Mci\Bundle\PatientBundle\Utills\Utility;
+use Mci\Bundle\PatientBundle\Twig\MciExtension;
 
 class Patient
 {
@@ -153,9 +154,79 @@ class Patient
         return $this->getPatients($url,$header);
     }
 
-    public function getApprovalPatientsDetails($url, $header){
+    public function getApprovalPatientsDetails($url, $header,$twigExtension){
        $result =  $this->getPatients($url,$header);
+        $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
         return $result;
+    }
+
+    public function mappingPatientDetails($resultBody,$twigExtension){
+        foreach($resultBody['results'] as $key => $val){
+
+            switch($val['field_name']){
+                case 'gender':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'gender',$twigExtension);
+                break;
+
+                case 'present_address':
+                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address',$twigExtension);
+                break;
+            }
+        }
+        return $resultBody;
+    }
+
+    private function mappingSingleField($val,$fieldKey,$twigExtension){
+        /** @var $twigExtension  MciExtension */
+        if($fieldKey == 'gender'){
+            $val['current_value'] = $twigExtension->genderFilter($val['current_value']);
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->genderFilter($changeValue['value']);
+            }
+            return $val;
+        }
+    }
+
+    private function mappingBlocksField($val,$fieldKey,$twigExtension){
+        /** @var $twigExtension  MciExtension */;
+
+        $current_value = $val['current_value'];
+        $field_details = $val['field_details'];
+
+        if($fieldKey == 'present_address'){
+            $val['current_value']['division_id'] = $twigExtension->divisionFilter($val['current_value']['division_id']);
+            $val['current_value']['district_id'] = $twigExtension->locationFilter($current_value['district_id'],$current_value['division_id']);
+            $val['current_value']['upazila_id'] = $twigExtension->locationFilter($current_value['upazila_id'],$current_value['division_id'].$current_value['district_id']);
+
+            if(isset($val['current_value']['city_corporation_id'])){
+                $val['current_value']['city_corporation_id'] = $twigExtension->locationFilter($current_value['city_corporation_id'],$current_value['division_id'].$current_value['district_id'].$current_value['upazila_id']);
+            }
+            if(isset($val['current_value']['union_or_urban_ward_id'])){
+                $val['current_value']['union_or_urban_ward_id'] = $twigExtension->locationFilter($current_value['union_or_urban_ward_id'],$current_value['division_id'].$current_value['district_id'].$current_value['upazila_id'].$current_value['city_corporation_id']);
+            }
+            if(isset($val['current_value']['rural_ward_id'])){
+                $val['current_value']['rural_ward_id'] = $twigExtension->locationFilter($current_value['rural_ward_id'],$current_value['division_id'].$current_value['district_id'].$current_value['upazila_id'].$current_value['city_corporation_id'].$current_value['union_or_urban_ward_id']);
+            }
+
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value']['division_id'] = $twigExtension->divisionFilter($field_details[$key]['value']['division_id']);
+                $val['field_details'][$key]['value']['district_id'] = $twigExtension->locationFilter($field_details[$key]['value']['district_id'],$field_details[$key]['value']['division_id']);
+                $val['field_details'][$key]['value']['upazila_id'] = $twigExtension->locationFilter($field_details[$key]['value']['upazila_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id']);
+
+                if(isset($val['field_details'][$key]['value']['city_corporation_id'])){
+                    $val['field_details'][$key]['value']['city_corporation_id'] = $twigExtension->locationFilter($field_details[$key]['value']['city_corporation_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id'].$field_details[$key]['value']['upazila_id']);
+                }
+                if(isset($val['field_details'][$key]['value']['union_or_urban_ward_id'])){
+                    $val['field_details'][$key]['value']['union_or_urban_ward_id'] = $twigExtension->locationFilter($field_details[$key]['value']['union_or_urban_ward_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id'].$field_details[$key]['value']['upazila_id'].$field_details[$key]['value']['city_corporation_id']);
+                }
+                if(isset($val['field_details'][$key]['value']['rural_ward_id'])){
+                    $val['field_details'][$key]['value']['rural_ward_id'] = $twigExtension->locationFilter($field_details[$key]['value']['rural_ward_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id'].$field_details[$key]['value']['upazila_id'].$field_details[$key]['value']['city_corporation_id'].$field_details[$key]['value']['union_or_urban_ward_id']);
+                }
+
+            }
+            return $val;
+        }
+
     }
 
     public function getPatients($url, $header = null){
@@ -306,8 +377,6 @@ class Patient
             }
             if (method_exists($e, 'getResponse')) {
                 $messages = json_decode($e->getResponse()->getBody());
-                var_dump($messages);
-                exit;
                 if ($messages) {
                     $SystemAPiError = Utility::getErrorMessages($messages);
                 }

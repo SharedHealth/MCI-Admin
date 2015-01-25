@@ -50,9 +50,9 @@
                     <td colspan="2">
                          {% for id,field_details in results.field_details %}
                             <div class="changes">
-                                 <div class="col-lg-4">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
+                                 <div  class="col-lg-3">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
 
-                                 <div class="col-lg-5">
+                                 <div style="padding-left: 61px;" class="col-lg-6">
                                      {% if field_details.value is iterable %}
                                          {% for changeFieldsLevel,changeFields in field_details.value  %}
                                              {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}

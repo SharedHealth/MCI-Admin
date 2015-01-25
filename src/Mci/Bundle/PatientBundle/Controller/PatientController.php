@@ -246,8 +246,8 @@ class PatientController extends Controller
             $catchments = null;
         }
         $header = $this->get('mci.patient')->getHeader($catchments);
-
-        $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$header);
+        $twigExtension = $this->get('mci.twig.mci_extension');
+        $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$header,$twigExtension);
         $patient = $this->get('mci.patient')->getPatientById($hid);
         $response['patient'] = $patient;
         return $this->render('MciPatientBundle:Patient:pendingApprovalDetails.html.twig', $response);
