@@ -20,6 +20,6 @@ parameters:
     debug_redirects:        false
     use_assetic_controller: true
     api_end_point:     ~
-    location_api_end_point:
-    location_auth_key:
 
+    identity_server_domain: login.mci-admin.dev
+    identity_server_port: 8080

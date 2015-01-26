@@ -7,10 +7,6 @@ mci_patient:
     resource: "@MciPatientBundle/Resources/config/routing.yml"
     prefix:   /patients
 
-mci_user:
-    resource: "@MciUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
 mci_core:
     resource: "@MciCoreBundle/Resources/config/routing.yml"
     prefix:   /

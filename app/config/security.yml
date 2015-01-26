@@ -2,37 +2,24 @@ security:
  encoders:
         Symfony\Component\Security\Core\User\User: plaintext
  providers:
-        # Examples:
-        my_in_memory_provider:
-            memory:
-                users:
-                    mci:
-                        password:           password
-                        roles:              [ROLE_USER, ROLE_ADMIN]
+        sso:
+          id: sso_provider
 
  firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        login:
-            pattern:  ^/login$
-            security: false
-        #secured_area:
-                    #pattern:    ^/
-                    #form_login:
-                        #check_path: login_check
-                        #login_path: mci_user_login
-                    #logout:
-                        #path:   mci_user_logout
-                        #target: /login
-        default:
-                    anonymous: ~
-                    http_basic: ~
+        main:
+            pattern: ^/
+            stateless: true
+            simple-preauth:
+                authenticator: sso_authenticator
 
  role_hierarchy:
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_MCI_USER:       ROLE_USER
+        ROLE_ADMIN:       ROLE_MCI_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
  access_control:
-        - { path: ^/patients/*, roles: [ROLE_ADMIN] }
+        - { path: ^/*, roles: [ROLE_MCI_USER] }
 
