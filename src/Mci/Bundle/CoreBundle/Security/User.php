@@ -2,6 +2,7 @@
 
 namespace Mci\Bundle\CoreBundle\Security;
 
+use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\Type;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -9,6 +10,7 @@ class User implements UserInterface
 {
     /**
      * @Type("string")
+     * @SerializedName("user")
      */
     private $username;
     /**
@@ -17,6 +19,7 @@ class User implements UserInterface
     private $roles;
     /**
      * @Type("string")
+     * @SerializedName("locationCode")
      */
     private $locationCode;
 
