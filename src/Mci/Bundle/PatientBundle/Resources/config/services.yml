@@ -3,10 +3,6 @@ services:
           class: %guzzle.client.class%
           tags:
                       -  { name: guzzle.client }
-          calls:
-                      - [addSubscriber, ["@mci_auth"]]
-
-
 
     mci.twig.mci_extension:
         class: Mci\Bundle\PatientBundle\Twig\MciExtension
@@ -16,8 +12,8 @@ services:
 
     mci.location:
         class:        Mci\Bundle\PatientBundle\Services\Location
-        arguments: [@mci_patient.client, %api_end_point%]
+        arguments: [@mci_patient.client, %api_end_point%,@security.context]
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
-        arguments: [@mci_patient.client, @jms_serializer, %api_end_point%]
+        arguments: [@mci_patient.client, @jms_serializer, %api_end_point%,@security.context]

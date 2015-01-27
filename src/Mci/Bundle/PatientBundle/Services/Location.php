@@ -15,10 +15,14 @@ class Location
      */
     private $client;
 
-    public function __construct(Client $client, $endpoint)
+    public function __construct(Client $client, $endpoint,$securityContext)
     {
         $this->client = $client;
         $this->endpoint = $endpoint."/locations";
+        if($securityContext->getToken()){
+            $authKey = $securityContext->getToken()->getUser()->getToken();
+            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
+        }
     }
 
     /**

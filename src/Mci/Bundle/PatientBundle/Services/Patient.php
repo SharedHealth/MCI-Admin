@@ -25,11 +25,15 @@ class Patient
     private $endpoint;
 
 
-    public function __construct(Client $client, Serializer $serializer, $endpoint) {
+    public function __construct(Client $client, Serializer $serializer, $endpoint,$securityContext) {
 
         $this->client = $client;
         $this->endpoint = $endpoint."/patients";
         $this->serializer = $serializer;
+        if($securityContext->getToken()){
+            $authKey = $securityContext->getToken()->getUser()->getToken();
+            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
+        }
     }
 
     public function findPatientByRequestQueryParameter($query)
@@ -154,7 +158,7 @@ class Patient
         return $this->getPatients($url,$header);
     }
 
-    public function getApprovalPatientsDetails($url, $header,$twigExtension){
+    public function getApprovalPatientsDetails($url, $header,$twigExtension = null){
        $result =  $this->getPatients($url,$header);
         $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
         return $result;
