@@ -160,11 +160,14 @@ class Patient
 
     public function getApprovalPatientsDetails($url, $header,$twigExtension = null){
        $result =  $this->getPatients($url,$header);
-        $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
+        if(!empty($result['responseBody'])){
+            $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
+        }
         return $result;
     }
 
     public function mappingPatientDetails($resultBody,$twigExtension){
+
         foreach($resultBody['results'] as $key => $val){
 
             switch($val['field_name']){
