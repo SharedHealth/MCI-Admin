@@ -3,6 +3,7 @@
 
 namespace Mci\Bundle\CoreBundle\Security;
 
+use Mci\Bundle\CoreBundle\Infrastructure\IdentityServer;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -20,12 +21,19 @@ class SecurityListener
 	 * @var Router
 	 */
 	private $router;
+	/**
+	 * @var IdentityServer
+	 */
+	private $identityServer;
 
-	public function __construct($baseUrl, $port)
+	private $loginUrl;
+
+	public function __construct(IdentityServer $identityServer)
     {
-	    $this->loginUrl = $baseUrl.':'.$port.'/loginForm?redirectTo=%s';
-		$this->loginUrl = sprintf($this->loginUrl, $this->getCurrentUrl());
-    }
+		$this->identityServer = $identityServer;
+	}
+
+
 
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -70,9 +78,21 @@ class SecurityListener
 
 	private function redirectToLoginPage(GetResponseEvent $event)
 	{
-		$event->setResponse(new RedirectResponse($this->loginUrl));
+		$event->setResponse(new RedirectResponse($this->getLoginUrl()));
 
 		return $event;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getLoginUrl()
+	{
+		if($this->loginUrl == null) {
+			$this->loginUrl = $this->identityServer->getBaseUrl().'/loginForm?redirectTo=%s';
+			$this->loginUrl = sprintf($this->loginUrl, $this->getCurrentUrl());
+		}
+		return $this->loginUrl;
 	}
 
 	/**
@@ -84,6 +104,10 @@ class SecurityListener
 
 		$route = $this->router->match($requestContext->getPathInfo());
 
-		return $this->router->generate($route['_route'], $requestContext->getParameters(), Router::ABSOLUTE_URL);
+		$parameters = $requestContext->getParameters();
+
+		unset($parameters['_locale']);
+
+		return $this->router->generate($route['_route'], $parameters, Router::ABSOLUTE_URL);
 	}
 }

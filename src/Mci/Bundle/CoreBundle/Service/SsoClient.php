@@ -4,6 +4,7 @@
 namespace Mci\Bundle\CoreBundle\Service;
 use Guzzle\Http\Client;
 use JMS\Serializer\Serializer;
+use Mci\Bundle\CoreBundle\Infrastructure\IdentityServer;
 
 class SsoClient
 {
@@ -20,13 +21,18 @@ class SsoClient
 
 
     private $endPoint;
+    /**
+     * @var IdentityServer
+     */
+    private $identityServer;
 
 
-    public function __construct(Client $client, Serializer $serializer, $endpoint,$port) {
+    public function __construct(Client $client, Serializer $serializer, IdentityServer $identityServer) {
 
         $this->client = $client;
+        $this->identityServer = $identityServer;
         $this->serializer = $serializer;
-        $this->endPoint = $endpoint.':'.$port.'/userInfo';
+        $this->endPoint = $identityServer->getBaseUrl() . '/userInfo';
     }
 
     public function getUserFromToken($session)
