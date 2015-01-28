@@ -10,23 +10,21 @@
         <a class="navbar-brand" href="#">MCI Administration</a>
     </div>
     <!-- /.navbar-header -->
+    {% if app.user  %}
+        <ul class="nav navbar-top-links navbar-right">
 
-    {#<ul class="nav navbar-top-links navbar-right">
-
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-            </a>
-            <ul class="dropdown-menu dropdown-user">
-                <li><a href="#"><i class="fa fa-user fa-fw"></i> Account</a></li>
-                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
-                <li class="divider"></li>
-                <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
-            </ul>
-            <!-- /.dropdown-user -->
-        </li>
-        <!-- /.dropdown -->
-    </ul>#}
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-user">
+                    <li><a href="{{ path('mci_logout' )}}"><i class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+                </ul>
+                <!-- /.dropdown-user -->
+            </li>
+            <!-- /.dropdown -->
+        </ul>
+    {% endif %}
     <!-- /.navbar-top-links -->
 
     <div class="navbar-default sidebar" role="navigation">

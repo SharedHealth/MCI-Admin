@@ -24,14 +24,17 @@ class Patient
 
     private $endpoint;
 
+    private $securityContext;
+
 
     public function __construct(Client $client, Serializer $serializer, $endpoint,$securityContext) {
 
         $this->client = $client;
         $this->endpoint = $endpoint."/patients";
         $this->serializer = $serializer;
-        if($securityContext->getToken()){
-            $authKey = $securityContext->getToken()->getUser()->getToken();
+        $this->securityContext = $securityContext;
+        if($this->securityContext->getToken()){
+            $authKey = $this->securityContext->getToken()->getUser()->getToken();
             $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
         }
     }
@@ -174,7 +177,9 @@ class Patient
                 case 'gender':
                     $resultBody['results'] [$key] = $this->mappingSingleField($val,'gender',$twigExtension);
                 break;
-
+                case 'status':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'status',$twigExtension);
+                    break;
                 case 'present_address':
                     $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address',$twigExtension);
                 break;
@@ -190,6 +195,16 @@ class Patient
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->genderFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+
+        if($fieldKey == 'status'){
+            $val['current_value'] = $twigExtension->livingStatusFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->livingStatusFilter($changeValue['value']);
             }
             $val['payload'] = $field_details;
             return $val;
@@ -260,19 +275,14 @@ class Patient
     }
 
     public function getAllCatchment(){
+        $location = $this->securityContext->getToken()->getUser()->getLocationCode();
+        $location_splits =  str_split($location, 2);
 
-        return array(
+       return $catchment =  array(
             array(
-            'division_id' => '10',
-            'district_id' => '04',
-            'upazila_id' => '09'
-            ),
-            array(
-                'division_id' => '10',
-                'district_id' => '04',
-                'upazila_id' => '28',
-                'citycorporation_id' => '99',
-                'union_or_urban_ward_id' => '28'
+            'division_id' => $location_splits[0],
+            'district_id' => $location_splits[1],
+            'upazila_id' => $location_splits[2]
             )
         );
     }
