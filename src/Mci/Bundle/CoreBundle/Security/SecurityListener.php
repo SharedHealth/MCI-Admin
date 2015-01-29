@@ -104,10 +104,16 @@ class SecurityListener
 
 		$route = $this->router->match($requestContext->getPathInfo());
 
-		$parameters = $requestContext->getParameters();
+        $routerName = $route['_route'];
+        $route['_route'];
 
-		unset($parameters['_locale']);
+        $parameters = $requestContext->getParameters();
+        unset($parameters['_locale']);
+        unset($route['_route']);
+        unset($route['_controller']);
 
-		return $this->router->generate($route['_route'], $parameters, Router::ABSOLUTE_URL);
+        $parameters = array_merge($route, $parameters);
+
+        return $this->router->generate($routerName, $parameters, Router::ABSOLUTE_URL);
 	}
 }
