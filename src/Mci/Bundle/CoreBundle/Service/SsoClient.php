@@ -32,7 +32,7 @@ class SsoClient
         $this->client = $client;
         $this->identityServer = $identityServer;
         $this->serializer = $serializer;
-        $this->endPoint = $identityServer->getBaseUrl() . '/userInfo';
+        $this->endPoint = $identityServer->getApiBaseUrl() . '/userInfo';
     }
 
     public function getUserFromToken($session)
