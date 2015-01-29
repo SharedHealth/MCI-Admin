@@ -24,7 +24,7 @@ class IdentityServer extends ContainerAware
         $this->port = $port;
     }
 
-    private function buildBaseUrl($domain, $port)
+    private function buildWebBaseUrl($domain, $port)
     {
         $requestContext = $this->getRequest();
 
@@ -39,16 +39,38 @@ class IdentityServer extends ContainerAware
         return $requestContext->getScheme(). '://' . $domain . $port;
     }
 
+    private function buildApiBaseUrl($port)
+    {
+        if($port != null) {
+            $port = ":" . $port;
+        }
+
+        return $this->getRequest()->getScheme(). '://' . "localhost" . $port;
+
+    }
+
     /**
      * @return string
      */
-    public function getBaseUrl()
+    public function getWebBaseUrl()
     {
         if($this->baseUrl == null) {
-            $this->baseUrl = $this->buildBaseUrl($this->domain, $this->port);
+            $this->baseUrl = $this->buildWebBaseUrl($this->domain, $this->port);
         }
 
         return $this->baseUrl;
+    }
+
+    /**
+     * @return string
+     */
+    public function getApiBaseUrl()
+    {
+        if($this->domain == null) {
+            return $this->buildApiBaseUrl($this->port);
+        }
+
+        return $this->getWebBaseUrl();
     }
 
 

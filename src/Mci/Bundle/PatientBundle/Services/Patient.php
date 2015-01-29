@@ -161,7 +161,7 @@ class Patient
         return $this->getPatients($url,$header);
     }
 
-    public function getApprovalPatientsDetails($url, $header,$twigExtension = null){
+    public function getApprovalPatientsDetails($url, $header,$twigExtension){
        $result =  $this->getPatients($url,$header);
         if(!empty($result['responseBody'])){
             $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);

@@ -89,7 +89,7 @@ class SecurityListener
 	public function getLoginUrl()
 	{
 		if($this->loginUrl == null) {
-			$this->loginUrl = $this->identityServer->getBaseUrl().'/loginForm?redirectTo=%s';
+			$this->loginUrl = $this->identityServer->getWebBaseUrl().'/loginForm?redirectTo=%s';
 			$this->loginUrl = sprintf($this->loginUrl, $this->getCurrentUrl());
 		}
 		return $this->loginUrl;
