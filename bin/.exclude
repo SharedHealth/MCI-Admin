@@ -4,6 +4,7 @@ app/config/parameters.yml
 app/bootstrap.php.cache
 bin/.exclude
 .idea
+.git
 data
 web/bundle
 web/css
