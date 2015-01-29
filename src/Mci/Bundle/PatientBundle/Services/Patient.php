@@ -180,6 +180,9 @@ class Patient
                 case 'status':
                     $resultBody['results'] [$key] = $this->mappingSingleField($val,'status',$twigExtension);
                     break;
+                case 'occupation':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'occupation',$twigExtension);
+                    break;
                 case 'present_address':
                     $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address',$twigExtension);
                 break;
@@ -205,6 +208,16 @@ class Patient
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->livingStatusFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+
+        if($fieldKey == 'occupation'){
+            $val['current_value'] = $twigExtension->occupationFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->occupationFilter($changeValue['value']);
             }
             $val['payload'] = $field_details;
             return $val;
