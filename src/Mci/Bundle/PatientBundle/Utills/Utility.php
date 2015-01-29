@@ -99,54 +99,59 @@ class Utility {
      */
     public static function getErrorMessages($messages)
     {
+
         $SystemAPiError = array();
-        if(!isset($messages->errors)) {
+
+        if(!isset($messages->errors) && $messages->http_status != '404') {
             return array('Please check your configuration');
         }
+        if(isset($messages->errors)){
 
-        foreach ($messages->errors as $value) {
+            foreach ($messages->errors as $value) {
 
-            switch ($value->code) {
-                case 1001:
-                    $SystemAPiError[] = $value->message;
-                    break;
+                switch ($value->code) {
+                    case 1001:
+                        $SystemAPiError[] = $value->message;
+                        break;
 
-                case 1002:
-                    $SystemAPiError[] = $value->message;
-                    break;
+                    case 1002:
+                        $SystemAPiError[] = $value->message;
+                        break;
 
-                case 1004:
-                    $SystemAPiError[] = $value->message;
-                    break;
+                    case 1004:
+                        $SystemAPiError[] = $value->message;
+                        break;
 
-                case 1005:
-                    $SystemAPiError[] = $value->message;
-                    break;
+                    case 1005:
+                        $SystemAPiError[] = $value->message;
+                        break;
 
-                case 1006:
-                    $SystemAPiError[] = "Invalid Search Parameter";
-                    break;
+                    case 1006:
+                        $SystemAPiError[] = "Invalid Search Parameter";
+                        break;
 
-                case 2001:
-                    $SystemAPiError[] = "Invalid json";
-                    break;
+                    case 2001:
+                        $SystemAPiError[] = "Invalid json";
+                        break;
 
-                case 2002:
-                    $SystemAPiError[] = "Un Recognized Field";
-                    break;
+                    case 2002:
+                        $SystemAPiError[] = "Un Recognized Field";
+                        break;
 
-                case 500:
-                    $SystemAPiError[] = "Server Error";
-                    break;
+                    case 500:
+                        $SystemAPiError[] = "Server Error";
+                        break;
 
-                case 3001:
-                    $SystemAPiError[] = "Permission Error";
-                    break;
+                    case 3001:
+                        $SystemAPiError[] = "Permission Error";
+                        break;
 
-                default:
-                    $SystemAPiError[] = "Service Unavailable";
+                    default:
+                        $SystemAPiError[] = "Service Unavailable";
+                }
             }
         }
+
 
         return $SystemAPiError;
     }
