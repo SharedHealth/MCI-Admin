@@ -207,8 +207,9 @@ class PatientController extends Controller
         if(isset($responseBody['present_address']['rural_ward_id'])){
             $header['rural_ward_id'] = $responseBody['present_address']['rural_ward_id'];
         }
+        $twigExtension = $this->get('mci.twig.mci_extension');
         if($header){
-            $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl,$header);
+            $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl,$header,$twigExtension);
         }
         $appovalDetails = !empty($pendingApprovalDetails['responseBody']['results'])?$pendingApprovalDetails['responseBody']['results']:'';
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError,'approvalDetails'=>$appovalDetails));
