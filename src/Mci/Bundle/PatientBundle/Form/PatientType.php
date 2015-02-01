@@ -73,7 +73,7 @@ class PatientType extends AbstractType
                 'required'  => false
             ))
             ->add('date_of_birth', 'text', array(
-                'attr' => array('class' => 'form-control datepicker_common floatLeft')
+                'attr' => array('class' => 'form-control datepicker_common floatLeft datepicker_hide')
             ))
             ->add('gender', 'choice',
                 array(
@@ -84,7 +84,7 @@ class PatientType extends AbstractType
             ->add('ethnicity', 'choice',
                 array(
                     'choices' =>$ethnicity,
-                    'attr' => array('class' => 'form-control'),
+                    'attr' => array('class' => 'form-control','disabled'=>'disabled'),
                     'empty_value' => '--Please select--',
                     'required'  => false
                 )
@@ -151,7 +151,7 @@ class PatientType extends AbstractType
                 )
             )
             ->add('date_of_death', 'text', array(
-                'attr' => array('class' => 'form-control datepicker_common floatLeft'),
+                'attr' => array('class' => 'form-control datepicker_common floatLeft datepicker_hide'),
                 'required'  => false
             ))
             ->add('present_address', new AddressType($this->serviceContainer,$presentAddress))

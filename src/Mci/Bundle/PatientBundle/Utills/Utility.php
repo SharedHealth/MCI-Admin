@@ -103,12 +103,12 @@ class Utility {
         $SystemAPiError = array();
 
       if(isset($messages)){
-          if(!isset($messages->errors) && $messages->http_status != '404') {
+          if(!isset($messages->errors) && isset($messages->http_status) && $messages->http_status != '404') {
               return array('Please check your configuration');
           }
        }
-        if(isset($messages->errors)){
 
+        if(isset($messages->errors)){
             foreach ($messages->errors as $value) {
 
                 switch ($value->code) {
@@ -196,6 +196,23 @@ class Utility {
         }
         if(empty($postData['date_of_death'])){
             $postData['date_of_death'] = "";
+        }
+
+        if(empty($postData['nid'])){
+            $postData['nid'] = "";
+        }
+        if(empty($postData['uid'])){
+            $postData['uid'] = "";
+        }
+
+        if(empty($postData['bin_brn'])){
+            $postData['bin_brn'] = "";
+        }
+        if(empty($postData['occupation'])){
+            $postData['occupation'] = "";
+        }
+        if(empty($postData['edu_level'])){
+            $postData['edu_level'] = "";
         }
 
         return $postData;

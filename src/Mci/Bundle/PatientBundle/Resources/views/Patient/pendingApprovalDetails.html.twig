@@ -69,8 +69,12 @@
                                  </div>
 
                                  <div class="col-lg-3" style="text-align: right">
-                                     <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ results.payload[id].value is defined  ? results.payload[id].value|json_encode : field_details.value|json_encode  }}' data-catchment='{{ app.request.get("catchment") }}'>Accept</button>
-                                     <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Reject</a>
+                                     {% if results.field_details is defined and results.field_details|length > 1 %}
+                                          <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ results.payload[id].value is defined  ? results.payload[id].value|json_encode : field_details.value|json_encode  }}' data-catchment='{{ app.request.get("catchment") }}'>Accept</button>
+                                     {% else %}
+                                         <a  class="btn btn-success" href="{{ path('mci_patient_approval_accept',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Accept</a>
+                                     {% endif %}
+                                       <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Reject</a>
                                  </div>
                                  <div style="clear: both;"></div>
                             </div>

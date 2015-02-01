@@ -260,6 +260,10 @@ jQuery(document).ready(function () {
         $(this).parent().find('.datepicker_common').val("")
     });
 
+    $('.datepicker_hide').on('change', function(){
+       $('.datepicker').hide();
+    });
+
     $('table tbody tr').delegate('.relation-type','change',function(){
        var relationType =  $(this).val();
         if(relationType == 'SPS'){

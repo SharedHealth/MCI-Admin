@@ -273,7 +273,11 @@ class PatientController extends Controller
         $header = $this->get('mci.patient')->getHeader($catchments);
 
         $this->get('mci.patient')->pendingApproved($url,$payload,$header);
-        return new Response("ok");
+        if($request->isXmlHttpRequest()){
+            return new Response("ok");
+        }else{
+            return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
+        }
     }
 
     public function pendingApprovalRejectAction(Request $request, $hid){
