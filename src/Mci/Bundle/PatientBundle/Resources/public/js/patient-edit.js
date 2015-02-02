@@ -253,15 +253,12 @@ jQuery(document).ready(function () {
    });
 
     $('.datepicker_common').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
     });
 
     $(".clearBtn").on('click',function(){
         $(this).parent().find('.datepicker_common').val("")
-    });
-
-    $('.datepicker_hide').on('change', function(){
-       $('.datepicker').hide();
     });
 
     $('table tbody tr').delegate('.relation-type','change',function(){
@@ -269,9 +266,13 @@ jQuery(document).ready(function () {
         if(relationType == 'SPS'){
             $(this).parent().parent().find('.relation-marriage-id').removeAttr('readonly');
             $(this).parent().parent().find('.relation-relational-status').removeAttr('readonly');
+            $(this).parent().parent().find('.relation-relational-status').show();
+            $(this).parent().parent().find('.dumyTextBoxHide').hide();
         }else{
             $(this).parent().parent().find('.relation-marriage-id').attr('readonly', 'readonly');
             $(this).parent().parent().find('.relation-relational-status').attr('readonly', 'readonly');
+            $(this).parent().parent().find('.relation-relational-status').hide();
+            $(this).parent().parent().find('.dumyTextBoxHide').show();
         }
 
     });

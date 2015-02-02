@@ -50,10 +50,18 @@ class Utility {
                     $postData['relations'][$key]['sur_name'] = $postData['sur_name'][$key];
                 }
                 if (!empty($postData['marriage_id'][$key])) {
-                    $postData['relations'][$key]['marriage_id'] = $postData['marriage_id'][$key];
+                    if($val == 'SPS'){
+                        $postData['relations'][$key]['marriage_id'] = $postData['marriage_id'][$key];
+                    }else{
+                        //$postData['relations'][$key]['marriage_id'] = '';
+                    }
                 }
                 if (!empty($postData['relational_status'][$key])) {
-                    $postData['relations'][$key]['relational_status'] = $postData['relational_status'][$key];
+                    if($val == 'SPS'){
+                        $postData['relations'][$key]['relational_status'] = $postData['relational_status'][$key];
+                    }else{
+                        //$postData['relations'][$key]['relational_status'] = '';
+                    }
                 }
             }
 

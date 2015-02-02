@@ -742,9 +742,12 @@
                         {% endif %}
                     </td>
                     <td>
-                        {% if relation.type.vars.value != 'SPS'   %} {{ form_widget(relation.relational_status, { 'attr': {'readonly': 'readonly'},  value : '' }) }}
+                        {% if relation.type.vars.value != 'SPS'   %}
+                            {{ form_widget(relation.relational_status, { 'attr': {'readonly': 'readonly','style':'display:none'},  value : '' }) }}
+                            <input type="text" class="form-control dumyTextBoxHide" value="" placeholder="N/A" readonly="readonly">
                         {% else %}
                             {{ form_widget(relation.relational_status) }}
+                            <input type="text" class="form-control dumyTextBoxHide" value="" placeholder="N/A" readonly="readonly" style="display: none">
                         {% endif %}
                     </td>
                     <td><span data-marital-status="{{ form.marital_status.vars.value }}" data-hid="{{ hid }}"  style="margin-top: 7px;" class="glyphicon glyphicon-remove remove"></span></td>
