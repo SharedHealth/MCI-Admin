@@ -13,6 +13,12 @@
          a.tabError{
             background: #FEEFB3 !important;
         }
+        .red{
+            color:red;
+        }
+        .clear{
+            cursor: pointer;
+        }
     </style>
 {% endblock stylesheets %}
 {% block content %}
@@ -86,7 +92,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_given_name" class="control-label col-xs-2">Given Name</label>
+                <label for="mci_bundle_patientBundle_patients_given_name" class="control-label col-xs-2">Given Name<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.given_name) }}
@@ -95,7 +101,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Surname</label>
+                <label for="mci_bundle_patientBundle_patients_sur_name" class="control-label col-xs-2">Surname<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.sur_name) }}
@@ -114,15 +120,15 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_date_of_birth" class="control-label col-xs-2">Date of Birth</label>
+                <label for="mci_bundle_patientBundle_patients_date_of_birth" class="control-label col-xs-2">Date of Birth<span class="red">*</span></label>
 
                 <div class="col-xs-10">
-                    {{ form_widget(form.date_of_birth) }} <span title="clear" class="clearBtn">X</span>
+                    {{ form_widget(form.date_of_birth) }}
                 </div>
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_gender" class="control-label col-xs-2">Gender</label>
+                <label for="mci_bundle_patientBundle_patients_gender" class="control-label col-xs-2">Gender<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.gender) }}
@@ -181,6 +187,15 @@
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_date_of_death" class="control-label col-xs-2">Date of Death</label>
+
+                <div class="col-xs-10">
+                    {{ form_widget(form.date_of_death) }}
+
+                </div>
+                <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_disability" class="control-label col-xs-2">Disability</label>
 
                 <div class="col-xs-10">
@@ -188,15 +203,7 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_date_of_death" class="control-label col-xs-2">Date of Death</label>
 
-                <div class="col-xs-10">
-                    {{ form_widget(form.date_of_death) }}<span title="clear" class="clearBtn">X</span>
-
-                </div>
-                <div style="clear: both;"></div>
-            </div>
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_ethnicity" class="control-label col-xs-2">Ethnicity</label>
 
@@ -246,7 +253,7 @@
 
         <div>
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_address_line" class="control-label col-xs-2">Address Line</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_address_line" class="control-label col-xs-2">Address Line<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.present_address.address_line) }}
@@ -255,7 +262,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_division_id" class="control-label col-xs-2">Division</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_division_id" class="control-label col-xs-2">Division<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.present_address.division_id) }}
@@ -265,7 +272,7 @@
             </div>
 
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_district_id" class="control-label col-xs-2">District</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_district_id" class="control-label col-xs-2">District<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.present_address.district_id) }}
@@ -274,7 +281,7 @@
                 <div style="clear: both;"></div>
             </div>
             <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_present_address_upazila_id" class="control-label col-xs-2">Upazila</label>
+                <label for="mci_bundle_patientBundle_patients_present_address_upazila_id" class="control-label col-xs-2">Upazila<span class="red">*</span></label>
 
                 <div class="col-xs-10">
                     {{ form_widget(form.present_address.upazila_id) }}

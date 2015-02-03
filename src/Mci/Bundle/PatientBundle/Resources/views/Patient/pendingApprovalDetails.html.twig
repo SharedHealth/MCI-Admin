@@ -30,7 +30,7 @@
     </div>
     <div class="clear"></div>
 
-    <table width="100%" cellspacing="10" class="table table-bordered">
+    <table width="100%" cellspacing="10" class="table">
         <tbody>
         {% if responseBody.results is defined and responseBody.results is not empty and systemError is empty %}
 
@@ -57,7 +57,7 @@
                                      {% if field_details.value is iterable %}
                                          {% for changeFieldsLevel,changeFields in field_details.value  %}
                                              {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}
-                                                <p style="color: green;">{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                                 <p style="color: green;">{{ changeFieldsLevel }} : {{ changeFields}}</p>
                                              {% else %}
                                                  <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
                                              {% endif %}

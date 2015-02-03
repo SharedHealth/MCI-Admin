@@ -133,15 +133,14 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[primary_contact]': {
                     maximum: 100
                 },
+                'mci_bundle_patientBundle_patients[present_address][address_line]': {
+                    required : true,
+                    minlength: 3,
+                    maxlength: 255
+                },
                 'mci_bundle_patientBundle_patients[present_address][holding_number]': {
                     maximum: 50
                 },
-
-                'mci_bundle_patientBundle_patients[present_address][address_line]': {
-                    minlength:3,
-                    maximum: 50
-                },
-
                 'mci_bundle_patientBundle_patients[present_address][division_id]': {
                     required: true
                 },
@@ -167,12 +166,10 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[present_address][post_code]': {
                     postcode: true
                 },
-
                 'mci_bundle_patientBundle_patients[permanent_address][address_line]': {
-                    minlength :3,
-                    maximum: 255
+                    minlength: 3,
+                    maxlength: 255
                 },
-
                 'mci_bundle_patientBundle_patients[permanent_address][holding_number]': {
                     maximum: 50
                 },
@@ -193,10 +190,21 @@ jQuery(document).ready(function () {
                 },
                 'mci_bundle_patientBundle_patients[relation][marriage_id][]': {
                     regex: '^[0-9]{8}$'
+                },
+                'mci_bundle_patientBundle_patients[given_name]': {
+                    required : true
+                },
+                'mci_bundle_patientBundle_patients[sur_name]': {
+                    required : true
+                },
+                'mci_bundle_patientBundle_patients[date_of_birth]': {
+                    required : true
+                },
+                'mci_bundle_patientBundle_patients[gender]': {
+                    required : true
                 }
             },
             messages: {
-
             },
             focusInvalid: false
         }
@@ -223,10 +231,7 @@ jQuery(document).ready(function () {
     $addRelation.on('click', function(e) {
     e.preventDefault();
      addRelationForm($collectionHolder);
-
      changedNameForValidation();
-
-
 
    });
 
@@ -254,7 +259,9 @@ jQuery(document).ready(function () {
 
     $('.datepicker_common').datepicker({
         format: 'yyyy-mm-dd',
-        autoclose: true
+        clearBtn: true,
+        autoclose: true,
+        todayHighlight: true
     });
 
     $(".clearBtn").on('click',function(){
