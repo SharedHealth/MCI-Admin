@@ -29,6 +29,44 @@ var isPrimaryPhoneNoRequired = function() {
     return isNotBlank(getValueBySelector("#primaryContactNo .phone-block"));
 };
 
+function validateAgainstBusinessRules(){
+   var maritalRelation = maritalrelation();
+        if(maritalRelation == 'unmatched') {
+            $error = "Please change either marital status or spouse as relation";
+            $('.dependencyError').html($error);
+            return true;
+        }
+        if(dseaseStatus()){
+            $error = "Please put date of death along with only deceased status";
+            $('.dependencyError').html($error);
+            return true;
+        }
+
+
+}
+
+function maritalrelation(){
+    var marital_status =  $('#mci_bundle_patientBundle_patients_marital_status').val();
+    var relation_type = 'matched';
+    $(".relation-type").each(function () {
+        if($(this).val() == 'SPS' && marital_status == 1){
+            relation_type = 'unmatched';
+            return false;
+        }
+    });
+    return relation_type;
+
+}
+
+function dseaseStatus(){
+    var dsease_status =  $('#mci_bundle_patientBundle_patients_status').val();
+    var deathOfDate =  $('#mci_bundle_patientBundle_patients_date_of_death').val();
+    if(dsease_status !=2 && deathOfDate != "" ){
+        return true;
+    }
+
+}
+
 function changedNameForValidation() {
 
     var relation = 'mci_bundle_patientBundle_patients[relation]';
@@ -205,6 +243,15 @@ jQuery(document).ready(function () {
                 }
             },
             messages: {
+            },
+            submitHandler: function (form) {
+                if(!validateAgainstBusinessRules()) {
+                    $('.dependencyError').hide();
+                    $('.dependencyError').html("");
+                    return form.submit();
+                }
+                $('.dependencyError').show();
+                return false;
             },
             focusInvalid: false
         }
