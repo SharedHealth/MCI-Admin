@@ -290,6 +290,35 @@ jQuery(document).ready(function () {
         $(this).valid();
     });
 
+    $('#mci_bundle_patientBundle_patients_permanent_address_country_code').on('change', function() {
+        $value = $(this).val();
+
+        $division = $("#mci_bundle_patientBundle_patients_permanent_address_division_id");
+        $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id");
+        $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id");
+        $citycorporation = $("#mci_bundle_patientBundle_patients_permanent_address_city_corporation_id");
+        $urbanword = $("#mci_bundle_patientBundle_patients_permanent_address_union_or_urban_ward_id");
+        $ruralword = $("#mci_bundle_patientBundle_patients_permanent_address_rural_ward_id");
+
+        if($value != '050'){
+            $division.attr('disabled','disabled');
+            $district.attr('disabled','disabled');
+            $upazila.attr('disabled','disabled');
+            $citycorporation.attr('disabled','disabled');
+            $urbanword.attr('disabled','disabled');
+            $ruralword.attr('disabled','disabled');
+        }else{
+            $division.removeAttr('disabled');
+            $district.removeAttr('disabled');
+            $upazila.removeAttr('disabled');
+            $citycorporation.removeAttr('disabled');
+            $urbanword.removeAttr('disabled');
+            $ruralword.removeAttr('disabled');
+        }
+    });
+
+
+
     var $collectionHolder;
     var $addRelation = $('#addRelation');
 

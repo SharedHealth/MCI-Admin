@@ -132,6 +132,7 @@ class AddressType extends AbstractType
             ->add('country_code', 'choice', array(
                     'attr' => array('class' => 'form-control'),
                     'choices' => $countryCode,
+                    'data' => '050',
                     'required'  => false,
                     'empty_value' => '--Please select--'
                 )
