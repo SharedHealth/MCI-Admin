@@ -30,14 +30,25 @@ var isPrimaryPhoneNoRequired = function() {
 };
 
 function validateAgainstBusinessRules(){
-   var maritalRelation = maritalrelation();
+
+    var maritalRelation = maritalrelation();
         if(maritalRelation == 'unmatched') {
             $error = "Please change either marital status or spouse as relation";
             $('.dependencyError').html($error);
             return true;
         }
         if(dseaseStatus()){
-            $error = "Please put date of death along with only deceased status";
+            $error = "Please put date of death along with deceased status";
+            $('.dependencyError').html($error);
+            return true;
+        }
+        if(unionsOfCityCorporation()){
+            $error = "Please select Union/Urban Ward";
+            $('.dependencyError').html($error);
+            return true;
+        }
+        if(countryCode()){
+            $error = "Please select Address line, Division, District and Upazila";
             $('.dependencyError').html($error);
             return true;
         }
@@ -65,6 +76,28 @@ function dseaseStatus(){
         return true;
     }
 
+}
+
+function unionsOfCityCorporation(){
+    $cityCorporation_id = $("#mci_bundle_patientBundle_patients_present_address_city_corporation_id").val();
+    $urban_word_id = $("#mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id").val();
+
+    if($cityCorporation_id == 99 && $urban_word_id == ""){
+        return true;
+    }
+
+}
+
+function countryCode(){
+    $permanentCountryCode = $('#mci_bundle_patientBundle_patients_permanent_address_country_code').val();
+    $addressLine =  $('#mci_bundle_patientBundle_patients_permanent_address_address_line').val();
+    $division = $("#mci_bundle_patientBundle_patients_permanent_address_division_id").val();
+    $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id").val();
+    $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id").val();
+
+    if($permanentCountryCode == '050' && $division == "" && $district == "" && $upazila == ""){
+        return true;
+    }
 }
 
 function changedNameForValidation() {
@@ -228,18 +261,6 @@ jQuery(document).ready(function () {
                 },
                 'mci_bundle_patientBundle_patients[relation][marriage_id][]': {
                     regex: '^[0-9]{8}$'
-                },
-                'mci_bundle_patientBundle_patients[given_name]': {
-                    required : true
-                },
-                'mci_bundle_patientBundle_patients[sur_name]': {
-                    required : true
-                },
-                'mci_bundle_patientBundle_patients[date_of_birth]': {
-                    required : true
-                },
-                'mci_bundle_patientBundle_patients[gender]': {
-                    required : true
                 }
             },
             messages: {
