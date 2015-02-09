@@ -27,9 +27,9 @@
         <form action="" autocomplete="off">
             <div style="float: left;">
                 <select name="catchment" class="form-control">
+                    <option value="">Please Select Catchments</option>
                     {% for catchment in catchments  %}
-
-                        {% set queryString = catchment|join('-') %}
+                        {% set queryString = catchment|join %}
                         <option {{ (queryString == app.request.get('catchment')) ? 'selected=selected' : '' }}  value="{{ queryString }}">
                             {{ catchment.division_id|division }}
                             -{{ catchment.district_id|location(catchment.division_id) }}
@@ -61,37 +61,46 @@
     </div>
     <div style="clear: both"></div>
 </div>
-    {% if responseBody.results is defined and responseBody.results is not empty %}
-    <table  width="100%" class="table table-bordered">
-            <thead>
-            <tr>
-                <th>HID</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
+      {% set catchments = app.request.get('catchment') %}
+      {% if catchments is defined and catchments is not empty %}
+          {% if responseBody.results is defined and responseBody.results is not empty %}
+              <table width="100%" class="table table-bordered">
+                  <thead>
+                  <tr>
+                      <th>HID</th>
+                      <th>Name</th>
+                      <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
 
-                {% for result in responseBody.results %}
-                    <tr>
-                        <td>{{ result.hid }}</td>
-                        <td>{{ result.given_name }} {{ result.sur_name }}</td>
-                        <td><a  class="btn btn-default" href="{{ path('mci_patient_approval_details', { 'hid': result.hid,'catchment': app.request.get('catchment') }) }}">View</a> </td>
-                    </tr>
-                {% endfor %}
+                  {% for result in responseBody.results %}
+                      <tr>
+                          <td>{{ result.hid }}</td>
+                          <td>{{ result.given_name }} {{ result.sur_name }}</td>
+                          <td><a class="btn btn-default"
+                                 href="{{ path('mci_patient_approval_details', { 'hid': result.hid,'catchment': app.request.get('catchment') }) }}">View</a>
+                          </td>
+                      </tr>
+                  {% endfor %}
 
-            </tbody>
+                  </tbody>
 
-        </table>
-<div class="clear"></div>
-        <nav>
-            <ul  class="pager">
-                <li> <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': app.request.get('catchment') }) }}"> Previous</a></li>
-                <li> <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': app.request.get('catchment')   }) }}"> Next</a></li>
-            </ul>
-        </nav>
-    {% else %}
-        <div>No Approval Awaiting Patient Found</div>
-    {% endif %}
+              </table>
+              <div class="clear"></div>
+              <nav>
+                  <ul class="pager">
+                      <li>
+                          <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': catchments }) }}">
+                              Previous</a></li>
+                      <li>
+                          <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': catchments  }) }}">
+                              Next</a></li>
+                  </ul>
+              </nav>
+          {% else %}
+              <div>No Approval Awaiting Patient Found</div>
+          {% endif %}
+      {% endif %}
 {% endif %}
 {% endblock %}

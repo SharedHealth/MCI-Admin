@@ -33,6 +33,7 @@ class Patient
         $this->endpoint = $endpoint."/patients";
         $this->serializer = $serializer;
         $this->securityContext = $securityContext;
+        $this->client->setDefaultOption('headers/content-type', 'application/json');
         if($this->securityContext->getToken()){
             $authKey = $this->securityContext->getToken()->getUser()->getToken();
             $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
@@ -152,17 +153,19 @@ class Patient
     public function updatePatientById($id, $postData){
         $url = $this->endpoint.'/'.$id;
 
-        return $this->update($postData, $url,$header = array('content-type' => 'application/json'));
+        return $this->update($postData, $url);
 
     }
 
 
-    public function getApprovalPatientsList($url,$header){
-        return $this->getPatients($url,$header);
+    public function getApprovalPatientsList($url){
+       $response =  $this->getPatients($url);
+       $response['catchments'] = $this->getAllCatchment();
+       return $response;
     }
 
-    public function getApprovalPatientsDetails($url, $header,$twigExtension){
-       $result =  $this->getPatients($url,$header);
+    public function getApprovalPatientsDetails($url,$twigExtension){
+       $result =  $this->getPatients($url);
         if(!empty($result['responseBody'])){
             $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
         }
@@ -267,11 +270,11 @@ class Patient
 
     }
 
-    public function getPatients($url, $header = null){
+    public function getPatients($url){
         $responseBody = array();
         $SystemAPiError = array();
         try{
-            $request = $this->client->get($url,$header);
+            $request = $this->client->get($url);
             $response = $request->send();
             $responseBody = json_decode($response->getBody(), true);
 
@@ -284,7 +287,7 @@ class Patient
             $SystemAPiError[] = 'Something went wrong';
         }
 
-        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError,'catchments'=> $this->getAllCatchment());
+        return  array('responseBody' => $responseBody,'systemError'=>$SystemAPiError);
     }
 
     public function getAllCatchment(){
@@ -300,73 +303,21 @@ class Patient
         );
     }
 
-    public function getApprovarDefaultLocation(){
-        $allCatchments =  $this->getAllCatchment();
-        $header = array(
-            'content-type' => 'application/json',
-            'division_id' => $allCatchments[0]['division_id'],
-            'district_id' => $allCatchments[0]['district_id'],
-        );
 
-        if(isset($allCatchments[0]['upazila_id'])){
-            $header['upazila_id'] = $allCatchments[0]['upazila_id'];
-        }
-
-        if(isset($allCatchments[0]['city_corporation_id'])){
-            $header['city_corporation_id'] = $allCatchments[0]['city_corporation_id'];
-        }
-        if(isset($allCatchments[0]['union_or_urban_ward_id'])){
-            $header['union_or_urban_ward_id'] = $allCatchments[0]['union_or_urban_ward_id'];
-        }
-
-        return $header;
+    public function pendingApproved($url,$payload){
+        return  $this->update($payload,$url);
     }
 
-    /**
-     * @param $catchments
-     * @return array
-     */
-    public function getHeader($catchments)
-    {
-        if (!isset($catchments)) {
-            $header = $this->getApprovarDefaultLocation();
-            return $header;
-        } else {
-            $header = array(
-                'content-type' => 'application/json',
-                'division_id' => $catchments[0],
-                'district_id' => $catchments[1],
-            );
-            if(isset($catchments[2])){
-                $header['upazila_id'] = $catchments[2];
-            }
-            if(isset($catchments[3])){
-                $header['city_corporation_id'] = $catchments[3];
-            }
-            if(isset($catchments[4])){
-                $header['union_or_urban_ward_id'] = $catchments[4];
-            }
-
-            return $header;
-
-        }
+    public function pendingReject($url,$payload){
+        return  $this->delete($payload,$url);
     }
 
-    public function pendingApproved($url,$payload,$header){
-        return  $this->update($payload,$url,$header);
-    }
-
-    public function pendingReject($url,$payload,$header){
-        return  $this->delete($payload,$url,$header);
-    }
-
-    public function delete($postData,$url,$header = null){
+    public function delete($postData,$url){
 
         $SystemAPiError = array();
         try {
             $request = $this->client->delete(
-                $url,
-                $header
+                $url
             );
             $request->setBody(json_encode($postData, JSON_UNESCAPED_UNICODE));
             $request->send();
@@ -394,13 +345,12 @@ class Patient
      * @param $url
      * @return array|string
      */
-    protected function update($postData,$url,$header = null)
+    protected function update($postData,$url)
     {
         $SystemAPiError = array();
         try {
             $request = $this->client->put(
-                $url,
-                $header
+                $url
             );
             $request->setBody(json_encode($postData, JSON_UNESCAPED_UNICODE));
             $request->send();
