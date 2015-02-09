@@ -292,7 +292,6 @@ jQuery(document).ready(function () {
 
     $('#mci_bundle_patientBundle_patients_permanent_address_country_code').on('change', function() {
         $value = $(this).val();
-
         $division = $("#mci_bundle_patientBundle_patients_permanent_address_division_id");
         $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id");
         $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id");
