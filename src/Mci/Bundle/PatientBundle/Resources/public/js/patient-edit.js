@@ -95,7 +95,7 @@ function countryCode(){
     $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id").val();
     $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id").val();
 
-    if($permanentCountryCode == '050' && ($division == "" && $district == "" && $upazila == "" && $addressLine =="")){
+    if($permanentCountryCode !="" && $permanentCountryCode == '050' && ($division == "" || $district == "" || $upazila == "" || $addressLine =="")){
         return true;
     }
     if($permanentCountryCode !="" && ($permanentCountryCode != '050' && $addressLine =="")){
