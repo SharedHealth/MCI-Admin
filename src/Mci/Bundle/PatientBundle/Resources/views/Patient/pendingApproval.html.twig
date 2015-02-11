@@ -27,7 +27,7 @@
         <form action="" autocomplete="off">
             <div style="float: left;">
                 <select name="catchment" class="form-control">
-                    <option value="">Please Select Catchments</option>
+                    <option value="">Please Select Catchment</option>
                     {% for catchment in catchments  %}
                         {% set queryString = catchment|join %}
                         <option {{ (queryString == app.request.get('catchment')) ? 'selected=selected' : '' }}  value="{{ queryString }}">

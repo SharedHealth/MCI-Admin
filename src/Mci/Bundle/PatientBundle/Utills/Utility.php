@@ -92,6 +92,12 @@ class Utility {
             unset($postData['post_code']);
         }
 
+        if(isset($postData['country_code']) && $postData['country_code'] !='050'){
+            unset($postData['division_id']);
+            unset($postData['district_id']);
+            unset($postData['upazila_id']);
+        }
+
         return $postData;
     }
 

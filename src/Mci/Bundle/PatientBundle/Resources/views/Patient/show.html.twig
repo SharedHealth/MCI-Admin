@@ -357,36 +357,38 @@
             <div class="panel-heading">
                 Permanent Address
             </div>
+
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Division:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.division_id is defined %}{{ responseBody.permanent_address.division_id|division }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.division_id is defined and responseBody.permanent_address.country_code == '050' %}{{ responseBody.permanent_address.division_id|division }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>District:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.district_id|location(responseBody.permanent_address.division_id) }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.district_id is defined and responseBody.permanent_address.country_code == '050' %}{{ responseBody.permanent_address.district_id|location(responseBody.permanent_address.division_id) }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Upazila:</label>
-                    <p class="form-control-static">{{ responseBody.permanent_address.upazila_id|location(responseBody.permanent_address.division_id~responseBody.permanent_address.district_id) }}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.upazila_id is defined and responseBody.permanent_address.country_code == '050' %}{{ responseBody.permanent_address.upazila_id|location(responseBody.permanent_address.division_id~responseBody.permanent_address.district_id) }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
                     <label>City Corporation:</label>
                     <p class="form-control-static">
-                        {% if responseBody.permanent_address.city_corporation_id is defined %}
+                        {% if responseBody.permanent_address.city_corporation_id is defined and responseBody.permanent_address.country_code == '050'%}
                             {{ responseBody.permanent_address.city_corporation_id|location(responseBody.permanent_address.division_id~responseBody.permanent_address.district_id~responseBody.permanent_address.upazila_id) }}
                         {% endif %}
                     </p>
                 </div>
 
             </div>
+
             <div class="panel-body">
 
                 <div class="col-lg-3">
                     <label>Union Or Urban Ward:</label>
                     <p class="form-control-static">
-                        {% if responseBody.permanent_address.union_or_urban_ward_id is defined %}
+                        {% if responseBody.permanent_address.union_or_urban_ward_id is defined and responseBody.permanent_address.country_code == '050' %}
                             {{ responseBody.permanent_address.union_or_urban_ward_id|location(responseBody.permanent_address.division_id~responseBody.permanent_address.district_id~responseBody.permanent_address.upazila_id~responseBody.permanent_address.city_corporation_id) }}
                         {% endif %}
                     </p>
@@ -395,7 +397,7 @@
                 <div class="col-lg-3">
                     <label>Rural Ward:</label>
                     <p class="form-control-static">
-                        {% if responseBody.permanent_address.rural_ward_id is defined  %}
+                        {% if responseBody.permanent_address.rural_ward_id is defined and responseBody.permanent_address.country_code == '050' %}
                             {{ responseBody.permanent_address.rural_ward_id|location(responseBody.permanent_address.division_id~responseBody.permanent_address.district_id~responseBody.permanent_address.upazila_id~responseBody.permanent_address.city_corporation_id~responseBody.permanent_address.union_or_urban_ward_id) }}
                         {% endif %}
                     </p>
@@ -403,7 +405,7 @@
 
                 <div class="col-lg-3">
                     <label>Area/Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja is defined %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja is defined  %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
