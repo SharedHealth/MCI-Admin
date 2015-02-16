@@ -37,11 +37,6 @@ function validateAgainstBusinessRules(){
             $('.dependencyError').html($error);
             return true;
         }
-        if(dseaseStatus()){
-            $error = "Please put date of death along with deceased status";
-            $('.dependencyError').html($error);
-            return true;
-        }
         if(unionsOfCityCorporation()){
             $error = "Please select Union/Urban Ward";
             $('.dependencyError').html($error);
@@ -69,22 +64,14 @@ function maritalrelation(){
 
 }
 
-function dseaseStatus(){
-    var dsease_status =  $('#mci_bundle_patientBundle_patients_status').val();
-    var deathOfDate =  $('#mci_bundle_patientBundle_patients_date_of_death').val();
-    if(dsease_status !=2 && deathOfDate != "" ){
-        return true;
-    }
-
-}
-
 function unionsOfCityCorporation(){
     $cityCorporation_id = $("#mci_bundle_patientBundle_patients_present_address_city_corporation_id").val();
     $urban_word_id = $("#mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id").val();
 
     $cityCorporation_id_permanent_address = $("#mci_bundle_patientBundle_patients_permanent_address_city_corporation_id").val();
-    $urban_word_id_permanent_address = $("#mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id").val();
+    $urban_word_id_permanent_address = $("#mci_bundle_patientBundle_patients_permanent_address_union_or_urban_ward_id").val();
     $permanentCountryCode = $('#mci_bundle_patientBundle_patients_permanent_address_country_code').val();
+
     if($cityCorporation_id == 99 && $urban_word_id == ""){
         return true;
     }
