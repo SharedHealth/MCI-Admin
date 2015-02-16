@@ -82,7 +82,14 @@ function unionsOfCityCorporation(){
     $cityCorporation_id = $("#mci_bundle_patientBundle_patients_present_address_city_corporation_id").val();
     $urban_word_id = $("#mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id").val();
 
+    $cityCorporation_id_permanent_address = $("#mci_bundle_patientBundle_patients_permanent_address_city_corporation_id").val();
+    $urban_word_id_permanent_address = $("#mci_bundle_patientBundle_patients_present_address_union_or_urban_ward_id").val();
+    $permanentCountryCode = $('#mci_bundle_patientBundle_patients_permanent_address_country_code').val();
     if($cityCorporation_id == 99 && $urban_word_id == ""){
+        return true;
+    }
+
+    if($permanentCountryCode == '050' && $cityCorporation_id_permanent_address == 99 && $urban_word_id_permanent_address == ""){
         return true;
     }
 

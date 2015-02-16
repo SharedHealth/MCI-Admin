@@ -139,8 +139,7 @@ class PatientType extends AbstractType
             ->add('status', 'choice', array(
                     'choices' =>$patientStatus,
                     'attr' => array('class' => 'form-control'),
-                    'empty_value' => '--Please select--',
-                    'required'  => false,
+                    'required'  => true,
                     'label' => 'Patient Status'
                 )
             )

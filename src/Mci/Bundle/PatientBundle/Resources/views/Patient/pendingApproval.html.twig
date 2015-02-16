@@ -24,7 +24,7 @@
 <div style="width: 100%; padding-top: 10px;">
     <h3 style="float: left; width: 30%;">Patient approval list</h3>
     <div style="float: right; width: 70%; margin-top: 20px;margin-bottom: 10px;">
-        <form action="" autocomplete="off">
+        <form action="{{ path('mci_patient_pending_approval') }}" autocomplete="off">
             <div style="float: left;">
                 <select name="catchment" class="form-control">
                     <option value="">Please Select Catchment</option>
@@ -87,19 +87,24 @@
                   </tbody>
 
               </table>
+
               <div class="clear"></div>
               <nav>
                   <ul class="pager">
                       <li>
                           <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': catchments }) }}">
                               Previous</a></li>
-                      <li>
-                          <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': catchments  }) }}">
-                              Next</a></li>
+                      {% if responseBody.additional_info is defined and  responseBody.additional_info is not empty %}
+                          <li>
+                              <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': catchments  }) }}">
+                                  Next
+                              </a>
+                          </li>
+                      {% endif %}
                   </ul>
               </nav>
           {% else %}
-              <div>No Approval Awaiting Patient Found</div>
+              <div>No new patients have updates waiting for approvals for this catchment</div>
           {% endif %}
       {% endif %}
 {% endif %}

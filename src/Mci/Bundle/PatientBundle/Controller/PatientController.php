@@ -224,7 +224,6 @@ class PatientController extends Controller
         $catchment = $request->get('catchment');
         $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals?after=".$after;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
-
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 

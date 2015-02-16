@@ -238,8 +238,19 @@
                        <td>{% if relation.nid is defined %}{{ relation.nid }}{% endif %}</td>
                        <td>{% if relation.bin_brn is defined %}{{ relation.bin_brn }}{% endif %}</td>
                        <td>{% if relation.uid is defined %}{{ relation.uid }}{% endif %}</td>
-                       <td class="spsblock" >{% if relation.relational_status is defined %}{{ relation.relational_status|maritalStatus }}{% endif %}</td>
-                       <td class="spsblock" >{% if relation.marriage_id is defined %}{{ relation.marriage_id }}{% endif %}</td>
+                       <td class="spsblock" >
+                           {% if relation.relational_status is defined and relation.type == 'SPS'  %}
+                               {{ relation.relational_status|maritalStatus }}
+                           {% else %}
+                               N/A
+                           {% endif %}</td>
+                       <td class="spsblock" >
+                           {% if relation.marriage_id is defined and relation.type == 'SPS' %}
+                               {{ relation.marriage_id }}
+                               {% else %}
+                                   N/A
+                           {% endif %}
+                       </td>
                    </tr>
 
             {% endfor %}
