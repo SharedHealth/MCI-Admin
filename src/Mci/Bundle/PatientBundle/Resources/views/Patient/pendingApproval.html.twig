@@ -25,7 +25,10 @@
     <h3 style="float: left; width: 30%;">Patient approval list</h3>
     <div style="float: right; width: 70%; margin-top: 20px;margin-bottom: 10px;">
         <form action="{{ path('mci_patient_pending_approval') }}" autocomplete="off">
-            <div style="float: left;">
+            <div style="float:right;">
+                <input type="submit" class="btn btn-primary" value="Submit">
+            </div>
+            <div style="float: right; margin-right: 10px;">
                 <select name="catchment" class="form-control">
                     <option value="">Please Select Catchment</option>
                     {% for catchment in catchments  %}
@@ -52,10 +55,6 @@
                         </option>
                     {% endfor %}
                 </select>
-            </div>
-
-            <div style="float:left; margin-left: 10px;">
-                <input type="submit" class="btn btn-primary" value="Submit">
             </div>
         </form>
     </div>

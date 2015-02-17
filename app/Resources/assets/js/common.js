@@ -7,7 +7,7 @@ jQuery(document).ready(function () {
             var re = new RegExp(regexp);
             return this.optional(element) || re.test(jQuery.trim(value));
         },
-        "Invalid input pattern"
+        "Please enter data in valid format"
     );
     var divisionSelector = '#mci_bundle_patientBundle_patients_present_address_division_id';
     var districtSelector = '#mci_bundle_patientBundle_patients_present_address_district_id';

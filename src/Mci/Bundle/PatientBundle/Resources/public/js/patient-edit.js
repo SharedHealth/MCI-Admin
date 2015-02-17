@@ -312,8 +312,18 @@ jQuery(document).ready(function () {
             $ruralword.removeAttr('disabled');
         }
     });
+    $('#mci_bundle_patientBundle_patients_status').on('change', function() {
+        if($(this).val() !='2'){
+            $('#mci_bundle_patientBundle_patients_date_of_death').val('');
+            $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled').css("cursor", "default");
+        }else{
+            $('#mci_bundle_patientBundle_patients_date_of_death').removeAttr('disabled','disabled').css("cursor", "pointer");
+        }
+    });
 
-
+    if($('#mci_bundle_patientBundle_patients_status').val() !='2'){
+        $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled');
+    }
 
     var $collectionHolder;
     var $addRelation = $('#addRelation');

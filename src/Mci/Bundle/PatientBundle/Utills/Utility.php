@@ -225,7 +225,7 @@ class Utility {
             $postData['edu_level'] = "";
         }
 
-        if($postData['status'] == '1'){
+        if($postData['status'] != '2'){
             $postData['date_of_death'] = "";
         }
 

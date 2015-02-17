@@ -101,8 +101,8 @@
                 </div>
 
                 <div class="col-lg-3">
-                    <label>Marital Status:</label>
-                    <p class="form-control-static"> {% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
+                    <label>Patient Status:</label>
+                    <p class="form-control-static">{% if responseBody.status is defined %}{{ responseBody.status|livingStatus }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
@@ -114,8 +114,8 @@
 
             <div class="panel-body">
                 <div class="col-lg-3">
-                    <label>Patient Status:</label>
-                    <p class="form-control-static">{% if responseBody.status is defined %}{{ responseBody.status|livingStatus }}{% endif %}</p>
+                    <label>Marital Status:</label>
+                    <p class="form-control-static"> {% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
                 </div>
 
                 <div class="col-lg-3">
@@ -415,13 +415,12 @@
                 </div>
 
                 <div class="col-lg-3">
-                    <label>Area/Mouja:</label>
-                    <p class="form-control-static">{% if responseBody.permanent_address.area_mouja is defined  %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
-                </div>
-
-                <div class="col-lg-3">
                     <label>Post Office:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.post_office is defined %}{{ responseBody.permanent_address.post_office }}{% endif %}</p>
+                </div>
+                <div class="col-lg-3">
+                    <label>Village:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.village is defined %}{{ responseBody.permanent_address.village }}{% endif %}</p>
                 </div>
 
 
@@ -441,22 +440,23 @@
                     <label>Address Line:</label>
                     <p class="form-control-static">{% if responseBody.permanent_address.address_line is defined  %}{{ responseBody.permanent_address.address_line }}{% endif %}</p>
                 </div>
+                <div class="col-lg-3">
+                    <label>Holding Number:</label>
+                    <p class="form-control-static">{% if responseBody.permanent_address.holding_number is defined %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
+                </div>
 
             </div>
            <div class="panel-body">
                <div class="col-lg-3">
-                   <label>Holding Number:</label>
-                   <p class="form-control-static">{% if responseBody.permanent_address.holding_number is defined %}{{ responseBody.permanent_address.holding_number }}{% endif %}</p>
-               </div>
-               <div class="col-lg-3">
-                   <label>Village:</label>
-                   <p class="form-control-static">{% if responseBody.permanent_address.village is defined %}{{ responseBody.permanent_address.village }}{% endif %}</p>
-               </div>
-
-               <div class="col-lg-3">
                    <label>Street:</label>
                    <p class="form-control-static">{% if responseBody.permanent_address.street is defined %}{{ responseBody.permanent_address.street }}{% endif %}</p>
                </div>
+
+               <div class="col-lg-3">
+                   <label>Area/Mouja:</label>
+                   <p class="form-control-static">{% if responseBody.permanent_address.area_mouja is defined  %}{{ responseBody.permanent_address.area_mouja }}{% endif %}</p>
+               </div>
+
            </div>
 
         </div>
