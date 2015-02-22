@@ -90,15 +90,22 @@
               <div class="clear"></div>
               <nav>
                   <ul class="pager">
+                    {% if responseBody.additional_info.previous is defined and  responseBody.additional_info.previous is not empty %}
                       <li>
                           <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': catchments }) }}">
-                              Previous</a></li>
-                      {% if responseBody.additional_info is defined and  responseBody.additional_info is not empty %}
+                              Previous</a>
+                      </li>
+                    {% else %}
+                      <li> <a class="disabled"  href="#">Previous</a></li>
+                    {% endif %}
+                      {% if responseBody.additional_info.next is defined and  responseBody.additional_info.next is not empty %}
                           <li>
                               <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': catchments  }) }}">
                                   Next
                               </a>
                           </li>
+                      {% else %}
+                         <li><a class="disabled"  href="#">Next</a></li>
                       {% endif %}
                   </ul>
               </nav>

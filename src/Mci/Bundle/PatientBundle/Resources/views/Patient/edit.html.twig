@@ -59,7 +59,7 @@
         </ul>
     </div>
 
-{{ form_start(form, {'action': path('mci_patient_update',{'id': hid}), 'method': 'POST','attr': {'id': 'patientEditForm'}}) }}
+{{ form_start(form, {'action': path('mci_patient_update',{'id': hid}), 'method': 'POST','attr': {'id': 'patientEditForm','autocomplete' : 'off'}}) }}
 
     <div class="tab-content">
     <div id="personalInfo" class="tab-pane inputBoxSize fade in active">

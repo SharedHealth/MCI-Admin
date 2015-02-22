@@ -36,3 +36,9 @@ select.error option {
     cursor: pointer;
     background: #FFFFFF;
 }
+
+.disabled {
+    background:#EEEEEE;
+    pointer-events: none;
+    cursor: default;
+}

@@ -322,7 +322,7 @@ jQuery(document).ready(function () {
     });
 
     if($('#mci_bundle_patientBundle_patients_status').val() !='2'){
-        $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled');
+        $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled').css("cursor", "default");
     }
 
     var $collectionHolder;
