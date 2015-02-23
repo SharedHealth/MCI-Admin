@@ -37,7 +37,7 @@ select.error option {
     background: #FFFFFF;
 }
 
-.disabled {
+.pager li a.disabled {
     background:#EEEEEE;
     pointer-events: none;
     cursor: default;
