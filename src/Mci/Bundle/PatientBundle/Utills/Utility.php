@@ -113,8 +113,11 @@ class Utility {
         $SystemAPiError = array();
 
       if(isset($messages)){
-          if(!isset($messages->errors) && isset($messages->http_status) && $messages->http_status != '404') {
+          if(!isset($messages->errors) && isset($messages->http_status) && $messages->http_status == '500') {
               return array('Please check your configuration');
+          }
+          else if(!isset($messages->errors) && isset($messages->http_status) && ( $messages->http_status == '400')) {
+              $SystemAPiError[] = $messages->message;
           }
        }
 
