@@ -270,4 +270,12 @@ class PatientController extends Controller
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
     }
 
+    public function auditLogAction(Request $request, $hid){
+        if($request->isXmlHttpRequest()) {
+            $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
+            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url);
+            return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
+        }
+    }
+
 }

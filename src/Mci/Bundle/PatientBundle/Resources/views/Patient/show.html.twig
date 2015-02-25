@@ -489,4 +489,20 @@
         </div>
     {% endif %}
 {% endif %}
+
+    <h2>Action</h2>
+    <button type="button" id="auditTrailBtn" data-id="h100{#{{ responseBody.hid }}#}" class="btn btn-default">Audit Trails</button>
+    <div style="margin-bottom: 50px;" id="auditTrail"></div>
+
+    <script>
+        $(document).ready(function(){
+            $('#auditTrailBtn').on('click',function(){
+                $hid = $(this).data('id');
+                var $url = "/patients/auditlog/"+$hid;
+                $('#auditTrail').load($url);
+            });
+        });
+
+    </script>
+
 {% endblock %}

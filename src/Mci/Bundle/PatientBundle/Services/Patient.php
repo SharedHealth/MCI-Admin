@@ -137,7 +137,7 @@ class Patient
 
        public  function getPatientById($id){
            $url = $this->endpoint.'/'.$id;
-           return $this->getPatients($url);
+           return $this->getPatientsResponse($url);
     }
 
     /**
@@ -159,13 +159,13 @@ class Patient
 
 
     public function getApprovalPatientsList($url){
-       $response =  $this->getPatients($url);
+       $response =  $this->getPatientsResponse($url);
        $response['catchments'] = $this->getAllCatchment();
        return $response;
     }
 
     public function getApprovalPatientsDetails($url,$twigExtension){
-       $result =  $this->getPatients($url);
+       $result =  $this->getPatientsResponse($url);
         if(!empty($result['responseBody'])){
             $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
         }
@@ -270,7 +270,7 @@ class Patient
 
     }
 
-    public function getPatients($url){
+    public function getPatientsResponse($url){
         $responseBody = array();
         $SystemAPiError = array();
         try{
@@ -370,5 +370,9 @@ class Patient
         }
 
         return $SystemAPiError;
+    }
+
+    public function getPatientAuditLogDetails($url){
+        return $this->getPatientsResponse($url);
     }
 }

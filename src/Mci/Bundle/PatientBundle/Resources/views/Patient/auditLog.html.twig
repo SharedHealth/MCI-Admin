@@ -1,0 +1,14 @@
+{% for result in responseBody %}
+    <h1>{{ result.event_time|date }}</h1>
+    <table class="table table-bordered">
+     {% for change in result.change_set  %}
+        <tr>
+            <td>{{ change.field_name }}</td>
+            <td>{{ change.proposed_by }}</td>
+            <td>{{ change.approved_by }}</td>
+            <td>{{ change.old_value }}</td>
+            <td>{{ change.new_value }}</td>
+        </tr>
+     {% endfor %}
+    </table>
+{% endfor %}
