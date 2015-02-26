@@ -8,7 +8,13 @@
                 {% if responseBody.given_name is defined %}<h4>{{ responseBody.given_name }} {{ responseBody.sur_name }}{% endif %}  has updates for the following fields that are waiting for approval:</h4>
                  <ul>
                     {% for approvalDetail in approvalDetails %}
-                        <li> {{ approvalDetail.field_name|camelize}}</li>
+                        <li>
+                            {% if approvalDetail.field_name == 'sur_name' %}
+                                Surname
+                            {% else %}
+                                {{ approvalDetail.field_name|camelize}}
+                            {% endif %}
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
