@@ -1,14 +1,41 @@
+{% if responseBody is defined and responseBody is not empty %}
 {% for result in responseBody %}
-    <h1>{{ result.event_time|date }}</h1>
+    <h4>{{ result.event_time|date }}</h4>
     <table class="table table-bordered">
-     {% for change in result.change_set  %}
-        <tr>
-            <td>{{ change.field_name }}</td>
-            <td>{{ change.proposed_by }}</td>
-            <td>{{ change.approved_by }}</td>
-            <td>{{ change.old_value }}</td>
-            <td>{{ change.new_value }}</td>
-        </tr>
+
+         <tr>
+             <th>Field</th>
+             <th>Old Value</th>
+             <th>New Value</th>
+         </tr>
+
+     {% for key, change in result.change_set  %}
+      <tr>
+       <td><p>{{ key|camelize }}</p></td>
+       <td>
+              {% if change.old_value is iterable %}
+                  {% for old_value_key,old_value_details in change.old_value  %}
+                      {{ old_value_key|camelize }} : {{ old_value_details }}<br/>
+                  {% endfor %}
+              {% else %}
+                  {{ change.old_value  }}
+              {% endif %}
+       </td>
+       <td>
+         {% if change.new_value is iterable %}
+             {% for new_value_key,new_value_details in change.new_value  %}
+                 {{ new_value_key|camelize }} : {{ new_value_details }}<br/>
+             {% endfor %}
+         {% else %}
+          {{ change.new_value  }}
+         {% endif %}
+       </td>
+
+      </tr>
      {% endfor %}
+
     </table>
 {% endfor %}
+{% else %}
+    <p>No activities</p>
+{% endif %}

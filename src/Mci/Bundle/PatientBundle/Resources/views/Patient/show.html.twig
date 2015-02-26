@@ -497,7 +497,8 @@
     <script>
         $(document).ready(function(){
             $('#auditTrailBtn').on('click',function(){
-                $hid = $(this).data('id');
+                $hid = $(this).data('id')
+                $('#auditTrail').html("Loading ....");
                 var $url = "/patients/auditlog/"+$hid;
                 $('#auditTrail').load($url);
             });
