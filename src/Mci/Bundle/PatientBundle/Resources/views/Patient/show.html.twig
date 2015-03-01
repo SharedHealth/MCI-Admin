@@ -496,9 +496,10 @@
     {% endif %}
 {% endif %}
 
-    <h2>Action</h2>
-    <button type="button" id="auditTrailBtn" data-id="h100{#{{ responseBody.hid }}#}" class="btn btn-default">Audit Trails</button>
-    <div style="margin-bottom: 50px;" id="auditTrail"></div>
+ {% if responseBody is defined and responseBody is not empty %}
+
+    <button type="button" id="auditTrailBtn" data-id="{{ responseBody.hid }}" class="btn btn-default">Audit Trails</button>
+    <div style="margin: 20px 0 50px 0; overflow-y: scroll; max-height: 700px;" id="auditTrail"></div>
 
     <script>
         $(document).ready(function(){
@@ -512,4 +513,5 @@
 
     </script>
 
+ {% endif %}
 {% endblock %}
