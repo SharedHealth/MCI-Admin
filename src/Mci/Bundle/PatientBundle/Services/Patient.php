@@ -372,7 +372,36 @@ class Patient
         return $SystemAPiError;
     }
 
-    public function getPatientAuditLogDetails($url){
-        return $this->getPatientsResponse($url);
+    public function getPatientAuditLogDetails($url,$twigExtension){
+        $response =  $this->getPatientsResponse($url);
+        $responseBody = $this->processAuditLogDetails($response['responseBody'],$twigExtension);
+        return array('responseBody' => $responseBody);
+
+    }
+
+    public function processAuditLogDetails($responseBody,$twigExtension){
+        /** @var $twigExtension  MciExtension */;
+       foreach($responseBody as $key => $val){
+            foreach($val['change_set'] as  $field_name => $fieldDetails){
+               if($field_name == 'gender'){
+                   $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->genderFilter($fieldDetails['new_value']);
+                   $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->genderFilter($fieldDetails['old_value']);
+               }
+                if($field_name == 'religion'){
+                   $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->religionFilter($fieldDetails['new_value']);
+                   $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->religionFilter($fieldDetails['old_value']);
+               }
+                if($field_name == 'occupation'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->occupationFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->occupationFilter($fieldDetails['old_value']);
+                }
+
+                if($field_name == 'edu_level'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->eduLevelFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->eduLevelFilter($fieldDetails['old_value']);
+                }
+            }
+       }
+        return $responseBody;
     }
 }

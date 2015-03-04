@@ -236,7 +236,7 @@ class PatientController extends Controller
 
     public function pendingApprovalDetailsAction($hid, Request $request){
         $catchment = $request->get('catchment');
-      echo   $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid; exit;
+        $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid;
 
         $twigExtension = $this->get('mci.twig.mci_extension');
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$twigExtension);
@@ -272,9 +272,9 @@ class PatientController extends Controller
 
     public function auditLogAction(Request $request, $hid){
             $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
-            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url);
+            $twigExtension = $this->get('mci.twig.mci_extension');
+            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
             return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
-
 
 }
