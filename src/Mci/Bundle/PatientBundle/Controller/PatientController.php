@@ -236,7 +236,7 @@ class PatientController extends Controller
 
     public function pendingApprovalDetailsAction($hid, Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid;
+      echo   $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid; exit;
 
         $twigExtension = $this->get('mci.twig.mci_extension');
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$twigExtension);
@@ -271,41 +271,8 @@ class PatientController extends Controller
     }
 
     public function auditLogAction(Request $request, $hid){
-
             $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
             $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url);
-
-            $changeSet = array(
-                "permanent_address" => array(
-                    "new_value" => array(
-                        "address_line"=>"new address",
-                        "division_id"=>"10",
-                        "district_id"=>"04",
-                        "upazila_id"=>"09",
-                        "city_corporation_id"=>"20",
-                        "union_or_urban_ward_id"=>"01",
-                        "country_code"=>"050"
-                    ),
-                    "old_value" => array()
-                ),
-
-             "sur_name" => array(
-                "new_value" => "something",
-                "old_value" => "Ghosh"
-               )
-
-
-            );
-
-            foreach($responses['responseBody'] as $Topkey => $value ){
-
-               foreach($value as $key=>$val){
-                   if($key == 'change_set'){
-                       $responses['responseBody'][$Topkey]['change_set'] = $changeSet;
-                   }
-               }
-            }
-
             return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
 
