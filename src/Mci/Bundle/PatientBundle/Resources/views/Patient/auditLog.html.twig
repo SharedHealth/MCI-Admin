@@ -15,7 +15,14 @@
 
      {% for key, change in result.change_set  %}
       <tr>
-       <td><p>{{ key|camelize }}</p></td>
+       <td>
+           <p>{% if key == 'sur_name' %}
+                {{ 'Surname' }}
+                 {% else %}
+                     {{ key|camelize }}
+                 {% endif %}
+           </p>
+       </td>
        <td>
               {% if change.old_value is iterable %}
                   {% for old_value_key,old_value_details in change.old_value  %}
