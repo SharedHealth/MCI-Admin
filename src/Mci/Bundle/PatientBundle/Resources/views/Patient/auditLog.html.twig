@@ -1,12 +1,16 @@
 {% if responseBody is defined and responseBody is not empty %}
+    <h4>Created By: {{ createdBy}}</h4>
+    <h4>Created At: {{ createdAt|date}}</h4>
 {% for result in responseBody %}
-    <h4>{{ result.event_time|date }}</h4>
+    <p>{{ result.event_time|date('Y-M-d H:i:s') }}</p>
     <table class="table table-bordered">
 
          <tr>
              <th>Field</th>
              <th>Old Value</th>
              <th>New Value</th>
+             <th>Requeste By</th>
+             <th>Approved By</th>
          </tr>
 
      {% for key, change in result.change_set  %}
@@ -30,6 +34,8 @@
           {{ change.new_value  }}
          {% endif %}
        </td>
+       <td>{{ result.requested_by }}</td>
+       <td>{{ result.approved_by }}</td>
 
       </tr>
      {% endfor %}

@@ -235,6 +235,7 @@ class Patient
 
         if($fieldKey == 'present_address'){
             $val['current_value']['division_id'] = $twigExtension->divisionFilter($val['current_value']['division_id']);
+            $val['current_value']['country_code'] = $twigExtension->countryCodeFilter($val['current_value']['country_code']);
             $val['current_value']['district_id'] = $twigExtension->locationFilter($current_value['district_id'],$current_value['division_id']);
             $val['current_value']['upazila_id'] = $twigExtension->locationFilter($current_value['upazila_id'],$current_value['division_id'].$current_value['district_id']);
 
@@ -261,6 +262,9 @@ class Patient
                 }
                 if(isset($val['field_details'][$key]['value']['rural_ward_id'])){
                     $val['field_details'][$key]['value']['rural_ward_id'] = $twigExtension->locationFilter($field_details[$key]['value']['rural_ward_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id'].$field_details[$key]['value']['upazila_id'].$field_details[$key]['value']['city_corporation_id'].$field_details[$key]['value']['union_or_urban_ward_id']);
+                }
+                if(isset($val['field_details'][$key]['value']['country_code'])){
+                    $val['field_details'][$key]['value']['country_code'] = $twigExtension->countryCodeFilter($val['field_details'][$key]['value']['country_code']);
                 }
 
             }
@@ -374,8 +378,8 @@ class Patient
 
     public function getPatientAuditLogDetails($url,$twigExtension){
         $response =  $this->getPatientsResponse($url);
-        $responseBody = $this->processAuditLogDetails($response['responseBody'],$twigExtension);
-        return array('responseBody' => $responseBody);
+        $responseBody = $this->processAuditLogDetails($response['responseBody']['updates'],$twigExtension);
+        return array('responseBody' => $responseBody,'createdBy'=>$response['responseBody']['created_by'],'createdAt'=>$response['responseBody']['created_at']);
 
     }
 
@@ -399,6 +403,43 @@ class Patient
                 if($field_name == 'edu_level'){
                     $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->eduLevelFilter($fieldDetails['new_value']);
                     $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->eduLevelFilter($fieldDetails['old_value']);
+                }
+
+                if($field_name == 'present_address'){
+                    $responseBody[$key]['change_set'][$field_name]['old_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['old_value']['division_id']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['district_id'],$fieldDetails['old_value']['division_id']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['upazila_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id']);
+
+                    if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['city_corporation_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['city_corporation_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['city_corporation_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id'].$fieldDetails['old_value']['upazila_id']);
+                    }
+                    if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['union_or_urban_ward_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['union_or_urban_ward_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['union_or_urban_ward_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id'].$fieldDetails['old_value']['upazila_id'].$fieldDetails['old_value']['city_corporation_id']);
+                    }
+                    if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['rural_ward_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['rural_ward_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['rural_ward_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id'].$fieldDetails['old_value']['upazila_id'].$fieldDetails['old_value']['city_corporation_id'].$fieldDetails['old_value']['union_or_urban_ward_id']);
+                    }
+
+                    if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['country_code'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['country_code'] = $twigExtension->countryCodeFilter($responseBody[$key]['change_set'][$field_name]['old_value']['country_code']);
+                    }
+                    $responseBody[$key]['change_set'][$field_name]['new_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['new_value']['division_id']);
+                    $responseBody[$key]['change_set'][$field_name]['new_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['district_id'],$fieldDetails['new_value']['division_id']);
+                    $responseBody[$key]['change_set'][$field_name]['new_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['upazila_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id']);
+
+                    if(isset($responseBody[$key]['change_set'][$field_name]['new_value']['city_corporation_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['city_corporation_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['city_corporation_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id'].$fieldDetails['new_value']['upazila_id']);
+                    }
+                    if(isset($responseBody[$key]['change_set'][$field_name]['new_value']['union_or_urban_ward_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['union_or_urban_ward_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['union_or_urban_ward_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id'].$fieldDetails['new_value']['upazila_id'].$fieldDetails['new_value']['city_corporation_id']);
+                    }
+                    if(isset($responseBody[$key]['change_set'][$field_name]['new_value']['rural_ward_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['rural_ward_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['rural_ward_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id'].$fieldDetails['new_value']['upazila_id'].$fieldDetails['new_value']['city_corporation_id'].$fieldDetails['new_value']['union_or_urban_ward_id']);
+                    }
+                    if(isset($responseBody[$key]['change_set'][$field_name]['new_value']['country_code'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['country_code'] = $twigExtension->countryCodeFilter($responseBody[$key]['change_set'][$field_name]['new_value']['country_code']);
+                    }
+
                 }
             }
        }
