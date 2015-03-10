@@ -7,6 +7,8 @@ use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\PatientBundle\Utills\Utility;
+use Mci\Bundle\UserBundle\Security\User;
+use Symfony\Component\Security\Core\SecurityContext;
 
 class Location
 {
@@ -21,8 +23,14 @@ class Location
     {
         $this->client = $client;
         if($securityContext->getToken()){
-            /*$authKey = $securityContext->getToken()->getUser()->getToken();
-            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);*/
+            $user = $securityContext->getToken()->getUser();
+
+            if(!($user instanceof User)) {
+                return;
+            }
+
+            $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
+            $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
     }
 

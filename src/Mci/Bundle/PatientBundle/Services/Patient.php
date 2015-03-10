@@ -32,9 +32,14 @@ class Patient
         $this->client = $client;
         $this->serializer = $serializer;
         $this->securityContext = $securityContext;
-        if($this->securityContext->getToken()){
-           /* $authKey = $this->securityContext->getToken()->getUser()->getToken();
-            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);*/
+        if($securityContext && $this->securityContext->getToken()){
+            $user = $securityContext->getToken()->getUser();
+
+            if(!($user instanceof User)) {
+                return;
+            }
+            $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
+            $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
     }
 
