@@ -50,10 +50,6 @@ class SsoUserAuthenticator implements SimpleFormAuthenticatorInterface
             ->ssoClient
             ->getUserByEmailAndPassword($credential['username'], $credential['password']);
 
-        if($user != null) {
-            $user->setGroups(array('MCI_ADMIN'));
-        }
-
         if( null !== $ex = $this->handleExceptions($user) ) {
             throw $ex;
         }
