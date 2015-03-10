@@ -271,10 +271,10 @@ class PatientController extends Controller
     }
 
     public function auditLogAction(Request $request, $hid){
-            $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
-            $twigExtension = $this->get('mci.twig.mci_extension');
-            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
-            return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
+        $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
+        $twigExtension = $this->get('mci.twig.mci_extension');
+        $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
+        return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
 
 }

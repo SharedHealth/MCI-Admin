@@ -296,15 +296,36 @@ class Patient
 
     public function getAllCatchment(){
         $location = $this->securityContext->getToken()->getUser()->getLocationCode();
-        $location_splits =  str_split($location, 2);
+        $catchments = array($location);
+        $allLocation = array();
+        foreach($catchments as $key => $catchment ){
 
-       return $catchment =  array(
-            array(
-            'division_id' => $location_splits[0],
-            'district_id' => $location_splits[1],
-            'upazila_id' => $location_splits[2]
-            )
-        );
+            $location_splits =  str_split($catchment, 2);
+
+            foreach($location_splits as $geoCodeKey=>$geoCode){
+                if($geoCodeKey == 0){
+                    $allLocation[$key]['division_id'] = $geoCode;
+                }
+                if($geoCodeKey == 1){
+                    $allLocation[$key]['district_id'] = $geoCode;
+                }
+                if($geoCodeKey == 2){
+                    $allLocation[$key]['upazila_id'] = $geoCode;
+                }
+                if($geoCodeKey == 3){
+                    $allLocation[$key]['city_corporation_id'] = $geoCode;
+                }
+                if($geoCodeKey == 4){
+                    $allLocation[$key]['union_or_urban_ward_id'] = $geoCode;
+                }
+                if($geoCodeKey == 5){
+                    $allLocation[$key]['rural_ward_id'] = $geoCode;
+                }
+            }
+        }
+
+       return $allLocation;
+
     }
 
 
