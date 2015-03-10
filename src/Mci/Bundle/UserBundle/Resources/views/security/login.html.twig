@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mci Admin Login</title>
+
+    {% block stylesheets %}
+        <!-- BEGIN GLOBAL STYLES -->
+        {% stylesheets filter='cssrewrite'
+        'assets/css/bootstrap.min.css'
+        'assets/font-awesome/css/font-awesome.css'
+        'assets/css/login.css'
+        %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+        {% endstylesheets %}
+        <!-- END GLOBAL STYLES -->
+    {% endblock stylesheets %}
+
+    <![endif]-->
+</head>
+
+<body class="skin-blue">
+<div class="form-box" id="login-box">
+    <div class="header">
+        Welcome to the Master Client Index
+    </div>
+
+    <form method="post" action="{{ path('login_check') }}" >
+        <div class="body bg-gray">
+            {% if error %}
+                <div class="error-content" role="alert">{{ error.messageKey|trans(error.messageData) }}</div>
+            {% endif %}
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+            <div class="form-group">
+                <label class="control-label" for="email">Email</label>
+                <input type="text" name="_username" id="email" value="{{ last_username }}" class="form-control" placeholder="Email Address" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="password">Password</label>
+                <input type="password" name="_password" id="password" value="" class="form-control" placeholder="Password" />
+            </div>
+            <button type="submit" class="btn bg-olive btn-block">Sign in</button>
+
+        </div>
+    </form>
+
+</div>
+{% block javascripts %}
+
+    <!-- BEGIN GLOBAL JS -->
+    {% javascripts
+    'assets/js/jquery-1.11.0.js'
+    'assets/js/bootstrap.min.js'
+    'assets/js/common.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <!-- END GLOBAL JS -->
+
+{% endblock javascripts %}
+</body>
+</html>

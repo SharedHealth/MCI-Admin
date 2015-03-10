@@ -3,23 +3,34 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
  providers:
         sso:
-          id: sso_provider
+          id: sso_user_provider
 
  firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            pattern: ^/
-            stateless: true
-            simple-preauth:
+        login_firewall:
+            pattern:   ^/login$
+            anonymous: ~
+            security: false
+        default:
+            anonymous: ~
+            http_basic: ~
+            simple_form:
                 authenticator: sso_authenticator
+                login_path: /login
+                check_path: /login_check
+                csrf_provider: form.csrf_provider
+                use_referer: true
+            logout:
+                path:   /logout
+                target: /
 
  role_hierarchy:
-        ROLE_MCI_USER:       ROLE_USER
-        ROLE_ADMIN:       ROLE_MCI_USER
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
+        ROLE_MCI_ADMIN:    ROLE_USER
+        ROLE_MCI_APPROVER:    ROLE_USER
 
  access_control:
-        - { path: ^/*, roles: [ROLE_MCI_USER] }
+        - { path: ^/pendingapproval, roles: [ROLE_MCI_APPROVER] }
+        - { path: ^/*, roles: [ROLE_USER] }
 

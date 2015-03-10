@@ -15,13 +15,14 @@ class Location
      */
     private $client;
 
-    public function __construct(Client $client, $endpoint,$securityContext)
+    private $endpoint = "locations";
+
+    public function __construct(Client $client, $securityContext)
     {
         $this->client = $client;
-        $this->endpoint = $endpoint."/locations";
         if($securityContext->getToken()){
-            $authKey = $securityContext->getToken()->getUser()->getToken();
-            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
+            /*$authKey = $securityContext->getToken()->getUser()->getToken();
+            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);*/
         }
     }
 
@@ -50,10 +51,15 @@ class Location
     }
 
     public function prepairFormData($data){
+        if(!is_array($data)) {
+            return array();
+        }
+
         $newArray = array();
         foreach($data as $val){
             $newArray[$val->code] = ucfirst(strtolower($val->name));
         }
+
         return $newArray;
     }
 }

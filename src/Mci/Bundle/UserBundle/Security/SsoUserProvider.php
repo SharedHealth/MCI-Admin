@@ -1,9 +1,9 @@
 <?php
 
-namespace Mci\Bundle\CoreBundle\Security;
+namespace Mci\Bundle\UserBundle\Security;
 
-use Mci\Bundle\CoreBundle\Security\User;
-use Mci\Bundle\CoreBundle\Service\SsoClient;
+use Mci\Bundle\UserBundle\Security\User;
+use Mci\Bundle\UserBundle\Service\SsoClient;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -37,6 +37,6 @@ class SsoUserProvider implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return 'Mci\Bundle\CoreBundle\Security\User' === $class;
+        return 'Mci\Bundle\UserBundle\Security\User' === $class;
     }
 }

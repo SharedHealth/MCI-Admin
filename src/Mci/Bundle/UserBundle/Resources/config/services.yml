@@ -1,0 +1,28 @@
+services:
+
+    sso_authenticator:
+        class:     Mci\Bundle\UserBundle\Security\SsoUserAuthenticator
+        arguments: [ @sso_client ]
+
+    sso_user_provider:
+        class:     Mci\Bundle\UserBundle\Security\SsoUserProvider
+        arguments: [ @sso_client ]
+
+    sso_http_client:
+        class:     %guzzle.client.class%
+        public: false
+        arguments:
+              - %sso_endpoint%
+        calls:
+          - [ setDefaultOption, [ 'headers/X-Auth-Token', '%app_token%' ] ]
+          - [ setDefaultOption, [ 'headers/client_id', '%client_id%' ] ]
+          - [ setDefaultOption, [ 'headers/content-type', 'application/json' ] ]
+        tags:
+          - { name: guzzle.client }
+
+    sso_client:
+        class:     Mci\Bundle\UserBundle\Service\SsoClient
+        arguments: [ @sso_http_client ]
+        calls:
+          - [ setSerializer, [ @jms_serializer ] ]
+

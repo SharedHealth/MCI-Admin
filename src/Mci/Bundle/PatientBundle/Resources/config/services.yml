@@ -1,19 +1,27 @@
 services:
     mci_patient.client:
-          class: %guzzle.client.class%
-          tags:
-                      -  { name: guzzle.client }
+        class:     %guzzle.client.class%
+        public: false
+        arguments:
+              - %api_endpoint%
+        calls:
+          - [ setDefaultOption, [ 'headers/X-Auth-Token', '%app_token%' ] ]
+          - [ setDefaultOption, [ 'headers/client_id', '%client_id%' ] ]
+          - [ setDefaultOption, [ 'headers/content-type', 'application/json' ] ]
+        tags:
+          - { name: guzzle.client }
+
 
     mci.twig.mci_extension:
         class: Mci\Bundle\PatientBundle\Twig\MciExtension
-        arguments: [ @mci.location, %api_end_point%]
+        arguments: [ @mci.location]
         tags:
             - { name: twig.extension }
 
     mci.location:
         class:        Mci\Bundle\PatientBundle\Services\Location
-        arguments: [@mci_patient.client, %api_end_point%,@security.context]
+        arguments: [@mci_patient.client, @security.context]
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
-        arguments: [@mci_patient.client, @jms_serializer, %api_end_point%,@security.context]
+        arguments: [@mci_patient.client, @jms_serializer, @security.context]

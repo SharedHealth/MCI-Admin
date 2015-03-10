@@ -12,11 +12,9 @@ class MciExtension extends \Twig_Extension
      */
     private $client;
 
-    public function __construct(Location $client, $endpoint)
+    public function __construct(Location $client)
     {
         $this->client = $client;
-        $this->endpoint = $endpoint."/locations";
-
     }
 
     public function getFilters()

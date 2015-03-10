@@ -22,21 +22,19 @@ class Patient
 
     private $serializer;
 
-    private $endpoint;
+    private $endpoint = "patients";
 
     private $securityContext;
 
 
-    public function __construct(Client $client, Serializer $serializer, $endpoint,$securityContext) {
+    public function __construct(Client $client, Serializer $serializer, $securityContext) {
 
         $this->client = $client;
-        $this->endpoint = $endpoint."/patients";
         $this->serializer = $serializer;
         $this->securityContext = $securityContext;
-        $this->client->setDefaultOption('headers/content-type', 'application/json');
         if($this->securityContext->getToken()){
-            $authKey = $this->securityContext->getToken()->getUser()->getToken();
-            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);
+           /* $authKey = $this->securityContext->getToken()->getUser()->getToken();
+            $this->client->setDefaultOption('headers/X-Auth-Token', $authKey);*/
         }
     }
 
@@ -295,9 +293,10 @@ class Patient
     }
 
     public function getAllCatchment(){
-        $location = $this->securityContext->getToken()->getUser()->getLocationCode();
-        $catchments = array($location);
+        $catchments = $this->securityContext->getToken()->getUser()->getCatchments();
+
         $allLocation = array();
+
         foreach($catchments as $key => $catchment ){
 
             $location_splits =  str_split($catchment, 2);

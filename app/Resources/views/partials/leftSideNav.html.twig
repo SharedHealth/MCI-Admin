@@ -49,45 +49,30 @@
             {% endif %}
 
             <ul class="nav" id="side-menu">
+                {% if is_granted('ROLE_MCI_ADMIN') %}
                 <li class="sidebar-search">
-                        <form id="searchHidForm" name="searchHid"  method="get" action="{{ path('mci_patient_searchpage') }}">
-                            <div class="input-group custom-search-form">
-                                <input name="hid" type="text" class="form-control hid" placeholder="HID" value="{% if hid is defined %}{{ hid }}{% endif %}" >
+                    <form id="searchHidForm" name="searchHid" method="get"
+                          action="{{ path('mci_patient_searchpage') }}">
+                        <div class="input-group custom-search-form">
+                            <input name="hid" type="text" class="form-control hid" placeholder="HID"
+                                   value="{% if hid is defined %}{{ hid }}{% endif %}">
                             <span class="input-group-btn">
-                            <button id ="searchHidButton" class="btn btn-default" type="button"><i class="fa fa-search"></i></button>
-
-                        </form>
+                            <button id="searchHidButton" class="btn btn-default" type="submit"><i
+                                        class="fa fa-search"></i></button>
                     </span>
-
-                    </div>
+                        </div>
+                    </form>
                     <!-- /input-group -->
-                  <div id="error-note"></div>
+                    <div id="error-note"></div>
                 </li>
-                <li><a class="{{ dashboardActive }}" href="{{ path('mci_dashboard') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_MCI_ADMIN') %}
                 <li><a class="{{ searchActive }}"  href="{{ path('mci_patient_searchpage') }}"><i class="fa fa-dashboard fa-fw "></i> Search Patient</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_MCI_APPROVER') %}
                 <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_pending_approval') }}"><i class="fa fa-dashboard fa-fw "></i> Patient approval list</a></li>
-                {#<li>
-                    <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Manage Patients<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
+                {% endif %}
 
-                    </ul>
-                </li>#}
-                {#<li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> User Management<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="#"> Manage Users</a></li>
-                        <li><a href="#"> Manage Roles</a></li>
-                        <li><a href="#"> Manage Permissions</a></li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>#}
-                {#<li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Configuration<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li><a href="#"> Audit Logs</a></li>
-                        <li><a href="#"> Settings</a></li>
-                    </ul>
-                </li>#}
             </ul>
         </div>
         <!-- /.sidebar-collapse -->
@@ -97,29 +82,23 @@
 
 <script type="text/javascript">
 
-
-    $("#searchHidButton").click(function(){
-
-        $("#searchHidForm").validate(
-                {
-                    rules: {
-                        hid: {
-                            required: true,
-                            number: true
-                        }
-                    },
-                    messages: {
-                        hid: {
-                            number: "Invalid hid",
-                            required: "Please enter HID"
-                        }
-                    },
-                    errorLabelContainer: "#error-note",
-                    wrapper: "span"
-                }
-        );
-
-        $("#searchHidForm").submit();
-    });
+    $("#searchHidForm").validate(
+            {
+                rules: {
+                    hid: {
+                        required: true,
+                        number: true
+                    }
+                },
+                messages: {
+                    hid: {
+                        number: "Invalid hid",
+                        required: "Please enter HID"
+                    }
+                },
+                errorLabelContainer: "#error-note",
+                wrapper: "span"
+            }
+    );
 
 </script>

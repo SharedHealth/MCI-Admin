@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
+use JMS\SecurityExtraBundle\Annotation\Secure;
 
 
 class PatientController extends Controller
@@ -19,6 +20,9 @@ class PatientController extends Controller
         return $this->render('MciPatientBundle:Patient:index.html.twig');
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function searchAction(Request $request)
     {
         if ($request->get('hid')) {
@@ -85,6 +89,9 @@ class PatientController extends Controller
             ));
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function editAction( $id){
 
         $patient = $this->get('mci.patient')->getPatientById($id);
@@ -112,6 +119,9 @@ class PatientController extends Controller
         return !($var == '' || $var == null);
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function updateAction(Request $request, $id){
 
         $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'), array($this,'filterAcceptZero'));
@@ -163,6 +173,9 @@ class PatientController extends Controller
 
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function removeRelationAction($id){
 
         if($id){
@@ -185,6 +198,9 @@ class PatientController extends Controller
 
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function showAction($id)
     {
         $response = $this->get('mci.patient')->getPatientById($id);
@@ -213,30 +229,33 @@ class PatientController extends Controller
 
         if($catchment){
             $catchmentCode = implode($catchment);
-            $pendingApprovalUrl=  $this->container->getParameter('api_end_point')."/catchments/$catchmentCode/approvals/".$id;
+            $pendingApprovalUrl=  $this->container->getParameter('api_endpoint')."/catchments/$catchmentCode/approvals/".$id;
             $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl,$twigExtension);
         }
         $appovalDetails = !empty($pendingApprovalDetails['responseBody']['results'])?$pendingApprovalDetails['responseBody']['results']:'';
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError,'approvalDetails'=>$appovalDetails));
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_APPROVER")
+     */
     public function pendingApprovalNextAction($after,Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals?after=".$after;
+        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals?after=".$after;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
     public function pendingApprovalPreviousAction($before, Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals?before=".$before;
+        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals?before=".$before;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
     public function pendingApprovalDetailsAction($hid, Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid;
+        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
 
         $twigExtension = $this->get('mci.twig.mci_extension');
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$twigExtension);
@@ -250,7 +269,7 @@ class PatientController extends Controller
         $fieldName = $request->query->get('field_name');
         $payload = array($fieldName => json_decode($value));
         $catchment = $request->get('catchment');
-        $url = $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid;
+        $url = $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
 
         $this->get('mci.patient')->pendingApproved($url,$payload);
         if($request->isXmlHttpRequest()){
@@ -265,16 +284,19 @@ class PatientController extends Controller
         $value = $request->query->get('payload');
         $catchment = $request->get('catchment');
         $payload = array($fieldName => json_decode($value));
-        $url = $this->container->getParameter('api_end_point')."/catchments/$catchment/approvals/".$hid;
+        $url = $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
         $this->get('mci.patient')->pendingReject($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
     }
 
+    /**
+     * @Secure(roles="ROLE_MCI_ADMIN")
+     */
     public function auditLogAction(Request $request, $hid){
-        $url = $this->container->getParameter('api_end_point') . "/audit/patients/" . $hid;
-        $twigExtension = $this->get('mci.twig.mci_extension');
-        $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
-        return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
+            $url = $this->container->getParameter('api_endpoint') . "/audit/patients/" . $hid;
+            $twigExtension = $this->get('mci.twig.mci_extension');
+            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
+            return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
 
 }

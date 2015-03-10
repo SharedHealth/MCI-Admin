@@ -1,3 +1,6 @@
+mci_user:
+    resource: "@MciUserBundle/Resources/config/routing.yml"
+    prefix:   /
 
 mci_dashboard:
     path:     /

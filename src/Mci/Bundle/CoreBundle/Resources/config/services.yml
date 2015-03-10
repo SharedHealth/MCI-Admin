@@ -4,30 +4,3 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
 
 
-    sso_authenticator:
-        class:     Mci\Bundle\CoreBundle\Security\SsoUserAuthenticator
-        arguments: [ @sso_client ]
-
-    shr_identity_server:
-        class:     Mci\Bundle\CoreBundle\Infrastructure\IdentityServer
-        arguments: [ %identity_server_domain%, %identity_server_port%]
-        public: false
-        calls:
-            - [ setContainer, [@service_container] ]
-
-    sso_provider:
-        class:     Mci\Bundle\CoreBundle\Security\SsoUserProvider
-        arguments: [ @sso_client ]
-
-    sso_client:
-        class:     Mci\Bundle\CoreBundle\Service\SsoClient
-        arguments: [ @guzzle.client,@jms_serializer, @shr_identity_server]
-
-    mci.session.listener:
-        class: Mci\Bundle\CoreBundle\Security\SecurityListener
-        arguments: [@shr_identity_server]
-        calls:
-            - [ setRouter, [@router] ]
-            - [ setSecurityContext, [@security.context] ]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }

@@ -1,0 +1,13 @@
+mci_user_login:
+    path:     /login
+    defaults: { _controller: MciUserBundle:Security:login }
+
+
+login_check:
+    path:     /login_check
+    defaults: { _controller: MciUserBundle:Security:loginCheck }
+
+
+mci_logout:
+    path:     /logout
+    defaults: { _controller: MciUserBundle:Security:loginCheck }
