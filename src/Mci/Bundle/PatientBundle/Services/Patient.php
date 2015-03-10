@@ -8,6 +8,7 @@ use JMS\Serializer\Serializer;
 use Guzzle\Http\Exception\CurlException;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 use Mci\Bundle\PatientBundle\Twig\MciExtension;
+use Mci\Bundle\UserBundle\Security\User;
 
 class Patient
 {
