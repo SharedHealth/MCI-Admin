@@ -18,8 +18,12 @@ class AppKernel extends Kernel
             new Mci\Bundle\CoreBundle\MciCoreBundle(),
             new Mci\Bundle\PatientBundle\MciPatientBundle(),
             new Misd\GuzzleBundle\MisdGuzzleBundle(),
-            new JMS\SerializerBundle\JMSSerializerBundle(),
             new Mci\Bundle\UserBundle\MciUserBundle(),
+
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new JMS\AopBundle\JMSAopBundle(),
+            new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this)
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
