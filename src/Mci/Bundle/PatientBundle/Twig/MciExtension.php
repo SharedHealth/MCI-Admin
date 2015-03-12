@@ -78,11 +78,13 @@ class MciExtension extends \Twig_Extension
 
     public function locationFilter($number,$locationCode)
     {
-        $data = $this->client->prepairFormData($this->client->getLocation($locationCode));
+        $cache = array();
+        if(empty($cache[$locationCode])){
+            $cache[$locationCode] = $this->client->getLocation($locationCode);
+        }
+        $data = $this->client->prepairFormData($cache[$locationCode]);
         return isset($data[$number])?$data[$number]:'';
     }
-
-
 
     public function countryCodeFilter($number)
         {
@@ -113,8 +115,12 @@ class MciExtension extends \Twig_Extension
     }
     private function getJsonData($fileName)
     {
+        $cache = array();
         $filePath =  'assets/json/'.$fileName;
-        return  json_decode(file_get_contents($filePath), true);
+        if(empty($cache[$fileName])){
+            return $cache[$fileName] =json_decode(file_get_contents($filePath), true);
+        }
+        return $cache[$fileName];
     }
 
     public function camelizeFilter($value)

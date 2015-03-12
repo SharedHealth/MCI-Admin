@@ -27,8 +27,12 @@ class Patient
 
     private $securityContext;
 
+    private $twigExtension;
 
-    public function __construct(Client $client, Serializer $serializer, $securityContext) {
+    private $catchmentUrl="catchments/";
+
+
+    public function __construct(Client $client, Serializer $serializer, $securityContext, $twigExtension) {
 
         $this->client = $client;
         $this->serializer = $serializer;
@@ -42,6 +46,7 @@ class Patient
             $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
             $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
+        $this->twigExtension = $twigExtension;
     }
 
     public function findPatientByRequestQueryParameter($query)
@@ -140,7 +145,7 @@ class Patient
 
 
        public  function getPatientById($id){
-           $url = $this->endpoint.'/'.$id;
+             $url = $this->endpoint.'/'.$id;
            return $this->getPatientsResponse($url);
     }
 
@@ -163,47 +168,50 @@ class Patient
 
 
     public function getApprovalPatientsList($url){
+        $url = $url = $this->catchmentUrl.$url;
        $response =  $this->getPatientsResponse($url);
        $response['catchments'] = $this->getAllCatchment();
        return $response;
     }
 
-    public function getApprovalPatientsDetails($url,$twigExtension){
-       $result =  $this->getPatientsResponse($url);
+    public function getApprovalPatientsDetails($url){
+        $url = $this->catchmentUrl.$url;
+        $result =  $this->getPatientsResponse($url);
         if(!empty($result['responseBody'])){
-            $result['responseBody'] = $this->mappingPatientDetails($result['responseBody'],$twigExtension);
+            $result['responseBody'] = $this->mappingPatientDetails($result['responseBody']);
         }
         return $result;
     }
 
-    public function mappingPatientDetails($resultBody,$twigExtension){
+    public function mappingPatientDetails($resultBody){
 
         foreach($resultBody['results'] as $key => $val){
 
             switch($val['field_name']){
                 case 'gender':
-                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'gender',$twigExtension);
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'gender');
                 break;
                 case 'status':
-                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'status',$twigExtension);
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'status');
                     break;
                 case 'occupation':
-                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'occupation',$twigExtension);
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'occupation');
                     break;
                 case 'present_address':
-                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address',$twigExtension);
+                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address');
                 break;
 
                 case 'permanent_address':
-                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'permanent_address',$twigExtension);
+                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'permanent_address');
                     break;
             }
         }
         return $resultBody;
     }
 
-    private function mappingSingleField($val,$fieldKey,$twigExtension){
+    private function mappingSingleField($val,$fieldKey){
         /** @var $twigExtension  MciExtension */
+        $twigExtension = $this->twigExtension;
         if($fieldKey == 'gender'){
             $val['current_value'] = $twigExtension->genderFilter($val['current_value']);
             $field_details = $val['field_details'];
@@ -235,9 +243,9 @@ class Patient
         }
     }
 
-    private function mappingBlocksField($val,$fieldKey,$twigExtension){
+    private function mappingBlocksField($val,$fieldKey){
         /** @var $twigExtension  MciExtension */;
-
+        $twigExtension = $this->twigExtension;
         $current_value = $val['current_value'];
         $field_details = $val['field_details'];
 
@@ -347,10 +355,12 @@ class Patient
 
 
     public function pendingApproved($url,$payload){
+        $url = $this->catchmentUrl.$url;
         return  $this->update($payload,$url);
     }
 
     public function pendingReject($url,$payload){
+        $url = $this->catchmentUrl.$url;
         return  $this->delete($payload,$url);
     }
 
@@ -414,15 +424,17 @@ class Patient
         return $SystemAPiError;
     }
 
-    public function getPatientAuditLogDetails($url,$twigExtension){
+    public function getPatientAuditLogDetails($hid){
+        $url = "audit/patients/" . $hid;
         $response =  $this->getPatientsResponse($url);
-        $responseBody = $this->processAuditLogDetails($response['responseBody']['updates'],$twigExtension);
+        $responseBody = $this->processAuditLogDetails($response['responseBody']['updates']);
         return array('responseBody' => $responseBody,'createdBy'=>$response['responseBody']['created_by'],'createdAt'=>$response['responseBody']['created_at']);
 
     }
 
-    public function processAuditLogDetails($responseBody,$twigExtension){
+    public function processAuditLogDetails($responseBody){
         /** @var $twigExtension  MciExtension */;
+        $twigExtension = $this->twigExtension;
        foreach($responseBody as $key => $val){
             foreach($val['change_set'] as  $field_name => $fieldDetails){
                if($field_name == 'gender'){
