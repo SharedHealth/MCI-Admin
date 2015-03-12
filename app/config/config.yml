@@ -51,3 +51,12 @@ swiftmailer:
     username:  null
     password:  null
     spool:     { type: memory }
+
+doctrine_cache:
+
+    providers:
+        mci_apc_cache:
+            type: apc
+            namespace: mci_apc_cache
+            aliases:
+                - apc_cache

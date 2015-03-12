@@ -23,7 +23,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
-            new JMS\DiExtraBundle\JMSDiExtraBundle($this)
+            new JMS\DiExtraBundle\JMSDiExtraBundle($this),
+            new Doctrine\Bundle\DoctrineCacheBundle\DoctrineCacheBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
