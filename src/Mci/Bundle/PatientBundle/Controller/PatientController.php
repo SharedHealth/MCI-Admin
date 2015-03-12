@@ -230,12 +230,11 @@ class PatientController extends Controller
         if(isset($responseBody['present_address']['rural_ward_id'])){
             $catchment['rural_ward_id'] = $responseBody['present_address']['rural_ward_id'];
         }
-        $twigExtension = $this->get('mci.twig.mci_extension');
 
         if($catchment){
             $catchmentCode = implode($catchment);
-            $pendingApprovalUrl=  $this->container->getParameter('api_endpoint')."/catchments/$catchmentCode/approvals/".$id;
-            $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl,$twigExtension);
+            $pendingApprovalUrl=  "$catchmentCode/approvals/".$id;
+            $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl);
         }
         $appovalDetails = !empty($pendingApprovalDetails['responseBody']['results'])?$pendingApprovalDetails['responseBody']['results']:'';
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError,'approvalDetails'=>$appovalDetails));
@@ -246,24 +245,22 @@ class PatientController extends Controller
      */
     public function pendingApprovalNextAction($after,Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals?after=".$after;
+        $url = "$catchment/approvals?after=".$after;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
     public function pendingApprovalPreviousAction($before, Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals?before=".$before;
+        $url =  "$catchment/approvals?before=".$before;
         $response = $this->get('mci.patient')->getApprovalPatientsList($url);
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
     public function pendingApprovalDetailsAction($hid, Request $request){
         $catchment = $request->get('catchment');
-        $url =  $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
-
-        $twigExtension = $this->get('mci.twig.mci_extension');
-        $response = $this->get('mci.patient')->getApprovalPatientsDetails($url,$twigExtension);
+        $url =  "$catchment/approvals/".$hid;
+        $response = $this->get('mci.patient')->getApprovalPatientsDetails($url);
         $patient = $this->get('mci.patient')->getPatientById($hid);
         $response['patient'] = $patient;
         return $this->render('MciPatientBundle:Patient:pendingApprovalDetails.html.twig', $response);
@@ -274,8 +271,7 @@ class PatientController extends Controller
         $fieldName = $request->query->get('field_name');
         $payload = array($fieldName => json_decode($value));
         $catchment = $request->get('catchment');
-        $url = $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
-
+        $url = "$catchment/approvals/".$hid;
         $this->get('mci.patient')->pendingApproved($url,$payload);
         if($request->isXmlHttpRequest()){
             return new Response("ok");
@@ -289,7 +285,7 @@ class PatientController extends Controller
         $value = $request->query->get('payload');
         $catchment = $request->get('catchment');
         $payload = array($fieldName => json_decode($value));
-        $url = $this->container->getParameter('api_endpoint')."/catchments/$catchment/approvals/".$hid;
+        $url = "$catchment/approvals/".$hid;
         $this->get('mci.patient')->pendingReject($url,$payload);
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
     }
@@ -298,9 +294,7 @@ class PatientController extends Controller
      * @Secure(roles="ROLE_MCI_ADMIN")
      */
     public function auditLogAction(Request $request, $hid){
-            $url = $this->container->getParameter('api_endpoint') . "/audit/patients/" . $hid;
-            $twigExtension = $this->get('mci.twig.mci_extension');
-            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($url,$twigExtension);
+            $responses = $this->get('mci.patient')->getPatientAuditLogDetails($hid);
             return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
 

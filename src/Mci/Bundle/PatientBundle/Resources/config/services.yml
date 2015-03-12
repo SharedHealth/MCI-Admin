@@ -23,4 +23,4 @@ services:
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
-        arguments: [@mci_patient.client, @jms_serializer, @security.context]
+        arguments: [@mci_patient.client, @jms_serializer, @security.context, @mci.twig.mci_extension]
