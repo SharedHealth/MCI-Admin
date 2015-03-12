@@ -17,7 +17,7 @@ if [ ! -f "composer.phar" ]; then
 fi
 
 #Download dependencies
-php composer.phar install --no-dev -o -n --no-scripts
+php SYMFONY_ENV=prod composer.phar install --no-dev -o -n --no-scripts
 
 mkdir -p build
 
