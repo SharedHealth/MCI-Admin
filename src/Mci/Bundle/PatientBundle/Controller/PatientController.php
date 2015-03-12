@@ -134,7 +134,12 @@ class PatientController extends Controller
             $presentAddress = Utility::filterAddress($postData['present_address']);
             $postData['present_address'] = $presentAddress;
         }
-        if($postData['permanent_address']['country_code'] == '050' && !empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazila_id'])){
+
+        if($postData['permanent_address']['country_code']== ""){
+            $postData['permanent_address']['country_code'] = '050';
+        }
+
+        if(($postData['permanent_address']['country_code'] == '050') && !empty($postData['permanent_address']['division_id']) && !empty($postData['permanent_address']['address_line']) && !empty($postData['permanent_address']['district_id']) && !empty($postData['permanent_address']['upazila_id'])){
             $permanentAddress = Utility::filterAddress($postData['permanent_address']);
             $postData['permanent_address'] = $permanentAddress;
         }elseif($postData['permanent_address']['country_code']!="" && $postData['permanent_address']['country_code'] != '050' && !empty($postData['permanent_address']['address_line']) ){

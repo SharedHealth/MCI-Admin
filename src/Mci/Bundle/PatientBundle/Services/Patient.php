@@ -193,6 +193,10 @@ class Patient
                 case 'present_address':
                     $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address',$twigExtension);
                 break;
+
+                case 'permanent_address':
+                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'permanent_address',$twigExtension);
+                    break;
             }
         }
         return $resultBody;
@@ -237,9 +241,11 @@ class Patient
         $current_value = $val['current_value'];
         $field_details = $val['field_details'];
 
-        if($fieldKey == 'present_address'){
+        if($fieldKey == 'present_address' || $fieldKey == 'permanent_address'){
             $val['current_value']['division_id'] = $twigExtension->divisionFilter($val['current_value']['division_id']);
-            $val['current_value']['country_code'] = $twigExtension->countryCodeFilter($val['current_value']['country_code']);
+            if(isset($val['current_value']['country_code'])){
+                $val['current_value']['country_code'] = $twigExtension->countryCodeFilter($val['current_value']['country_code']);
+            }
             $val['current_value']['district_id'] = $twigExtension->locationFilter($current_value['district_id'],$current_value['division_id']);
             $val['current_value']['upazila_id'] = $twigExtension->locationFilter($current_value['upazila_id'],$current_value['division_id'].$current_value['district_id']);
 
@@ -254,9 +260,15 @@ class Patient
             }
 
             foreach($val['field_details'] as $key => $changeValue){
-                $val['field_details'][$key]['value']['division_id'] = $twigExtension->divisionFilter($field_details[$key]['value']['division_id']);
-                $val['field_details'][$key]['value']['district_id'] = $twigExtension->locationFilter($field_details[$key]['value']['district_id'],$field_details[$key]['value']['division_id']);
-                $val['field_details'][$key]['value']['upazila_id'] = $twigExtension->locationFilter($field_details[$key]['value']['upazila_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id']);
+                if(isset($val['field_details'][$key]['value']['division_id'])){
+                    $val['field_details'][$key]['value']['division_id'] = $twigExtension->divisionFilter($field_details[$key]['value']['division_id']);
+                }
+                if(isset($val['field_details'][$key]['value']['district_id'])){
+                    $val['field_details'][$key]['value']['district_id'] = $twigExtension->locationFilter($field_details[$key]['value']['district_id'],$field_details[$key]['value']['division_id']);
+                }
+                if(isset($val['field_details'][$key]['value']['upazila_id'])){
+                    $val['field_details'][$key]['value']['upazila_id'] = $twigExtension->locationFilter($field_details[$key]['value']['upazila_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id']);
+                }
 
                 if(isset($val['field_details'][$key]['value']['city_corporation_id'])){
                     $val['field_details'][$key]['value']['city_corporation_id'] = $twigExtension->locationFilter($field_details[$key]['value']['city_corporation_id'],$field_details[$key]['value']['division_id'].$field_details[$key]['value']['district_id'].$field_details[$key]['value']['upazila_id']);
@@ -431,10 +443,16 @@ class Patient
                     $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->eduLevelFilter($fieldDetails['old_value']);
                 }
 
-                if($field_name == 'present_address'){
-                    $responseBody[$key]['change_set'][$field_name]['old_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['old_value']['division_id']);
-                    $responseBody[$key]['change_set'][$field_name]['old_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['district_id'],$fieldDetails['old_value']['division_id']);
-                    $responseBody[$key]['change_set'][$field_name]['old_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['upazila_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id']);
+                if($field_name == 'present_address' || $field_name == 'permanent_address' ){
+                    if(isset($fieldDetails['old_value']['division_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['old_value']['division_id']);
+                    }
+                    if(isset($fieldDetails['old_value']['district_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['district_id'],$fieldDetails['old_value']['division_id']);
+                    }
+                    if(isset($fieldDetails['old_value']['upazila_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['upazila_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id']);
+                    }
 
                     if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['city_corporation_id'])){
                         $responseBody[$key]['change_set'][$field_name]['old_value']['city_corporation_id'] = $twigExtension->locationFilter($fieldDetails['old_value']['city_corporation_id'],$fieldDetails['old_value']['division_id'].$fieldDetails['old_value']['district_id'].$fieldDetails['old_value']['upazila_id']);
@@ -449,9 +467,15 @@ class Patient
                     if(isset($responseBody[$key]['change_set'][$field_name]['old_value']['country_code'])){
                         $responseBody[$key]['change_set'][$field_name]['old_value']['country_code'] = $twigExtension->countryCodeFilter($responseBody[$key]['change_set'][$field_name]['old_value']['country_code']);
                     }
-                    $responseBody[$key]['change_set'][$field_name]['new_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['new_value']['division_id']);
-                    $responseBody[$key]['change_set'][$field_name]['new_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['district_id'],$fieldDetails['new_value']['division_id']);
-                    $responseBody[$key]['change_set'][$field_name]['new_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['upazila_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id']);
+                    if(isset($fieldDetails['new_value']['division_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['division_id'] = $twigExtension->divisionFilter($fieldDetails['new_value']['division_id']);
+                    }
+                    if(isset($fieldDetails['new_value']['district_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['district_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['district_id'],$fieldDetails['new_value']['division_id']);
+                    }
+                    if(isset($fieldDetails['new_value']['upazila_id'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['upazila_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['upazila_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id']);
+                    }
 
                     if(isset($responseBody[$key]['change_set'][$field_name]['new_value']['city_corporation_id'])){
                         $responseBody[$key]['change_set'][$field_name]['new_value']['city_corporation_id'] = $twigExtension->locationFilter($fieldDetails['new_value']['city_corporation_id'],$fieldDetails['new_value']['division_id'].$fieldDetails['new_value']['district_id'].$fieldDetails['new_value']['upazila_id']);
