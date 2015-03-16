@@ -5,7 +5,6 @@ services:
         arguments:
               - %api_endpoint%
         calls:
-          - [ setDefaultOption, [ 'headers/client_id', '%client_id%' ] ]
           - [ setDefaultOption, [ 'headers/content-type', 'application/json' ] ]
         tags:
           - { name: guzzle.client }

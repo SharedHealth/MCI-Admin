@@ -38,10 +38,11 @@ class Patient
         $this->serializer = $serializer;
         $this->securityContext = $securityContext;
 
-        $user = $this->getUser($securityContext);
+        $user = $this->getUser();
 
         if (null !== $user) {
             $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
+            $this->client->setDefaultOption('headers/client_id', $user->getId());
             $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
 
@@ -325,7 +326,7 @@ class Patient
     }
 
     public function getAllCatchment(){
-        $catchments = $this->securityContext->getToken()->getUser()->getCatchments();
+        $catchments = $this->getUser()->getCatchments();
 
         $allLocation = array();
 
@@ -515,17 +516,16 @@ class Patient
     }
 
     /**
-     * @param $securityContext
      * @return null|User
      */
-    private function getUser($securityContext)
+    private function getUser()
     {
-        if ($securityContext && $this->securityContext->getToken()) {
-            $user = $securityContext->getToken()->getUser();
-        }
+        if ($this->securityContext && $this->securityContext->getToken()) {
+            $user = $this->securityContext->getToken()->getUser();
 
-        if ($user instanceof User) {
-             return $user;
+            if ($user instanceof User) {
+                return $user;
+            }
         }
     }
 }

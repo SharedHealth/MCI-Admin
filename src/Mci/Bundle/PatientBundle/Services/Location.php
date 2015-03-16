@@ -22,14 +22,11 @@ class Location
     public function __construct(Client $client, $securityContext)
     {
         $this->client = $client;
-        if($securityContext->getToken()){
-            $user = $securityContext->getToken()->getUser();
+        $user = $this->getUser($securityContext);
 
-            if(!($user instanceof User)) {
-                return;
-            }
-
+        if (null !== $user) {
             $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
+            $this->client->setDefaultOption('headers/client_id', $user->getId());
             $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
     }
@@ -69,6 +66,20 @@ class Location
         }
 
         return $newArray;
+    }
+
+    /**
+     * @return null|User
+     */
+    private function getUser($securityContext)
+    {
+        if ($securityContext && $securityContext->getToken()) {
+            $user = $securityContext->getToken()->getUser();
+
+            if ($user instanceof User) {
+                return $user;
+            }
+        }
     }
 }
 
