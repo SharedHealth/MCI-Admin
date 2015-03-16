@@ -37,15 +37,14 @@ class Patient
         $this->client = $client;
         $this->serializer = $serializer;
         $this->securityContext = $securityContext;
-        if($securityContext && $this->securityContext->getToken()){
-            $user = $securityContext->getToken()->getUser();
 
-            if(!($user instanceof User)) {
-                return;
-            }
+        $user = $this->getUser($securityContext);
+
+        if (null !== $user) {
             $this->client->setDefaultOption('headers/X-Auth-Token', $user->getToken());
             $this->client->setDefaultOption('headers/From', $user->getEmail());
         }
+
         $this->twigExtension = $twigExtension;
     }
 
@@ -166,6 +165,13 @@ class Patient
 
     }
 
+    public function getApprovalListByCatchment($catchment, $param) {
+        if(empty($catchment)) {
+            return array();
+        }
+
+        return $this->getPatientsResponse($this->catchmentUrl . "$catchment/approvals", $param);
+    }
 
     public function getApprovalPatientsList($url){
         $url = $url = $this->catchmentUrl.$url;
@@ -298,15 +304,15 @@ class Patient
 
     }
 
-    public function getPatientsResponse($url){
+    public function getPatientsResponse($url, $parameter = array()){
         $responseBody = array();
         $SystemAPiError = array();
-        try{
-            $request = $this->client->get($url);
+        try {
+            $request = $this->client->get($url, null, array('query' => $parameter));
             $response = $request->send();
             $responseBody = json_decode($response->getBody(), true);
 
-        }catch (CurlException $e) {
+        } catch (CurlException $e) {
             $SystemAPiError[] = 'Service Unavailable';
         } catch (BadResponseException $e) {
             $messages = json_decode($e->getResponse()->getBody());
@@ -506,5 +512,20 @@ class Patient
             }
        }
         return $responseBody;
+    }
+
+    /**
+     * @param $securityContext
+     * @return null|User
+     */
+    private function getUser($securityContext)
+    {
+        if ($securityContext && $this->securityContext->getToken()) {
+            $user = $securityContext->getToken()->getUser();
+        }
+
+        if ($user instanceof User) {
+             return $user;
+        }
     }
 }

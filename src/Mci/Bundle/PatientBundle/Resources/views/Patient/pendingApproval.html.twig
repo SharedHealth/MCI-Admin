@@ -92,7 +92,7 @@
                   <ul class="pager">
                     {% if responseBody.additional_info.previous is defined and  responseBody.additional_info.previous is not empty %}
                       <li>
-                          <a href="{{ path('mci_patient_pending_approval_previous', {'before':responseBody.results.0.last_updated,'catchment': catchments }) }}">
+                          <a href="{{ path('mci_patient_pending_approval', {'marker':responseBody.results.0.last_updated,'catchment': catchments, 'dir' : 'before' }) }}">
                               Previous</a>
                       </li>
                     {% else %}
@@ -100,7 +100,7 @@
                     {% endif %}
                       {% if responseBody.additional_info.next is defined and  responseBody.additional_info.next is not empty %}
                           <li>
-                              <a href="{{ path('mci_patient_pending_approval_next', {'after':responseBody.results|last.last_updated,'catchment': catchments  }) }}">
+                              <a href="{{ path('mci_patient_pending_approval', {'marker':responseBody.results|last.last_updated,'catchment': catchment, 'dir' : 'after'  }) }}">
                                   Next
                               </a>
                           </li>

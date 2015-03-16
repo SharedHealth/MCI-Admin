@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 
 class PatientController extends Controller
@@ -243,22 +244,27 @@ class PatientController extends Controller
     /**
      * @Secure(roles="ROLE_MCI_APPROVER")
      */
-    public function pendingApprovalNextAction($after,Request $request){
+    public function pendingApprovalAction($dir, $marker, Request $request)
+    {
         $catchment = $request->get('catchment');
-        $url = "$catchment/approvals?after=".$after;
-        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
-        return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
-    }
 
-    public function pendingApprovalPreviousAction($before, Request $request){
-        $catchment = $request->get('catchment');
-        $url =  "$catchment/approvals?before=".$before;
-        $response = $this->get('mci.patient')->getApprovalPatientsList($url);
+        if(!empty($catchment)) {
+            $this->handleCatchmentRestriction($catchment);
+        }
+
+        $patientModel = $this->get('mci.patient');
+        $response = $patientModel->getApprovalListByCatchment($catchment, array($dir => $marker));
+        $response['catchments'] = $patientModel->getAllCatchment();
+        $response['catchment'] = $catchment;
+
         return $this->render('MciPatientBundle:Patient:pendingApproval.html.twig', $response);
     }
 
     public function pendingApprovalDetailsAction($hid, Request $request){
         $catchment = $request->get('catchment');
+
+        $this->handleCatchmentRestriction($catchment);
+
         $url =  "$catchment/approvals/".$hid;
         $response = $this->get('mci.patient')->getApprovalPatientsDetails($url);
         $patient = $this->get('mci.patient')->getPatientById($hid);
@@ -267,10 +273,13 @@ class PatientController extends Controller
     }
 
     public function pendingApprovalAcceptAction(Request $request, $hid){
+        $catchment = $request->get('catchment');
+
+        $this->handleCatchmentRestriction($catchment);
+
         $value = $request->query->get('payload');
         $fieldName = $request->query->get('field_name');
         $payload = array($fieldName => json_decode($value));
-        $catchment = $request->get('catchment');
         $url = "$catchment/approvals/".$hid;
         $this->get('mci.patient')->pendingApproved($url,$payload);
         if($request->isXmlHttpRequest()){
@@ -281,9 +290,12 @@ class PatientController extends Controller
     }
 
     public function pendingApprovalRejectAction(Request $request, $hid){
+        $catchment = $request->get('catchment');
+
+        $this->handleCatchmentRestriction($catchment);
+
         $fieldName = $request->query->get('field_name');
         $value = $request->query->get('payload');
-        $catchment = $request->get('catchment');
         $payload = array($fieldName => json_decode($value));
         $url = "$catchment/approvals/".$hid;
         $this->get('mci.patient')->pendingReject($url,$payload);
@@ -298,4 +310,18 @@ class PatientController extends Controller
             return $this->render('MciPatientBundle:Patient:auditLog.html.twig', $responses);
         }
 
+    private function noAccessToCatchment($catchment)
+    {
+        return false === in_array($catchment, $this->getUser()->getCatchments());
+    }
+
+    /**
+     * @param $catchment
+     */
+    private function handleCatchmentRestriction($catchment)
+    {
+        if ($this->noAccessToCatchment($catchment)) {
+            throw new PreconditionFailedHttpException('Insufficient access privilege');
+        }
+    }
 }

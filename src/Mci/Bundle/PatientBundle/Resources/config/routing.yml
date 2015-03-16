@@ -26,16 +26,10 @@ mci_patient_relation_remove:
     methods:   [POST]
 
 mci_patient_pending_approval:
-    path:     /pendingapproval
-    defaults: { _controller: MciPatientBundle:Patient:pendingApprovalNext,  after: null }
-
-mci_patient_pending_approval_next:
-    path:     /pendingapprovalnext/{after}
-    defaults: { _controller: MciPatientBundle:Patient:pendingApprovalNext,  after: null }
-
-mci_patient_pending_approval_previous:
-    path:     /pendingapprovalprevious/{before}
-    defaults: { _controller: MciPatientBundle:Patient:pendingApprovalPrevious,  before: null }
+    path:     /pendingapproval/{dir}/{marker}
+    defaults: { _controller: MciPatientBundle:Patient:pendingApproval,  marker: null, dir : next }
+    requirements:
+        dir:  after|before
 
 mci_patient_approval_details:
     path:     /pendingapproval/details/{hid}

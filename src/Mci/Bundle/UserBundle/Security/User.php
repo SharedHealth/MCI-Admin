@@ -136,14 +136,6 @@ class User implements UserInterface, EquatableInterface
         return null;
     }
 
-    /**
-     * @param mixed $catchments
-     */
-    public function setCatchments($catchments)
-    {
-        $this->catchments = $catchments;
-    }
-
     public function getToken()
     {
         return $this->token;
