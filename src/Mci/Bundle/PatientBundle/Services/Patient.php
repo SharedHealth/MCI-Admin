@@ -506,6 +506,10 @@ class Patient
         /** @var $twigExtension  MciExtension */;
         $twigExtension = $this->twigExtension;
        foreach($responseBody as $key => $val){
+            foreach($val['requested_by'] as $field => $fieldArray){
+                 $responseBody[$key]['requested_by'][$field] = array_unique($fieldArray);
+            }
+
             foreach($val['change_set'] as  $field_name => $fieldDetails){
                if($field_name == 'gender'){
                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->genderFilter($fieldDetails['new_value']);

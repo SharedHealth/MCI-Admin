@@ -130,6 +130,9 @@ class MciExtension extends \Twig_Extension
         }
 
         $chunks    = explode('_', $value);
+        if(isset($chunks['1']) && ($chunks['1'] == 'id' || $chunks['1'] == 'code')){
+            return ucfirst($chunks['0']);
+        }
         $ucfirsted = array_map(function($s) { return ucfirst($s); }, $chunks);
 
         return implode(' ', $ucfirsted);
