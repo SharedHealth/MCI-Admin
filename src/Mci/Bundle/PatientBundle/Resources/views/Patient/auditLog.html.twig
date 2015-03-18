@@ -42,8 +42,8 @@
          {% endif %}
        </td>
        <td>
-           {% for fieldName,requestedBy in result.requested_by %}
-                {{ fieldName }}<br>
+
+           {% for requestedBy in result.requested_by %}
                 {{ requestedBy|join('-') }}
            {% endfor %}
        </td>

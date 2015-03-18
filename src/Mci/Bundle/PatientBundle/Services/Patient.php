@@ -204,6 +204,21 @@ class Patient
                 case 'occupation':
                     $resultBody['results'] [$key] = $this->mappingSingleField($val,'occupation');
                     break;
+                case 'blood_group':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'blood_group');
+                    break;
+                case 'disability':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'disability');
+                    break;
+                case 'edu_level':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'edu_level');
+                    break;
+                case 'marital_status':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'marital_status');
+                    break;
+                case 'religion':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'religion');
+                    break;
                 case 'present_address':
                     $resultBody['results'] [$key] = $this->mappingBlocksField($val,'present_address');
                 break;
@@ -244,6 +259,54 @@ class Patient
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->occupationFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+
+        if($fieldKey == 'blood_group'){
+            $val['current_value'] = $twigExtension->bloodGroupFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->bloodGroupFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+
+        if($fieldKey == 'disability'){
+            $val['current_value'] = $twigExtension->disabilityFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->disabilityFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+        if($fieldKey == 'edu_level'){
+            $val['current_value'] = $twigExtension->eduLevelFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->eduLevelFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+        if($fieldKey == 'marital_status'){
+            $val['current_value'] = $twigExtension->maritalStatusFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->maritalStatusFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+
+        if($fieldKey == 'religion'){
+            $val['current_value'] = $twigExtension->religionFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->religionFilter($changeValue['value']);
             }
             $val['payload'] = $field_details;
             return $val;
@@ -460,6 +523,26 @@ class Patient
                 if($field_name == 'edu_level'){
                     $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->eduLevelFilter($fieldDetails['new_value']);
                     $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->eduLevelFilter($fieldDetails['old_value']);
+                }
+                if($field_name == 'status'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->livingStatusFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']);
+                }
+                if($field_name == 'status'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->livingStatusFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']);
+                }
+                if($field_name == 'disability'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->disabilityFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->disabilityFilter($fieldDetails['old_value']);
+                }
+                if($field_name == 'blood_group'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->bloodGroupFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->bloodGroupFilter($fieldDetails['old_value']);
+                }
+                if($field_name == 'marital_status'){
+                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->maritalStatusFilter($fieldDetails['new_value']);
+                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->maritalStatusFilter($fieldDetails['old_value']);
                 }
 
                 if($field_name == 'present_address' || $field_name == 'permanent_address' ){
