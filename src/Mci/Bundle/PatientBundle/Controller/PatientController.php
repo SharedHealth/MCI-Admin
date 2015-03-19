@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 use JMS\SecurityExtraBundle\Annotation\Secure;
-use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 
 class PatientController extends Controller
@@ -321,7 +321,7 @@ class PatientController extends Controller
     private function handleCatchmentRestriction($catchment)
     {
         if ($this->noAccessToCatchment($catchment)) {
-            throw new PreconditionFailedHttpException('Insufficient access privilege');
+            throw new AccessDeniedHttpException('Insufficient access privilege');
         }
     }
 }
