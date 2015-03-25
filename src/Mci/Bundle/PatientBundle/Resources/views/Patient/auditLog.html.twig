@@ -1,7 +1,7 @@
-{% if responseBody is defined and responseBody is not empty %}
     <h4>Created By: {{ createdBy}}</h4>
     <h4>Created At: {{ createdAt|date}}</h4>
-{% for result in responseBody %}
+    {% if responseBody is defined and responseBody is not empty %}
+    {% for result in responseBody %}
     <p>{{ result.event_time|date('Y-M-d H:i:s') }}</p>
     <table class="table table-bordered">
 
@@ -25,8 +25,9 @@
        </td>
        <td>
               {% if change.old_value is iterable %}
-                  {% for old_value_key,old_value_details in change.old_value  %}
-                      {{ old_value_key|camelize }} : {{ old_value_details }}<br/>
+                  {% for old_value_key, old_value_details in change.old_value  %}
+                      {% set value_details = old_value_details is iterable ? old_value_details|json_encode:old_value_details %}
+                      {{ old_value_key|camelize }} : {{ value_details }}<br/>
                   {% endfor %}
               {% else %}
                   {{ change.old_value  }}
@@ -35,7 +36,8 @@
        <td>
          {% if change.new_value is iterable %}
              {% for new_value_key,new_value_details in change.new_value  %}
-                 {{ new_value_key|camelize }} : {{ new_value_details }}<br/>
+                 {% set value_details = new_value_details is iterable ? new_value_details|json_encode:new_value_details %}
+                 {{ new_value_key|camelize }} : {{ value_details }}<br/>
              {% endfor %}
          {% else %}
           {{ change.new_value  }}
@@ -54,8 +56,6 @@
 
     </table>
 {% endfor %}
-{% else %}
-    <p>No activities</p>
 {% endif %}
 
 <div style="clear: both"></div>
