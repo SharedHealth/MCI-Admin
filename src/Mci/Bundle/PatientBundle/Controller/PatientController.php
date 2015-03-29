@@ -96,6 +96,8 @@ class PatientController extends Controller
     public function editAction( $id){
 
         $patient = $this->get('mci.patient')->getPatientById($id);
+        $location = $this->get('mci.location');
+        $masterData = $this->get('mci.master_data');
 
         if($patient['systemError']){
             throw $this->createNotFoundException('Service Unavailable');
@@ -107,7 +109,7 @@ class PatientController extends Controller
 
         $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
 
-        $form = $this->createForm(new PatientType($this->container,$object), $object);
+        $form = $this->createForm(new PatientType($location,$masterData,$object), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView(),
@@ -169,7 +171,9 @@ class PatientController extends Controller
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
         $patient = $this->get('mci.patient')->getPatientById($id);
         $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
-        $form = $this->createForm(new PatientType($this->container, $object), $object);
+        $location = $this->get('mci.location');
+        $masterData = $this->get('mci.master_data');
+        $form = $this->createForm(new PatientType($location,$masterData,$object), $object);
 
         return $this->render('MciPatientBundle:Patient:edit.html.twig', array(
             'form' => $form->createView(),

@@ -1,27 +1,27 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\Form;
-
-use Mci\Bundle\PatientBundle\Form\Type\LocationType;
-use Symfony\Component\DependencyInjection\Container;
+use Mci\Bundle\PatientBundle\Services\Location;
+use Mci\Bundle\PatientBundle\Services\MasterData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressType extends AbstractType
 {
-    private $serviceContainer;
+    private $locationService;
+    private $masterData;
     private $addressObject;
 
-    public function __construct( Container $container,  $object){
-        $this->serviceContainer = $container;
+    public function __construct( MasterData $masterData, Location $location,  $object){
+        $this->locationService = $location;
         $this->addressObject = $object;
+        $this->masterData =$masterData;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $locationService = $this->serviceContainer->get('mci.location');
-        $divisions = $locationService->prepairFormData($locationService->getLocation());
+        $divisions = $this->locationService->prepairFormData($this->locationService->getLocation());
         $districts = array();
         $upazilas = array();
         $citycorporations = array();
@@ -35,23 +35,23 @@ class AddressType extends AbstractType
             $cityCorporationId = $this->addressObject->getCityCorporationId();
             $unionId = $this->addressObject->getUnionOrurbanwardId();
             $wardId = $this->addressObject->getRuralWardId();
-            $districts = $locationService->prepairFormData($locationService->getLocation($divisionId));
-            $upazilas = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId));
+            $districts = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId));
+            $upazilas = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId));
 
             if($upazilaId){
-                $citycorporations = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId));
+                $citycorporations = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId));
             }
 
             if($cityCorporationId){
-                $unions = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId));
+                $unions = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId));
             }
 
             if($unionId){
-                $wards = $locationService->prepairFormData($locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId.$unionId));
+                $wards = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId.$unionId));
             }
         }
 
-        $countryCode = $this->getArrayFromJson('assets/json/countryCode.json');
+        $countryCode = $this->masterData->getAllByType('country_code');
 
         $builder
             ->add('address_line', 'text', array(
@@ -150,11 +150,4 @@ class AddressType extends AbstractType
         ));
     }
 
-    /**
-     * @return array
-     */
-    public function getArrayFromJson($url)
-    {
-        return (array)json_decode(file_get_contents($url));
-    }
 }

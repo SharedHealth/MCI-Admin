@@ -1,16 +1,24 @@
 <?php
 
 namespace Mci\Bundle\PatientBundle\Form;
+use Mci\Bundle\PatientBundle\Services\MasterData;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RelationType extends AbstractType
 {
+    private $masterData;
+
+    public function __construct( MasterData $masterData){
+        $this->masterData =$masterData;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $type = (array)json_decode(file_get_contents('assets/json/relation.json'));
-        $relations = (array)json_decode(file_get_contents('assets/json/relationalStatus.json'));
+
+        $type = $this->masterData->getAllByType('relations');
+        $relations = $this->masterData->getAllByType('marital_status');
 
         $builder
             ->add('id', 'hidden', array(

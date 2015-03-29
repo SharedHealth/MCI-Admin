@@ -120,6 +120,12 @@ class MciExtension extends \Twig_Extension
         if(isset($chunks['1']) && ($chunks['1'] == 'id' || $chunks['1'] == 'code')){
             return ucfirst($chunks['0']);
         }
+        elseif(isset($chunks['2']) &&  $chunks['2'] == 'id'){
+            return ucfirst($chunks['0']).ucfirst($chunks['1']);
+        }elseif($value == 'union_or_urban_ward_id'){
+            return "Union Or Urban Ward";
+        }
+
         $ucfirsted = array_map(function($s) { return ucfirst($s); }, $chunks);
 
         return implode(' ', $ucfirsted);

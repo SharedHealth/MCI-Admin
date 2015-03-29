@@ -26,8 +26,14 @@
        <td>
               {% if change.old_value is iterable %}
                   {% for old_value_key, old_value_details in change.old_value  %}
-                      {% set value_details = old_value_details is iterable ? old_value_details|json_encode:old_value_details %}
-                      {{ old_value_key|humanize }} : {{ value_details }}<br/>
+                      {% if old_value_details is iterable%}
+                          {% for relation_key,relation in old_value_details %}
+                              {{ relation_key|camelize }} : {{(relation_key == 'relational_status') ? relation|maritalStatus :relation }} <br/>
+                          {% endfor %}
+                          {{ loop.last ? '':'<hr/>'  }}
+                      {% else %}
+                        {{ old_value_key|camelize }} : {{ old_value_details }}<br/>
+                      {% endif %}
                   {% endfor %}
               {% else %}
                   {{ change.old_value  }}
@@ -36,8 +42,14 @@
        <td>
          {% if change.new_value is iterable %}
              {% for new_value_key,new_value_details in change.new_value  %}
-                 {% set value_details = new_value_details is iterable ? new_value_details|json_encode:new_value_details %}
-                 {{ new_value_key|humanize }} : {{ value_details }}<br/>
+                 {% if new_value_details is iterable %}
+                    {% for relation_key, relation in new_value_details  %}
+                        {{ relation_key|camelize }} : {{(relation_key == 'relational_status') ? relation|maritalStatus :relation }} <br/>
+                    {% endfor %}
+                     {{ loop.last ? '':'<hr/>'  }}
+                 {% else %}
+                      {{ new_value_key|camelize }} : {{ new_value_details }}<br/>
+                 {% endif %}
              {% endfor %}
          {% else %}
           {{ change.new_value  }}
