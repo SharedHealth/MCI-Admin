@@ -9,10 +9,13 @@ services:
         tags:
           - { name: guzzle.client }
 
+    mci.master_data:
+        class: Mci\Bundle\PatientBundle\Services\MasterData
+        arguments: [@file_locator]
 
     mci.twig.mci_extension:
         class: Mci\Bundle\PatientBundle\Twig\MciExtension
-        arguments: [ @mci.location]
+        arguments: [ @mci.location, @mci.master_data]
         tags:
             - { name: twig.extension }
 

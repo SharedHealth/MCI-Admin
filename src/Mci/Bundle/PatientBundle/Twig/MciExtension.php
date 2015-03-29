@@ -3,18 +3,23 @@ namespace Mci\Bundle\PatientBundle\Twig;
 
 
 use Mci\Bundle\PatientBundle\Services\Location;
+use Mci\Bundle\PatientBundle\Services\MasterData;
 
 class MciExtension extends \Twig_Extension
 {
-
     /**
      * Location
      */
     private $client;
+    /**
+     * @var MasterData
+     */
+    private $masterData;
 
-    public function __construct(Location $client)
+    public function __construct(Location $client, MasterData $masterData)
     {
         $this->client = $client;
+        $this->masterData = $masterData;
     }
 
     public function getFilters()
@@ -38,36 +43,32 @@ class MciExtension extends \Twig_Extension
 
     public function genderFilter($number)
     {
-        $gender =  $this->getJsonData('gender.json');
-        return isset($gender[$number])?$gender[$number]:'';
+        return $this->masterData->getNameByTypeAndCode('gender', $number);
     }
 
     public function occupationFilter($number)
     {
-        $occupation = $this->getJsonData('occupation.json');
-        return isset($occupation[$number])?$occupation[$number]:'';
+        return $this->masterData->getNameByTypeAndCode('occupation', $number);
     }
 
     public function eduLevelFilter($number)
     {
-        $eduLevel = $this->getJsonData('eduLevel.json');
-        return isset($eduLevel[$number])?$eduLevel[$number]:'';
+        return $this->masterData->getNameByTypeAndCode('education_level', $number);
     }
 
     public function bloodGroupFilter($number)
     {
-        $bloodGroup = $this->getJsonData('bloodGroup.json');
-        return isset($bloodGroup[$number])?$bloodGroup[$number]:'';
+        return $this->masterData->getNameByTypeAndCode('blood_group', $number);
     }
 
-    public function religionFilter($number){
-        $religion = $this->getJsonData('religion.json');
-        return isset($religion[$number])?$religion[$number]:'';
+    public function religionFilter($number)
+    {
+        return $this->masterData->getNameByTypeAndCode('religion', $number);
     }
+
     public function disabilityFilter($number)
     {
-        $disability = $this->getJsonData('disability.json');
-        return isset($disability[$number])?$disability[$number]:'';
+        return $this->masterData->getNameByTypeAndCode('disability', $number);
     }
 
     public function divisionFilter($number)
@@ -88,19 +89,15 @@ class MciExtension extends \Twig_Extension
 
     public function countryCodeFilter($number)
         {
-            $country = $this->getJsonData('countryCode.json');
-            return isset($country[$number])?$country[$number]:'';
+            return $this->masterData->getNameByTypeAndCode('country_code', $number);
         }
     public function maritalStatusFilter($number)
         {
-            $maritalStatus = $this->getJsonData('relationStat.json');
-
-            return isset($maritalStatus[$number])?$maritalStatus[$number]:'';
+            return $this->masterData->getNameByTypeAndCode('marital_status', $number);
         }
     public function relationFilter($number)
         {
-            $relation = $this->getJsonData('relation.json');
-            return isset($relation[$number])?$relation[$number]:'';
+            return $this->masterData->getNameByTypeAndCode('religion', $number);
         }
 
     public function getName()
@@ -110,17 +107,7 @@ class MciExtension extends \Twig_Extension
 
 
     public function livingStatusFilter($number){
-        $livingStatus = $this->getJsonData('livingStatus.json');
-        return isset($livingStatus[$number])?$livingStatus[$number]:'';
-    }
-    private function getJsonData($fileName)
-    {
-        $cache = array();
-        $filePath =  'assets/json/'.$fileName;
-        if(empty($cache[$fileName])){
-            return $cache[$fileName] =json_decode(file_get_contents($filePath), true);
-        }
-        return $cache[$fileName];
+        return $this->masterData->getNameByTypeAndCode('status', $number);
     }
 
     public function camelizeFilter($value)
@@ -139,4 +126,3 @@ class MciExtension extends \Twig_Extension
     }
 
 }
-?>
