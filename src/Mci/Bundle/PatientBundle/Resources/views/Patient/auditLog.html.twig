@@ -56,10 +56,7 @@
          {% endif %}
        </td>
        <td>
-
-           {% for requestedBy in result.requested_by %}
-                {{ requestedBy|join('-') }}
-           {% endfor %}
+           {{ result.requested_by[key]|join('-') }}
        </td>
        <td>{{ result.approved_by }}</td>
 

@@ -244,7 +244,7 @@ class Patient
             return $val;
         }
 
-        if($fieldKey == 'status'){
+        elseif($fieldKey == 'status'){
             $val['current_value'] = $twigExtension->livingStatusFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -254,7 +254,7 @@ class Patient
             return $val;
         }
 
-        if($fieldKey == 'occupation'){
+        elseif($fieldKey == 'occupation'){
             $val['current_value'] = $twigExtension->occupationFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -264,7 +264,7 @@ class Patient
             return $val;
         }
 
-        if($fieldKey == 'blood_group'){
+        elseif($fieldKey == 'blood_group'){
             $val['current_value'] = $twigExtension->bloodGroupFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -274,7 +274,7 @@ class Patient
             return $val;
         }
 
-        if($fieldKey == 'disability'){
+        elseif($fieldKey == 'disability'){
             $val['current_value'] = $twigExtension->disabilityFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -283,7 +283,7 @@ class Patient
             $val['payload'] = $field_details;
             return $val;
         }
-        if($fieldKey == 'edu_level'){
+        elseif($fieldKey == 'edu_level'){
             $val['current_value'] = $twigExtension->eduLevelFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -292,7 +292,7 @@ class Patient
             $val['payload'] = $field_details;
             return $val;
         }
-        if($fieldKey == 'marital_status'){
+        elseif($fieldKey == 'marital_status'){
             $val['current_value'] = $twigExtension->maritalStatusFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -302,7 +302,7 @@ class Patient
             return $val;
         }
 
-        if($fieldKey == 'religion'){
+        elseif($fieldKey == 'religion'){
             $val['current_value'] = $twigExtension->religionFilter($val['current_value']);
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
@@ -506,6 +506,7 @@ class Patient
         /** @var $twigExtension  MciExtension */;
         $twigExtension = $this->twigExtension;
        foreach($responseBody as $key => $val){
+
             foreach($val['requested_by'] as $field => $fieldArray){
                  $responseBody[$key]['requested_by'][$field] = array_unique($fieldArray);
             }
