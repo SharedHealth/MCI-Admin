@@ -73,7 +73,7 @@ class MciExtension extends \Twig_Extension
 
     public function divisionFilter($number)
     {
-        $data = $this->client->prepairFormData($this->client->getLocation());
+        $data = $this->client->prepareFormData($this->client->getChildLocations());
         return isset($data[$number])?$data[$number]:'';
     }
 
@@ -81,9 +81,9 @@ class MciExtension extends \Twig_Extension
     {
         $cache = array();
         if(empty($cache[$locationCode])){
-            $cache[$locationCode] = $this->client->getLocation($locationCode);
+            $cache[$locationCode] = $this->client->getChildLocations($locationCode);
         }
-        $data = $this->client->prepairFormData($cache[$locationCode]);
+        $data = $this->client->prepareFormData($cache[$locationCode]);
         return isset($data[$number])?$data[$number]:'';
     }
 

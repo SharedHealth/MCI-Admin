@@ -3,11 +3,7 @@
 namespace Mci\Bundle\PatientBundle\Services;
 
 use Guzzle\Http\Client;
-use Guzzle\Http\Exception\BadResponseException;
-use Guzzle\Http\Exception\CurlException;
-use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\CoreBundle\Service\CacheAwareService;
-use Mci\Bundle\PatientBundle\Utills\Utility;
 use Mci\Bundle\UserBundle\Security\User;
 use Symfony\Component\Security\Core\SecurityContext;
 
@@ -20,7 +16,7 @@ class Location extends CacheAwareService
 
     private $endpoint = "locations";
 
-    public function __construct(Client $client, $securityContext)
+    public function __construct(Client $client, SecurityContext $securityContext)
     {
         $this->client = $client;
         $user = $this->getUser($securityContext);
@@ -34,29 +30,40 @@ class Location extends CacheAwareService
 
     /**
      * @param null $parent
+     * @return \Guzzle\Http\EntityBodyInterface|mixed|null|string
      */
-    public function getLocation($parent = null)
+    public function getChildLocations($parent = null)
     {
-        $queryParam = array('parent' => $parent);
-        $SystemAPiError = array();
+        $key = empty($parent) ? $parent : '0';
 
-        try{
-            $request = $this->client->get($this->endpoint, null, array('query' => $queryParam));
-            $response = $request->send();
-            $responseBody = json_decode($response->getBody());
-            return $responseBody->results;
-        }catch (CurlException $e) {
-            $SystemAPiError[] = 'Service Unavailable';
-        } catch (BadResponseException $e) {
-            $messages = json_decode($e->getResponse()->getBody());
-            $SystemAPiError = Utility::getErrorMessages($messages);
-        } catch (RequestException $e) {
-            $SystemAPiError[] = 'Something went wrong';
+        if(false === $locations = $this->getCache()->fetch($key)) {
+            $locations = $this->ensureCaching($parent);
         }
+
+        return $locations;
 
     }
 
-    public function prepairFormData($data){
+    /**
+     * @param int $parent
+     * @return \Guzzle\Http\EntityBodyInterface|mixed|null|string
+     */
+    private function ensureCaching($parent = null)
+    {
+        $locations = $this->getChildLocationsFromApi($parent);
+
+        if ($locations == null) {
+            return null;
+        }
+
+        $key = empty($parent) ? $parent : '0';
+
+        $this->getCache()->save($key, $locations, 3600);
+
+        return $locations;
+    }
+
+    public function prepareFormData($data){
         if(!is_array($data)) {
             return array();
         }
@@ -70,9 +77,10 @@ class Location extends CacheAwareService
     }
 
     /**
-     * @return null|User
+     * @param SecurityContext $securityContext
+     * @return User|null
      */
-    private function getUser($securityContext)
+    private function getUser(SecurityContext $securityContext)
     {
         if ($securityContext && $securityContext->getToken()) {
             $user = $securityContext->getToken()->getUser();
@@ -80,6 +88,25 @@ class Location extends CacheAwareService
             if ($user instanceof User) {
                 return $user;
             }
+        }
+    }
+
+    /**
+     * @param $parent
+     * @return null
+     */
+    private function getChildLocationsFromApi($parent)
+    {
+        $queryParam = array('parent' => $parent);
+
+        try {
+            $request = $this->client->get($this->endpoint, null, array('query' => $queryParam));
+            $response = $request->send();
+            $responseBody = json_decode($response->getBody());
+            return $responseBody->results;
+        } catch (\Exception $e) {
+            return null;
+
         }
     }
 }

@@ -262,6 +262,7 @@ jQuery(document).ready(function () {
             selectcontainer.empty();
             $.ajax({
                 type: "POST",
+                dataType: 'json',
                 url: "/location/" + locationCode,
                 beforeSend: function () {
                     $('.'+loader).show();
@@ -294,8 +295,7 @@ jQuery(document).ready(function () {
         }
     }
 
-  function generatedOptions(result) {
-        var obj = $.parseJSON(result);
+  function generatedOptions(obj) {
         var options = "<option value=''>-Please Select-</option>";
         for (var i in obj) {
             options += '<option   value="' + obj[i]['code'] + '">' + obj[i]['name'].toLowerCase().capitalize() + '</option>';

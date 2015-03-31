@@ -45,22 +45,22 @@ class PatientController extends Controller
         $union_code = $request->get('union_id');
         $ward_code = $request->get('ward_id');
 
-        $divisions = $locationService->getLocation();
+        $divisions = $locationService->getChildLocations();
         if ($division_code) {
-            $districts = $locationService->getLocation($division_code);
+            $districts = $locationService->getChildLocations($division_code);
         }
 
         if ($district_code && $division_code) {
-            $upazilas = $locationService->getLocation($division_code.$district_code);
+            $upazilas = $locationService->getChildLocations($division_code.$district_code);
         }
         if ($district_code && $division_code && $upazila_code  ) {
-            $citycorporations = $locationService->getLocation($division_code.$district_code.$upazila_code);
+            $citycorporations = $locationService->getChildLocations($division_code.$district_code.$upazila_code);
         }
         if ( $division_code && $district_code && $upazila_code && $citycorporation_code  && $union_code ) {
-            $unions = $locationService->getLocation($division_code.$district_code.$upazila_code.$citycorporation_code);
+            $unions = $locationService->getChildLocations($division_code.$district_code.$upazila_code.$citycorporation_code);
         }
         if ( $division_code && $district_code && $upazila_code && $citycorporation_code && $union_code && $ward_code ) {
-            $wards = $locationService->getLocation($division_code.$district_code.$upazila_code.$citycorporation_code.$union_code);
+            $wards = $locationService->getChildLocations($division_code.$district_code.$upazila_code.$citycorporation_code.$union_code);
         }
 
         $SystemAPiError = '';

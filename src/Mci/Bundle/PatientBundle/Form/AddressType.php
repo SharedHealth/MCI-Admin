@@ -21,7 +21,7 @@ class AddressType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $divisions = $this->locationService->prepairFormData($this->locationService->getLocation());
+        $divisions = $this->locationService->prepareFormData($this->locationService->getChildLocations());
         $districts = array();
         $upazilas = array();
         $citycorporations = array();
@@ -35,19 +35,19 @@ class AddressType extends AbstractType
             $cityCorporationId = $this->addressObject->getCityCorporationId();
             $unionId = $this->addressObject->getUnionOrurbanwardId();
             $wardId = $this->addressObject->getRuralWardId();
-            $districts = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId));
-            $upazilas = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId));
+            $districts = $this->locationService->prepareFormData($this->locationService->getChildLocations($divisionId));
+            $upazilas = $this->locationService->prepareFormData($this->locationService->getChildLocations($divisionId.$districtId));
 
             if($upazilaId){
-                $citycorporations = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId));
+                $citycorporations = $this->locationService->prepareFormData($this->locationService->getChildLocations($divisionId.$districtId.$upazilaId));
             }
 
             if($cityCorporationId){
-                $unions = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId));
+                $unions = $this->locationService->prepareFormData($this->locationService->getChildLocations($divisionId.$districtId.$upazilaId.$cityCorporationId));
             }
 
             if($unionId){
-                $wards = $this->locationService->prepairFormData($this->locationService->getLocation($divisionId.$districtId.$upazilaId.$cityCorporationId.$unionId));
+                $wards = $this->locationService->prepareFormData($this->locationService->getChildLocations($divisionId.$districtId.$upazilaId.$cityCorporationId.$unionId));
             }
         }
 
