@@ -5,8 +5,9 @@ namespace Mci\Bundle\UserBundle\Service;
 use Guzzle\Http\Client;
 use Guzzle\Http\Message\RequestInterface;
 use JMS\Serializer\Serializer;
+use Mci\Bundle\CoreBundle\Service\CacheAwareService;
 
-class SsoClient
+class SsoClient extends CacheAwareService
 {
 
     /**
@@ -68,15 +69,11 @@ class SsoClient
             return null;
         }
 
-        $userResponse = $this->handleRequestToServer(
-            $this->client->get('token/' . $accessToken)
-        );
-
-        if ($userResponse == null) {
-            return null;
+        if(false === $userResponse = $this->getCache()->fetch($accessToken)) {
+            $userResponse = $this->ensureCaching($accessToken);
         }
 
-        return $this->serializer->deserialize($userResponse, 'Mci\Bundle\UserBundle\Security\User', 'json');
+        return $userResponse;
     }
 
     /**
@@ -85,5 +82,25 @@ class SsoClient
     public function setSerializer($serializer)
     {
         $this->serializer = $serializer;
+    }
+
+    /**
+     * @param $accessToken
+     * @return \Guzzle\Http\EntityBodyInterface|mixed|null|string
+     */
+    private function ensureCaching($accessToken)
+    {
+        $userResponse = $this->handleRequestToServer(
+            $this->client->get('token/' . $accessToken)
+        );
+
+        if ($userResponse == null) {
+            return null;
+        }
+
+        $userResponse = $this->serializer->deserialize($userResponse, 'Mci\Bundle\UserBundle\Security\User', 'json');
+        $this->getCache()->save($accessToken, $userResponse, 60);
+
+        return $userResponse;
     }
 }

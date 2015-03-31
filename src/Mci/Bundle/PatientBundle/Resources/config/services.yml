@@ -22,7 +22,12 @@ services:
     mci.location:
         class:        Mci\Bundle\PatientBundle\Services\Location
         arguments: [@mci_patient.client, @security.context]
+        calls:
+          - [ setCache, [ @patient_cache ] ]
 
     mci.patient:
         class:        Mci\Bundle\PatientBundle\Services\Patient
         arguments: [@mci_patient.client, @jms_serializer, @security.context, @mci.twig.mci_extension]
+        calls:
+          - [ setCache, [ @location_cache ] ]
+

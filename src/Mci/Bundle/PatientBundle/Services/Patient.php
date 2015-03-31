@@ -3,14 +3,15 @@ namespace Mci\Bundle\PatientBundle\Services;
 
 use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
+use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\RequestException;
 use JMS\Serializer\Serializer;
-use Guzzle\Http\Exception\CurlException;
-use Mci\Bundle\PatientBundle\Utills\Utility;
+use Mci\Bundle\CoreBundle\Service\CacheAwareService;
 use Mci\Bundle\PatientBundle\Twig\MciExtension;
+use Mci\Bundle\PatientBundle\Utills\Utility;
 use Mci\Bundle\UserBundle\Security\User;
 
-class Patient
+class Patient extends CacheAwareService
 {
     /**
      * @var Client

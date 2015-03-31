@@ -25,4 +25,5 @@ services:
         arguments: [ @sso_http_client ]
         calls:
           - [ setSerializer, [ @jms_serializer ] ]
+          - [ setCache, [ @user_cache ] ]
 

@@ -53,10 +53,19 @@ swiftmailer:
     spool:     { type: memory }
 
 doctrine_cache:
-
     providers:
-        mci_apc_cache:
+        mci_user_cache:
             type: apc
-            namespace: mci_apc_cache
+            namespace: user
             aliases:
-                - apc_cache
+                - user_cache
+        mci_location_cache:
+            type: apc
+            namespace: location
+            aliases:
+                - location_cache
+        mci_patient_cache:
+            type: apc
+            namespace: patient
+            aliases:
+                - patient_cache

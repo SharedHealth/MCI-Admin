@@ -6,11 +6,12 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Exception\BadResponseException;
 use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\RequestException;
+use Mci\Bundle\CoreBundle\Service\CacheAwareService;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 use Mci\Bundle\UserBundle\Security\User;
 use Symfony\Component\Security\Core\SecurityContext;
 
-class Location
+class Location extends CacheAwareService
 {
     /**
      * Client
