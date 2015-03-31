@@ -34,7 +34,7 @@ class Location extends CacheAwareService
      */
     public function getChildLocations($parent = null)
     {
-        $key = empty($parent) ? $parent : '0';
+        $key = !empty($parent) ? $parent : '0';
 
         if(false === $locations = $this->getCache()->fetch($key)) {
             $locations = $this->ensureCaching($parent);
@@ -56,7 +56,7 @@ class Location extends CacheAwareService
             return null;
         }
 
-        $key = empty($parent) ? $parent : '0';
+        $key = !empty($parent) ? $parent : '0';
 
         $this->getCache()->save($key, $locations, 3600);
 
