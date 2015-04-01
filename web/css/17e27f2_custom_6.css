@@ -1,0 +1,44 @@
+.error{
+    color: red;
+    font-style: italic;
+    font-weight: normal;
+}
+
+.inputBoxSize input, .inputBoxSize select {
+    width: 60% !important;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+input.error{
+    color: #555 !important;
+    font-style: normal;
+}
+
+select.error option {
+    color: #555;
+}
+
+.floatLeft{
+    float:left;
+}
+
+.clearBtn{
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px 0 0 5px;
+    display: inline-block;
+}
+
+#mci_bundle_patientBundle_patients_date_of_birth,#mci_bundle_patientBundle_patients_date_of_death{
+    cursor: pointer;
+    background: #FFFFFF;
+}
+
+.pager li a.disabled {
+    background:#EEEEEE;
+    pointer-events: none;
+    cursor: default;
+}

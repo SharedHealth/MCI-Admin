@@ -108,6 +108,11 @@
                     <p class="form-control-static">{% if responseBody.primary_contact is defined %}{{ responseBody.primary_contact }}{% endif %}</p>
                 </div>
 
+                <div class="col-lg-3">
+                    <label>Household Code:</label>
+                    <p class="form-control-static">{% if responseBody.household_code is defined %}{{ responseBody.household_code  }}{% endif %}</p>
+                </div>
+
             </div>
 
             <div class="panel-body">
@@ -120,6 +125,7 @@
                     <label>Confidential:</label>
                     <p class="form-control-static">{% if responseBody.confidential is defined %}{{ responseBody.confidential|capitalize  }}{% endif %}</p>
                 </div>
+
 
             </div>
 
