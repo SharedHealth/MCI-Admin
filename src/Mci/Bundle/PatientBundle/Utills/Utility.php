@@ -244,8 +244,8 @@ class Utility {
 
     public static function ConvertDateISOFormat($postData){
         if($postData['status']['date_of_death']){
-           // $datetime = new \DateTime($postData['status']['date_of_death'], new \DateTimeZone('Asia/Dhaka'));
-           // $postData['status']['date_of_death'] = $datetime->format(\DateTime::ISO8601);
+            $datetime = new \DateTime($postData['status']['date_of_death'], new \DateTimeZone('Asia/Dhaka'));
+            $postData['status']['date_of_death'] = $datetime->format(\DateTime::ISO8601);
         }
         return $postData;
     }
