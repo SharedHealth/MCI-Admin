@@ -140,6 +140,9 @@
                 },
                 extension: {
                     regex: '^\\s*[0-9]*\\s*$'
+                },
+                household_code: {
+                    regex: '^\\s*[0-9]*\\s*$'
                 }
             },
             messages: {},
