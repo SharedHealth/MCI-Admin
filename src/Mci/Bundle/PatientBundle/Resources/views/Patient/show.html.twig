@@ -61,7 +61,7 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Date of Birth:</label>
-                    <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth|date('Y-m-d') }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Gender:</label>
@@ -108,16 +108,6 @@
                     <p class="form-control-static">{% if responseBody.primary_contact is defined %}{{ responseBody.primary_contact }}{% endif %}</p>
                 </div>
 
-                <div class="col-lg-3">
-                    <label>Patient Status:</label>
-                    <p class="form-control-static">{% if responseBody.status is defined %}{{ responseBody.status|livingStatus }}{% endif %}</p>
-                </div>
-
-                <div class="col-lg-3">
-                    <label>Date of Death:</label>
-                    <p class="form-control-static"> {% if responseBody.date_of_death is defined %}{{ responseBody.date_of_death }}{% endif %}</p>
-                </div>
-
             </div>
 
             <div class="panel-body">
@@ -133,6 +123,34 @@
 
             </div>
 
+            <div class="panel-body">
+                <div style="" class="col-lg-6">
+                    <label>Status:</label>
+                    <p class="form-control-static">
+                        {% if responseBody.status.type is defined %}
+                    <table style="font-size: 12px;" class="table table-bordered">
+                        <thead>
+                        <th>Type</th>
+                        <th>Date of Death</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                {% if responseBody.status.type is defined %}
+                                    {{ responseBody.status.type|livingStatus }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if responseBody.status.date_of_death is defined %}
+                                    {{ responseBody.status.date_of_death|date('Y-m-d H:i:s') }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    {% endif %}</p>
+                </div>
+            </div>
             <div class="panel-body">
                 <div style="" class="col-lg-6">
                     <label>Phone Number:</label>

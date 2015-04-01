@@ -1,14 +1,5 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}
-    <!-- BEGIN GLOBAL STYLES -->
-    {{ parent() }}
-    {% stylesheets filter='cssrewrite'
-    'bundles/mcipatient/css/datepicker.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-    <!-- END GLOBAL STYLES -->
-{% endblock stylesheets %}
 {% block content %}
 
 {% if systemError is defined  and systemError is not empty %}

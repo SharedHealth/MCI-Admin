@@ -56,7 +56,7 @@
          {% endif %}
        </td>
        <td>
-           {{ result.requested_by[key]|join('-') }}
+             {{ result.requested_by[key] is defined and result.requested_by is not empty ? result.requested_by[key]|join('-') : result.requested_by['ALL_FIELDS']|join('-')}}
        </td>
        <td>{{ result.approved_by }}</td>
 

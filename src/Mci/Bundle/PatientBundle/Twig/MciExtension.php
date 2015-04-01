@@ -97,7 +97,7 @@ class MciExtension extends \Twig_Extension
         }
     public function relationFilter($number)
         {
-            return $this->masterData->getNameByTypeAndCode('religion', $number);
+            return $this->masterData->getNameByTypeAndCode('relations', $number);
         }
 
     public function getName()

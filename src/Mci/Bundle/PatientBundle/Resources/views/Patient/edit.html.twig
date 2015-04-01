@@ -4,7 +4,7 @@
     <!-- BEGIN GLOBAL STYLES -->
     {{ parent() }}
     {% stylesheets filter='cssrewrite'
-    'bundles/mcipatient/css/datepicker.css'
+    'bundles/mcipatient/css/bootstrap-datetimepicker.css'
     %}
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
@@ -56,6 +56,7 @@
             <li><a data-toggle="tab" href="#phoneNumber">Phone Number</a></li>
             <li><a data-toggle="tab" href="#primaryContactNo">Primary Contact Number</a></li>
             <li><a data-toggle="tab" href="#relations">Relations</a></li>
+            <li><a data-toggle="tab" href="#status">Status</a></li>
         </ul>
     </div>
 
@@ -179,23 +180,7 @@
                 </div>
                 <div style="clear: both;"></div>
             </div>
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_status" class="control-label col-xs-2">Patient Status</label>
 
-                <div class="col-xs-10">
-                    {{ form_widget(form.status) }}
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="form-group">
-                <label for="mci_bundle_patientBundle_patients_date_of_death" class="control-label col-xs-2">Date of Death</label>
-
-                <div class="col-xs-10">
-                    {{ form_widget(form.date_of_death) }}
-
-                </div>
-                <div style="clear: both;"></div>
-            </div>
             <div class="form-group">
                 <label for="mci_bundle_patientBundle_patients_edu_level" class="control-label col-xs-2">Education</label>
 
@@ -587,7 +572,6 @@
 
     </div>
 
-
     <div id="relations" class="tab-pane  fade">
        <div class="btn btn-primary"><span id="addRelation" style="cursor: pointer;"><i class="glyphicon glyphicon-plus"></i> Add Relations</span></div>
         <table class="table">
@@ -767,7 +751,28 @@
         </table>
 
     </div>
+    <div id="status" class="tab-pane inputBoxSize fade">
+        <div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_status_type" class="control-label col-xs-2">Type</label>
 
+                    <div class="col-xs-10">
+                        {{ form_widget(form.status.type) }}
+                    </div>
+                    <div style="clear: both;"></div>
+            </div>
+            <div class="form-group">
+                <label for="mci_bundle_patientBundle_patients_status_date_of_death" class="control-label col-xs-2">Date of Death</label>
+
+                <div class="col-xs-10" style="position: relative;">
+                   {{ form_widget(form.status.date_of_death) }} <span class="clearBtn" style="cursor: pointer; padding-left: 5px; position: absolute; right: 38%; top: 0;">X</span>
+
+                </div>
+
+                <div style="clear: both;"></div>
+            </div>
+        </div>
+    </div>
 
  {{ form_widget(form.save) }} <a class="btn btn-primary form-group" type="button" href="{{ path('mci_patient_showpage',{ 'id': hid }) }}"> Cancel </a>
     </div>
@@ -780,7 +785,7 @@
     {{ parent() }}
     <!-- BEGIN PAGE LEVEL JS -->
     {% javascripts
-        "bundles/mcipatient/js/bootstrap-datepicker.js"
+        "bundles/mcipatient/js/bootstrap-datetimepicker.js"
         "bundles/mcipatient/js/patient-edit.js"
     %}
     <!-- END PAGE LEVEL JS -->

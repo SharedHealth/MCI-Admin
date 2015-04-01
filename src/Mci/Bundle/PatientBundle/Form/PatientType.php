@@ -137,27 +137,19 @@ class PatientType extends AbstractType
                     'required'  => false
                 )
             )
-            ->add('status', 'choice', array(
-                    'choices' =>$patientStatus,
-                    'attr' => array('class' => 'form-control'),
-                    'required'  => true,
-                    'label' => 'Patient Status'
-                )
-            )
+
             ->add('confidential', 'choice', array(
                     'choices' =>array('No' =>'No','Yes'=>'Yes'),
                     'attr' => array('class' => 'form-control'),
                     'required'  => true
                 )
             )
-            ->add('date_of_death', 'text', array(
-                'attr' => array('class' => 'form-control datepicker_common datepicker_hide'),
-                'required'  => false
-            ))
+
             ->add('present_address', new AddressType($this->masterData,$this->location,$presentAddress))
             ->add('permanent_address', new AddressType($this->masterData,$this->location,$permanentAddress))
             ->add('phone_number', new ContactType())
             ->add('primary_contact_number', new ContactType())
+            ->add('status', new StatusType($patientStatus))
             ->add('relations', 'collection', array(
                 'type' => new RelationType($this->masterData),
                 'allow_add' => true,

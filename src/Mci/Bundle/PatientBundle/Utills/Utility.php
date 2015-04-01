@@ -207,8 +207,8 @@ class Utility {
         if(empty($postData['place_of_birth'])){
             $postData['place_of_birth'] = "";
         }
-        if(empty($postData['date_of_death'])){
-            $postData['date_of_death'] = "";
+        if(empty($postData['status']['date_of_death'])){
+            $postData['status']['date_of_death'] = "";
         }
 
         if(empty($postData['nid'])){
@@ -228,8 +228,8 @@ class Utility {
             $postData['edu_level'] = "";
         }
 
-        if($postData['status'] != '2'){
-            $postData['date_of_death'] = "";
+        if($postData['status']['type'] != '2'){
+            $postData['status']['date_of_death'] = "";
         }
 
 
@@ -240,6 +240,14 @@ class Utility {
     {
         $filePath =  'assets/json/'.$fileName;
         return  json_decode(file_get_contents($filePath), true);
+    }
+
+    public static function ConvertDateISOFormat($postData){
+        if($postData['status']['date_of_death']){
+            $datetime = new \DateTime($postData['status']['date_of_death'], new \DateTimeZone('Asia/Dhaka'));
+            $postData['status']['date_of_death'] = $datetime->format(\DateTime::ISO8601);
+        }
+        return $postData;
     }
 
 

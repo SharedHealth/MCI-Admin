@@ -312,17 +312,17 @@ jQuery(document).ready(function () {
             $ruralword.removeAttr('disabled');
         }
     });
-    $('#mci_bundle_patientBundle_patients_status').on('change', function() {
+    $('#mci_bundle_patientBundle_patients_status_type').on('change', function() {
         if($(this).val() !='2'){
-            $('#mci_bundle_patientBundle_patients_date_of_death').val('');
-            $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled').css("cursor", "default");
+            $('#mci_bundle_patientBundle_patients_status_date_of_death').val('');
+            $('#mci_bundle_patientBundle_patients_status_date_of_death').attr('disabled','disabled').css("cursor", "default");
         }else{
-            $('#mci_bundle_patientBundle_patients_date_of_death').removeAttr('disabled','disabled').css("cursor", "pointer");
+            $('#mci_bundle_patientBundle_patients_status_date_of_death').removeAttr('disabled','disabled').css("cursor", "pointer");
         }
     });
 
-    if($('#mci_bundle_patientBundle_patients_status').val() !='2'){
-        $('#mci_bundle_patientBundle_patients_date_of_death').attr('disabled','disabled').css("cursor", "default");
+    if($('#mci_bundle_patientBundle_patients_status_type').val() !='2'){
+        $('#mci_bundle_patientBundle_patients_status_date_of_death').attr('disabled','disabled').css("cursor", "default");
     }
 
     var $collectionHolder;
@@ -360,15 +360,17 @@ jQuery(document).ready(function () {
         return true;
    });
 
-    $('.datepicker_common').datepicker({
-        format: 'yyyy-mm-dd',
-        clearBtn: true,
+    $('.datepicker_common').datetimepicker({
         autoclose: true,
-        todayHighlight: true
+        todayBtn: true
+    });
+    $('#mci_bundle_patientBundle_patients_status_date_of_death').datetimepicker({
+        autoclose: true,
+        todayBtn: true
     });
 
     $(".clearBtn").on('click',function(){
-        $(this).parent().find('.datepicker_common').val("")
+        $(this).parent().find('#mci_bundle_patientBundle_patients_status_date_of_death').val("")
     });
 
     $('table tbody tr').delegate('.relation-type','change',function(){

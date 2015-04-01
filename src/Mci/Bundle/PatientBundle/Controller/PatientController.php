@@ -168,6 +168,8 @@ class PatientController extends Controller
         }
 
         $postData = Utility::unsetUnessaryData($postData);
+        $postData = Utility::ConvertDateISOFormat($postData);
+
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
         $patient = $this->get('mci.patient')->getPatientById($id);
         $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));

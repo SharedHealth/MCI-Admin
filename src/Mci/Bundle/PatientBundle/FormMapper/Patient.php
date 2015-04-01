@@ -50,10 +50,15 @@ class Patient
      * @Type("string")
      */
     private $primary_contact;
+
     /**
      * @Type("string")
      */
+    private $household_code;
 
+    /**
+     * @Type("string")
+     */
     private $gender;
     /**
      * @Type("string")
@@ -103,16 +108,10 @@ class Patient
      * @Type("ArrayCollection<Mci\Bundle\PatientBundle\FormMapper\Relation>")
      */
     protected  $relations;
-
     /**
-     * @Type("string")
+     * @Type("Mci\Bundle\PatientBundle\FormMapper\Status")
      */
-    private $status;
-
-    /**
-     * @Type("string")
-     */
-    private $date_of_death;
+    protected  $status;
 
     /**
      * @Type("string")
@@ -521,6 +520,23 @@ class Patient
         $this->date_of_birth = $date_of_birth;
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getHouseholdCode()
+    {
+        return $this->household_code;
+    }
+
+    /**
+     * @param mixed $household_code
+     */
+    public function setHouseholdCode($household_code)
+    {
+        $this->household_code = $household_code;
+    }
+
     /**
      * @return mixed
      */
@@ -535,22 +551,6 @@ class Patient
     public function setStatus($status)
     {
         $this->status = $status;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDateOfDeath()
-    {
-        return $this->date_of_death;
-    }
-
-    /**
-     * @param mixed $date_of_death
-     */
-    public function setDateOfDeath($date_of_death)
-    {
-        $this->date_of_death = $date_of_death;
     }
 
 }

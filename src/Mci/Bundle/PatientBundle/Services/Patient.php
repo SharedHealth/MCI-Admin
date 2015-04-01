@@ -200,7 +200,7 @@ class Patient extends CacheAwareService
                     $resultBody['results'] [$key] = $this->mappingSingleField($val,'gender');
                 break;
                 case 'status':
-                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'status');
+                    $resultBody['results'] [$key] = $this->mappingBlocksField($val,'status');
                     break;
                 case 'occupation':
                     $resultBody['results'] [$key] = $this->mappingSingleField($val,'occupation');
@@ -240,16 +240,6 @@ class Patient extends CacheAwareService
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->genderFilter($changeValue['value']);
-            }
-            $val['payload'] = $field_details;
-            return $val;
-        }
-
-        elseif($fieldKey == 'status'){
-            $val['current_value'] = $twigExtension->livingStatusFilter($val['current_value']);
-            $field_details = $val['field_details'];
-            foreach($val['field_details'] as $key => $changeValue){
-                $val['field_details'][$key]['value'] = $twigExtension->livingStatusFilter($changeValue['value']);
             }
             $val['payload'] = $field_details;
             return $val;
@@ -366,6 +356,17 @@ class Patient extends CacheAwareService
             $val['payload'] = $field_details;
             return $val;
         }
+        elseif($fieldKey == 'status' ){
+            $val['current_value']['type'] = $twigExtension->livingStatusFilter($val['current_value']['type']);
+
+            foreach($val['field_details'] as $key => $changeValue) {
+                if (isset($val['field_details'][$key]['value']['type'])) {
+                    $val['field_details'][$key]['value']['type'] = $twigExtension->livingStatusFilter($field_details[$key]['value']['type']);
+                }
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
 
     }
 
@@ -471,6 +472,7 @@ class Patient extends CacheAwareService
     protected function update($postData,$url)
     {
         $SystemAPiError = array();
+
         try {
             $request = $this->client->put(
                 $url
@@ -529,14 +531,6 @@ class Patient extends CacheAwareService
                 if($field_name == 'edu_level'){
                     $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->eduLevelFilter($fieldDetails['new_value']);
                     $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->eduLevelFilter($fieldDetails['old_value']);
-                }
-                if($field_name == 'status'){
-                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->livingStatusFilter($fieldDetails['new_value']);
-                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']);
-                }
-                if($field_name == 'status'){
-                    $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->livingStatusFilter($fieldDetails['new_value']);
-                    $responseBody[$key]['change_set'][$field_name]['old_value'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']);
                 }
                 if($field_name == 'disability'){
                     $responseBody[$key]['change_set'][$field_name]['new_value'] = $twigExtension->disabilityFilter($fieldDetails['new_value']);
@@ -598,6 +592,10 @@ class Patient extends CacheAwareService
                         $responseBody[$key]['change_set'][$field_name]['new_value']['country_code'] = $twigExtension->countryCodeFilter($responseBody[$key]['change_set'][$field_name]['new_value']['country_code']);
                     }
 
+                }
+                if($field_name == 'status' ){
+                    $responseBody[$key]['change_set'][$field_name]['old_value']['type'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']['type']);
+                    $responseBody[$key]['change_set'][$field_name]['new_value']['type'] = $twigExtension->livingStatusFilter($responseBody[$key]['change_set'][$field_name]['new_value']['type']);
                 }
             }
        }

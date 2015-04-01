@@ -13,7 +13,7 @@ defined('APPLICATION_ENV')
 define('WEB_PATH', __DIR__);
 
 if (APPLICATION_ENV == 'dev') {
-    require 'app_dev.php';
+    require 'app.php';
 } else {
     require 'app.php';
 }
