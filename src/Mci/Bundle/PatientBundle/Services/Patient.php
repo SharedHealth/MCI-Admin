@@ -358,10 +358,16 @@ class Patient extends CacheAwareService
         }
         elseif($fieldKey == 'status' ){
             $val['current_value']['type'] = $twigExtension->livingStatusFilter($val['current_value']['type']);
+            if(!empty($val['current_value']['date_of_death'])){
+                $val['current_value']['date_of_death'] = date('Y-m-d H:i:s', strtotime($val['current_value']['date_of_death']));
+            }
 
             foreach($val['field_details'] as $key => $changeValue) {
                 if (isset($val['field_details'][$key]['value']['type'])) {
                     $val['field_details'][$key]['value']['type'] = $twigExtension->livingStatusFilter($field_details[$key]['value']['type']);
+                  if(!empty($field_details[$key]['value']['date_of_death'])){
+                      $val['field_details'][$key]['value']['date_of_death'] = date('Y-m-d H:i:s', strtotime($field_details[$key]['value']['date_of_death']));
+                  }
                 }
             }
             $val['payload'] = $field_details;
@@ -593,9 +599,16 @@ class Patient extends CacheAwareService
                     }
 
                 }
+
                 if($field_name == 'status' ){
                     $responseBody[$key]['change_set'][$field_name]['old_value']['type'] = $twigExtension->livingStatusFilter($fieldDetails['old_value']['type']);
+                    if(!empty($fieldDetails['old_value']['date_of_death'])){
+                        $responseBody[$key]['change_set'][$field_name]['old_value']['date_of_death'] = date('Y-m-d H:i:s', strtotime($fieldDetails['old_value']['date_of_death']));
+                    }
                     $responseBody[$key]['change_set'][$field_name]['new_value']['type'] = $twigExtension->livingStatusFilter($responseBody[$key]['change_set'][$field_name]['new_value']['type']);
+                    if(!empty($responseBody[$key]['change_set'][$field_name]['new_value']['date_of_death'])){
+                        $responseBody[$key]['change_set'][$field_name]['new_value']['date_of_death'] = date('Y-m-d H:i:s', strtotime($responseBody[$key]['change_set'][$field_name]['new_value']['date_of_death']));
+                    }
                 }
             }
        }

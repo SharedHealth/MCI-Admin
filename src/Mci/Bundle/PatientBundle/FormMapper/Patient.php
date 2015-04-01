@@ -509,6 +509,9 @@ class Patient
      */
     public function getDateOfBirth()
     {
+        if(!empty($this->date_of_birth)){
+            return  date('Y-m-d H:i:s', strtotime($this->date_of_birth));
+        }
         return $this->date_of_birth;
     }
 

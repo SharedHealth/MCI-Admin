@@ -34,7 +34,7 @@ class PatientType extends AbstractType
         $eduLevel = $this->masterData->getAllByType('education_level');
         $occupation = $this->masterData->getAllByType('occupation');
         $disability = $this->masterData->getAllByType('disability');
-        $maritalStatus = $this->masterData->getAllByType('relations');
+        $maritalStatus = $this->masterData->getAllByType('marital_status');
         $patientStatus = $this->masterData->getAllByType('status');
         $builder
             ->add('nid', 'text', array(
@@ -58,6 +58,10 @@ class PatientType extends AbstractType
                 'required'  => false
             ))
             ->add('name_bangla', 'text', array(
+                'attr' => array('class' => 'form-control'),
+                'required'  => false
+            ))
+            ->add('household_code', 'text', array(
                 'attr' => array('class' => 'form-control'),
                 'required'  => false
             ))

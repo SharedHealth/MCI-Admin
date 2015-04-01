@@ -21,6 +21,9 @@ class Status
      */
     public function getDateOfDeath()
     {
+        if(!empty($this->date_of_death)){
+          return  date('Y-m-d H:i:s', strtotime($this->date_of_death));
+        }
         return $this->date_of_death;
     }
 

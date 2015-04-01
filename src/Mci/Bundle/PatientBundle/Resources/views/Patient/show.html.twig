@@ -99,23 +99,30 @@
                     <label>Disability:</label>
                     <p class="form-control-static">{% if responseBody.disability is defined %}{{ responseBody.disability|disability }}{% endif %}</p>
                 </div>
-                {#<div class="col-lg-3">
-                    <label>Ethnicity:</label>
-                    <p class="form-control-static">{% if responseBody.ethnicity is defined %}{{ responseBody.ethnicity }}{% endif %}</p>
-                </div>#}
+
                 <div class="col-lg-3">
                     <label>Primary Contact:</label>
                     <p class="form-control-static">{% if responseBody.primary_contact is defined %}{{ responseBody.primary_contact }}{% endif %}</p>
                 </div>
+                <div class="col-lg-3">
+                    <label>Household Code:</label>
+                    <p class="form-control-static">{% if responseBody.household_code is defined %}{{ responseBody.household_code  }}{% endif %}</p>
+                </div>
 
-            </div>
-
-            <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Marital Status:</label>
                     <p class="form-control-static"> {% if responseBody.marital_status is defined %}{{ responseBody.marital_status|maritalStatus }}{% endif %}</p>
                 </div>
 
+
+
+            </div>
+
+            <div class="panel-body">
+                {#<div class="col-lg-3">
+                    <label>Ethnicity:</label>
+                    <p class="form-control-static">{% if responseBody.ethnicity is defined %}{{ responseBody.ethnicity }}{% endif %}</p>
+                </div>#}
                 <div class="col-lg-3">
                     <label>Confidential:</label>
                     <p class="form-control-static">{% if responseBody.confidential is defined %}{{ responseBody.confidential|capitalize  }}{% endif %}</p>
