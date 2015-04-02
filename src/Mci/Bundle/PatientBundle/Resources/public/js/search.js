@@ -9,8 +9,8 @@
     function resolveErrorMessage() {
         switch (true) {
             case isInvalidName() : return "Please enter a valid name"
-            case onlyNameGiven(): return "Please provide a valid ID, Address or Phone number"
-            case onlyAddressGiven(): return "Please provide a valid ID, Name or Phone number"
+            case onlyNameGiven(): return "Please provide a valid ID, Address or Phone number or Household Code"
+            case onlyAddressGiven(): return "Please provide a valid ID, Name or Phone number or Household Code"
             default : return "Incomplete search criteria!"
         }
     }

@@ -129,7 +129,7 @@ class Patient extends CacheAwareService
         }
 
 
-        $allowed = array('nid','brn','uid','name','phone No');
+        $allowed = array('nid','brn','uid','name','phone No','household_code');
 
         $queryParam = array_intersect_key($queryParam, array_flip($allowed));
 
