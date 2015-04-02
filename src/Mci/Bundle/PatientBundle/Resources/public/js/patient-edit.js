@@ -364,13 +364,9 @@ jQuery(document).ready(function () {
    });
 
     $('.datepicker_common').datetimepicker({
-        autoclose: true,
-        todayBtn: true
+        format: 'YYYY-MM-DD HH:mm:ss'
     });
-    $('#mci_bundle_patientBundle_patients_status_date_of_death').datetimepicker({
-        autoclose: true,
-        todayBtn: true
-    });
+
 
     $(".clearBtn").on('click',function(){
         $(this).parent().find('#mci_bundle_patientBundle_patients_status_date_of_death').val("")

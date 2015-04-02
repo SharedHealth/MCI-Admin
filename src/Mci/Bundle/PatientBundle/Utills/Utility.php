@@ -232,6 +232,10 @@ class Utility {
             $postData['status']['date_of_death'] = "";
         }
 
+        if(empty($postData['household_code'])){
+            $postData['household_code'] = "";
+        }
+
 
         return $postData;
     }
@@ -247,6 +251,12 @@ class Utility {
             $datetime = new \DateTime($postData['status']['date_of_death'], new \DateTimeZone('Asia/Dhaka'));
             $postData['status']['date_of_death'] = $datetime->format(\DateTime::ISO8601);
         }
+
+        if($postData['date_of_birth']){
+            $datetime = new \DateTime($postData['date_of_birth'], new \DateTimeZone('Asia/Dhaka'));
+            $postData['date_of_birth'] = $datetime->format(\DateTime::ISO8601);
+        }
+
         return $postData;
     }
 

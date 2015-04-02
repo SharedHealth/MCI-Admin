@@ -61,7 +61,7 @@
             <div class="panel-body">
                 <div class="col-lg-3">
                     <label>Date of Birth:</label>
-                    <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth|date('Y-m-d') }}{% endif %}</p>
+                    <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth|date('Y-m-d H:i:s') }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
                     <label>Gender:</label>
@@ -78,7 +78,7 @@
             </div>
             <div class="panel-body">
                 <div class="col-lg-3">
-                    <label>Place Of Birth:</label>
+                    <label>Place of Birth:</label>
                     <p class="form-control-static">{% if responseBody.place_of_birth is defined %}{{ responseBody.place_of_birth }}{% endif %}</p>
                 </div>
                 <div class="col-lg-3">
