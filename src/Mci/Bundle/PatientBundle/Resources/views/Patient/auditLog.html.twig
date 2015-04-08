@@ -1,4 +1,17 @@
-    <h4>Created By: {{ createdBy}}</h4>
+ <h4>Created By</h4>
+<table class="table table-bordered">
+ {% for created_key, created in createdBy %}
+    {% if created['id'] is defined %}
+     <tr>
+         {% if created['name'] is not defined %}
+             <td>ID :  {{ created['id'] }} </td>
+         {% endif %}
+         <td> {% if created['name'] is defined %} {{ created_key|camelize }} : {{ created['name'] }} {% endif %}</td>
+     </tr>
+    {% endif %}
+ {% endfor %}
+</table>
+
     <h4>Created At: {{ createdAt|date}}</h4>
     {% if responseBody is defined and responseBody is not empty %}
     {% for result in responseBody %}
@@ -55,10 +68,46 @@
           {{ change.new_value  }}
          {% endif %}
        </td>
+        <td>
+            {% if result.requested_by[key] is defined and result.requested_by is not empty %}
+                {% set requestedBy = result.requested_by[key] %}
+            {% else %}
+                {% set requestedBy = result.requested_by['ALL_FIELDS'] %}
+               {# <h5>ALL_FIELDS</h5>#}
+            {% endif %}
+
+            <table class="table table-bordered">
+                {% for requestedAll in requestedBy %}
+                    {% for requested_key, requested in  requestedAll %}
+                        {% if requested['id'] is defined %}
+                            <tr>
+                                {% if requested['name'] is not defined %}
+                                <td>ID :  {{ requested['id'] }} </td>
+                                {% endif %}
+                                <td> {% if requested['name'] is defined %}
+                                        {{ requested_key|camelize }} : {{ requested['name'] }}
+                                    {% endif %}</td>
+                             </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </table>
+        </td>
+
        <td>
-             {{ result.requested_by[key] is defined and result.requested_by is not empty ? result.requested_by[key]|join('-') : result.requested_by['ALL_FIELDS']|join('-')}}
+           <table class="table table-bordered">
+               {% for approved_key, approved in result.approved_by %}
+                   {% if approved['id'] is defined %}
+                       <tr>
+                           {% if approved['name'] is not defined %}
+                                 <td>ID :  {{ approved['id'] }} </td>
+                           {% endif %}
+                           <td>{% if approved['name'] is defined %} {{ approved_key|camelize }} : {{ approved['name'] }} {% endif %}</td>
+                       </tr>
+                   {% endif %}
+               {% endfor %}
+           </table>
        </td>
-       <td>{{ result.approved_by }}</td>
 
       </tr>
      {% endfor %}
