@@ -207,8 +207,8 @@ class Utility {
         if(empty($postData['place_of_birth'])){
             $postData['place_of_birth'] = "";
         }
-        if(empty($postData['status']['date_of_death'])){
-            $postData['status']['date_of_death'] = "";
+        if(empty($postData['status']['date_of_death']) || $postData['status']['type'] != '2'){
+            unset($postData['status']['date_of_death']);
         }
 
         if(empty($postData['nid'])){
@@ -228,9 +228,6 @@ class Utility {
             $postData['edu_level'] = "";
         }
 
-        if($postData['status']['type'] != '2'){
-            $postData['status']['date_of_death'] = "";
-        }
 
         if(empty($postData['household_code'])){
             $postData['household_code'] = "";
@@ -247,12 +244,12 @@ class Utility {
     }
 
     public static function ConvertDateISOFormat($postData){
-        if($postData['status']['date_of_death']){
+        if(isset($postData['status']['date_of_death'])){
             $datetime = new \DateTime($postData['status']['date_of_death'], new \DateTimeZone('Asia/Dhaka'));
             $postData['status']['date_of_death'] = $datetime->format(\DateTime::ISO8601);
         }
 
-        if($postData['date_of_birth']){
+        if(isset($postData['date_of_birth'])){
             $datetime = new \DateTime($postData['date_of_birth'], new \DateTimeZone('Asia/Dhaka'));
             $postData['date_of_birth'] = $datetime->format(\DateTime::ISO8601);
         }
