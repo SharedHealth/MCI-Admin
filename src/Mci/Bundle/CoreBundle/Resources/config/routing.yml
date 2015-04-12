@@ -1,7 +1,3 @@
 mci_location_page:
     path:     /location/{code}
     defaults: { _controller: MciCoreBundle:Location:index, code: null }
-
-mci_logout:
-    path:  /logout
-    defaults: { _controller: MciCoreBundle:Default:logout}

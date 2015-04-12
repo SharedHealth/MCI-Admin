@@ -11,10 +11,4 @@ class DefaultController extends Controller
     {
         return $this->render('MciCoreBundle:Default:index.html.twig');
     }
-
-    public function logoutAction(){
-        $response = new RedirectResponse($this->generateUrl('mci_dashboard'));
-        $response->headers->clearCookie('SHR_IDENTITY_TOKEN');
-        return $response;
-    }
 }
