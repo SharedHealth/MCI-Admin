@@ -9,6 +9,8 @@ use Mci\Bundle\CoreBundle\Service\CacheAwareService;
 
 class SsoClient extends CacheAwareService
 {
+    const LOGIN_URL = 'signin';
+    const ACCESS_TOKEN_URL = 'token/%s';
 
     /**
      * @var Serializer
@@ -39,7 +41,7 @@ class SsoClient extends CacheAwareService
             'password' => $password
         );
 
-        $request = $this->client->post('signin', array(), $post_data);
+        $request = $this->client->post(self::LOGIN_URL, array(), $post_data);
 
         $response = $this->handleRequestToServer($request);
 
@@ -91,7 +93,7 @@ class SsoClient extends CacheAwareService
     private function ensureCaching($accessToken)
     {
         $userResponse = $this->handleRequestToServer(
-            $this->client->get('token/' . $accessToken)
+            $this->client->get(sprintf(self::ACCESS_TOKEN_URL, $accessToken))
         );
 
         if ($userResponse == null) {
