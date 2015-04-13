@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, EquatableInterface
 {
+    const ADMIN_PROFILE_KEY = 'mci_supervisor';
     /**
      * @Type("string")
      * @SerializedName("id")
@@ -128,7 +129,7 @@ class User implements UserInterface, EquatableInterface
         }
 
         foreach($this->profiles as $profile) {
-            if(isset($profile['name']) && $profile['name'] == 'admin') {
+            if(isset($profile['name']) && $profile['name'] == self::ADMIN_PROFILE_KEY) {
                 return $profile;
             }
         }
