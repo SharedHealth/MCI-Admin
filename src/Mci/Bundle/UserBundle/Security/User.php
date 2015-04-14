@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, EquatableInterface
 {
-    const ADMIN_PROFILE_KEY = 'mci_supervisor';
+    const ADMIN_PROFILE_KEY = 'mci-supervisor';
     /**
      * @Type("string")
      * @SerializedName("id")
