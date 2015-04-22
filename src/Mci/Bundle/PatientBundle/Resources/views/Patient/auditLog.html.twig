@@ -73,23 +73,27 @@
                 {% set requestedBy = result.requested_by[key] %}
             {% else %}
                 {% set requestedBy = result.requested_by['ALL_FIELDS'] %}
-               {# <h5>ALL_FIELDS</h5>#}
             {% endif %}
 
             <table class="table table-bordered">
                 {% for requestedAll in requestedBy %}
+                    <tr>
+                      <td>
                     {% for requested_key, requested in  requestedAll %}
+
                         {% if requested['id'] is defined %}
-                            <tr>
+
                                 {% if requested['name'] is not defined %}
-                                <td>ID :  {{ requested['id'] }} </td>
+                                ID :  {{ requested['id'] }}
                                 {% endif %}
-                                <td> {% if requested['name'] is defined %}
+                                 {% if requested['name'] is defined %}
                                         {{ requested_key|camelize }} : {{ requested['name'] }}
-                                    {% endif %}</td>
-                             </tr>
+                                    {% endif %}
+                           <br/>
                         {% endif %}
                     {% endfor %}
+                      </td>
+                <tr>
                 {% endfor %}
             </table>
         </td>
