@@ -330,4 +330,32 @@ class PatientController extends Controller
             throw new AccessDeniedHttpException('Insufficient access privilege');
         }
     }
+
+    public function deduplicationAction($dir, $marker, Request $request){
+        $catchment = $request->get('catchment');
+
+        if(!empty($catchment)) {
+            $this->handleCatchmentRestriction($catchment);
+        }
+
+        $patientModel = $this->get('mci.patient');
+        $response = $patientModel->getDedupListByCatchment($catchment, array($dir => $marker));
+        $response['catchments'] =  $patientModel->getAllCatchment();
+        $response['catchment'] =  $catchment;
+
+        $response['responseBody']['results'] = array(
+          array('hid1'=>'33378883747','hid2' => '3344444444','reason'=>'NID Match'),
+          array('hid1'=>'33378883747','hid2' => '3344444444','reason'=>'BRN Match'),
+          array('hid1'=>'33378883747','hid2' => '3344444444','reason'=>'UID  Match'),
+          array('hid1'=>'33378883747','hid2' => '3344444444','reason'=>'BIN  Match')
+        );
+
+
+
+        return $this->render('MciPatientBundle:Patient:de-duplication.html.twig', $response);
+    }
+
+    public function deduplicationDetailsAction(Request $request, $hid){
+        return new Response("under construction");
+    }
 }

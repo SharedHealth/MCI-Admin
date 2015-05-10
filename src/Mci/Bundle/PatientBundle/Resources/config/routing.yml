@@ -47,3 +47,9 @@ mci_patient_audit_log:
     path:     /auditlog/{hid}
     defaults: { _controller: MciPatientBundle:Patient:auditLog }
 
+mci_patient_deduplication:
+    path:     /de-duplication//{dir}/{marker}
+    defaults: { _controller: MciPatientBundle:Patient:deduplication,  marker: null, dir : next }
+mci_patient_deduplication_details:
+    path:     /de-duplication/details/{hid}
+    defaults: { _controller: MciPatientBundle:Patient:deduplicationDetails }

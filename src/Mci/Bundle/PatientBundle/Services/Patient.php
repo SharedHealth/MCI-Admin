@@ -624,4 +624,12 @@ class Patient extends CacheAwareService
             }
         }
     }
+
+    public function getDedupListByCatchment($catchment, $param) {
+        if(empty($catchment)) {
+            return array();
+        }
+
+        return $this->getPatientsResponse($this->catchmentUrl . "$catchment/dedup", $param);
+    }
 }
