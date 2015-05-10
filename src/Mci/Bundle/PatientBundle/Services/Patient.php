@@ -77,6 +77,7 @@ class Patient extends CacheAwareService
         if (isset($queryParam['district_id']) && !empty($queryParam['district_id'])) {
             $district = str_pad($queryParam['district_id'], 2, '0', STR_PAD_LEFT);
             $searchQueryParam = $queryParam['division_id'] . $district . $queryParam['upazila_id'];
+
             if(isset($queryParam['citycorporation_id'])){
                 $searchQueryParam .= $queryParam['citycorporation_id'];
             }
@@ -177,9 +178,9 @@ class Patient extends CacheAwareService
 
     public function getApprovalPatientsList($url){
         $url = $url = $this->catchmentUrl.$url;
-       $response =  $this->getPatientsResponse($url);
-       $response['catchments'] = $this->getAllCatchment();
-       return $response;
+        $response =  $this->getPatientsResponse($url);
+        $response['catchments'] = $this->getAllCatchment();
+        return $response;
     }
 
     public function getApprovalPatientsDetails($url){
@@ -405,23 +406,23 @@ class Patient extends CacheAwareService
 
             $location_splits =  str_split($catchment, 2);
 
-            foreach($location_splits as $geoCodeKey=>$geoCode){
-                if($geoCodeKey == 0){
+            foreach($location_splits as $geoCodeLevel=>$geoCode){
+                if($geoCodeLevel == 0){
                     $allLocation[$key]['division_id'] = $geoCode;
                 }
-                if($geoCodeKey == 1){
+                if($geoCodeLevel == 1){
                     $allLocation[$key]['district_id'] = $geoCode;
                 }
-                if($geoCodeKey == 2){
+                if($geoCodeLevel == 2){
                     $allLocation[$key]['upazila_id'] = $geoCode;
                 }
-                if($geoCodeKey == 3){
+                if($geoCodeLevel == 3){
                     $allLocation[$key]['city_corporation_id'] = $geoCode;
                 }
-                if($geoCodeKey == 4){
+                if($geoCodeLevel == 4){
                     $allLocation[$key]['union_or_urban_ward_id'] = $geoCode;
                 }
-                if($geoCodeKey == 5){
+                if($geoCodeLevel == 5){
                     $allLocation[$key]['rural_ward_id'] = $geoCode;
                 }
             }
@@ -623,5 +624,13 @@ class Patient extends CacheAwareService
                 return $user;
             }
         }
+    }
+
+    public function getDedupListByCatchment($catchment, $param) {
+        if(empty($catchment)) {
+            return array();
+        }
+
+        return $this->getPatientsResponse($this->catchmentUrl . "$catchment/dedup", $param);
     }
 }

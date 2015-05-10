@@ -7,6 +7,7 @@ use Guzzle\Http\Exception\CurlException;
 use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\PatientBundle\Form\PatientType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
@@ -93,20 +94,13 @@ class PatientController extends Controller
     /**
      * @Secure(roles="ROLE_MCI_ADMIN")
      */
-    public function editAction( $id){
+    public function editAction( $id)
+    {
 
         $patient = $this->get('mci.patient')->getPatientById($id);
         $location = $this->get('mci.location');
         $masterData = $this->get('mci.master_data');
-
-        if($patient['systemError']){
-            throw $this->createNotFoundException('Service Unavailable');
-        }
-
-        if (!$patient['responseBody']) {
-            throw $this->createNotFoundException('Unable to find patient');
-        }
-
+        $this->throwingException($patient);
         $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
 
         $form = $this->createForm(new PatientType($location,$masterData,$object), $object);
@@ -125,7 +119,8 @@ class PatientController extends Controller
     /**
      * @Secure(roles="ROLE_MCI_ADMIN")
      */
-    public function updateAction(Request $request, $id){
+    public function updateAction(Request $request, $id)
+    {
 
         $postData = array_filter($request->request->get('mci_bundle_patientBundle_patients'), array($this,'filterAcceptZero'));
 
@@ -188,7 +183,8 @@ class PatientController extends Controller
     /**
      * @Secure(roles="ROLE_MCI_ADMIN")
      */
-    public function removeRelationAction($id){
+    public function removeRelationAction($id)
+    {
 
         if($id){
                  $relationId = $this->get('request')->request->get('realtionId');
@@ -328,6 +324,66 @@ class PatientController extends Controller
     {
         if ($this->noAccessToCatchment($catchment)) {
             throw new AccessDeniedHttpException('Insufficient access privilege');
+        }
+    }
+
+    /**
+     * @param $dir
+     * @param $marker
+     * @param Request $request
+     * @return Response
+     */
+    public function deduplicationAction($dir, $marker, Request $request)
+    {
+        $catchment = $request->get('catchment');
+        if (!empty($catchment)) {
+            $this->handleCatchmentRestriction($catchment);
+        }
+
+        $patientModel = $this->get('mci.patient');
+        $response = $patientModel->getDedupListByCatchment($catchment, array($dir => $marker));
+        if(!empty($response['systemError'])){
+            throw new Exception("Service unavailable", 500);
+        }
+
+        $response['catchments'] = $patientModel->getAllCatchment();
+        $response['catchment'] = $catchment;
+
+        $response['responseBody']['results'] = array(
+            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'NID Match'),
+            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'BRN Match'),
+            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'UID  Match'),
+            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'BIN  Match')
+        );
+
+        return $this->render('MciPatientBundle:Patient:deDuplication.html.twig', $response);
+    }
+
+    /**
+     * @param Request $request
+     * @param $hid
+     * @return Response
+     */
+    public function deduplicationDetailsAction(Request $request, $hid)
+    {
+        $patientModel = $this->get('mci.patient');
+        $deDupPatient = $patientModel->getPatientById($hid);
+        $this->throwingException($deDupPatient);
+
+        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', $deDupPatient);
+    }
+
+    /**
+     * @param $response
+     */
+    private function throwingException($response)
+    {
+        if (empty($response['responseBody'])) {
+             $this->createNotFoundException('Patient Not Found');
+        }
+
+        if (!empty($response['systemError'])) {
+            throw new Exception("Service unavailable", 500);
         }
     }
 }

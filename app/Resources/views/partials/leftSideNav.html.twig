@@ -70,7 +70,10 @@
                 <li><a class="{{ searchActive }}"  href="{{ path('mci_patient_searchpage') }}"><i class="fa fa-dashboard fa-fw "></i> Search Patient</a></li>
                 {% endif %}
                 {% if is_granted('ROLE_MCI_APPROVER') %}
-                <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_pending_approval') }}"><i class="fa fa-dashboard fa-fw "></i> Patient approval list</a></li>
+                    <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_pending_approval') }}"><i class="fa fa-dashboard fa-fw "></i> Patient approval list</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_MCI_ADMIN') %}
+                    <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_deduplication') }}"><i class="fa fa-dashboard fa-fw "></i> De-duplication list</a></li>
                 {% endif %}
 
             </ul>
