@@ -72,7 +72,7 @@
                 {% if is_granted('ROLE_MCI_APPROVER') %}
                     <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_pending_approval') }}"><i class="fa fa-dashboard fa-fw "></i> Patient approval list</a></li>
                 {% endif %}
-                {% if is_granted('ROLE_MCI_ADMIN') %}
+                {% if is_granted('ROLE_MCI_APPROVER') %}
                     <li><a class="{{ pendingApproval }}"  href="{{ path('mci_patient_deduplication') }}"><i class="fa fa-dashboard fa-fw "></i> De-duplication list</a></li>
                 {% endif %}
 

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class PatientController extends Controller
@@ -349,12 +350,6 @@ class PatientController extends Controller
         $response['catchments'] = $patientModel->getAllCatchment();
         $response['catchment'] = $catchment;
 
-        $response['responseBody']['results'] = array(
-            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'NID Match'),
-            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'BRN Match'),
-            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'UID  Match'),
-            array('hid1' => '33378883747', 'hid2' => '3344444444', 'reason' => 'BIN  Match')
-        );
 
         return $this->render('MciPatientBundle:Patient:deDuplication.html.twig', $response);
     }
@@ -379,7 +374,7 @@ class PatientController extends Controller
     private function throwingException($response)
     {
         if (empty($response['responseBody'])) {
-             $this->createNotFoundException('Patient Not Found');
+            throw new NotFoundHttpException("Patient not found");
         }
 
         if (!empty($response['systemError'])) {

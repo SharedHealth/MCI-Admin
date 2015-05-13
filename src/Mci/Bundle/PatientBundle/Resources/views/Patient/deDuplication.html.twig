@@ -65,7 +65,7 @@
                       <tr>
                           <td><a  href="{{ path('mci_patient_deduplication_details', { 'hid': result.hid1,'catchment': catchment }) }}"> {{ result.hid1 }} - {{ result.hid2 }} </a></td>
                           <td>
-                              {{ result.reason }}
+                              {{ result.reasons|join(", ")}}
                           </td>
                       </tr>
                   {% endfor %}

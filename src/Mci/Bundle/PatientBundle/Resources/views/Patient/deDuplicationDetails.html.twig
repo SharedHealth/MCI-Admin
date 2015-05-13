@@ -1,5 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    <table class="table table-bordered" width="100%">
+        <tr>
+            <th>Original Patient</th>
+            <th>Duplicate Patient</th>
+        </tr>
+        <tr>
+            <td>
+                <table width="50%">
+                   {% for title, originalPatient in responseBody %}
+                    <tr>
+                        <td>{{ title }}</td>
+                        {% if originalPatient is iterable %}
+                        <td>
+                            {% for BlockFieldTitle,BlockField in originalPatient %}
+                                {% if BlockField is not iterable  %}
+                                    {{ BlockFieldTitle }} : {{ BlockField }} </br>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        {% else %}
+                            <td>{{ originalPatient }}</td>
+                        {%endif  %}
+                    </tr>
+                   {% endfor %}
+                </table>
+            </td>
+            <td>
+                <table width="50%">
+                    <tr>
+                        <td>SurName</td>
+                        <td>Kamran</td>
+                        <td><input type="checkbox"> </td>
+                    </tr>
+                </table>
 
+                <button class="MT20 btn btn-primary" type="button">Submit</button>
+            </td>
+        </tr>
+    </table>
 {% endblock %}

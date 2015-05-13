@@ -631,6 +631,6 @@ class Patient extends CacheAwareService
             return array();
         }
 
-        return $this->getPatientsResponse($this->catchmentUrl . "$catchment/dedup", $param);
+        return $this->getPatientsResponse( "patients/dupes/$catchment", $param);
     }
 }
