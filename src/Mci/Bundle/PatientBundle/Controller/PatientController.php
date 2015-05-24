@@ -14,6 +14,7 @@ use Mci\Bundle\PatientBundle\Utills\Utility;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+Use Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider;
 
 
 class PatientController extends Controller
@@ -362,10 +363,18 @@ class PatientController extends Controller
     public function deduplicationDetailsAction(Request $request, $hid)
     {
         $patientModel = $this->get('mci.patient');
+        $originalPatient = $patientModel->getPatientById($hid);
         $deDupPatient = $patientModel->getPatientById($hid);
         $this->throwingException($deDupPatient);
+        $csrf = $this->get('form.csrf_provider');
+        $csrfToken = $csrf->generateCsrfToken('dedup');
+        if($request->isMethod("POST")){
+            if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
+                //var_dump($_POST);
+            }
+        }
 
-        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', $deDupPatient);
+        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken));
     }
 
     /**

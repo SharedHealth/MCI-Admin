@@ -3,41 +3,461 @@
 {% block content %}
     <table class="table table-bordered" width="100%">
         <tr>
-            <th>Original Patient</th>
-            <th>Duplicate Patient</th>
+            <th>{% if original.responseBody.given_name is defined %}{{ original.responseBody.given_name }} {{ original.responseBody.sur_name }}{% endif %} {% if original.responseBody.name_bangla is defined %}({{ original.responseBody.name_bangla }}){% endif %}</th>
+            <th>{% if duplicate.responseBody.given_name is defined %}{{ duplicate.responseBody.given_name }} {{ duplicate.responseBody.sur_name }}{% endif %} {% if duplicate.responseBody.name_bangla is defined %}({{ duplicate.responseBody.name_bangla }}){% endif %}</th>
         </tr>
         <tr>
-            <td>
-                <table width="50%">
-                   {% for title, originalPatient in responseBody %}
-                    <tr>
-                        <td>{{ title }}</td>
-                        {% if originalPatient is iterable %}
-                        <td>
-                            {% for BlockFieldTitle,BlockField in originalPatient %}
-                                {% if BlockField is not iterable  %}
-                                    {{ BlockFieldTitle }} : {{ BlockField }} </br>
-                                {% endif %}
-                            {% endfor %}
-                        </td>
-                        {% else %}
-                            <td>{{ originalPatient }}</td>
-                        {%endif  %}
-                    </tr>
-                   {% endfor %}
-                </table>
-            </td>
-            <td>
-                <table width="50%">
-                    <tr>
-                        <td>SurName</td>
-                        <td>Kamran</td>
-                        <td><input type="checkbox"> </td>
-                    </tr>
-                </table>
+            <td width="50%">
+            <table width="100%">
+            {% if original.responseBody.name_bangla %}
+                <tr>
+                    <td>Name Bangla</td>
+                    <td>{{ original.responseBody.name_bangla }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.given_name %}
+                <tr>
+                    <td>Given name</td>
+                    <td>{{ original.responseBody.given_name }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.sur_name %}
+                <tr>
+                    <td>Surname</td>
+                    <td>{{ original.responseBody.sur_name }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.date_of_birth %}
+                <tr>
+                    <td>Date Of Birth</td>
+                    <td>{{ original.responseBody.date_of_birth|date }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.gender %}
+                <tr>
+                    <td>Gender</td>
+                    <td>{{ original.responseBody.gender|gender }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.occupation %}
+                <tr>
+                    <td>Occupation</td>
+                    <td>{{ original.responseBody.occupation|occupation }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.edu_level %}
+                <tr>
+                    <td>Education Level</td>
+                    <td>{{ original.responseBody.edu_level|edulevel }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.religion %}
+                <tr>
+                    <td>Relegion</td>
+                    <td>{{ original.responseBody.religion|religion }}</td>
+                </tr>
+            {% endif %}
 
-                <button class="MT20 btn btn-primary" type="button">Submit</button>
+            {% if original.responseBody.blood_group %}
+                <tr>
+                    <td>Blood Group</td>
+                    <td>{{ original.responseBody.blood_group|bloodgroup }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.nationality %}
+                <tr>
+                    <td>Nationality</td>
+                    <td>{{ original.responseBody.nationality }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.disability %}
+                <tr>
+                    <td>Disability</td>
+                    <td>{{ original.responseBody.disability|disability }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.primary_contact %}
+                <tr>
+                    <td>Primary Contact</td>
+                    <td>{{ original.responseBody.nationality }}</td>
+                </tr>
+            {% endif %}
+
+            {% if original.responseBody.marital_status %}
+                <tr>
+                    <td>Marital Status</td>
+                    <td>{{ original.responseBody.marital_status|maritalStatus }}</td>
+                </tr>
+            {% endif %}
+            {% if original.responseBody.confidential %}
+                <tr>
+                    <td>Confidential</td>
+                    <td>{{ original.responseBody.confidential }}</td>
+                </tr>
+            {% endif %}
+
+            {% if original.responseBody.household_code %}
+                <tr>
+                    <td>Household Code</td>
+                    <td>{{ original.responseBody.household_code }}</td>
+                </tr>
+            {% endif %}
+
+            {% if original.responseBody.status %}
+                <tr>
+                    <td>Status</td>
+                    <td>{{ original.responseBody.status.type|livingStatus }}</td>
+                </tr>
+            {% endif %}
+
+            {% if original.responseBody.present_address %}
+                <tr>
+                    <td>Present Address</td>
+                    <td>
+                        <table width="100%" class="table table-bordered">
+                            <tr>
+                                <td>Division</td>
+                                <td>
+                                    {{ original.responseBody.present_address.division_id|division }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>District</td>
+                                <td>
+                                    {{ original.responseBody.present_address.district_id|location(original.responseBody.present_address.division_id) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Upazila</td>
+                                <td>
+                                    {{ original.responseBody.present_address.upazila_id|location(original.responseBody.present_address.division_id~original.responseBody.present_address.district_id) }}
+                                </td>
+                            </tr>
+                            {% if original.responseBody.present_address.city_corporation_id is defined %}
+                                <tr>
+                                    <td>City Corporation</td>
+                                    <td>
+                                        {{ original.responseBody.present_address.city_corporation_id|location(original.responseBody.present_address.division_id~original.responseBody.present_address.district_id~original.responseBody.present_address.upazila_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if original.responseBody.present_address.union_or_urban_ward_id is defined %}
+                                <tr>
+                                    <td>Union Or Urban Ward</td>
+                                    <td>
+                                        {{ original.responseBody.present_address.union_or_urban_ward_id|location(original.responseBody.present_address.division_id~original.responseBody.present_address.district_id~original.responseBody.present_address.upazila_id~original.responseBody.present_address.city_corporation_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if original.responseBody.present_address.rural_ward_id is defined %}
+                                <tr>
+                                    <td>Rural Ward</td>
+                                    <td>
+                                        {{ original.responseBody.present_address.rural_ward_id|location(original.responseBody.present_address.division_id~original.responseBody.present_address.district_id~original.responseBody.present_address.upazila_id~original.responseBody.present_address.city_corporation_id~original.responseBody.present_address.union_or_urban_ward_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                        </table>
+                    </td>
+
+                </tr>
+            {% endif %}
+
+            {% if original.responseBody.permanent_address is defined %}
+                <tr>
+                    <td>Permanent Address</td>
+                    <td>
+                        <table width="100%" class="table table-bordered">
+                            <tr>
+                                <td>Division</td>
+                                <td>
+                                    {{ original.responseBody.permanent_address.division_id|division }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>District</td>
+                                <td>
+                                    {{ original.responseBody.permanent_address.district_id|location(original.responseBody.permanent_address.division_id) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Upazila</td>
+                                <td>
+                                    {{ original.responseBody.permanent_address.upazila_id|location(original.responseBody.permanent_address.division_id~original.responseBody.permanent_address.district_id) }}
+                                </td>
+                            </tr>
+                            {% if original.responseBody.permanent_address.city_corporation_id is defined %}
+                                <tr>
+                                    <td>City Corporation</td>
+                                    <td>
+                                        {{ original.responseBody.permanent_address.city_corporation_id|location(original.responseBody.permanent_address.division_id~original.responseBody.permanent_address.district_id~original.responseBody.permanent_address.upazila_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if original.responseBody.permanent_address.union_or_urban_ward_id is defined %}
+                                <tr>
+                                    <td>Union Or Urban Ward</td>
+                                    <td>
+                                        {{ original.responseBody.permanent_address.union_or_urban_ward_id|location(original.responseBody.permanent_address.division_id~original.responseBody.permanent_address.district_id~original.responseBody.permanent_address.upazila_id~original.responseBody.permanent_address.city_corporation_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                            {% if original.responseBody.permanent_address.rural_ward_id is defined %}
+                                <tr>
+                                    <td>Rural Ward</td>
+                                    <td>
+                                        {{ original.responseBody.permanent_address.rural_ward_id|location(original.responseBody.permanent_address.division_id~original.responseBody.permanent_address.district_id~original.responseBody.permanent_address.upazila_id~original.responseBody.permanent_address.city_corporation_id~original.responseBody.permanent_address.union_or_urban_ward_id) }}
+                                    </td>
+                                </tr>
+                            {% endif %}
+
+                        </table>
+                    </td>
+
+                </tr>
+            {% endif %}
+
+                </table>
             </td>
+
+            <td width="50%">
+            <form method="post">
+                <table width="100%">
+                    {% if duplicate.responseBody.name_bangla %}
+                        <tr>
+                            <td>Name Bangla</td>
+                            <td>{{ duplicate.responseBody.name_bangla }}</td>
+                            <td><input name="name_bangla" value="{{ duplicate.responseBody.name_bangla }}" type="checkbox"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.given_name %}
+                        <tr>
+                            <td>Given name</td>
+                            <td>{{ duplicate.responseBody.given_name }}</td>
+                            <td><input name="given_name" value="{{ duplicate.responseBody.given_name }}" type="checkbox"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.sur_name %}
+                        <tr>
+                            <td>Surname</td>
+                            <td>{{ duplicate.responseBody.sur_name }}</td>
+                            <td><input name="sur_name" value="{{ duplicate.responseBody.sur_name }}" type="checkbox"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.date_of_birth %}
+                        <tr>
+                            <td>Date Of Birth</td>
+                            <td>{{ duplicate.responseBody.date_of_birth|date }}</td>
+                            <td><input name="date_of_birth" type="checkbox" value="{{ duplicate.responseBody.date_of_birth }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.gender %}
+                        <tr>
+                            <td>Gender</td>
+                            <td>{{ duplicate.responseBody.gender|gender }}</td>
+                            <td><input name="gender" type="checkbox" value="{{ duplicate.responseBody.gender }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.occupation %}
+                        <tr>
+                            <td>Occupation</td>
+                            <td>{{ duplicate.responseBody.occupation|occupation }}</td>
+                            <td><input name="occupation" type="checkbox" value="{{ duplicate.responseBody.occupation }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.edu_level %}
+                        <tr>
+                            <td>Education Level</td>
+                            <td>{{ duplicate.responseBody.edu_level|edulevel }}</td>
+                            <td><input name="edu_level" type="checkbox" value="{{ duplicate.responseBody.edu_level }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.religion %}
+                        <tr>
+                            <td>Relegion</td>
+                            <td>{{ duplicate.responseBody.religion|religion }}</td>
+                            <td><input name="religion" type="checkbox" value="{{ duplicate.responseBody.religion}}"> </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.blood_group %}
+                        <tr>
+                            <td>Blood Group</td>
+                            <td>{{ duplicate.responseBody.blood_group|bloodgroup }}</td>
+                            <td><input name="blood_group" type="checkbox" value="{{ duplicate.responseBody.blood_group }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.nationality %}
+                        <tr>
+                            <td>Nationality</td>
+                            <td>{{ duplicate.responseBody.nationality }}</td>
+                            <td><input name="nationality" type="checkbox" value="{{ duplicate.responseBody.nationality }}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.disability %}
+                        <tr>
+                            <td>Disability</td>
+                            <td>{{ duplicate.responseBody.disability|disability }}</td>
+                            <td><input name="disability" type="checkbox" value="{{ duplicate.responseBody.disability}}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.primary_contact %}
+                        <tr>
+                            <td>Primary Contact</td>
+                            <td>{{ duplicate.responseBody.nationality }}</td>
+                            <td><input name="nationality" type="checkbox" value="{{ duplicate.responseBody.nationality }}"> </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.marital_status %}
+                        <tr>
+                            <td>Marital Status</td>
+                            <td>{{ duplicate.responseBody.marital_status|maritalStatus }}</td>
+                            <td><input name="marital_status" type="checkbox" value="{{ duplicate.responseBody.marital_status}}"> </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.confidential %}
+                        <tr>
+                            <td>Confidential</td>
+                            <td>{{ duplicate.responseBody.confidential }}</td>
+                            <td><input name="confidential" type="checkbox" value="{{ duplicate.responseBody.confidential }}"> </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.household_code %}
+                            <tr>
+                                <td>Household Code</td>
+                                <td>{{ duplicate.responseBody.household_code }}</td>
+                                <td><input name="household_code" type="checkbox" value="{{ duplicate.responseBody.household_code }}"> </td>
+                            </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.status %}
+                            <tr>
+                                <td>Status</td>
+                                <td>{{ duplicate.responseBody.status.type|livingStatus }}</td>
+                                <td><input name="status" type="checkbox" value="{{ duplicate.responseBody.status.type}}"> </td>
+                            </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.present_address %}
+                        <tr>
+                            <td>Present Address</td>
+                            <td>
+                             <table width="100%" class="table table-bordered">
+                                   <tr>
+                                       <td>Division</td>
+                                       <td>
+                                           {{ duplicate.responseBody.present_address.division_id|division }}
+                                      </td>
+                                   </tr>
+                                   <tr>
+                                       <td>District</td>
+                                       <td>
+                                           {{ duplicate.responseBody.present_address.district_id|location(duplicate.responseBody.present_address.division_id) }}
+                                      </td>
+                                   </tr>
+                                    <tr>
+                                       <td>Upazila</td>
+                                       <td>
+                                           {{ duplicate.responseBody.present_address.upazila_id|location(duplicate.responseBody.present_address.division_id~duplicate.responseBody.present_address.district_id) }}
+                                      </td>
+                                   </tr>
+                                 {% if duplicate.responseBody.present_address.city_corporation_id is defined %}
+                                   <tr>
+                                       <td>City Corporation</td>
+                                       <td>
+                                           {{ duplicate.responseBody.present_address.city_corporation_id|location(duplicate.responseBody.present_address.division_id~duplicate.responseBody.present_address.district_id~duplicate.responseBody.present_address.upazila_id) }}
+                                      </td>
+                                   </tr>
+                                   {% endif %}
+                                {% if duplicate.responseBody.present_address.union_or_urban_ward_id is defined %}
+                                  <tr>
+                                       <td>Union Or Urban Ward</td>
+                                       <td>
+                                           {{ duplicate.responseBody.present_address.union_or_urban_ward_id|location(duplicate.responseBody.present_address.division_id~duplicate.responseBody.present_address.district_id~duplicate.responseBody.present_address.upazila_id~duplicate.responseBody.present_address.city_corporation_id) }}
+                                      </td>
+                                   </tr>
+                                 {% endif %}
+                                {% if duplicate.responseBody.present_address.rural_ward_id is defined %}
+                                      <tr>
+                                           <td>Rural Ward</td>
+                                           <td>
+                                               {{ duplicate.responseBody.present_address.rural_ward_id|location(duplicate.responseBody.present_address.division_id~duplicate.responseBody.present_address.district_id~duplicate.responseBody.present_address.upazila_id~duplicate.responseBody.present_address.city_corporation_id~duplicate.responseBody.present_address.union_or_urban_ward_id) }}
+                                          </td>
+                                       </tr>
+                                {% endif %}
+
+                            </table>
+                            </td>
+                            <td><input name="permanent_address" type="checkbox" value="{{ duplicate.responseBody.present_address|json_encode }}"> </td>
+                        </tr>
+                    {% endif %}
+
+                    {% if duplicate.responseBody.permanent_address is defined %}
+                        <tr>
+                            <td>Permanent Address</td>
+                            <td>
+                                <form>
+                                    <table width="100%" class="table table-bordered">
+                                        <tr>
+                                            <td>Division</td>
+                                            <td>
+                                                {{ duplicate.responseBody.permanent_address.division_id|division }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>District</td>
+                                            <td>
+                                                {{ duplicate.responseBody.permanent_address.district_id|location(duplicate.responseBody.permanent_address.division_id) }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Upazila</td>
+                                            <td>
+                                                {{ duplicate.responseBody.permanent_address.upazila_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id) }}
+                                            </td>
+                                        </tr>
+                                        {% if duplicate.responseBody.permanent_address.city_corporation_id is defined %}
+                                            <tr>
+                                                <td>City Corporation</td>
+                                                <td>
+                                                    {{ duplicate.responseBody.permanent_address.city_corporation_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id~duplicate.responseBody.permanent_address.upazila_id) }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if duplicate.responseBody.permanent_address.union_or_urban_ward_id is defined %}
+                                            <tr>
+                                                <td>Union Or Urban Ward</td>
+                                                <td>
+                                                    {{ duplicate.responseBody.permanent_address.union_or_urban_ward_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id~duplicate.responseBody.permanent_address.upazila_id~duplicate.responseBody.permanent_address.city_corporation_id) }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                        {% if duplicate.responseBody.permanent_address.rural_ward_id is defined %}
+                                            <tr>
+                                                <td>Rural Ward</td>
+                                                <td>
+                                                    {{ duplicate.responseBody.permanent_address.rural_ward_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id~duplicate.responseBody.permanent_address.upazila_id~duplicate.responseBody.permanent_address.city_corporation_id~duplicate.responseBody.permanent_address.union_or_urban_ward_id) }}
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    </table>
+                                </form>
+                            </td>
+                            <td>
+                                <input name="permanent_address" type="checkbox" value="{{ duplicate.responseBody.permanent_address|json_encode }}">
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                </table>
+                <input type="hidden" name="_csrf_token" value="{{ csrfToken }}">
+                <button class="MT20 btn btn-primary" type="submit">Submit</button>
+                </form>
+            </td>
+
         </tr>
     </table>
 {% endblock %}
