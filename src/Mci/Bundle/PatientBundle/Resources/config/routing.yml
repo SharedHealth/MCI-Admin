@@ -51,5 +51,5 @@ mci_patient_deduplication:
     path:     /de-duplication//{dir}/{marker}
     defaults: { _controller: MciPatientBundle:Patient:deduplication,  marker: null, dir : next }
 mci_patient_deduplication_details:
-    path:     /de-duplication/details/{hid}
+    path:     /de-duplication/details/{hid1}/{hid2}
     defaults: { _controller: MciPatientBundle:Patient:deduplicationDetails }

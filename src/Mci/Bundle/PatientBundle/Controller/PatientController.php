@@ -33,38 +33,7 @@ class PatientController extends Controller
             return $this->redirect($this->generateUrl('mci_patient_showpage', array('id' => trim($request->get('hid')))));
         }
 
-        $districts = array();
-        $upazilas = array();
-        $citycorporations = array();
-        $unions = array();
-        $wards = array();
-        $responseBody = array();
-
-        $locationService = $this->container->get('mci.location');
-        $division_code = $request->get('division_id');
-        $district_code = $request->get('district_id');
-        $upazila_code = $request->get('upazila_id');
-        $citycorporation_code = $request->get('citycorporation_id');
-        $union_code = $request->get('union_id');
-        $ward_code = $request->get('ward_id');
-
-        $divisions = $locationService->getChildLocations();
-        if ($division_code) {
-            $districts = $locationService->getChildLocations($division_code);
-        }
-
-        if ($district_code && $division_code) {
-            $upazilas = $locationService->getChildLocations($division_code.$district_code);
-        }
-        if ($district_code && $division_code && $upazila_code  ) {
-            $citycorporations = $locationService->getChildLocations($division_code.$district_code.$upazila_code);
-        }
-        if ( $division_code && $district_code && $upazila_code && $citycorporation_code  && $union_code ) {
-            $unions = $locationService->getChildLocations($division_code.$district_code.$upazila_code.$citycorporation_code);
-        }
-        if ( $division_code && $district_code && $upazila_code && $citycorporation_code && $union_code && $ward_code ) {
-            $wards = $locationService->getChildLocations($division_code.$district_code.$upazila_code.$citycorporation_code.$union_code);
-        }
+        list($divisions,$districts,$upazilas,$citycorporations,$unions,$wards) = $this->get('mci.location')->getParentlocation($request);
 
         $SystemAPiError = '';
         try {
@@ -360,11 +329,11 @@ class PatientController extends Controller
      * @param $hid
      * @return Response
      */
-    public function deduplicationDetailsAction(Request $request, $hid)
+    public function deduplicationDetailsAction(Request $request, $hid1,$hid2)
     {
         $patientModel = $this->get('mci.patient');
-        $originalPatient = $patientModel->getPatientById($hid);
-        $deDupPatient = $patientModel->getPatientById($hid);
+        $originalPatient = $patientModel->getPatientById($hid1);
+        $deDupPatient = $patientModel->getPatientById($hid2);
         $this->throwingException($deDupPatient);
         $csrf = $this->get('form.csrf_provider');
         $csrfToken = $csrf->generateCsrfToken('dedup');

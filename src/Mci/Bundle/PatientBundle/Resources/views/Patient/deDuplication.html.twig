@@ -55,18 +55,26 @@
               <table width="100%" class="table table-bordered">
                   <thead>
                   <tr>
-                      <th>Hid</th>
+                      <th>HID</th>
+                      <th>Name</th>
                       <th>Reason</th>
+                      <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
 
                   {% for result in responseBody.results %}
                       <tr>
-                          <td><a  href="{{ path('mci_patient_deduplication_details', { 'hid': result.hid1,'catchment': catchment }) }}"> {{ result.hid1 }} - {{ result.hid2 }} </a></td>
+                          <td> {{ result.hid1 }} - {{ result.hid2 }} </td>
+                          <td>
+                              {% if result.name is defined  %}
+                                  {{ result.name }}
+                              {% endif %}
+                          </td>
                           <td>
                               {{ result.reasons|join(", ")}}
                           </td>
+                          <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.hid1,'hid2': result.hid2,'catchment': catchment,'reason':result.reasons }) }}" class="">View</a> </td>
                       </tr>
                   {% endfor %}
                   </tbody>
