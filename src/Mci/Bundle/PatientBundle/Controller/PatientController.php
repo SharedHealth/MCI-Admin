@@ -332,6 +332,7 @@ class PatientController extends Controller
     public function deduplicationDetailsAction(Request $request, $hid1,$hid2)
     {
         $patientModel = $this->get('mci.patient');
+        $catchment = $request->get('catchment');
         $originalPatient = $patientModel->getPatientById($hid1);
         $deDupPatient = $patientModel->getPatientById($hid2);
         $this->throwingException($deDupPatient);
@@ -343,7 +344,7 @@ class PatientController extends Controller
             }
         }
 
-        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken));
+        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken,'catchment'=>$catchment));
     }
 
     /**
