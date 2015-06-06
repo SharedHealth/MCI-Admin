@@ -74,7 +74,7 @@
                           <td>
                               {{ result.reasons|join(", ")}}
                           </td>
-                          <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.hid1,'hid2': result.hid2,'catchment': catchment,'reason':result.reasons }) }}" class="">View</a> </td>
+                          <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.hid1,'hid2': result.hid2,'catchment': catchment,'reason':result.reasons|join("-") }) }}" class="">View</a> </td>
                       </tr>
                   {% endfor %}
                   </tbody>

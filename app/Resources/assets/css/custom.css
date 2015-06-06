@@ -49,3 +49,10 @@ select.error option {
 .MB20{
     margin-bottom: 20px;
 }
+
+.highlighted {
+    background-color: #ffff00;
+}
+#deduplication table{
+    background: none;
+}

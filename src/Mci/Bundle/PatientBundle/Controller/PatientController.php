@@ -333,18 +333,22 @@ class PatientController extends Controller
     {
         $patientModel = $this->get('mci.patient');
         $catchment = $request->get('catchment');
+        $reasonText = $request->get('reason');
         $originalPatient = $patientModel->getPatientById($hid1);
         $deDupPatient = $patientModel->getPatientById($hid2);
         $this->throwingException($deDupPatient);
+        $reason = explode('-',$reasonText);
+
         $csrf = $this->get('form.csrf_provider');
         $csrfToken = $csrf->generateCsrfToken('dedup');
+
         if($request->isMethod("POST")){
             if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
                 //var_dump($_POST);
             }
         }
 
-        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken,'catchment'=>$catchment));
+        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken,'catchment'=>$catchment,'reason'=>$reason));
     }
 
     /**
