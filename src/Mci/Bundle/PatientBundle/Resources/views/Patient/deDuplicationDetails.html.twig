@@ -3,12 +3,17 @@
 {% block content %}
     {% import "::partials/confirmModal.html.twig" as confirmModal %}
 
-    {{ confirmModal.dedupConfirmModal() }}
+    {{ confirmModal.dedupConfirmModal(original.responseBody.hid,duplicate.responseBody.hid,csrfToken) }}
 
     {#    {% if errors is defined and errors is empty %}#}
-    <div style="margin-top: 10px;" class="alert alert-success">
+    <div style="margin-top: 10px;display: none" class="alert alert-success">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
         Merging successfully completed.
+    </div>
+
+    <div style="margin-top: 10px;display: none" class="alert alert-warning">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+
     </div>
     {#    {% endif %}#}
     <table id="deduplication" style="margin-top: 10px;" class="table table-bordered" width="100%">
@@ -406,7 +411,6 @@
     </td>
 
     <td width="50%">
-    <form method="post">
     <table width="100%">
     <tr>
         <td>HID</td>
@@ -788,10 +792,8 @@
     {% endif %}
 
     </table>
-    <input type="hidden" name="_csrf_token" value="{{ csrfToken }}">
     <button id="not-duplicates" class="MT20 btn btn-primary" type="button">Not Duplicates</button>
     <button id="resolve-duplicates" class="MT20 btn btn-primary" type="button">Resolve Duplicates</button>
-    </form>
     </td>
 
     </tr>
@@ -800,8 +802,55 @@
 {% endblock %}
 
 {% block documentReady %}
+
     var nonDuplicate = $("#not-duplicates");
     nonDuplicate.click(function(){
-    $('#myModal').modal('show');
+        $('#myModal').modal('show');
     });
+
+    $("#distinct").click(function(){
+        var hidOne = $("#hidOne").val();
+        var hidTwo = $("#hidTwo").val();
+        var csrfToken = $("#csrfToken").val();
+        var url = "{{ path('mci_patient_deduplication_distinct') }}";
+        $.ajax({
+            url: url,
+            type: "POST",
+            data: { hidOne:hidOne,hidTwo:hidTwo,csrfToken:csrfToken }
+        })
+                .done(function( html ) {
+
+                if('OK' == html){
+                    $('.alert-success').html("Retain Successfully");
+                    $('.alert-success').addClass("error");
+                    $('.alert-success').show();
+                    $('.alert-warning').hide();
+                }else{
+                     $('.alert-warning').html(html);
+                     $('.alert-warning').show();
+                     $('.alert-success').hide();
+                }
+
+                $('#myModal').modal('hide');
+
+                }).fail(function(jqXHR,exception) {
+                    if (jqXHR.status === 0) {
+                        alert('Not connect.\n Verify Network.');
+                    } else if (jqXHR.status == 404) {
+                        alert('Requested page not found. [404]');
+                    } else if (jqXHR.status == 500) {
+                        alert('Internal Server Error [500].');
+                    } else if (exception === 'parsererror') {
+                        alert('Requested JSON parse failed.');
+                    } else if (exception === 'timeout') {
+                        alert('Time out error.');
+                    } else if (exception === 'abort') {
+                        alert('Ajax request aborted.');
+                    } else {
+                        alert('Uncaught Error.\n' + jqXHR.responseText);
+                    }
+                });
+
+    });
+
 {% endblock %}

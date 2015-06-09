@@ -22,7 +22,7 @@
 </div><!-- /.modal -->
 {% endmacro %}
 
-{% macro dedupConfirmModal() %}
+{% macro dedupConfirmModal(hid1,hid2,csrfToken) %}
     <div id="myModal" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -32,9 +32,12 @@
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to mark these two records as distinct?</p>
+                    <input type="hidden" name="patientOne" id="hidOne" value="{{ hid1 }}"/>
+                    <input type="hidden" name="patientTwo" id="hidTwo" value="{{ hid2 }}"/>
+                    <input type="hidden" name="csrfToken" id="csrfToken" value="{{ csrfToken }}"/>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary de-dup-retain">Yes</button>
+                    <button type="button" id="distinct" class="btn btn-primary de-dup-retain">Yes</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
                 </div>
             </div><!-- /.modal-content -->

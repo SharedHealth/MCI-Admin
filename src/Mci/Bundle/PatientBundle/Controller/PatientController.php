@@ -8,6 +8,7 @@ use Guzzle\Http\Exception\RequestException;
 use Mci\Bundle\PatientBundle\Form\PatientType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Mci\Bundle\PatientBundle\Utills\Utility;
@@ -338,17 +339,32 @@ class PatientController extends Controller
         $deDupPatient = $patientModel->getPatientById($hid2);
         $this->throwingException($deDupPatient);
         $reason = explode('-',$reasonText);
-
         $csrf = $this->get('form.csrf_provider');
         $csrfToken = $csrf->generateCsrfToken('dedup');
 
+        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken,'catchment'=>$catchment,'reason'=>$reason));
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function dedupDistinctAction(Request $request){
+        $csrf = $this->get('form.csrf_provider');
+
         if($request->isMethod("POST")){
+            $csrfToken = $request->get('csrfToken');
+            $hidOne = $request->get('hidOne');
+            $hidTwo = $request->get('hidTwo');
+
             if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
-                //var_dump($_POST);
+                $error = $this->get('mci.patient')->dedupRetain($hidOne,$hidTwo);
+                if(empty($error)){
+                    return new JsonResponse("OK");
+                }else{
+                    return new JsonResponse($error);
+                }
             }
         }
-
-        return $this->render('MciPatientBundle:Patient:deDuplicationDetails.html.twig', array('original'=>$originalPatient,'duplicate'=>$deDupPatient,'csrfToken'=>$csrfToken,'catchment'=>$catchment,'reason'=>$reason));
     }
 
     /**

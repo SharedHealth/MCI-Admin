@@ -635,4 +635,25 @@ class Patient extends CacheAwareService
 
     }
 
+    public function dedupRetain($hidOne,$hidTwo){
+       $data = array(
+           array(
+               "action" => "RETAIL_ALL",
+               "patient1" => array(
+                   'hid' =>$hidOne,
+                   'active' => false,
+                   'merged_with'=>$hidTwo
+               )
+           ),
+           array(
+               "patient2" => array(
+                   'hid' =>$hidOne,
+                   'active' => true
+               )
+           )
+       );
+       $payload =  json_encode($data,JSON_UNESCAPED_UNICODE);
+       return $this->update($payload,"patients/duplicates");
+    }
+
 }
