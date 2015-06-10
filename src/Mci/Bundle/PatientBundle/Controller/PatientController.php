@@ -359,6 +359,7 @@ class PatientController extends Controller
             if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
                 $error = $this->get('mci.patient')->dedupRetain($hidOne,$hidTwo);
                 if(empty($error)){
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Records has been retained successfully');
                     return new JsonResponse("OK");
                 }else{
                     return new JsonResponse($error);

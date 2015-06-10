@@ -6,12 +6,8 @@
     {{ confirmModal.dedupConfirmModal(original.responseBody.hid,duplicate.responseBody.hid,csrfToken) }}
 
     {#    {% if errors is defined and errors is empty %}#}
-    <div style="margin-top: 10px;display: none" class="alert alert-success">
-        <a href="#" class="close" data-dismiss="alert">&times;</a>
-        Merging successfully completed.
-    </div>
 
-    <div style="margin-top: 10px;display: none" class="alert alert-warning">
+    <div id="flush_message" style="margin-top: 10px;display: none" class="alert">
         <a href="#" class="close" data-dismiss="alert">&times;</a>
 
     </div>
@@ -812,23 +808,22 @@
         var hidOne = $("#hidOne").val();
         var hidTwo = $("#hidTwo").val();
         var csrfToken = $("#csrfToken").val();
-        var url = "{{ path('mci_patient_deduplication_distinct') }}";
+        var dedupDetailsUrl = "{{ path('mci_patient_deduplication_distinct') }}";
+        var dedupUrl = "{{ path('mci_patient_deduplication', {'catchment': catchment}) }}";
+
         $.ajax({
-            url: url,
+            url: dedupDetailsUrl,
             type: "POST",
             data: { hidOne:hidOne,hidTwo:hidTwo,csrfToken:csrfToken }
-        })
+            })
                 .done(function( html ) {
 
-                if('OK' == html){
-                    $('.alert-success').html("Retain Successfully");
-                    $('.alert-success').addClass("error");
-                    $('.alert-success').show();
-                    $('.alert-warning').hide();
+                if('OK' != html){
+                    $('#flush_message').html(html);
+                    $('#flush_message').addClass("alert-warning");
+                    $('#flush_message').show();
                 }else{
-                     $('.alert-warning').html(html);
-                     $('.alert-warning').show();
-                     $('.alert-success').hide();
+                    window.location = dedupUrl;
                 }
 
                 $('#myModal').modal('hide');

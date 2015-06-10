@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% for flashMessage in app.session.flashbag.get('dedupFlash') %}
+        <div style="margin-top: 10px;" class="alert alert-success" >
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
 {% if systemError is defined  and systemError is not empty %}
     <div class="alert alert-danger"   style="margin-top: 10px;">
     <ul>
@@ -10,6 +17,7 @@
     </ul>
     </div>
   {% else %}
+
 
 <div style="width: 100%; padding-top: 10px;">
     <h3 style="float: left; width: 30%;">De-duplication list</h3>
