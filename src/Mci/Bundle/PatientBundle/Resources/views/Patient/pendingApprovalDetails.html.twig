@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-{{ import "partials/confirmModal.html.twig" as confirmModal  }}
-    confirmModal.pendingApprovalConfirmModal()
+{%  import "partials/confirmModal.html.twig" as confirmModal  %}
+    {{ confirmModal.pendingApprovalConfirmModal() }}
 <style type="text/css">
     .changes{
         background: #f7e1b5;
@@ -121,8 +121,10 @@
         var fieldName = $('#fieldName').html();
         var payload = $('#payload').html();
         var catchment = $('#catchment').html();
-        var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': hid}) }}";
-        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': hid,'catchment':catchment} ) }}"
+        var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
+        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace','catchment':'catchment_replace'} ) }}";
+        acceptUrl = acceptUrl.replace("hid_replace", hid);
+        PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid).replace("catchment_replace", catchment);
 
         if(hid){
              $.ajax({
