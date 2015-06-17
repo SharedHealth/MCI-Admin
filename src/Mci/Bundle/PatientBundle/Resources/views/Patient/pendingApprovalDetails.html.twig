@@ -54,7 +54,7 @@
                                             {% for iterableKey,iterableValue in value %}
                                                 {% if iterableKey == "type"  %} {% set iterableValue = iterableValue|relation %} {% endif %}
                                                 {% if iterableKey != 'id' %}
-                                                    <p>{{ iterableKey }} : {{ iterableValue }}</p>
+                                                    <p>{{ iterableKey|camelize }} : {{ iterableValue }}</p>
                                                 {% endif %}
                                             {% endfor %}
                                             </div>
@@ -83,7 +83,7 @@
                                                         {% for chageFieldKey,chageField in changeFields  %}
                                                             {% if chageFieldKey == "type"  %} {% set chageField = chageField|relation %} {% endif %}
                                                           {% if chageField %}
-                                                                <p>{{ chageFieldKey }} : {{ chageField }}</p>
+                                                                <p>{{ chageFieldKey|camelize }} : {{ chageField }}</p>
                                                            {% endif %}
                                                         {% endfor %}
                                                         </div>
