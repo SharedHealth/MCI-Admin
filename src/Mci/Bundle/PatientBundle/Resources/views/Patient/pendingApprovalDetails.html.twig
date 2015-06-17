@@ -49,7 +49,18 @@
                         <td>
                             {% if results.current_value is iterable %}
                                 {% for fieldLevel,value in results.current_value  %}
+                                    {% if value is iterable %}
+                                           <div class="approval_relation">
+                                            {% for iterableKey,iterableValue in value %}
+                                                {% if iterableKey == "type"  %} {% set iterableValue = iterableValue|relation %} {% endif %}
+                                                {% if iterableKey != 'id' %}
+                                                    <p>{{ iterableKey }} : {{ iterableValue }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </div>
+                                    {% else %}
                                     <p>{{ fieldLevel }} : {{ value }}</p>
+                                    {% endif %}
                                 {% endfor %}
                             {% else %}
                                 {{ results.current_value }}
@@ -66,7 +77,21 @@
                                      {% if field_details.value is iterable %}
                                          {% for changeFieldsLevel,changeFields in field_details.value  %}
                                              {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}
-                                                 <p style="color: green;">{{ changeFieldsLevel }} : {{ changeFields}}</p>
+
+                                                    {% if changeFields is iterable %}
+                                                       <div class="approval_relation">
+                                                        {% for chageFieldKey,chageField in changeFields  %}
+                                                            {% if chageFieldKey == "type"  %} {% set chageField = chageField|relation %} {% endif %}
+                                                          {% if chageField %}
+                                                                <p>{{ chageFieldKey }} : {{ chageField }}</p>
+                                                           {% endif %}
+                                                        {% endfor %}
+                                                        </div>
+
+                                                    {% else %}
+                                                        <p style="color: green;">{{ changeFieldsLevel }} : {{ dump(changeFields)}}</p>
+                                                    {% endif %}
+
                                              {% else %}
                                                  <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
                                              {% endif %}
