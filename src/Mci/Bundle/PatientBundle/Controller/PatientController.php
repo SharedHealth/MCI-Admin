@@ -338,6 +338,7 @@ class PatientController extends Controller
         $originalPatient = $patientModel->getPatientById($hid1);
         $deDupPatient = $patientModel->getPatientById($hid2);
         $this->throwingException($deDupPatient);
+        $this->throwingException($originalPatient);
         $reason = explode('-',$reasonText);
         $csrf = $this->get('form.csrf_provider');
         $csrfToken = $csrf->generateCsrfToken('dedup');
