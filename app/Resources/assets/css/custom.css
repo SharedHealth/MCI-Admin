@@ -61,3 +61,12 @@ select.error option {
     margin-top: 20px;
     margin-bottom: 40px;
 }
+
+.radioBtn{
+    display: none;
+}
+
+#dedupDetailsUI label{
+    margin-bottom: 0;
+    margin-left: 5px;
+}
