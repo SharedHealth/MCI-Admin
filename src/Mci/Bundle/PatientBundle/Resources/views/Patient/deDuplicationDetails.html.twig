@@ -543,7 +543,7 @@
 
     {% if duplicate.responseBody.place_of_birth is defined %}
         <tr>
-            <td><input class="radioBtn" id="rightside_place_of_birth" type="radio" name="date_of_birth"
+            <td><input class="radioBtn" id="rightside_place_of_birth" type="radio" name="place_of_birth"
                        value="{{ original.responseBody.date_of_birth }}"></td>
             <td><label for="rightside_place_of_birth">Place Of Birth</label></td>
             <td>
@@ -843,7 +843,7 @@
     {% if duplicate.responseBody.relations is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_relation" type="radio" name="relations"
-                       value="{{ original.responseBody.relations|json_encode }}"></td>
+                       value="{{ duplicate.responseBody.relations|json_encode }}"></td>
             <td><label for="rightside_relation">Relation</label></td>
             <td>
                 {% for relation in duplicate.responseBody.relations %}
