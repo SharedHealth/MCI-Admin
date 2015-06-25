@@ -651,4 +651,8 @@ class Patient extends CacheAwareService
        return $this->update($data,"patients/duplicates");
     }
 
+    public function dedupMerge($data){
+
+    }
+
 }

@@ -58,3 +58,8 @@ mci_patient_deduplication_details:
 mci_patient_deduplication_distinct:
     path:     /de-duplication/distinct
     defaults: { _controller: MciPatientBundle:Patient:dedupDistinct }
+
+mci_patient_deduplication_merge:
+    path:     /de-duplication/merge
+    defaults: { _controller: MciPatientBundle:Patient:dedupMerge }
+    methods:   [POST]

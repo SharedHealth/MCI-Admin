@@ -136,7 +136,6 @@ class PatientController extends Controller
 
         $postData = Utility::unsetUnessaryData($postData);
         $postData = Utility::ConvertDateISOFormat($postData);
-
         $errors = $this->get('mci.patient')->updatePatientById($id, $postData);
         $patient = $this->get('mci.patient')->getPatientById($id);
         $object = $this->get('mci.patient')->getFormMappingObject(json_encode($patient['responseBody']));
@@ -370,6 +369,43 @@ class PatientController extends Controller
     }
 
     /**
+     * @param Request $request
+     */
+    public function dedupMergeAction(Request $request){
+        $csrf = $this->get('form.csrf_provider');
+        if($request->isMethod("POST")){
+            $csrfToken = $request->get('csrfToken');
+            $_POST['present_address'] = json_decode($request->get('present_address'));
+
+            if($request->get('permanent_address')){
+                $_POST['permanent_address'] = json_decode($request->get('permanent_address'));
+            }
+            if($request->get('relations')){
+                $_POST['relations'] = json_decode($request->get('relations'));
+            }
+
+            if($request->get('phone_number')){
+                $_POST['phone_number']  = json_decode($request->get('phone_number'));
+            }
+            if($request->get('primary_contact_number')){
+                $_POST['primary_contact_number'] = json_decode($request->get('primary_contact_number'));
+            }
+
+            if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
+
+                $error = $this->get('mci.patient')->dedupMerge($_POST);
+                if(empty($error)){
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Records has been retained successfully');
+                    return new JsonResponse("OK");
+                }else{
+                    return new JsonResponse($error);
+                }
+
+            }
+        }
+    }
+
+    /**
      * @param $response
      */
     private function throwingException($response)
@@ -382,4 +418,6 @@ class PatientController extends Controller
             throw new Exception("Service unavailable", 500);
         }
     }
+
+
 }
