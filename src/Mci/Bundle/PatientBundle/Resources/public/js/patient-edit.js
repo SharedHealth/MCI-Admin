@@ -259,6 +259,9 @@ jQuery(document).ready(function () {
                 'mci_bundle_patientBundle_patients[relation][marriage_id][]': {
                     regex: '^[0-9]{8}$'
                 },
+                'mci_bundle_patientBundle_patients[relation][hid][]': {
+                    regex: '^[0-9]{11}$'
+                },
                 'mci_bundle_patientBundle_patients[household_code]': {
                     regex: '^[0-9]*$'
                 }
