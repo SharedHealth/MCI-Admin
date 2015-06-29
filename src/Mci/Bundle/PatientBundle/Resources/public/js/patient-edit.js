@@ -303,6 +303,13 @@ jQuery(document).ready(function () {
         $ruralword = $("#mci_bundle_patientBundle_patients_permanent_address_rural_ward_id");
 
         if($value != '050'){
+            $division.prop('selectedIndex',0);
+            $district.prop('selectedIndex',0);
+            $upazila.prop('selectedIndex',0);
+            $citycorporation.prop('selectedIndex',0);
+            $urbanword.prop('selectedIndex',0);
+            $ruralword.prop('selectedIndex',0);
+
             $division.attr('disabled','disabled');
             $district.attr('disabled','disabled');
             $upazila.attr('disabled','disabled');
