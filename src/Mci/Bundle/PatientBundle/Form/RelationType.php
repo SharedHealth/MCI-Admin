@@ -18,7 +18,7 @@ class RelationType extends AbstractType
     {
 
         $type = $this->masterData->getAllByType('relations');
-        $relations = $this->masterData->getAllByType('marital_status');
+        $relations = $this->masterData->getAllByType('relational_status');
 
         $builder
             ->add('id', 'hidden', array(
