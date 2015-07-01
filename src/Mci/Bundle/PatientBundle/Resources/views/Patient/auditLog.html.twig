@@ -41,7 +41,9 @@
                   {% for old_value_key, old_value_details in change.old_value  %}
                       {% if old_value_details is iterable%}
                           {% for relation_key,relation in old_value_details %}
+                           {% if relation_key !='id' %}
                               {{ relation_key|camelize }} : {{(relation_key == 'relational_status') ? relation|maritalStatus :relation }} <br/>
+                           {% endif %}
                           {% endfor %}
                           {{ loop.last ? '':'<hr/>'  }}
                       {% else %}
@@ -62,7 +64,9 @@
              {% for new_value_key,new_value_details in change.new_value  %}
                  {% if new_value_details is iterable %}
                     {% for relation_key, relation in new_value_details  %}
-                        {{ relation_key|camelize }} : {{(relation_key == 'relational_status') ? relation|maritalStatus :relation }} <br/>
+                        {% if relation_key !='id' %}
+                            {{ relation_key|camelize }} : {{(relation_key == 'relational_status') ? relation|maritalStatus :relation }} <br/>
+                        {% endif %}
                     {% endfor %}
                      {{ loop.last ? '':'<hr/>'  }}
                  {% else %}
@@ -82,7 +86,7 @@
             {% if result.requested_by[key] is defined and result.requested_by is not empty %}
                 {% set requestedBy = result.requested_by[key] %}
             {% else %}
-                {% set requestedBy = result.requested_by['ALL_FIELDS'] %}
+                {% set requestedBy = result.requested_by['ALL_FIELDS'] is defined ? result.requested_by['ALL_FIELDS']: null %}
             {% endif %}
 
             <table class="table table-bordered">
