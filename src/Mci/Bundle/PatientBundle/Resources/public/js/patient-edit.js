@@ -116,6 +116,8 @@ function changedNameForValidation() {
 jQuery(document).ready(function () {
     registerValidators();
     changedNameForValidation();
+    $value =  $('#mci_bundle_patientBundle_patients_permanent_address_country_code').val();
+    permanentAddressBlock($value);
 
     jQuery("#patientEditForm").validate(
         {
@@ -295,36 +297,10 @@ jQuery(document).ready(function () {
 
     $('#mci_bundle_patientBundle_patients_permanent_address_country_code').on('change', function() {
         $value = $(this).val();
-        $division = $("#mci_bundle_patientBundle_patients_permanent_address_division_id");
-        $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id");
-        $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id");
-        $citycorporation = $("#mci_bundle_patientBundle_patients_permanent_address_city_corporation_id");
-        $urbanword = $("#mci_bundle_patientBundle_patients_permanent_address_union_or_urban_ward_id");
-        $ruralword = $("#mci_bundle_patientBundle_patients_permanent_address_rural_ward_id");
+        permanentAddressBlock($value);
 
-        if($value != '050'){
-            $division.prop('selectedIndex',0);
-            $district.prop('selectedIndex',0);
-            $upazila.prop('selectedIndex',0);
-            $citycorporation.prop('selectedIndex',0);
-            $urbanword.prop('selectedIndex',0);
-            $ruralword.prop('selectedIndex',0);
-
-            $division.attr('disabled','disabled');
-            $district.attr('disabled','disabled');
-            $upazila.attr('disabled','disabled');
-            $citycorporation.attr('disabled','disabled');
-            $urbanword.attr('disabled','disabled');
-            $ruralword.attr('disabled','disabled');
-        }else{
-            $division.removeAttr('disabled');
-            $district.removeAttr('disabled');
-            $upazila.removeAttr('disabled');
-            $citycorporation.removeAttr('disabled');
-            $urbanword.removeAttr('disabled');
-            $ruralword.removeAttr('disabled');
-        }
     });
+
     $('#mci_bundle_patientBundle_patients_status_type').on('change', function() {
         if($(this).val() !='2'){
             $('#mci_bundle_patientBundle_patients_status_date_of_death').val('');
@@ -427,6 +403,39 @@ function addRelationForm($collectionHolder) {
 }
 
 
+function permanentAddressBlock($value){
+
+    $division = $("#mci_bundle_patientBundle_patients_permanent_address_division_id");
+    $district = $("#mci_bundle_patientBundle_patients_permanent_address_district_id");
+    $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id");
+    $citycorporation = $("#mci_bundle_patientBundle_patients_permanent_address_city_corporation_id");
+    $urbanword = $("#mci_bundle_patientBundle_patients_permanent_address_union_or_urban_ward_id");
+    $ruralword = $("#mci_bundle_patientBundle_patients_permanent_address_rural_ward_id");
+
+    if($value != '050'){
+        $division.prop('selectedIndex',0);
+        $district.prop('selectedIndex',0);
+        $upazila.prop('selectedIndex',0);
+        $citycorporation.prop('selectedIndex',0);
+        $urbanword.prop('selectedIndex',0);
+        $ruralword.prop('selectedIndex',0);
+
+        $division.attr('disabled','disabled');
+        $district.attr('disabled','disabled');
+        $upazila.attr('disabled','disabled');
+        $citycorporation.attr('disabled','disabled');
+        $urbanword.attr('disabled','disabled');
+        $ruralword.attr('disabled','disabled');
+    }else{
+        $division.removeAttr('disabled');
+        $district.removeAttr('disabled');
+        $upazila.removeAttr('disabled');
+        $citycorporation.removeAttr('disabled');
+        $urbanword.removeAttr('disabled');
+        $ruralword.removeAttr('disabled');
+    }
+
+}
 
 
 
