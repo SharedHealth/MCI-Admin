@@ -42,8 +42,8 @@ function validateAgainstBusinessRules(){
             $('.dependencyError').html($error);
             return true;
         }
-        if(countryCode()){
-            $error = "Please select Address line, Division, District and Upazila";
+        if($msg = countryCode()){
+            $error = $msg;
             $('.dependencyError').html($error);
             return true;
         }
@@ -90,10 +90,11 @@ function countryCode(){
     $upazila = $("#mci_bundle_patientBundle_patients_permanent_address_upazila_id").val();
 
     if($permanentCountryCode !="" && $permanentCountryCode == '050' && ($division == "" || $district == "" || $upazila == "" || $addressLine =="")){
-        return true;
+        return "Please Division, District and Upazila";
     }
+
     if($permanentCountryCode !="" && ($permanentCountryCode != '050' && $addressLine =="")){
-        return true;
+        return "Please select Address line";
     }
 }
 
