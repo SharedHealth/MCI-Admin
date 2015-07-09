@@ -48,7 +48,6 @@ function validateAgainstBusinessRules(){
             return true;
         }
 
-
 }
 
 function maritalrelation(){

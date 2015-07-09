@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {%  import "partials/confirmModal.html.twig" as confirmModal  %}
+{%  import "partials/confirmModal.html.twig" as confirmModal  %}
     {{ confirmModal.pendingApprovalConfirmModal() }}
-    <style type="text/css">
-        .changes{
-            background: #f7e1b5;
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-        }
-    </style>
+<style type="text/css">
+    .changes{
+        background: #f7e1b5;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+</style>
 
     <div>
         {% if systemError is defined and systemError is not empty %}
@@ -24,9 +24,9 @@
         {% endif %}
 
         {% if patient.responseBody.given_name is defined and systemError is empty %}
-            <h4>
-                {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }} ({{ patient.responseBody.hid }})
-            </h4>
+        <h4>
+            {{ patient.responseBody.given_name }} {{ patient.responseBody.sur_name }} ({{ patient.responseBody.hid }})
+        </h4>
         {% endif %}
 
     </div>
@@ -38,81 +38,81 @@
         {% if responseBody.results is defined and responseBody.results is not empty and systemError is empty %}
 
             {% for results in responseBody.results %}
-                <tr>
-                    <th width="31%">
-                        {% if results.field_name == 'sur_name' %}
-                            Surname
-                        {% else %}
-                            {{ results.field_name|camelize}}
-                        {% endif %}
-                    </th>
-                    <td>
-                        {% if results.current_value is iterable %}
-                            {% for fieldLevel,value in results.current_value  %}
-                                {% if value is iterable %}
-                                    <div class="approval_relation">
-                                        {% for iterableKey,iterableValue in value %}
-                                            {% if iterableKey == "type"  %} {% set iterableValue = iterableValue|relation %} {% endif %}
-                                            {% if iterableKey != 'id' %}
-                                                <p>{{ iterableKey|camelize }} : {{ iterableValue }}</p>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
+                    <tr>
+                        <th width="31%">
+                            {% if results.field_name == 'sur_name' %}
+                                Surname
+                            {% else %}
+                                {{ results.field_name|camelize}}
+                            {% endif %}
+                        </th>
+                        <td>
+                            {% if results.current_value is iterable %}
+                                {% for fieldLevel,value in results.current_value  %}
+                                    {% if value is iterable %}
+                                           <div class="approval_relation">
+                                            {% for iterableKey,iterableValue in value %}
+                                                {% if iterableKey == "type"  %} {% set iterableValue = iterableValue|relation %} {% endif %}
+                                                {% if iterableKey != 'id' %}
+                                                    <p>{{ iterableKey|camelize }} : {{ iterableValue }}</p>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </div>
+                                    {% else %}
                                     <p>{{ fieldLevel }} : {{ value }}</p>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            {{ results.current_value }}
-                        {% endif %}
-                    </td>
-                </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {{ results.current_value }}
+                            {% endif %}
+                        </td>
+                    </tr>
                 <tr>
                     <td colspan="2">
-                        {% for id,field_details in results.field_details %}
+                         {% for id,field_details in results.field_details %}
                             <div class="changes">
-                                <div  class="col-lg-3">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
+                                 <div  class="col-lg-3">{{ field_details.created_at|date('Y-m-d H:i:s') }}</div>
 
-                                <div style="padding-left: 58px;" class="col-lg-6">
-                                    {% if field_details.value is iterable %}
-                                        {% for changeFieldsLevel,changeFields in field_details.value  %}
-                                            {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}
+                                 <div style="padding-left: 58px;" class="col-lg-6">
+                                     {% if field_details.value is iterable %}
+                                         {% for changeFieldsLevel,changeFields in field_details.value  %}
+                                             {% if results.current_value[changeFieldsLevel] is defined and results.current_value[changeFieldsLevel] != changeFields %}
 
-                                                {% if changeFields is iterable %}
-                                                    <div class="approval_relation">
+                                                    {% if changeFields is iterable %}
+                                                       <div class="approval_relation">
                                                         {% for chageFieldKey,chageField in changeFields  %}
                                                             {% if chageFieldKey == "type"  %} {% set chageField = chageField|relation %} {% endif %}
-                                                            {% if chageField %}
+                                                          {% if chageField %}
                                                                 <p>{{ chageFieldKey|camelize }} : {{ chageField }}</p>
-                                                            {% endif %}
+                                                           {% endif %}
                                                         {% endfor %}
-                                                    </div>
+                                                        </div>
 
-                                                {% else %}
-                                                    <p style="color: green;">{{ changeFieldsLevel }} : {{changeFields}}</p>
-                                                {% endif %}
+                                                    {% else %}
+                                                        <p style="color: green;">{{ changeFieldsLevel }} : {{changeFields}}</p>
+                                                    {% endif %}
 
-                                            {% else %}
-                                                <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
-                                            {% endif %}
+                                             {% else %}
+                                                 <p>{{ changeFieldsLevel }} : {{ changeFields}}</p>
+                                             {% endif %}
 
-                                        {% endfor %}
-                                    {% else %}
-                                        {{ field_details.value }}
-                                    {% endif %}
-                                </div>
+                                         {% endfor %}
+                                     {% else %}
+                                          {{ field_details.value }}
+                                     {% endif %}
+                                 </div>
 
-                                <div class="col-lg-3" style="text-align: right">
-                                    {% if results.field_details is defined and results.field_details|length > 1 %}
-                                        <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ results.payload[id].value is defined  ? results.payload[id].value|json_encode : field_details.value|json_encode  }}' data-catchment='{{ app.request.get("catchment") }}'>Accept</button>
-                                    {% else %}
-                                        <a  class="btn btn-success" href="{{ path('mci_patient_approval_accept',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Accept</a>
-                                    {% endif %}
-                                    <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Reject</a>
-                                </div>
-                                <div style="clear: both;"></div>
+                                 <div class="col-lg-3" style="text-align: right">
+                                     {% if results.field_details is defined and results.field_details|length > 1 %}
+                                          <button  type='button' class='btn btn-success accept' data-hid='{{ app.request.get("hid") }}' data-fieldname='{{ results.field_name }}' data-payload='{{ results.payload[id].value is defined  ? results.payload[id].value|json_encode : field_details.value|json_encode  }}' data-catchment='{{ app.request.get("catchment") }}'>Accept</button>
+                                     {% else %}
+                                         <a  class="btn btn-success" href="{{ path('mci_patient_approval_accept',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Accept</a>
+                                     {% endif %}
+                                       <a  class="btn btn-danger reject" href="{{ path('mci_patient_approval_reject',{ 'hid': app.request.get('hid'),'payload': results.payload[id].value is defined ? results.payload[id].value|json_encode : field_details.value|json_encode,'field_name':results.field_name,'catchment': app.request.get('catchment')  }) }}">Reject</a>
+                                 </div>
+                                 <div style="clear: both;"></div>
                             </div>
-                        {% endfor %}
+                         {% endfor %}
                     </td>
                 </tr>
             {% endfor %}
@@ -127,61 +127,61 @@
  {% block documentReady %}
 
      $('button.accept').on('click',function(){
-     var hid = $(this).data('hid');
-     var fieldName = $(this).data('fieldname');
-     var payload = $(this).data('payload');
-     var catchment = $(this).data('catchment');
-     if(payload !== null && typeof payload === 'object'){
-     payload = JSON.stringify(payload);
-     }
-     $('#hid').html(hid);
-     $('#fieldName').html(fieldName);
-     $('#payload').html(payload);
-     $('#catchment').html(catchment);
-     $('#myModal').modal('show');
+         var hid = $(this).data('hid');
+         var fieldName = $(this).data('fieldname');
+         var payload = $(this).data('payload');
+         var catchment = $(this).data('catchment');
+         if(payload !== null && typeof payload === 'object'){
+              payload = JSON.stringify(payload);
+         }
+         $('#hid').html(hid);
+         $('#fieldName').html(fieldName);
+         $('#payload').html(payload);
+         $('#catchment').html(catchment);
+         $('#myModal').modal('show');
      });
 
-     $('.apporval_details_accept').on('click',function(){
-     var hid = $('#hid').html();
-     var fieldName = $('#fieldName').html();
-     var payload = $('#payload').html();
-     var catchment = $('#catchment').html();
-     var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
-     var pendingApprovalUrl = "{{ path('mci_patient_pending_approval') }}";
-     var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace','catchment':'catchment_replace'} ) }}";
-     acceptUrl = acceptUrl.replace("hid_replace", hid);
-     PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid).replace("catchment_replace", catchment);
+    $('.apporval_details_accept').on('click',function(){
+        var hid = $('#hid').html();
+        var fieldName = $('#fieldName').html();
+        var payload = $('#payload').html();
+        var catchment = $('#catchment').html();
+        var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
+        var pendingApprovalUrl = "{{ path('mci_patient_pending_approval') }}";
+        var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace','catchment':'catchment_replace'} ) }}";
+        acceptUrl = acceptUrl.replace("hid_replace", hid);
+        PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid).replace("catchment_replace", catchment);
 
-     if(hid){
-     $.ajax({
-     url: acceptUrl,
-     data: { payload: payload, field_name: fieldName, catchment: catchment }
-     })
-     .done(function( html ) {
-     $('#myModal').modal('hide');
-     if(html == "ok"){
-     window.location = PendingApprovalDetailsUrl;
-     }else{
-     window.location = pendingApprovalUrl+"?catchment="+html;
-     }
+        if(hid){
+             $.ajax({
+             url: acceptUrl,
+             data: { payload: payload, field_name: fieldName, catchment: catchment }
+             })
+             .done(function( html ) {
+                  $('#myModal').modal('hide');
+                  if(html == "ok"){
+                         window.location = PendingApprovalDetailsUrl;
+                  }else{
+                         window.location = pendingApprovalUrl+"?catchment="+html;
+                  }
 
-     }).fail(function(jqXHR,exception) {
-     if (jqXHR.status === 0) {
-     alert('Not connect.\n Verify Network.');
-     } else if (jqXHR.status == 404) {
-     alert('Requested page not found. [404]');
-     } else if (jqXHR.status == 500) {
-     alert('Internal Server Error [500].');
-     } else if (exception === 'parsererror') {
-     alert('Requested JSON parse failed.');
-     } else if (exception === 'timeout') {
-     alert('Time out error.');
-     } else if (exception === 'abort') {
-     alert('Ajax request aborted.');
-     } else {
-     alert('Uncaught Error.\n' + jqXHR.responseText);
-     }
-     })
-     }
+             }).fail(function(jqXHR,exception) {
+                 if (jqXHR.status === 0) {
+                 alert('Not connect.\n Verify Network.');
+                 } else if (jqXHR.status == 404) {
+                 alert('Requested page not found. [404]');
+                 } else if (jqXHR.status == 500) {
+                 alert('Internal Server Error [500].');
+                 } else if (exception === 'parsererror') {
+                 alert('Requested JSON parse failed.');
+                 } else if (exception === 'timeout') {
+                 alert('Time out error.');
+                 } else if (exception === 'abort') {
+                 alert('Ajax request aborted.');
+                 } else {
+                 alert('Uncaught Error.\n' + jqXHR.responseText);
+                 }
+             })
+        }
      });
  {% endblock documentReady %}

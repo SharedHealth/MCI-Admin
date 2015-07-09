@@ -301,7 +301,7 @@ jQuery(document).ready(function () {
             options += '<option   value="' + obj[i]['code'] + '">' + obj[i]['name'].toLowerCase().capitalize() + '</option>';
         }
         return options;
-    }
+}
 
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
