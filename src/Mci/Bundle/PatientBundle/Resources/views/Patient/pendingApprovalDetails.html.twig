@@ -147,6 +147,7 @@
         var payload = $('#payload').html();
         var catchment = $('#catchment').html();
         var acceptUrl = "{{ path('mci_patient_approval_accept',{ 'hid': 'hid_replace'}) }}";
+        var pendingApprovalUrl = "{{ path('mci_patient_pending_approval') }}";
         var PendingApprovalDetailsUrl = "{{ path('mci_patient_approval_details',{ 'hid': 'hid_replace','catchment':'catchment_replace'} ) }}";
         acceptUrl = acceptUrl.replace("hid_replace", hid);
         PendingApprovalDetailsUrl = PendingApprovalDetailsUrl.replace("hid_replace", hid).replace("catchment_replace", catchment);
@@ -158,7 +159,12 @@
              })
              .done(function( html ) {
                   $('#myModal').modal('hide');
-                  window.location = PendingApprovalDetailsUrl;
+                  if(html == "ok"){
+                         window.location = PendingApprovalDetailsUrl;
+                  }else{
+                         window.location = pendingApprovalUrl+"?catchment="+html;
+                  }
+
              }).fail(function(jqXHR,exception) {
                  if (jqXHR.status === 0) {
                  alert('Not connect.\n Verify Network.');
