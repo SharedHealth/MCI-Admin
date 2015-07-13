@@ -278,26 +278,14 @@ class PatientController extends Controller
 
     public function pendingApprovalRejectAction(Request $request, $hid){
         $catchment = $request->get('catchment');
-        $catchment_array = str_split($catchment,2);
+
         $this->handleCatchmentRestriction($catchment);
 
         $fieldName = $request->query->get('field_name');
         $value = $request->query->get('payload');
         $payload = array($fieldName => json_decode($value));
         $url = "$catchment/approvals/".$hid;
-        $approved = $this->get('mci.patient')->pendingReject($url,$payload);
-
-        if(!$this->noAccessToCatchment($catchment) && $fieldName == 'present_address'){
-            if(is_array($approved) && empty($approved) && ($payload['present_address']->division_id != $catchment_array[0])){
-                $this->get('session')->getFlashBag()->add('approval', 'Your request is accepted!');
-
-                if($request->isXmlHttpRequest()){
-                    return new Response($catchment);
-                }else{
-                    return $this->redirect($this->generateUrl('mci_patient_pending_approval', array('catchment'=>$catchment)));
-                }
-            }
-        }
+        $this->get('mci.patient')->pendingReject($url,$payload);
 
         return $this->redirect($this->generateUrl('mci_patient_approval_details', array('hid' => $hid,'catchment'=>$catchment)));
     }
