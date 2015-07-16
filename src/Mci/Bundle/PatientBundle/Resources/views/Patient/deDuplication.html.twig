@@ -73,23 +73,23 @@
 
                   {% for result in responseBody.results %}
                       <tr>
-                          <td> {{ result.hid1 }} - {{ result.hid2 }} </td>
+                          <td> {{ result.patient1.hid }} - {{ result.patient2.hid }} </td>
                           <td>
-                              {% if result.name is defined  %}
-                                  {{ result.name }}
+                              {% if result.patient1.given_name is defined  %}
+                                  {{ result.patient1.given_name }}
                               {% endif %}
                           </td>
                           <td>
                               {{ result.reasons|join(", ")}}
                           </td>
-                          <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.hid1,'hid2': result.hid2,'catchment': catchment,'reason':result.reasons|join("-") }) }}" class="">View</a> </td>
+                          <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.patient1.hid,'hid2': result.patient2.hid,'catchment': catchment,'reason':result.reasons|join("-") }) }}" class="">View</a> </td>
                       </tr>
                   {% endfor %}
                   </tbody>
               </table>
 
               <div class="clear"></div>
-              <nav>
+           {#   <nav>
                   <ul class="pager">
                     {% if responseBody.additional_info.previous is defined and  responseBody.additional_info.previous is not empty %}
                       <li>
@@ -109,7 +109,7 @@
                          <li><a class="disabled"  href="#">Next</a></li>
                       {% endif %}
                   </ul>
-              </nav>
+              </nav>#}
           {% else %}
               <div>No duplicate patients found</div>
           {% endif %}

@@ -228,6 +228,14 @@
         <td><label for="leftside_present_address">Present Address</label></td>
         <td>{% if original.responseBody.present_address %}
                 <table style="margin-top: 10px;" width="100%" class="table table-bordered">
+
+                    <tr>
+                        <td>Address Line</td>
+                        <td>
+                            {{ original.responseBody.present_address.address_line }}
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>Division</td>
                         <td>
@@ -270,7 +278,14 @@
                             </td>
                         </tr>
                     {% endif %}
-
+                    {% if original.responseBody.present_address.country_code is defined %}
+                        <tr>
+                            <td>Country</td>
+                            <td>
+                                {{ original.responseBody.present_address.country_code|countrycode }}
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
             {% endif %}
         </td>
@@ -283,6 +298,13 @@
             <td><label for="leftside_permanent_address">Permanent Address</label></td>
             <td>
                 <table style="margin-top:10px;" width="100%" class="table table-bordered">
+
+                    <tr>
+                        <td>Address Line</td>
+                        <td>
+                            {{ original.responseBody.permanent_address.address_line }}
+                        </td>
+                    </tr>
                     <tr>
                         <td>Division</td>
                         <td>
@@ -325,10 +347,19 @@
                             </td>
                         </tr>
                     {% endif %}
+                    {% if original.responseBody.permanent_address.country_code is defined %}
+                        <tr>
+                            <td>Country</td>
+                            <td>
+                                {{ original.responseBody.permanent_address.country_code|countrycode }}
+                            </td>
+                        </tr>
+                    {% endif %}
                 </table>
             </td>
         </tr>
     {% endif %}
+
 
     {% if original.responseBody.phone_number is defined %}
         <tr>
@@ -660,6 +691,12 @@
             <td>
                 <table style="margin-top: 10px;" width="100%" class="table table-bordered">
                     <tr>
+                        <td>Address Line</td>
+                        <td>
+                            {{ duplicate.responseBody.present_address.address_line }}
+                        </td>
+                    </tr>
+                    <tr>
                         <td>Division</td>
                         <td>
                             {{ duplicate.responseBody.present_address.division_id|division }}
@@ -703,7 +740,14 @@
                             </td>
                         </tr>
                     {% endif %}
-
+                    {% if duplicate.responseBody.present_address.country_code is defined %}
+                    <tr>
+                        <td>Country </td>
+                        <td>
+                            {{ duplicate.responseBody.present_address.country_code|countrycode}}
+                        </td>
+                    </tr>
+                    {% endif %}
                 </table>
             </td>
         </tr>
@@ -712,29 +756,42 @@
     {% if duplicate.responseBody.permanent_address is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_permanent_address" type="radio" name="permanent_address"
-                       value="{{ original.responseBody.permanent_address|json_encode }}"></td>
+                       value="{{ duplicate.responseBody.permanent_address|json_encode }}"></td>
             <td><label for="rightside_permanent_address">Permanent Address</label></td>
             <td>
 
                 <table width="100%" class="table table-bordered">
+                    <tr>
+                        <td>Address Line</td>
+                        <td>
+                            {{ duplicate.responseBody.permanent_address.address_line }}
+                        </td>
+                    </tr>
+
+                    {% if duplicate.responseBody.permanent_address.division_id is defined %}
                     <tr>
                         <td>Division</td>
                         <td>
                             {{ duplicate.responseBody.permanent_address.division_id|division }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.permanent_address.district_id is defined %}
                     <tr>
                         <td>District</td>
                         <td>
                             {{ duplicate.responseBody.permanent_address.district_id|location(duplicate.responseBody.permanent_address.division_id) }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.permanent_address.upazila_id is defined %}
                     <tr>
                         <td>Upazila</td>
                         <td>
                             {{ duplicate.responseBody.permanent_address.upazila_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id) }}
                         </td>
                     </tr>
+                    {% endif %}
                     {% if duplicate.responseBody.permanent_address.city_corporation_id is defined %}
                         <tr>
                             <td>City Corporation</td>
@@ -757,6 +814,14 @@
                             <td>
                                 {{ duplicate.responseBody.permanent_address.rural_ward_id|location(duplicate.responseBody.permanent_address.division_id~duplicate.responseBody.permanent_address.district_id~duplicate.responseBody.permanent_address.upazila_id~duplicate.responseBody.permanent_address.city_corporation_id~duplicate.responseBody.permanent_address.union_or_urban_ward_id) }}
 
+                            </td>
+                        </tr>
+                    {% endif %}
+                    {% if duplicate.responseBody.permanent_address.country_code is defined %}
+                        <tr>
+                            <td>Country</td>
+                            <td>
+                                {{ duplicate.responseBody.permanent_address.country_code|countrycode}}
                             </td>
                         </tr>
                     {% endif %}
