@@ -75,9 +75,8 @@
                       <tr>
                           <td> {{ result.patient1.hid }} - {{ result.patient2.hid }} </td>
                           <td>
-                              {% if result.patient1.given_name is defined  %}
-                                  {{ result.patient1.given_name }}
-                              {% endif %}
+                              {{ result.patient1.given_name }} {{ result.patient1.sur_name }}<br/>
+                              {{ result.patient2.given_name }} {{ result.patient2.sur_name }}
                           </td>
                           <td>
                               {{ result.reasons|join(", ")}}
@@ -89,19 +88,22 @@
               </table>
 
               <div class="clear"></div>
-           {#   <nav>
+             <nav>
                   <ul class="pager">
                     {% if responseBody.additional_info.previous is defined and  responseBody.additional_info.previous is not empty %}
+                        {%  set previous = responseBody.additional_info.previous|split('before=') %}
                       <li>
-                          <a href="{{ path('mci_patient_deduplication', {'marker':responseBody.results.0.last_updated,'catchment': catchment, 'dir' : 'before' }) }}">
+
+                          <a href="{{ path('mci_patient_deduplication', {'marker': previous.1,'catchment': catchment, 'dir' : 'before' }) }}">
                               Previous</a>
                       </li>
                     {% else %}
                       <li> <a class="disabled"  href="#">Previous</a></li>
                     {% endif %}
                       {% if responseBody.additional_info.next is defined and  responseBody.additional_info.next is not empty %}
+                          {%  set next = responseBody.additional_info.next|split('after=')  %}
                           <li>
-                              <a href="{{ path('mci_patient_deduplication', {'marker':responseBody.results|last.last_updated,'catchment': catchment, 'dir' : 'after'  }) }}">
+                              <a href="{{ path('mci_patient_deduplication', {'marker': next.1,'catchment': catchment, 'dir' : 'after'  }) }}">
                                   Next
                               </a>
                           </li>
@@ -109,7 +111,7 @@
                          <li><a class="disabled"  href="#">Next</a></li>
                       {% endif %}
                   </ul>
-              </nav>#}
+              </nav>
           {% else %}
               <div>No duplicate patients found</div>
           {% endif %}

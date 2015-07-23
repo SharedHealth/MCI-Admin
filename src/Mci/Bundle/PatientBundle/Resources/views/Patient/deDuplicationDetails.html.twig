@@ -298,31 +298,39 @@
             <td><label for="leftside_permanent_address">Permanent Address</label></td>
             <td>
                 <table style="margin-top:10px;" width="100%" class="table table-bordered">
-
+                    {% if original.responseBody.permanent_address.address_line is defined %}
                     <tr>
                         <td>Address Line</td>
                         <td>
                             {{ original.responseBody.permanent_address.address_line }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if original.responseBody.permanent_address.division_id is defined %}
                     <tr>
                         <td>Division</td>
                         <td>
                             {{ original.responseBody.permanent_address.division_id|division }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if original.responseBody.permanent_address.district_id is defined %}
                     <tr>
                         <td>District</td>
                         <td>
                             {{ original.responseBody.permanent_address.district_id|location(original.responseBody.permanent_address.division_id) }}
                         </td>
                     </tr>
+                    {% endif %}
+                    {% if original.responseBody.permanent_address.upazila_id is defined %}
                     <tr>
                         <td>Upazila</td>
                         <td>
                             {{ original.responseBody.permanent_address.upazila_id|location(original.responseBody.permanent_address.division_id~original.responseBody.permanent_address.district_id) }}
                         </td>
                     </tr>
+                    {% endif %}
+
                     {% if original.responseBody.permanent_address.city_corporation_id is defined %}
                         <tr>
                             <td>City Corporation</td>
@@ -995,7 +1003,6 @@
                 data: {hidOne: hidOne, hidTwo: hidTwo, csrfToken: csrfToken}
             })
                     .done(function (html) {
-
                         if ('OK' != html) {
                             $('#flush_message').html(html);
                             $('#flush_message').addClass("alert-warning");

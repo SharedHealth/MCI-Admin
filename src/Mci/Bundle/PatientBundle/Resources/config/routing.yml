@@ -48,7 +48,7 @@ mci_patient_audit_log:
     defaults: { _controller: MciPatientBundle:Patient:auditLog }
 
 mci_patient_deduplication:
-    path:     /de-duplication//{dir}/{marker}
+    path:     /de-duplication/{dir}/{marker}
     defaults: { _controller: MciPatientBundle:Patient:deduplication,  marker: null, dir : next }
 
 mci_patient_deduplication_details:
@@ -56,7 +56,7 @@ mci_patient_deduplication_details:
     defaults: { _controller: MciPatientBundle:Patient:deduplicationDetails }
 
 mci_patient_deduplication_distinct:
-    path:     /de-duplication/distinct
+    path:     /de-duplication-distinct
     defaults: { _controller: MciPatientBundle:Patient:dedupDistinct }
 
 mci_patient_deduplication_merge:
