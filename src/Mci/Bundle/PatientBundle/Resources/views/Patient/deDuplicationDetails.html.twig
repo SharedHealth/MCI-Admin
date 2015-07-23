@@ -58,7 +58,7 @@
         <tr class="{{ 'BRN' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_brn" type="radio" name="bin_brn"
                        value="{{ original.responseBody.bin_brn }}" checked="checked"></td>
-            <td><label for="leftside_brn">Brn Brn</label></td>
+            <td><label for="leftside_brn">Brn</label></td>
             <td>
                 {{ original.responseBody.bin_brn }}
             </td>
@@ -470,7 +470,7 @@
                         {% endif %}
                         {% if  relation.bin_brn is defined %}
                             <tr>
-                                <td>bin_brn</td>
+                                <td>brn</td>
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
@@ -517,7 +517,7 @@
     {% if duplicate.responseBody.nid is defined %}
         <tr class="{{ 'NID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_nid" type="radio" name="nid"
-                       value="{{ original.responseBody.nid }}"></td>
+                       value="{{ duplicate.responseBody.nid }}"></td>
             <td><label for="rightside_nid">NID</label></td>
             <td>
                 {{ duplicate.responseBody.nid }}
@@ -528,7 +528,7 @@
     {% if duplicate.responseBody.uid is defined %}
         <tr class="{{ 'UID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_uid" type="radio" name="uid"
-                       value="{{ original.responseBody.uid }}"></td>
+                       value="{{ duplicate.responseBody.uid }}"></td>
             <td><label for="rightside_uid">UID</label></td>
             <td>
                 {{ duplicate.responseBody.uid }}
@@ -538,8 +538,8 @@
     {% if duplicate.responseBody.bin_brn is defined %}
         <tr class="{{ 'BRN' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_brn" type="radio" name="bin_brn"
-                       value="{{ original.responseBody.bin_brn }}"></td>
-            <td><label for="rightside_brn">Brn Brn</label></td>
+                       value="{{ duplicate.responseBody.bin_brn }}"></td>
+            <td><label for="rightside_brn">Brn</label></td>
             <td>
                 {{ duplicate.responseBody.bin_brn }}
             </td>
@@ -550,7 +550,7 @@
     {% if duplicate.responseBody.name_bangla is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_name_bangla" type="radio" name="name_bangla"
-                       value="{{ original.responseBody.name_bangla }}"></td>
+                       value="{{ duplicate.responseBody.name_bangla }}"></td>
             <td><label for="rightside_name_bangla">Name Bangla</label></td>
             <td>{{ duplicate.responseBody.name_bangla }}</td>
         </tr>
@@ -558,7 +558,7 @@
     {% if duplicate.responseBody.given_name is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_given_name" type="radio" name="given_name"
-                       value="{{ original.responseBody.given_name }}"></td>
+                       value="{{ duplicate.responseBody.given_name }}"></td>
             <td><label for="rightside_given_name">Given name</label></td>
             <td>{{ duplicate.responseBody.given_name }}</td>
         </tr>
@@ -566,7 +566,7 @@
     {% if duplicate.responseBody.sur_name is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_sur_name" type="radio" name="sur_name"
-                       value="{{ original.responseBody.sur_name }}"></td>
+                       value="{{ duplicate.responseBody.sur_name }}"></td>
             <td><label for="rightside_sur_name">Surname</label></td>
             <td>{{ duplicate.responseBody.sur_name }}</td>
         </tr>
@@ -574,7 +574,7 @@
     {% if duplicate.responseBody.date_of_birth is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_date_of_birth" type="radio" name="date_of_birth"
-                       value="{{ original.responseBody.date_of_birth }}"></td>
+                       value="{{ duplicate.responseBody.date_of_birth }}"></td>
             <td><label for="rightside_date_of_birth">Date Of Birth</label></td>
             <td>{{ duplicate.responseBody.date_of_birth|date }}</td>
         </tr>
@@ -583,7 +583,7 @@
     {% if duplicate.responseBody.place_of_birth is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_place_of_birth" type="radio" name="place_of_birth"
-                       value="{{ original.responseBody.date_of_birth }}"></td>
+                       value="{{ duplicate.responseBody.date_of_birth }}"></td>
             <td><label for="rightside_place_of_birth">Place Of Birth</label></td>
             <td>
                 {{ duplicate.responseBody.place_of_birth }}
@@ -593,7 +593,7 @@
     {% if duplicate.responseBody.gender is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_gender" type="radio" name="gender"
-                       value="{{ original.responseBody.gender }}"></td>
+                       value="{{ duplicate.responseBody.gender }}"></td>
             <td><label for="rightside_gender">Gender</label></td>
             <td>{{ duplicate.responseBody.gender|gender }}</td>
         </tr>
@@ -601,7 +601,7 @@
     {% if duplicate.responseBody.occupation is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_occupation" type="radio" name="occupation"
-                       value="{{ original.responseBody.occupation }}"></td>
+                       value="{{ duplicate.responseBody.occupation }}"></td>
             <td><label for="rightside_occupation">Occupation</label></td>
             <td>{{ duplicate.responseBody.occupation|occupation }}</td>
         </tr>
@@ -609,7 +609,7 @@
     {% if duplicate.responseBody.edu_level is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_edu_level" type="radio" name="edu_level"
-                       value="{{ original.responseBody.edu_level }}"></td>
+                       value="{{ duplicate.responseBody.edu_level }}"></td>
             <td><label for="rightside_edu_level">Education Level</label></td>
             <td>{{ duplicate.responseBody.edu_level|edulevel }}</td>
         </tr>
@@ -617,7 +617,7 @@
     {% if duplicate.responseBody.religion is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_religion" type="radio" name="religion"
-                       value="{{ original.responseBody.religion }}"></td>
+                       value="{{ duplicate.responseBody.religion }}"></td>
             <td><label for="rightside_religion">Relegion</label></td>
             <td>{{ duplicate.responseBody.religion|religion }}</td>
         </tr>
@@ -626,7 +626,7 @@
     {% if duplicate.responseBody.blood_group is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_blood_group" type="radio" name="blood_group"
-                       value="{{ original.responseBody.blood_group }}"></td>
+                       value="{{ duplicate.responseBody.blood_group }}"></td>
             <td><label for="rightside_blood_group">Blood Group</label></td>
             <td>{{ duplicate.responseBody.blood_group|bloodgroup }}</td>
         </tr>
@@ -634,7 +634,7 @@
     {% if duplicate.responseBody.nationality is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_nationality" type="radio" name="nationality"
-                       value="{{ original.responseBody.nationality }}"></td>
+                       value="{{ duplicate.responseBody.nationality }}"></td>
             <td><label for="rightside_nationality">Nationality</label></td>
             <td>{{ duplicate.responseBody.nationality }}</td>
         </tr>
@@ -642,7 +642,7 @@
     {% if duplicate.responseBody.disability is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_disablility" type="radio" name="disability"
-                       value="{{ original.responseBody.disability }}"></td>
+                       value="{{ duplicate.responseBody.disability }}"></td>
             <td><label for="rightside_disablility">Disability</label></td>
             <td>{{ duplicate.responseBody.disability|disability }}</td>
         </tr>
@@ -650,7 +650,7 @@
     {% if duplicate.responseBody.primary_contact is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_primary_contact" type="radio" name="primary_contact"
-                       value="{{ original.responseBody.primary_contact }}"></td>
+                       value="{{ duplicate.responseBody.primary_contact }}"></td>
             <td><label for="rightside_primary_contact">Primary Contact</label></td>
             <td>{{ duplicate.responseBody.nationality }}</td>
         </tr>
@@ -659,7 +659,7 @@
     {% if duplicate.responseBody.marital_status  is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_marital_status" type="radio" name="marital_status"
-                       value="{{ original.responseBody.marital_status }}"></td>
+                       value="{{ duplicate.responseBody.marital_status }}"></td>
             <td><label for="rightside_marital_status">Marital Status</label></td>
             <td>{{ duplicate.responseBody.marital_status|maritalStatus }}</td>
         </tr>
@@ -667,7 +667,7 @@
     {% if duplicate.responseBody.confidential is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_confidential" type="radio" name="confidential"
-                       value="{{ original.responseBody.confidential }}"></td>
+                       value="{{ duplicate.responseBody.confidential }}"></td>
             <td><label for="rightside_confidential">Confidential</label></td>
             <td>{{ duplicate.responseBody.confidential }}</td>
         </tr>
@@ -676,7 +676,7 @@
     {% if duplicate.responseBody.household_code is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_household_code" type="radio" name="household_code"
-                       value="{{ original.responseBody.household_code }}"></td>
+                       value="{{ duplicate.responseBody.household_code }}"></td>
             <td><label for="rightside_household_code">Household Code</label></td>
             <td>{{ duplicate.responseBody.household_code }}</td>
         </tr>
@@ -685,7 +685,7 @@
     {% if duplicate.responseBody.status is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_status_type" type="radio" name="status"
-                       value="{{ original.responseBody.status.type }}"></td>
+                       value="{{ duplicate.responseBody.status.type }}"></td>
             <td><label for="rightside_status_type">Status</label></td>
             <td>{{ duplicate.responseBody.status.type|livingStatus }}</td>
         </tr>
@@ -694,7 +694,7 @@
     {% if duplicate.responseBody.present_address is defined %}
         <tr class="{{ 'PRESENTADDRESS' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_present_address" type="radio" name="present_address"
-                       value="{{ original.responseBody.present_address|json_encode }}"></td>
+                       value="{{ duplicate.responseBody.present_address|json_encode }}"></td>
             <td><label for="rightside_present_address"> Present Address</label></td>
             <td>
                 <table style="margin-top: 10px;" width="100%" class="table table-bordered">
@@ -842,7 +842,7 @@
     {% if duplicate.responseBody.phone_number is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_phone_number" type="radio" name="phone_number"
-                       value="{{ original.responseBody.phone_number|json_encode }}"></td>
+                       value="{{ duplicate.responseBody.phone_number|json_encode }}"></td>
             <td><label for="rightside_phone_number">Phone Number</label></td>
             <td>
                 <table width="100%" class="table table-bordered">
@@ -879,7 +879,7 @@
     {% if duplicate.responseBody.primary_contact_number is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_primary_contact_number" type="radio" name="primary_contact_number"
-                       value="{{ original.responseBody.primary_contact_number|json_encode }}"></td>
+                       value="{{ duplicate.responseBody.primary_contact_number|json_encode }}"></td>
             <td><label for="rightside_primary_contact_number">Primary Contact Number</label></td>
             <td>
                 <table width="100%" class="table table-bordered">
@@ -940,7 +940,7 @@
                         {% endif %}
                         {% if  relation.bin_brn is defined %}
                             <tr>
-                                <td>bin_brn</td>
+                                <td>brn</td>
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
