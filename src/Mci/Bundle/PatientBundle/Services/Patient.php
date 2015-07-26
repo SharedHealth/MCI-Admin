@@ -653,6 +653,28 @@ class Patient extends CacheAwareService
 
     public function dedupMerge($data){
 
+        $mergeTo = $data['merge_to'];
+        unset($data['sidechange']);
+        unset($data['merge_to']);
+        unset($data['csrfToken']);
+        unset($data['date_of_birth']);
+        unset($data['status']);
+        unset($data['catchment']);
+        $data['active'] = "true";
+
+        $merge = array(
+            "action" => "MERGE",
+            "patient1" => array(
+                'hid' =>$mergeTo,
+                'active' =>  "false",
+                'merged_with' => $data['hid']
+            ),
+            "patient2" =>$data,
+
+        );
+
+        return $this->update($merge,"patients/duplicates");
+
     }
 
 }

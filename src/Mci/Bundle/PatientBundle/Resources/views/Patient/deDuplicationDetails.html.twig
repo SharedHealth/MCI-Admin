@@ -31,6 +31,8 @@
         <td><label for="leftside_hid">HID</label></td>
         <td>
             {{ original.responseBody.hid }}
+            <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ duplicate.responseBody.hid }}"
+                   checked="checked"></div>
         </td>
 
     </tr>
@@ -511,6 +513,8 @@
         <td><label for="rightside_hid">HID</label></td>
         <td>
             {{ duplicate.responseBody.hid }}
+
+           <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ original.responseBody.hid }}"></div>
         </td>
 
     </tr>
@@ -583,7 +587,7 @@
     {% if duplicate.responseBody.place_of_birth is defined %}
         <tr>
             <td><input class="radioBtn" id="rightside_place_of_birth" type="radio" name="place_of_birth"
-                       value="{{ duplicate.responseBody.date_of_birth }}"></td>
+                       value="{{ duplicate.responseBody.place_of_birth }}"></td>
             <td><label for="rightside_place_of_birth">Place Of Birth</label></td>
             <td>
                 {{ duplicate.responseBody.place_of_birth }}
@@ -973,6 +977,7 @@
 
     </table>
     <input type="hidden" name="csrfToken" id="csrfToken" value="{{ csrfToken }}"/>
+    <input type="hidden" name="catchment" id="catchment" value="{{ catchment }}"/>
     <button id="not-duplicates" class="MT20 btn btn-primary" type="button">Not Duplicates</button>
     <button id="resolve-duplicates" class="MT20 btn btn-primary" type="button">Resolve Duplicates</button>
     <button id="merge"  class="MT20 btn btn-primary radioBtn" type="button">Merge</button>

@@ -387,7 +387,9 @@ class PatientController extends Controller
      * @param Request $request
      */
     public function dedupMergeAction(Request $request){
-        $csrf = $this->get('form.csrf_provider');
+
+         $csrf = $this->get('form.csrf_provider');
+
         if($request->isMethod("POST")){
             $csrfToken = $request->get('csrfToken');
             $_POST['present_address'] = json_decode($request->get('present_address'));
@@ -409,13 +411,14 @@ class PatientController extends Controller
             if($csrf->isCsrfTokenValid('dedup',$csrfToken)){
 
                 $error = $this->get('mci.patient')->dedupMerge($_POST);
+
                 if(empty($error)){
-                    $this->get('session')->getFlashBag()->set('dedupFlash','Records has been retained successfully');
-                    return new JsonResponse("OK");
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Records has been merged successfully');
                 }else{
-                    return new JsonResponse($error);
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Wops! Something problem happens');
                 }
 
+                return $this->redirect($this->generateUrl('mci_patient_deduplication',array('catchment'=>$request->get('catchment'))));
             }
         }
     }
