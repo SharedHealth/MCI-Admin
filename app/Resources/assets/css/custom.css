@@ -50,8 +50,8 @@ select.error option {
     margin-bottom: 20px;
 }
 
-.highlighted {
-    background-color: #ffff00;
+.highlighted, .highlighted table {
+    background-color: #ffff00 !important;
 }
 #deduplication table{
     background: none;

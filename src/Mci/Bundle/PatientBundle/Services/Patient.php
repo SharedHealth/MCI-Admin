@@ -657,10 +657,15 @@ class Patient extends CacheAwareService
         unset($data['sidechange']);
         unset($data['merge_to']);
         unset($data['csrfToken']);
-        unset($data['date_of_birth']);
         unset($data['status']);
         unset($data['catchment']);
         $data['active'] = "true";
+
+        foreach($data['relations'] as $key =>$relations){
+            if(property_exists ($data['relations'][$key],'id' )){
+              unset($data['relations'][$key]->id);
+            }
+        }
 
         $merge = array(
             "action" => "MERGE",

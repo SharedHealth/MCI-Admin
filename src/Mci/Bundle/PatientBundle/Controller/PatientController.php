@@ -413,9 +413,12 @@ class PatientController extends Controller
                 $error = $this->get('mci.patient')->dedupMerge($_POST);
 
                 if(empty($error)){
+
                     $this->get('session')->getFlashBag()->set('dedupFlash','Records has been merged successfully');
                 }else{
-                    $this->get('session')->getFlashBag()->set('dedupFlash','Wops! Something problem happens');
+                    var_dump($error); exit;
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Wops! something problems ..');
+
                 }
 
                 return $this->redirect($this->generateUrl('mci_patient_deduplication',array('catchment'=>$request->get('catchment'))));
