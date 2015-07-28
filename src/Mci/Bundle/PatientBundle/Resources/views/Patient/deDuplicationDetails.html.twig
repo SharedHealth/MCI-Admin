@@ -1054,7 +1054,14 @@
 
         $("#resolve-duplicates").on("click", function () {
             $('.radioBtn').css('display', 'inline-block');
-            $('#leftside table .radioBtn,#rightside table .radioBtn' ).css('display', 'none');
+            var topRadioBtn = $('input[name=sidechange]:checked').val();
+            var sideSelector = $('#leftside table .radioBtn,#rightside table .radioBtn' );
+            if(topRadioBtn){
+                sideSelector.css('display', 'inline-block');
+            }else{
+                sideSelector.css('display', 'none');
+            }
+
             $('#resolve-duplicates').css('display', 'none');
             $('#not-duplicates').css('display', 'none');
         });
@@ -1092,6 +1099,9 @@
                   $('#leftside table .radioBtn,#rightside table .radioBtn' ).css('display', 'inline-block');
             }
         });
+
+
+
 
     </script>
 
