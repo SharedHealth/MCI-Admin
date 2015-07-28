@@ -181,7 +181,7 @@
             <td><input id="leftside_primary_contact" class="radioBtn" type="radio" name="primary_contact"
                        value="{{ original.responseBody.primary_contact }}"></td>
             <td><label for="leftside_primary_contact">Primary Contact</label></td>
-            <td>{{ original.responseBody.nationality }}</td>
+            <td>{{ original.responseBody.primary_contact }}</td>
         </tr>
     {% endif %}
     {% if original.responseBody.marital_status is defined %}
@@ -219,6 +219,12 @@
                     <td>Type</td>
                     <td>{{ original.responseBody.status.type|livingStatus }}</td>
                 </tr>
+                {% if original.responseBody.status.date_of_death is defined %}
+                <tr>
+                    <td>Date of Death</td>
+                    <td>{{ original.responseBody.status.date_of_death|date }}</td>
+                </tr>
+                {% endif %}
             </table>
                 </td>
         </tr>
@@ -649,7 +655,7 @@
             <td><input class="radioBtn" id="rightside_primary_contact" type="radio" name="primary_contact"
                        value="{{ duplicate.responseBody.primary_contact }}"></td>
             <td><label for="rightside_primary_contact">Primary Contact</label></td>
-            <td>{{ duplicate.responseBody.nationality }}</td>
+            <td>{{ duplicate.responseBody.primary_contact }}</td>
         </tr>
     {% endif %}
 
@@ -685,12 +691,19 @@
                        value="{{ duplicate.responseBody.status|json_encode }}"></td>
             <td><label for="rightside_status_type">Status</label></td>
             <td>
-                  <table style="margin-top: 10px;" width="100%" class="table table-bordered"><tr>
+                  <table style="margin-top: 10px;" width="100%" class="table table-bordered">
+                  <tr>
                       <td>Type</td>
                       <td>
                            {{ duplicate.responseBody.status.type|livingStatus }}
                       </td>
                   </tr>
+                  {% if duplicate.responseBody.status.date_of_death  is defined %}
+                      <tr>
+                          <td>Date of Death</td>
+                          <td>{{ duplicate.responseBody.status.date_of_death|date }}</td>
+                      </tr>
+                  {% endif %}
                   </table>
 
             </td>
