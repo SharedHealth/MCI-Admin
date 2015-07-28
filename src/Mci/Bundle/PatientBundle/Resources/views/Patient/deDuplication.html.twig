@@ -78,8 +78,13 @@
                               {{ result.patient1.given_name }} {{ result.patient1.sur_name }}<br/>
                               {{ result.patient2.given_name }} {{ result.patient2.sur_name }}
                           </td>
+
                           <td>
-                              {{ result.reasons|join(", ")}}
+                              {% for reason in result.reasons|customSort %}
+                                {{ reason|trans }}
+                                  {{loop.last ? '': ',' }}
+                              {% endfor %}
+                              match
                           </td>
                           <td><a href="{{ path('mci_patient_deduplication_details', { 'hid1': result.patient1.hid,'hid2': result.patient2.hid,'catchment': catchment,'reason':result.reasons|join("-") }) }}" class="">View</a> </td>
                       </tr>

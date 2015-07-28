@@ -17,23 +17,18 @@
     <form name="dedupMerge" method="post" id="dedupMergeForm" action="{{ path('mci_patient_deduplication_merge') }}">
     <table id="dedupDetailsUI" style="margin-top: 10px;" class="table table-bordered" width="100%">
     <tr>
-        <th><input id="leftPart" class="radioBtn topRadioBtn" type="radio" name="sidechange" > {% if original.responseBody.given_name is defined %}{{ original.responseBody.given_name }} {{ original.responseBody.sur_name }}{% endif %} {% if original.responseBody.name_bangla is defined %}({{ original.responseBody.name_bangla }}){% endif %}
+        <th><input id="leftPart" class="radioBtn topRadioBtn" type="radio" name="sidechange" > {% if original.responseBody.given_name is defined %}{{ original.responseBody.given_name }} {{ original.responseBody.sur_name }}{% endif %} {% if original.responseBody.name_bangla is defined %}({{ original.responseBody.name_bangla }}){% endif %}( {{ original.responseBody.hid }} )
         </th>
-        <th><input id="rightPart" class="radioBtn topRadioBtn" type="radio" name="sidechange"> {% if duplicate.responseBody.given_name is defined %}{{ duplicate.responseBody.given_name }} {{ duplicate.responseBody.sur_name }}{% endif %} {% if duplicate.responseBody.name_bangla is defined %}({{ duplicate.responseBody.name_bangla }}){% endif %}
+        <th><input id="rightPart" class="radioBtn topRadioBtn" type="radio" name="sidechange"> {% if duplicate.responseBody.given_name is defined %}{{ duplicate.responseBody.given_name }} {{ duplicate.responseBody.sur_name }}{% endif %} {% if duplicate.responseBody.name_bangla is defined %}({{ duplicate.responseBody.name_bangla }}){% endif %} ( {{ duplicate.responseBody.hid }} )
         </th>
     </tr>
     <tr>
     <td width="50%" id="leftside">
+    <div style="display: none;">
+        <input class="radioBtn"  type="radio" name="hid" value="{{ original.responseBody.hid }}">
+        <input  class="radioBtn" type="radio" name="merge_to" value="{{ duplicate.responseBody.hid }}">
+    </div>
     <table width="100%">
-    <tr>
-        <td><input id="leftside_hid" class="radioBtn" type="radio" name="hid" value="{{ original.responseBody.hid }}"></td>
-        <td><label for="leftside_hid">HID</label></td>
-        <td>
-            {{ original.responseBody.hid }}
-            <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ duplicate.responseBody.hid }}"></div>
-        </td>
-
-    </tr>
     {% if original.responseBody.nid is defined %}
         <tr class="{{ 'DUPLICATE_REASON_NID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_nid" type="radio" name="nid"
@@ -511,18 +506,11 @@
     </td>
 
     <td width="50%" id="rightside">
+    <div style="display: none;">
+        <input class="radioBtn"  type="radio" name="hid" value="{{ duplicate.responseBody.hid }}">
+        <input  class="radioBtn" type="radio" name="merge_to" value="{{ original.responseBody.hid }}">
+    </div>
     <table width="100%">
-    <tr>
-        <td><input class="radioBtn" id="rightside_hid" type="radio" name="hid" value="{{ duplicate.responseBody.hid }}">
-        </td>
-        <td><label for="rightside_hid">HID</label></td>
-        <td>
-            {{ duplicate.responseBody.hid }}
-
-           <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ original.responseBody.hid }}"></div>
-        </td>
-
-    </tr>
     {% if duplicate.responseBody.nid is defined %}
         <tr class="{{ 'DUPLICATE_REASON_NID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_nid" type="radio" name="nid"

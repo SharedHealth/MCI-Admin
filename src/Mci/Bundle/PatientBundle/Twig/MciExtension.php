@@ -37,7 +37,8 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
             new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter')),
-            'camelize' => new \Twig_Filter_Method($this, 'camelizeFilter')
+            'camelize' => new \Twig_Filter_Method($this, 'camelizeFilter'),
+            'customSort' => new \Twig_Filter_Method($this, 'customSortFilter')
         );
     }
 
@@ -130,5 +131,13 @@ class MciExtension extends \Twig_Extension
 
         return implode(' ', $ucfirsted);
     }
+
+    public function customSortFilter($array){
+        usort($array, function($a, $b) {
+            return strlen($a) - strlen($b);
+        });
+        return $array;
+    }
+
 
 }

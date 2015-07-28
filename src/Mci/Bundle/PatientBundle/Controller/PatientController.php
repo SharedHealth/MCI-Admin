@@ -416,7 +416,6 @@ class PatientController extends Controller
 
                     $this->get('session')->getFlashBag()->set('dedupFlash','Records have been merged successfully');
                 }else{
-
                     $this->get('session')->getFlashBag()->set('dedupFlash','Wops! something problems ..');
 
                 }
