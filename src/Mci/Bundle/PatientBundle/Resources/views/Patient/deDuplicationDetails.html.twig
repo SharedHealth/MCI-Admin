@@ -17,29 +17,27 @@
     <form name="dedupMerge" method="post" id="dedupMergeForm" action="{{ path('mci_patient_deduplication_merge') }}">
     <table id="dedupDetailsUI" style="margin-top: 10px;" class="table table-bordered" width="100%">
     <tr>
-        <th><input id="leftPart" class="radioBtn" type="radio" name="sidechange" checked="checked"> {% if original.responseBody.given_name is defined %}{{ original.responseBody.given_name }} {{ original.responseBody.sur_name }}{% endif %} {% if original.responseBody.name_bangla is defined %}({{ original.responseBody.name_bangla }}){% endif %}
+        <th><input id="leftPart" class="radioBtn topRadioBtn" type="radio" name="sidechange" > {% if original.responseBody.given_name is defined %}{{ original.responseBody.given_name }} {{ original.responseBody.sur_name }}{% endif %} {% if original.responseBody.name_bangla is defined %}({{ original.responseBody.name_bangla }}){% endif %}
         </th>
-        <th><input id="rightPart" class="radioBtn" type="radio" name="sidechange"> {% if duplicate.responseBody.given_name is defined %}{{ duplicate.responseBody.given_name }} {{ duplicate.responseBody.sur_name }}{% endif %} {% if duplicate.responseBody.name_bangla is defined %}({{ duplicate.responseBody.name_bangla }}){% endif %}
+        <th><input id="rightPart" class="radioBtn topRadioBtn" type="radio" name="sidechange"> {% if duplicate.responseBody.given_name is defined %}{{ duplicate.responseBody.given_name }} {{ duplicate.responseBody.sur_name }}{% endif %} {% if duplicate.responseBody.name_bangla is defined %}({{ duplicate.responseBody.name_bangla }}){% endif %}
         </th>
     </tr>
     <tr>
     <td width="50%" id="leftside">
     <table width="100%">
     <tr>
-        <td><input id="leftside_hid" class="radioBtn" type="radio" name="hid" value="{{ original.responseBody.hid }}"
-                   checked="checked"></td>
+        <td><input id="leftside_hid" class="radioBtn" type="radio" name="hid" value="{{ original.responseBody.hid }}"></td>
         <td><label for="leftside_hid">HID</label></td>
         <td>
             {{ original.responseBody.hid }}
-            <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ duplicate.responseBody.hid }}"
-                   checked="checked"></div>
+            <div style="display: none;"><input  class="radioBtn" type="radio" name="merge_to" value="{{ duplicate.responseBody.hid }}"></div>
         </td>
 
     </tr>
     {% if original.responseBody.nid is defined %}
         <tr class="{{ 'DUPLICATE_REASON_NID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_nid" type="radio" name="nid"
-                       value="{{ original.responseBody.nid }}" checked="checked"></td>
+                       value="{{ original.responseBody.nid }}"></td>
             <td><label for="leftside_nid">NID</label></td>
             <td>
                 {{ original.responseBody.nid }}
@@ -49,8 +47,8 @@
     {% if original.responseBody.uid is defined %}
         <tr class="{{ 'DUPLICATE_REASON_UID' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_uid" type="radio" name="uid"
-                       value="{{ original.responseBody.uid }}" checked="checked"></td>
-            <td>UID</td>
+                       value="{{ original.responseBody.uid }}"></td>
+            <td><label for="leftside_nid">UID</label></td>
             <td>
                 {{ original.responseBody.uid }}
             </td>
@@ -59,7 +57,7 @@
     {% if original.responseBody.bin_brn is defined %}
         <tr class="{{ 'DUPLICATE_REASON_BRN' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_brn" type="radio" name="bin_brn"
-                       value="{{ original.responseBody.bin_brn }}" checked="checked"></td>
+                       value="{{ original.responseBody.bin_brn }}"></td>
             <td><label for="leftside_brn">Brn</label></td>
             <td>
                 {{ original.responseBody.bin_brn }}
@@ -69,7 +67,7 @@
     {% if original.responseBody.name_bangla is defined %}
         <tr>
             <td><input id="name_bangla" class="radioBtn" type="radio" name="name_bangla"
-                       value="{{ original.responseBody.name_bangla }}" checked="checked"></td>
+                       value="{{ original.responseBody.name_bangla }}"></td>
             <td><label for="name_bangla">Name Bangla</label></td>
             <td>
                 {{ original.responseBody.name_bangla }}
@@ -79,7 +77,7 @@
     {% if original.responseBody.given_name is defined %}
         <tr class="{{ 'DUPLICATE_REASON_NAME_ADDRESS' in reason ? 'highlighted':'' }}">
             <td><input id="leftside_given_bangla" class="radioBtn" type="radio" name="given_name"
-                       value="{{ original.responseBody.given_name }}" checked="checked"></td>
+                       value="{{ original.responseBody.given_name }}"></td>
             <td><label for="leftside_given_bangla">Given name</label></td>
             <td>
                 {{ original.responseBody.given_name }}
@@ -91,7 +89,7 @@
     {% if original.responseBody.sur_name is defined %}
         <tr class="{{ 'DUPLICATE_REASON_NAME_ADDRESS' in reason ? 'highlighted':'' }}">
             <td><input id="leftside_sur_name" class="radioBtn" type="radio" name="sur_name"
-                       value="{{ original.responseBody.sur_name }}" checked="checked"></td>
+                       value="{{ original.responseBody.sur_name }}"></td>
             <td><label for="leftside_sur_name">Surname</label></td>
             <td>
                 {{ original.responseBody.sur_name }}
@@ -103,7 +101,7 @@
     {% if original.responseBody.date_of_birth is defined %}
         <tr >
             <td><input id="leftside_date_of_birth" class="radioBtn" type="radio" name="date_of_birth"
-                       value="{{ original.responseBody.date_of_birth}}" checked="checked"></td>
+                       value="{{ original.responseBody.date_of_birth}}"></td>
             <td><label for="leftside_date_of_birth">Date Of Birth</label></td>
             <td>
                 {{ original.responseBody.date_of_birth|date }}
@@ -114,7 +112,7 @@
     {% if original.responseBody.place_of_birth is defined %}
         <tr>
             <td><input id="leftside_place_of_birth" class="radioBtn" type="radio" name="place_of_birth"
-                       value="{{ original.responseBody.place_of_birth }}" checked="checked"></td>
+                       value="{{ original.responseBody.place_of_birth }}"></td>
             <td><label for="leftside_place_of_birth">Place Of Birth</label></td>
             <td>
                 {{ original.responseBody.place_of_birth }}
@@ -124,7 +122,7 @@
 
     <tr>
         <td><input id="leftside_gender" class="radioBtn" type="radio" name="gender"
-                   value="{{ original.responseBody.gender }}" checked="checked"></td>
+                   value="{{ original.responseBody.gender }}"></td>
         <td><label for="leftside_gender">Gender</label></td>
         <td>{{ original.responseBody.gender|gender }}</td>
     </tr>
@@ -133,7 +131,7 @@
     {% if original.responseBody.occupation is defined %}
         <tr>
             <td><input id="leftside_occupation" class="radioBtn" type="radio" name="occupation"
-                       value="{{ original.responseBody.occupation }}" checked="checked"></td>
+                       value="{{ original.responseBody.occupation }}"></td>
             <td><label for="leftside_occupation">Occupation</label></td>
             <td>
                 {{ original.responseBody.occupation|occupation }}
@@ -144,7 +142,7 @@
     {% if original.responseBody.edu_level is defined %}
         <tr>
             <td><input id="leftside_edu_level" class="radioBtn" type="radio" name="edu_level"
-                       value="{{ original.responseBody.edu_level }}" checked="checked"></td>
+                       value="{{ original.responseBody.edu_level }}"></td>
             <td><label for="leftside_edu_level">Education Level</label></td>
             <td>
                 {{ original.responseBody.edu_level|edulevel }}
@@ -154,7 +152,7 @@
     {% if original.responseBody.religion is defined %}
         <tr>
             <td><input id="leftside_relegion" class="radioBtn" type="radio" name="religion"
-                       value="{{ original.responseBody.religion }}" checked="checked"></td>
+                       value="{{ original.responseBody.religion }}"></td>
             <td><label for="leftside_relegion">Relegion</label></td>
             <td>{{ original.responseBody.religion|religion }}</td>
         </tr>
@@ -162,7 +160,7 @@
     {% if original.responseBody.blood_group is defined %}
         <tr>
             <td><input id="leftside_blood_group" class="radioBtn" type="radio" name="blood_group"
-                       value="{{ original.responseBody.blood_group }}" checked="checked"></td>
+                       value="{{ original.responseBody.blood_group }}"></td>
             <td><label for="leftside_blood_group">Blood Group</label></td>
             <td> {{ original.responseBody.blood_group|bloodgroup }}</td>
         </tr>
@@ -170,7 +168,7 @@
     {% if original.responseBody.nationality is defined %}
         <tr>
             <td><input id="leftside_nationality" class="radioBtn" type="radio" name="nationality"
-                       value="{{ original.responseBody.nationality }}" checked="checked"></td>
+                       value="{{ original.responseBody.nationality }}"></td>
             <td><label for="leftside_nationality">Nationality</label></td>
             <td>{{ original.responseBody.nationality }}</td>
         </tr>
@@ -178,7 +176,7 @@
     {% if original.responseBody.disability is defined %}
         <tr>
             <td><input id="leftside_disability" class="radioBtn" type="radio" name="disability"
-                       value="{{ original.responseBody.disability }}" checked="checked"></td>
+                       value="{{ original.responseBody.disability }}"></td>
             <td><label for="leftside_disability">Disability</label></td>
             <td>{{ original.responseBody.disability|disability }} </td>
         </tr>
@@ -186,7 +184,7 @@
     {% if original.responseBody.primary_contact is defined %}
         <tr>
             <td><input id="leftside_primary_contact" class="radioBtn" type="radio" name="primary_contact"
-                       value="{{ original.responseBody.primary_contact }}" checked="checked"></td>
+                       value="{{ original.responseBody.primary_contact }}"></td>
             <td><label for="leftside_primary_contact">Primary Contact</label></td>
             <td>{{ original.responseBody.nationality }}</td>
         </tr>
@@ -194,7 +192,7 @@
     {% if original.responseBody.marital_status is defined %}
         <tr>
             <td><input id="leftside_marital_status" class="radioBtn" type="radio" name="marital_status"
-                       value="{{ original.responseBody.marital_status }}" checked="checked"></td>
+                       value="{{ original.responseBody.marital_status }}"></td>
             <td><label for="leftside_marital_status">Marital Status</label></td>
             <td>{{ original.responseBody.marital_status|maritalStatus }}</td>
         </tr>
@@ -202,7 +200,7 @@
     {% if original.responseBody.confidential is defined %}
         <tr>
             <td><input id="leftside_confidential" class="radioBtn" type="radio" name="confidential"
-                       value="{{ original.responseBody.confidential }}" checked="checked"></td>
+                       value="{{ original.responseBody.confidential }}"></td>
             <td><label for="leftside_confidential">Confidential</label></td>
             <td>{{ original.responseBody.confidential }}</td>
         </tr>
@@ -210,7 +208,7 @@
     {% if original.responseBody.household_code is defined %}
         <tr>
             <td><input id="leftside_household_code" class="radioBtn" type="radio" name="household_code"
-                       value="{{ original.responseBody.household_code }}" checked="checked"></td>
+                       value="{{ original.responseBody.household_code }}"></td>
             <td><label for="leftside_household_code">Household Code</label></td>
             <td> {{ original.responseBody.household_code }}</td>
         </tr>
@@ -218,7 +216,7 @@
     {% if original.responseBody.status is defined %}
         <tr>
             <td><input id="leftside_status" class="radioBtn" type="radio" name="status"
-                       value="{{ original.responseBody.status|json_encode }}" checked="checked"></td>
+                       value="{{ original.responseBody.status|json_encode }}"></td>
             <td><label for="leftside_status">Status</label></td>
             <td>
             <table style="margin-top: 10px;" width="100%" class="table table-bordered">
@@ -233,7 +231,7 @@
 
     <tr class="{{ 'DUPLICATE_REASON_NAME_ADDRESS' in reason ? 'highlighted':'' }}">
         <td><input id="leftside_present_address" class="radioBtn" type="radio" name="present_address"
-                   value="{{ original.responseBody.present_address|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}" checked="checked"></td>
+                   value="{{ original.responseBody.present_address|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}"></td>
         <td><label for="leftside_present_address">Present Address</label></td>
         <td>{% if original.responseBody.present_address %}
                 <table style="margin-top: 10px;" width="100%" class="table table-bordered">
@@ -303,7 +301,7 @@
     {% if original.responseBody.permanent_address is defined %}
         <tr>
             <td><input id="leftside_permanent_address" class="radioBtn" type="radio" name="permanent_address"
-                       value="{{ original.responseBody.permanent_address|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}" checked="checked"></td>
+                       value="{{ original.responseBody.permanent_address|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}"></td>
             <td><label for="leftside_permanent_address">Permanent Address</label></td>
             <td>
                 <table style="margin-top:10px;" width="100%" class="table table-bordered">
@@ -381,7 +379,7 @@
     {% if original.responseBody.phone_number is defined %}
         <tr>
             <td><input id="leftside_phone_number" class="radioBtn" type="radio" name="phone_number"
-                       value="{{ original.responseBody.phone_number|json_encode }}" checked="checked"></td>
+                       value="{{ original.responseBody.phone_number|json_encode }}"></td>
             <td><label for="leftside_phone_number">Phone Number</label></td>
             <td>
                 <table style="margin-top:10px;" width="100%" class="table table-bordered">
@@ -418,7 +416,7 @@
     {% if original.responseBody.primary_contact_number is defined %}
         <tr>
             <td><input id="leftside_primary_contact_number" class="radioBtn" type="radio" name="primary_contact_number"
-                       value="{{ original.responseBody.primary_contact_number|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}" checked="checked"></td>
+                       value="{{ original.responseBody.primary_contact_number|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}"></td>
             <td><label for="leftside_primary_contact_number"> Primary Contact Number </label></td>
             <td>
                 <table style="margin-top:10px;" width="100%" class="table table-bordered">
@@ -455,7 +453,7 @@
     {% if original.responseBody.relations is defined %}
         <tr>
             <td><input id="leftside_relations" class="radioBtn" type="radio" name="relations"
-                       value="{{ original.responseBody.relations|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}" checked="checked"></td>
+                       value="{{ original.responseBody.relations|json_encode(constant('JSON_UNESCAPED_UNICODE')) }}"></td>
             <td><label for="leftside_relations">Relation</label></td>
             <td>
                 {% for relation in original.responseBody.relations %}
@@ -996,7 +994,7 @@
     <input type="hidden" name="catchment" id="catchment" value="{{ catchment }}"/>
     <button id="not-duplicates" class="MT20 btn btn-primary" type="button">Not Duplicates</button>
     <button id="resolve-duplicates" class="MT20 btn btn-primary" type="button">Resolve Duplicates</button>
-    <button id="merge"  class="MT20 btn btn-primary radioBtn" type="button">Merge</button>
+    <button id="merge"  class="MT20 btn btn-primary radioBtn" type="button" disabled>Merge</button>
     <button id="cancel" class="MT20 btn btn-primary radioBtn" type="button">Cancel</button>
     </td>
 
@@ -1056,6 +1054,7 @@
 
         $("#resolve-duplicates").on("click", function () {
             $('.radioBtn').css('display', 'inline-block');
+            $('#leftside table .radioBtn,#rightside table .radioBtn' ).css('display', 'none');
             $('#resolve-duplicates').css('display', 'none');
             $('#not-duplicates').css('display', 'none');
         });
@@ -1083,6 +1082,15 @@
         $("#dedupMerge").on("click", function(){
             $('#mergeModal').modal('hide');
             $("#dedupMergeForm").submit();
+        });
+
+        $('.topRadioBtn').click(function(){
+            var topRadioBtn = $('input[name=sidechange]:checked').val();
+
+            if(topRadioBtn){
+                  $("#merge").removeAttr('disabled');
+                  $('#leftside table .radioBtn,#rightside table .radioBtn' ).css('display', 'inline-block');
+            }
         });
 
     </script>

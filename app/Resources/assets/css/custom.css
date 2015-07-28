@@ -51,7 +51,7 @@ select.error option {
 }
 
 .highlighted, .highlighted table {
-    background-color: #ffff00 !important;
+    background-color: #FFFF70 !important;
 }
 #deduplication table{
     background: none;

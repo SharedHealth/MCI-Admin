@@ -390,7 +390,7 @@ class PatientController extends Controller
 
          $csrf = $this->get('form.csrf_provider');
 
-        if($request->isMethod("POST")){
+        if($request->isMethod("POST") && isset($_POST['merge_to'] )){
             $csrfToken = $request->get('csrfToken');
             $_POST['present_address'] = json_decode($request->get('present_address'));
 
@@ -414,9 +414,9 @@ class PatientController extends Controller
 
                 if(empty($error)){
 
-                    $this->get('session')->getFlashBag()->set('dedupFlash','Records has been merged successfully');
+                    $this->get('session')->getFlashBag()->set('dedupFlash','Records have been merged successfully');
                 }else{
-                    var_dump($error); exit;
+
                     $this->get('session')->getFlashBag()->set('dedupFlash','Wops! something problems ..');
 
                 }
@@ -424,6 +424,7 @@ class PatientController extends Controller
                 return $this->redirect($this->generateUrl('mci_patient_deduplication',array('catchment'=>$request->get('catchment'))));
             }
         }
+        return $this->redirect($this->generateUrl('mci_patient_deduplication'));
     }
 
     /**

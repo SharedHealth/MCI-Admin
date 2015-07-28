@@ -661,9 +661,11 @@ class Patient extends CacheAwareService
         unset($data['catchment']);
         $data['active'] = "true";
 
-        foreach($data['relations'] as $key =>$relations){
-            if(property_exists ($data['relations'][$key],'id' )){
-              unset($data['relations'][$key]->id);
+        if(!empty($data['relations'])){
+            foreach($data['relations'] as $key =>$relations){
+                if(property_exists ($data['relations'][$key],'id' )){
+                    unset($data['relations'][$key]->id);
+                }
             }
         }
 
