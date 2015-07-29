@@ -37,6 +37,7 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('maritalStatus', array($this, 'maritalStatusFilter')),
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
             new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter')),
+            new \Twig_SimpleFilter('status', array($this, 'statusFilter')),
             'camelize' => new \Twig_Filter_Method($this, 'camelizeFilter'),
             'customSort' => new \Twig_Filter_Method($this, 'customSortFilter')
         );
@@ -109,6 +110,10 @@ class MciExtension extends \Twig_Extension
 
     public function livingStatusFilter($number){
         return $this->masterData->getNameByTypeAndCode('status', $number);
+    }
+
+    public function statusFilter($number){
+        return $number == 1 ? "Active" : "Inactive";
     }
 
     public function camelizeFilter($value)

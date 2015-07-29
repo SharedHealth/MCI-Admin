@@ -53,6 +53,8 @@
               {% else %}
                   {% if key == 'date_of_birth'  %}
                       {{ change.old_value|date('Y-m-d H:i:s')  }}
+                  {% elseif key == 'active'  %}
+                      {{ change.old_value|status  }}
                   {% else %}
                       {{ change.old_value  }}
                   {% endif %}
@@ -76,6 +78,8 @@
          {% else %}
            {% if key == 'date_of_birth'  %}
                {{ change.new_value|date('Y-m-d H:i:s')  }}
+           {% elseif key == 'active'  %}
+               {{ change.new_value|status  }}
            {% else %}
                {{ change.new_value  }}
            {% endif %}
