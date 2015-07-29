@@ -97,7 +97,7 @@
         <tr >
             <td><input id="leftside_date_of_birth" class="radioBtn" type="radio" name="date_of_birth"
                        value="{{ original.responseBody.date_of_birth}}"></td>
-            <td><label for="leftside_date_of_birth">Date Of Birth</label></td>
+            <td><label for="leftside_date_of_birth">Date of Birth</label></td>
             <td>
                 {{ original.responseBody.date_of_birth|date }}
             </td>
@@ -108,7 +108,7 @@
         <tr>
             <td><input id="leftside_place_of_birth" class="radioBtn" type="radio" name="place_of_birth"
                        value="{{ original.responseBody.place_of_birth }}"></td>
-            <td><label for="leftside_place_of_birth">Place Of Birth</label></td>
+            <td><label for="leftside_place_of_birth">Place of Birth</label></td>
             <td>
                 {{ original.responseBody.place_of_birth }}
             </td>
@@ -587,7 +587,7 @@
         <tr>
             <td><input class="radioBtn" id="rightside_place_of_birth" type="radio" name="place_of_birth"
                        value="{{ duplicate.responseBody.place_of_birth }}"></td>
-            <td><label for="rightside_place_of_birth">Place Of Birth</label></td>
+            <td><label for="rightside_place_of_birth">Place of Birth</label></td>
             <td>
                 {{ duplicate.responseBody.place_of_birth }}
             </td>
@@ -941,8 +941,8 @@
                 {% for relation in duplicate.responseBody.relations %}
                     <table style="margin-bottom: 10px;" class="table table-bordered" width="100%">
                         <tr>
-                            <td>type</td>
-                            <td>{{ relation.type }}</td>
+                            <td>Type</td>
+                            <td>{{ relation.type|relation }}</td>
                         </tr>
 
                         {% if relation.nid is defined %}
