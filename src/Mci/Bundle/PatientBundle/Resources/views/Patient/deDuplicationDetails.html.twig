@@ -53,7 +53,7 @@
         <tr class="{{ 'DUPLICATE_REASON_BRN' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="leftside_brn" type="radio" name="bin_brn"
                        value="{{ original.responseBody.bin_brn }}"></td>
-            <td><label for="leftside_brn">Brn</label></td>
+            <td><label for="leftside_brn">BRN</label></td>
             <td>
                 {{ original.responseBody.bin_brn }}
             </td>
@@ -460,44 +460,44 @@
                 {% for relation in original.responseBody.relations %}
                     <table style="margin-bottom: 10px;" class="table table-bordered" width="100%">
                         <tr>
-                            <td>type</td>
-                            <td>{{ relation.type }}</td>
+                            <td>Type</td>
+                            <td>{{ relation.type|relation }}</td>
                         </tr>
 
                         {% if relation.nid is defined %}
                             <tr>
-                                <td>nid</td>
+                                <td>NID</td>
                                 <td>{{ relation.nid }}</td>
                             </tr>
                         {% endif %}
                         {% if relation.uid is defined %}
                             <tr>
-                                <td>uid</td>
+                                <td>UID</td>
                                 <td>{{ relation.uid }}</td>
                             </tr>
                         {% endif %}
                         {% if  relation.bin_brn is defined %}
                             <tr>
-                                <td>brn</td>
+                                <td>BRN</td>
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
                         {% if relation.name_bangla is defined %}
                             <tr>
-                                <td>name_bangla</td>
+                                <td>Bangla Name</td>
                                 <td>{{ relation.name_bangla }}</td>
                             </tr>
                         {% endif %}
                         {% if  relation.given_name is defined %}
                             <tr>
-                                <td>given_name</td>
+                                <td>Given Name</td>
                                 <td>{{ relation.given_name }}</td>
                             </tr>
                         {% endif %}
 
                         {% if relation.sur_name is defined %}
                             <tr>
-                                <td>sur_name</td>
+                                <td>Surname</td>
                                 <td>{{ relation.sur_name }}</td>
                             </tr>
                         {% endif %}
@@ -542,7 +542,7 @@
         <tr class="{{ 'DUPLICATE_REASON_BRN' in reason ? 'highlighted':'' }}">
             <td><input class="radioBtn" id="rightside_brn" type="radio" name="bin_brn"
                        value="{{ duplicate.responseBody.bin_brn }}"></td>
-            <td><label for="rightside_brn">Brn</label></td>
+            <td><label for="rightside_brn">BRN</label></td>
             <td>
                 {{ duplicate.responseBody.bin_brn }}
             </td>
@@ -978,7 +978,7 @@
 
                         {% if relation.sur_name is defined %}
                             <tr>
-                                <td>Sur Name</td>
+                                <td>Surname</td>
                                 <td>{{ relation.sur_name }}</td>
                             </tr>
                         {% endif %}
