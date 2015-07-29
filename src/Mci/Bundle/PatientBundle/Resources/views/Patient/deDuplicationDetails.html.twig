@@ -459,11 +459,12 @@
             <td>
                 {% for relation in original.responseBody.relations %}
                     <table style="margin-bottom: 10px;" class="table table-bordered" width="100%">
-                        <tr>
-                            <td>Type</td>
-                            <td>{{ relation.type|relation }}</td>
-                        </tr>
-
+                        {% if relation.hid is defined %}
+                            <tr>
+                                <td>HID</td>
+                                <td>{{ relation.hid }}</td>
+                            </tr>
+                        {% endif %}
                         {% if relation.nid is defined %}
                             <tr>
                                 <td>NID</td>
@@ -482,6 +483,11 @@
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ relation.type|relation }}</td>
+                        </tr>
+
                         {% if relation.name_bangla is defined %}
                             <tr>
                                 <td>Bangla Name</td>
@@ -499,6 +505,19 @@
                             <tr>
                                 <td>Surname</td>
                                 <td>{{ relation.sur_name }}</td>
+                            </tr>
+                        {% endif %}
+
+                        {% if relation.relational_status is defined %}
+                            <tr>
+                                <td>Status</td>
+                                <td>{{ relation.relational_status|maritalStatus }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if relation.marriage_id is defined %}
+                            <tr>
+                                <td>Marriage ID</td>
+                                <td>{{ relation.marriage_id}}</td>
                             </tr>
                         {% endif %}
 
@@ -940,11 +959,12 @@
             <td>
                 {% for relation in duplicate.responseBody.relations %}
                     <table style="margin-bottom: 10px;" class="table table-bordered" width="100%">
-                        <tr>
-                            <td>Type</td>
-                            <td>{{ relation.type|relation }}</td>
-                        </tr>
-
+                        {% if relation.hid is defined %}
+                            <tr>
+                                <td>HID</td>
+                                <td>{{ relation.hid }}</td>
+                            </tr>
+                        {% endif %}
                         {% if relation.nid is defined %}
                             <tr>
                                 <td>NID</td>
@@ -963,6 +983,11 @@
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ relation.type|relation }}</td>
+                        </tr>
+
                         {% if relation.name_bangla is defined %}
                             <tr>
                                 <td>Bangla Name</td>
@@ -980,6 +1005,18 @@
                             <tr>
                                 <td>Surname</td>
                                 <td>{{ relation.sur_name }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if relation.relational_status is defined %}
+                            <tr>
+                                <td>Status</td>
+                                <td>{{ relation.relational_status|maritalStatus }}</td>
+                            </tr>
+                        {% endif %}
+                        {% if relation.marriage_id is defined %}
+                            <tr>
+                                <td>Marriage ID</td>
+                                <td>{{ relation.marriage_id}}</td>
                             </tr>
                         {% endif %}
 
