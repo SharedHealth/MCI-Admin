@@ -211,7 +211,7 @@
         <p><strong>{{ responseBody.additional_info.note }}</strong></p>
    {% endif %}
 
-    <table style="font-size: 13px;" class="table table-striped table-bordered table-hover search-patient" id="search-results">
+    <table style="font-size: 13px;" class="table table-striped table-bordered table-hover" id="search-results">
         <thead>
         <tr>
             <th>HID</th>
@@ -228,7 +228,8 @@
         {% for result in responseBody.results  %}
 
             <tr>
-                <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">{{ result.hid }}</a>{% if result.merged_with  is defined %}( This inactive record has been merged with <a href="{{ path('mci_patient_showpage',{ 'id': result.merged_with }) }}">{{ result.merged_with }}</a>){% endif %}</td>
+                <td><a href="{{ path('mci_patient_showpage',{ 'id': result.hid }) }}">{{ result.hid }}</a></td>
+                {% if result.active  %}
                 <td>{% if result.nid is defined %}{{ result.nid }}{% endif %}</td>
                 <td>{% if result.gender is defined %}{{ result.gender|gender }}{% endif %}</td>
                 <td>{% if result.given_name is defined %}{{ result.given_name }}{% endif %}</td>
@@ -236,6 +237,10 @@
                 <td>{% if result.date_of_birth is defined %}{{ result.date_of_birth|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if result.present_address.division_id is defined %}{{ result.present_address.division_id|division }} {{ result.present_address.district_id|location(result.present_address.division_id) }} {{ result.present_address.upazila_id|location(result.present_address.division_id~result.present_address.district_id) }}{% endif %}</td>
                 <td>{% if result.phone_number.number is defined %}{{ result.phone_number.number }}{% endif %}</td>
+                {% else %}
+                    <td colspan="7">This inactive record is merged with <a href="{{ path('mci_patient_showpage',{ 'id': result.merged_with }) }}">{{ result.merged_with }}</a></td>
+                {% endif %}
+
             </tr>
         {% endfor %}
         </tbody>
