@@ -71,6 +71,6 @@ select.error option {
     margin-left: 5px;
 }
 
- .gray p{
+ .gray p.form-control-static{
     color: #a8a8a8;
 }
