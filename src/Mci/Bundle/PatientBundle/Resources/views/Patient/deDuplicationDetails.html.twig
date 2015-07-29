@@ -947,38 +947,38 @@
 
                         {% if relation.nid is defined %}
                             <tr>
-                                <td>nid</td>
+                                <td>NID</td>
                                 <td>{{ relation.nid }}</td>
                             </tr>
                         {% endif %}
                         {% if relation.uid is defined %}
                             <tr>
-                                <td>uid</td>
+                                <td>UID</td>
                                 <td>{{ relation.uid }}</td>
                             </tr>
                         {% endif %}
                         {% if  relation.bin_brn is defined %}
                             <tr>
-                                <td>brn</td>
+                                <td>BRN</td>
                                 <td>{{ relation.bin_brn }}</td>
                             </tr>
                         {% endif %}
                         {% if relation.name_bangla is defined %}
                             <tr>
-                                <td>name_bangla</td>
+                                <td>Bangla Name</td>
                                 <td>{{ relation.name_bangla }}</td>
                             </tr>
                         {% endif %}
                         {% if  relation.given_name is defined %}
                             <tr>
-                                <td>given_name</td>
+                                <td>Given Name</td>
                                 <td>{{ relation.given_name }}</td>
                             </tr>
                         {% endif %}
 
                         {% if relation.sur_name is defined %}
                             <tr>
-                                <td>sur_name</td>
+                                <td>Sur Name</td>
                                 <td>{{ relation.sur_name }}</td>
                             </tr>
                         {% endif %}
@@ -1094,7 +1094,6 @@
 
         $('.topRadioBtn').click(function(){
             var topRadioBtn = $('input[name=sidechange]:checked').val();
-
             if(topRadioBtn){
                   $("#merge").removeAttr('disabled');
                   $('#leftside table .radioBtn,#rightside table .radioBtn' ).css('display', 'inline-block');

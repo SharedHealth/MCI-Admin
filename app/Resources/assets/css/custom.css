@@ -51,7 +51,7 @@ select.error option {
 }
 
 .highlighted, .highlighted table {
-    background-color: #FFFF70 !important;
+    background-color: #FFFFE0 !important;
 }
 #deduplication table{
     background: none;
@@ -69,4 +69,8 @@ select.error option {
 #dedupDetailsUI label{
     margin-bottom: 0;
     margin-left: 5px;
+}
+
+ .gray p{
+    color: #a8a8a8;
 }
