@@ -38,6 +38,7 @@ class MciExtension extends \Twig_Extension
             new \Twig_SimpleFilter('relation', array($this, 'relationFilter')),
             new \Twig_SimpleFilter('livingStatus', array($this, 'livingStatusFilter')),
             new \Twig_SimpleFilter('status', array($this, 'statusFilter')),
+            new \Twig_SimpleFilter('dobtype', array($this, 'dobtypeFilter')),
             'camelize' => new \Twig_Filter_Method($this, 'camelizeFilter'),
             'customSort' => new \Twig_Filter_Method($this, 'customSortFilter')
         );
@@ -115,7 +116,9 @@ class MciExtension extends \Twig_Extension
     public function statusFilter($number){
         return $number == 1 ? "Active" : "Inactive";
     }
-
+    public function dobtypeFilter($number){
+        return $this->masterData->getNameByTypeAndCode('dob_type', $number);
+    }
     public function camelizeFilter($value)
     {
         if(!is_string($value)) {

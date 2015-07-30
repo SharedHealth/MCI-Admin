@@ -228,6 +228,9 @@ class Patient extends CacheAwareService
                 case 'permanent_address':
                     $resultBody['results'] [$key] = $this->mappingBlocksField($val,'permanent_address');
                     break;
+                case 'dob_type':
+                    $resultBody['results'] [$key] = $this->mappingSingleField($val,'dob_type');
+                    break;
             }
         }
         return $resultBody;
@@ -299,6 +302,15 @@ class Patient extends CacheAwareService
             $field_details = $val['field_details'];
             foreach($val['field_details'] as $key => $changeValue){
                 $val['field_details'][$key]['value'] = $twigExtension->religionFilter($changeValue['value']);
+            }
+            $val['payload'] = $field_details;
+            return $val;
+        }
+        elseif($fieldKey == 'dob_type'){
+            $val['current_value'] = $twigExtension->dobtypeFilter($val['current_value']);
+            $field_details = $val['field_details'];
+            foreach($val['field_details'] as $key => $changeValue){
+                $val['field_details'][$key]['value'] = $twigExtension->dobtypeFilter($changeValue['value']);
             }
             $val['payload'] = $field_details;
             return $val;
@@ -657,7 +669,6 @@ class Patient extends CacheAwareService
         unset($data['sidechange']);
         unset($data['merge_to']);
         unset($data['csrfToken']);
-        unset($data['status']);
         unset($data['catchment']);
         $data['active'] = "true";
 

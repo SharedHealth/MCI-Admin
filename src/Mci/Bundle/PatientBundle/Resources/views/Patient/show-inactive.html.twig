@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="row">
+            <div class="panel-body">
+                <div>
+                    <h4>{% if responseBody.hid is defined %}{{ responseBody.hid }}{% endif %}</h4>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                This patient record is not active. It has been merged with <a href="{{ path('mci_patient_showpage',{ 'id': responseBody.merged_with }) }}">{{ responseBody.merged_with }}</a>
+            </div>
+    </div>
+
+    {% if responseBody is defined and responseBody is not empty %}
+
+        <button style="margin: 20px 0;" type="button" id="auditTrailBtn" data-id="{{ responseBody.hid }}" class="btn btn-default"> Audit Trails </button>
+
+        <div style="margin: 20px 0 50px 0; overflow-y: scroll; max-height: 700px;" id="auditTrail"></div>
+
+        <script>
+            $(document).ready(function () {
+                $('#auditTrailBtn').on('click', function () {
+                    $hid = $(this).data('id')
+                    $('#auditTrail').html("Loading ....");
+                    var $url = "/patients/auditlog/" + $hid;
+                    $('#auditTrail').load($url);
+                });
+            });
+
+        </script>
+
+    {% endif %}
+
+{% endblock %}

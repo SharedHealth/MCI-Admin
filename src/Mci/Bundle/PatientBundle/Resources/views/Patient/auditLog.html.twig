@@ -55,6 +55,8 @@
                       {{ change.old_value|date('Y-m-d H:i:s')  }}
                   {% elseif key == 'active'  %}
                       {{ change.old_value|status  }}
+                  {% elseif key == 'dob_type'  %}
+                      {{ change.old_value|dobtype  }}
                   {% else %}
                       {{ change.old_value  }}
                   {% endif %}
@@ -80,6 +82,8 @@
                {{ change.new_value|date('Y-m-d H:i:s')  }}
            {% elseif key == 'active'  %}
                {{ change.new_value|status  }}
+           {% elseif key == 'dob_type'  %}
+               {{ change.new_value|dobtype  }}
            {% else %}
                {{ change.new_value  }}
            {% endif %}

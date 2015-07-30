@@ -28,6 +28,7 @@ class PatientType extends AbstractType
         $presentAddress =  $this->patientObject->getPresentAddress();
         $permanentAddress =  property_exists($this->patientObject,'permanent_address') ? $this->patientObject->getPermanentAddress():null;
         $gender =  $this->masterData->getAllByType('gender');
+        $dobType =  $this->masterData->getAllByType('dob_type');
         $ethnicity = array();
         $religion = $this->masterData->getAllByType('religion');
         $bloodGroup = $this->masterData->getAllByType('blood_group');
@@ -80,6 +81,12 @@ class PatientType extends AbstractType
             ->add('date_of_birth', 'text', array(
                 'attr' => array('class' => 'form-control datepicker_common  datepicker_hide')
             ))
+            ->add('dob_type', 'choice',
+                array(
+                    'choices' =>$dobType,
+                    'attr' => array('class' => 'form-control')
+                )
+            )
             ->add('gender', 'choice',
                 array(
                     'choices' =>$gender,

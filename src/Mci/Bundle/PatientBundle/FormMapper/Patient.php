@@ -35,8 +35,11 @@ class Patient
     /**
      * @Type("string")
      */
-
     private $date_of_birth;
+    /**
+     * @Type("string")
+     */
+    private $dob_type;
     /**
      * @Type("string")
      */
@@ -554,6 +557,22 @@ class Patient
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDobType()
+    {
+        return $this->dob_type;
+    }
+
+    /**
+     * @param mixed $dob_type
+     */
+    public function setDobType($dob_type)
+    {
+        $this->dob_type = $dob_type;
     }
 
 }

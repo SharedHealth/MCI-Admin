@@ -117,7 +117,12 @@ class Utility {
               return array('Please check your configuration');
           }
           else if(!isset($messages->errors) && isset($messages->http_status) && ( $messages->http_status == '400')) {
-              $SystemAPiError[] = $messages->message;
+
+              if($messages->message == 'nonupdatable.field'){
+                  $SystemAPiError[] = 'The field (s) is marked for not updatable so record can not be updated';
+              }else{
+                  $SystemAPiError[] = $messages->message;
+              }
           }
        }
 

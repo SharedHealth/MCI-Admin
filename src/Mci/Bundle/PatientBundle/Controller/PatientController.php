@@ -211,6 +211,10 @@ class PatientController extends Controller
             $pendingApprovalDetails = $this->get('mci.patient')->getApprovalPatientsDetails($pendingApprovalUrl);
         }
         $appovalDetails = !empty($pendingApprovalDetails['responseBody']['results'])?$pendingApprovalDetails['responseBody']['results']:'';
+
+        if( isset($responseBody['active']) && false === $responseBody['active']){
+            return $this->render('MciPatientBundle:Patient:show-inactive.html.twig',array('responseBody' => $responseBody));
+        }
         return $this->render('MciPatientBundle:Patient:show.html.twig',array('responseBody' => $responseBody,'hid'=>$id,'systemError'=>$systemError,'approvalDetails'=>$appovalDetails));
     }
 
@@ -400,6 +404,9 @@ class PatientController extends Controller
             if($request->get('relations')){
                 $_POST['relations'] = json_decode($request->get('relations'));
             }
+            if($request->get('status')){
+                $_POST['status'] = json_decode($request->get('status'));
+            }
 
             if($request->get('phone_number')){
                 $_POST['phone_number']  = json_decode($request->get('phone_number'));
@@ -416,7 +423,7 @@ class PatientController extends Controller
 
                     $this->get('session')->getFlashBag()->set('dedupFlash','Records have been merged successfully');
                 }else{
-                    $this->get('session')->getFlashBag()->set('dedupFlash','Wops! something problems ..');
+                    $this->get('session')->getFlashBag()->set('dedupFlash','The field (s) is marked for not updatable so record can not be merged');
 
                 }
 

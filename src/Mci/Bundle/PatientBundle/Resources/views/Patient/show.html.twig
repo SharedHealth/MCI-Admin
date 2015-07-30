@@ -4,14 +4,7 @@
 
     {% if systemError is empty %}
         {% if responseBody is defined and responseBody is not empty %}
-
-            {% if responseBody.active == false %}
-                <div style="margin-top: 10px;" class="alert alert-warning">
-                    <p>This patient record is not active. It has been merged with {{ responseBody.merged_with }}</p>
-                </div>
-            {% endif %}
-
-            <div class="{{ responseBody.active ? "":"gray" }}">
+            <div>
             {% if approvalDetails is defined and approvalDetails is not empty %}
                 <div style="margin-top: 5px;" class="alert alert-warning">
                     {% if responseBody.given_name is defined %}
@@ -82,6 +75,11 @@
                             <p class="form-control-static">{% if responseBody.date_of_birth is defined %}{{ responseBody.date_of_birth|date('Y-m-d H:i:s') }}{% endif %}</p>
                         </div>
                         <div class="col-lg-3">
+                            <label>Date of Birth Type:</label>
+                            <p class="form-control-static">{% if responseBody.dob_type is defined %}{{ responseBody.dob_type|dobtype }}{% endif %}</p>
+                        </div>
+
+                        <div class="col-lg-3">
                             <label>Gender:</label>
 
                             <p class="form-control-static">{% if responseBody.gender is defined %}{{ responseBody.gender|gender }}{% endif %}</p>
@@ -90,11 +88,6 @@
                             <label>Education Level:</label>
 
                             <p class="form-control-static">{% if responseBody.edu_level is defined %}{{ responseBody.edu_level|edulevel }}{% endif %}</p>
-                        </div>
-                        <div class="col-lg-3">
-                            <label>Occupation:</label>
-
-                            <p class="form-control-static">{% if responseBody.occupation is defined %}{{ responseBody.occupation|occupation }}{% endif %}</p>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -151,6 +144,12 @@
                             <label>Ethnicity:</label>
                             <p class="form-control-static">{% if responseBody.ethnicity is defined %}{{ responseBody.ethnicity }}{% endif %}</p>
                         </div>#}
+                        <div class="col-lg-3">
+                            <label>Occupation:</label>
+
+                            <p class="form-control-static">{% if responseBody.occupation is defined %}{{ responseBody.occupation|occupation }}{% endif %}</p>
+                        </div>
+
                         <div class="col-lg-3">
                             <label>Confidential:</label>
 
