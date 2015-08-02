@@ -30,9 +30,9 @@
       <tr>
        <td>
            <p>{% if key == 'sur_name' %}
-                {{ 'Surname' }}
+                   Surname
                  {% else %}
-                     {{ key|humanize }}
+                     {{ key|camelize }}
                  {% endif %}
            </p>
        </td>

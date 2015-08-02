@@ -133,6 +133,8 @@ class MciExtension extends \Twig_Extension
             return ucfirst($chunks['0']).ucfirst($chunks['1']);
         }elseif($value == 'union_or_urban_ward_id'){
             return "Union Or Urban Ward";
+        }elseif($value == 'dob_type'){
+            return "Date of Birth Type";
         }
 
         $ucfirsted = array_map(function($s) { return ucfirst($s); }, $chunks);
