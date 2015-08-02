@@ -8,6 +8,12 @@
         </div>
     {% endfor %}
 
+    {% for flashMessage in app.session.flashbag.get('dedupFlashWarning') %}
+        <div style="margin-top: 10px;" class="alert alert-warning" >
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
 {% if systemError is defined  and systemError is not empty %}
     <div class="alert alert-danger"   style="margin-top: 10px;">
     <ul>

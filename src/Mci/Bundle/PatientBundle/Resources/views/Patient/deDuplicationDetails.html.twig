@@ -103,16 +103,6 @@
             </td>
         </tr>
     {% endif %}
-    {% if original.responseBody.date_of_birth is defined %}
-        <tr >
-            <td><input id="leftside_date_of_birth" class="radioBtn" type="radio" name="date_of_birth"
-                       value="{{ original.responseBody.date_of_birth}}"></td>
-            <td><label for="leftside_date_of_birth">Date of Birth</label></td>
-            <td>
-                {{ original.responseBody.date_of_birth|date }}
-            </td>
-        </tr>
-    {% endif %}
 
     {% if original.responseBody.dob_type is defined %}
         <tr>
@@ -121,6 +111,17 @@
             <td><label for="leftside_dob_type">Date of Birth Type</label></td>
             <td>
                 {{ original.responseBody.dob_type|dobtype }}
+            </td>
+        </tr>
+    {% endif %}
+
+    {% if original.responseBody.place_of_birth is defined %}
+        <tr >
+            <td><input id="leftside_place_of_birth" class="radioBtn" type="radio" name="place_of_birth"
+                       value="{{ original.responseBody.place_of_birth}}"></td>
+            <td><label for="leftside_place_of_birth">Place of Birth</label></td>
+            <td>
+                {{ original.responseBody.place_of_birth }}
             </td>
         </tr>
     {% endif %}

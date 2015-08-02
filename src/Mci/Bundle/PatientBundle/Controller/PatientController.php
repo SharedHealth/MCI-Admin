@@ -423,7 +423,7 @@ class PatientController extends Controller
 
                     $this->get('session')->getFlashBag()->set('dedupFlash','Records have been merged successfully');
                 }else{
-                    $this->get('session')->getFlashBag()->set('dedupFlash','The field (s) is marked for not updatable so record can not be merged');
+                    $this->get('session')->getFlashBag()->set('dedupFlashWarning','The field (s) is marked for not updatable so record can not be merged');
 
                 }
 
