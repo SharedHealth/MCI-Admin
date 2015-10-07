@@ -7,8 +7,8 @@
 
 #DEFINE Some VARIABLES
 WORKING_DIR=$(pwd)
-varsion="1.0"
-ARCHIVE_FILE_NAME="build/mci-ui-$varsion.tgz"
+version="2.0"
+ARCHIVE_FILE_NAME="build/mci-ui-$version.tgz"
 
 #Download composer
 if [ ! -f "composer.phar" ]; then
