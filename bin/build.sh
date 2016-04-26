@@ -7,7 +7,7 @@
 
 #DEFINE Some VARIABLES
 WORKING_DIR=$(pwd)
-version="2.3"
+version="2.4"
 ARCHIVE_FILE_NAME="build/mci-ui-$version.tgz"
 
 #Download composer
