@@ -12,10 +12,10 @@
  {% endfor %}
 </table>
 
-    <h4>Created At: {{ createdAt|date}}</h4>
+    <h4>Created At: {{ createdAt}}</h4>
     {% if responseBody is defined and responseBody is not empty %}
     {% for result in responseBody %}
-    <p>{{ result.event_time|date('Y-M-d H:i:s') }}</p>
+    <p>{{ result.event_time}}</p>
     <table class="table table-bordered">
 
          <tr>
@@ -51,9 +51,7 @@
                       {% endif %}
                   {% endfor %}
               {% else %}
-                  {% if key == 'date_of_birth'  %}
-                      {{ change.old_value|date('Y-m-d H:i:s')  }}
-                  {% elseif key == 'active'  %}
+                  {% if key == 'active'  %}
                       {{ change.old_value|status  }}
                   {% elseif key == 'dob_type'  %}
                       {{ change.old_value|dobtype  }}
