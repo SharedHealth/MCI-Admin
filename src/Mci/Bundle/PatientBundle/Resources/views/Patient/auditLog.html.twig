@@ -54,6 +54,7 @@
                   {% if key == 'date_of_birth'  %}
                         {% if change.old_value %}
                             {{ change.old_value|date('Y-m-d H:i:s')  }}
+                        {% endif %}
                   {% elseif key == 'active'  %}
                       {{ change.old_value|status  }}
                   {% elseif key == 'dob_type'  %}
