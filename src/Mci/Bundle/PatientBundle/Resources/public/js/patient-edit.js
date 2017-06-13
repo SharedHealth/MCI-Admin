@@ -149,7 +149,6 @@ jQuery(document).ready(function () {
                     regex: '^[\\s\\S^0-9]{1,100}$'
                 },
                 'mci_bundle_patientBundle_patients[sur_name]': {
-                    required: true,
                     regex: '^(\\s*)([A-Za-z^0-9]{1,25})(\\b\\s*)$'
                 },
                 'mci_bundle_patientBundle_patients[relation][sur_name][]': {
